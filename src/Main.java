@@ -29,6 +29,7 @@ import java.util.Scanner;
                 SistemaVuelo.registrarAvion(avion1);
                 SistemaVuelo.registrarAvion(avion2);
 
+///EL DIABLON
 
               ///REALIZO EL CHECK IN DEL PASAJERO
                  sistemaCheckIn.realizarCheckIn();

@@ -7,7 +7,7 @@ import GestionCheckIn.SistemaCheckIn;
 import GestionCheckIn.dniNoEncontradoException;
 import java.util.Scanner;
 
-
+          ///hago un commit del main
 
         public class Main {
 
@@ -29,7 +29,6 @@ import java.util.Scanner;
                 SistemaVuelo.registrarAvion(avion1);
                 SistemaVuelo.registrarAvion(avion2);
 
-///EL DIABLON
 
               ///REALIZO EL CHECK IN DEL PASAJERO
                  sistemaCheckIn.realizarCheckIn();

@@ -19,10 +19,8 @@ public class SistemaCheckIn {
     }
 
 
-    public void realizarCheckIn() {
+    public void realizarCheckIn()  {
         Scanner scanner = new Scanner(System.in);
-
-
 
         System.out.println("Lista de vuelos disponibles:");
         SistemaVuelo.getVuelos().forEach(v -> System.out.println(
@@ -34,7 +32,8 @@ public class SistemaCheckIn {
         // Selección del vuelo
         System.out.print("Ingrese el ID del vuelo que desea abordar: ");
         String idVueloSeleccionado = scanner.nextLine().toUpperCase();
- ///filtro la lista de vuelos por el id de vuelo
+
+        // Filtro la lista de vuelos por el id de vuelo
         Vuelo vueloSeleccionado = SistemaVuelo.getVuelos().stream()
                 .filter(v -> v.getIdVuelo().equalsIgnoreCase(idVueloSeleccionado))
                 .findFirst()
@@ -63,7 +62,8 @@ public class SistemaCheckIn {
             return;
         }
 
-        // Registrar pasajero
+
+
         Pasajero pasajero = crearPasajero(asientoSeleccionado);
 
         try {
@@ -78,7 +78,8 @@ public class SistemaCheckIn {
         }
     }
 
-    private Pasajero crearPasajero(String asientoSeleccionado) {
+
+    private Pasajero crearPasajero(String asientoSeleccionado) throws DniRegistradoException {
         String eleccion;
         String nombre;
         String apellido;
@@ -97,12 +98,17 @@ public class SistemaCheckIn {
             scanner.nextLine();
             System.out.print("DNI: ");
            dni = scanner.nextLine();
+
+            // Verificar si el DNI ya está asociado a un check-in
+            if (mapaCheckIn.containsKey(dni)) {
+                throw new DniRegistradoException("El DNI " + dni + " ya está asociado a un check-in.");
+            }
             System.out.print("Cantidad de equipaje: ");
             cantidadEquipaje = scanner.nextInt();
             scanner.nextLine();
 
             System.out.println("desea editar su informacion? s/n");
-          eleccion = scanner.next().charAt(0) + "";
+          eleccion = scanner.next().trim().toLowerCase() + "";
 
         }while (eleccion.equals("s"));
 
@@ -185,8 +191,6 @@ public class SistemaCheckIn {
             throw new dniNoEncontradoException("El DNI no se encuentra dentro del sistema de check-in.");
         }
     }
-
-
 
 
 

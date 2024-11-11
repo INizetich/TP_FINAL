@@ -137,7 +137,7 @@ public class Vuelo {
                 ", origen='" + origen + '\'' +
                 ", destino='" + destino + '\'' +
                 ", horario=" + horario +
-                ", avion=" + avion +
+                avion +
                 ", puertaEmbarque=" + puertaEmbarque +
                 ", estadoEmbarque=" + estadoEmbarque +
                 ", listaPasajeros=" + listaPasajeros +

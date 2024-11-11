@@ -1,14 +1,11 @@
 package GestionAviones;
 
 import GestionAeropuerto.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class SistemaVuelo {
-    private static List<Vuelo> vuelos = new ArrayList<>();  // Lista para almacenar los vuelos
-    private static List<Avion> aviones = new ArrayList<>(); //lista para almacenar los aviones
-
+    private static List<Vuelo> vuelos = new ArrayList<>(); // Lista para almacenar los vuelos
+    private static List<Avion> aviones = new ArrayList<>(); // Lista para almacenar los aviones
 
     public static List<Vuelo> getVuelos() {
         return vuelos;
@@ -26,8 +23,9 @@ public class SistemaVuelo {
         SistemaVuelo.aviones = aviones;
     }
 
+    // Método para registrar un avión manualmente
     public static void registrarAvion(Avion avion) {
-        if (!vuelos.contains(avion)) {
+        if (!aviones.contains(avion)) {
             aviones.add(avion);
             System.out.println("Avión registrado exitosamente.");
         } else {
@@ -35,14 +33,8 @@ public class SistemaVuelo {
         }
     }
 
-
-
-    public static void generarVuelosAutomaticos(int cantidad) {
-        if (aviones.isEmpty()) {
-            System.out.println("No hay aviones registrados para asignar a los vuelos.");
-            return;
-        }
-
+    // Método para generar aviones automáticamente
+    public static void generarAvionesYVuelos(int cantidadAviones) {
         Set<Aeropuerto> aeropuertos = SistemaAeropuerto.agregarAeropuertos(); // Obtener lista de aeropuertos
         if (aeropuertos.size() < 2) {
             System.out.println("Se necesitan al menos dos aeropuertos para generar vuelos.");
@@ -52,37 +44,39 @@ public class SistemaVuelo {
         List<Aeropuerto> listaAeropuertos = new ArrayList<>(aeropuertos);
         Random random = new Random();
 
-        for (int i = 0; i < cantidad; i++) {
-            // Selección aleatoria de aeropuertos de origen y destino
+        for (int i = 0; i < cantidadAviones; i++) {
+            // Crear un avión con datos aleatorios
+            String nombre = "Boeing-" + (i + 746);
+            int capacidad = random.nextInt(150) + 50; // Capacidad entre 50 y 200 pasajeros
+            String motor = "Motor-" + (random.nextInt(10) + 1);
+            String modelo = "Modelo-" +"A"+ (random.nextInt(5) + 1);
+            String codigoAvion = UUID.randomUUID().toString().substring(0, 6).toUpperCase();
+
+            Avion avion = new Avion(nombre, capacidad, motor, modelo, codigoAvion);
+            aviones.add(avion); // Registrar el avión en la lista de aviones
+
+            // Generar un vuelo para el avión creado
             Aeropuerto origen = listaAeropuertos.get(random.nextInt(listaAeropuertos.size()));
             Aeropuerto destino;
-
             do {
                 destino = listaAeropuertos.get(random.nextInt(listaAeropuertos.size()));
             } while (origen.equals(destino)); // Asegurarse de que origen y destino no sean iguales
 
-            // Selección aleatoria de un avión
-            Avion avion = aviones.get(random.nextInt(aviones.size()));
-
-            // Creación del vuelo
             Vuelo vuelo = new Vuelo();
             vuelo.setOrigen(origen.getNombre());
             vuelo.setDestino(destino.getNombre());
             vuelo.setHorario(new Date()); // Usar la fecha y hora actuales
-            vuelo.setAvion(avion);
+            vuelo.setAvion(avion); // Asignar el avión al vuelo
             vuelo.setEstadoEmbarque(EstadoEmbarque.ABIERTO);
 
-            // Agregar el vuelo a la lista
-            vuelos.add(vuelo);
+            vuelos.add(vuelo); // Registrar el vuelo en la lista de vuelos
         }
 
-        System.out.println(cantidad + " vuelos generados automáticamente.");
+
     }
 
 
-
-
-
+    // Método para mostrar la lista de vuelos
     public static void mostrarVuelos() {
         if (vuelos.isEmpty()) {
             System.out.println("No hay vuelos registrados.");
@@ -92,24 +86,19 @@ public class SistemaVuelo {
         }
     }
 
-
     // Método para eliminar un vuelo por ID
     public static void eliminarVuelo(String idVuelo) {
         vuelos.removeIf(vuelo -> vuelo.getIdVuelo().equals(idVuelo));
         System.out.println("Vuelo con ID " + idVuelo + " eliminado.");
     }
 
-
-    public void mostrarListaAviones() {
+    // Método para mostrar la lista de aviones
+    public static void mostrarListaAviones() {
         if (aviones.isEmpty()) {
             System.out.println("No hay aviones registrados.");
         } else {
-           aviones.forEach(System.out::println);
+            System.out.println("LISTA DE AVIONES:");
+            aviones.forEach(System.out::println);
         }
     }
-
-
-    }
-
-
-
+}

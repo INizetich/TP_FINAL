@@ -18,6 +18,10 @@ import java.util.Scanner;
                 almacenamientoAviones.generarHangares(7);
                 almacenamientoAviones.generarAviones(30);
 
+
+                 ///lauty puto
+
+
                 ///CREACION DE VUELOS DE MANERA AUTOMATICA
                 SistemaVuelo.generarVuelosDesdeHangares(15,almacenamientoAviones);
 

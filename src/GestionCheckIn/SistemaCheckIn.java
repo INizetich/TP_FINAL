@@ -1,7 +1,9 @@
 package GestionCheckIn;
 
 
-import GestionAviones.CapacidadMaximaException;
+import Excepciones.CapacidadMaximaException;
+import Excepciones.DniRegistradoException;
+import Excepciones.dniNoEncontradoException;
 import GestionAviones.EstadoEmbarque;
 import GestionAviones.Vuelo;
 import GestionAviones.SistemaVuelo;

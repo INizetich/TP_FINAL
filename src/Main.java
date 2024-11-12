@@ -1,9 +1,8 @@
 import GestionAeropuerto.SistemaAeropuerto;
-import GestionAviones.Avion;
 import GestionAviones.SistemaVuelo;
 import GestionCheckIn.SistemaCheckIn;
-import GestionCheckIn.dniNoEncontradoException;
-import GestionCheckIn.DniRegistradoException;
+import Excepciones.dniNoEncontradoException;
+import Excepciones.DniRegistradoException;
 
 import java.util.Scanner;
 

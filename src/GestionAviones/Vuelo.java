@@ -2,10 +2,11 @@ package GestionAviones;
 
 import java.util.*;
 
+import Excepciones.CapacidadMaximaException;
 import Personas.Pasajero;
 
 public class Vuelo {
-    private String idVuelo;
+    private  String idVuelo;
     private String destino; // Nombre del aeropuerto destino
     private String origen;  // Nombre del aeropuerto origen
     private Date horario;
@@ -13,7 +14,7 @@ public class Vuelo {
     private PuertaEmbarque puertaEmbarque;
     private EstadoEmbarque estadoEmbarque;
     private Set<Pasajero> listaPasajeros;
-    private Set<String> asientos = new HashSet<>();
+    private Set<String>asientos = new HashSet<>();
 
     public Vuelo() {
         this.idVuelo = generarIdVuelo();

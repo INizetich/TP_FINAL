@@ -1,8 +1,9 @@
-package GestionAeropuerto;
+package Gestiones;
 
 
 
 import Enums.CodigoInternacional;
+import GestionAeropuerto.Aeropuerto;
 
 import java.util.*;
 

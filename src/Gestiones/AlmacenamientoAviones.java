@@ -1,4 +1,7 @@
-package GestionAviones;
+package Gestiones;
+
+import GestionAviones.Avion;
+import GestionAviones.Hangar;
 
 import java.util.*;
 import java.util.Scanner;
@@ -16,7 +19,7 @@ public class AlmacenamientoAviones {
             Hangar<Avion> hangar = new Hangar<>(i);
             this.listaHangares.add(hangar);
         }
-        System.out.println(cantidadHangares + " hangares generados automáticamente.");
+
     }
 
     // Generar aviones automáticamente y asignarlos a hangares
@@ -41,7 +44,7 @@ public class AlmacenamientoAviones {
             Hangar<Avion> hangar = listaHangares.get(random.nextInt(listaHangares.size()));
             hangar.agrearAvion(avion);
         }
-        System.out.println(cantidadAviones + " aviones generados automáticamente y asignados a hangares.");
+
     }
 
     public List<Hangar<Avion>> getListaHangares() {
@@ -89,14 +92,14 @@ public class AlmacenamientoAviones {
             if (avionEncontradoEnHangar.isPresent()) {
                 avionEncontrado = true;
                 System.out.println("Avión encontrado en el hangar: " + hangar.getNumeroHangar());
-                System.out.println("Desea eliminarlo? (s: Sí / n: No)");
+                System.out.println("Desea retirar el avion para que realice un vuelo? (s: Sí / n: No)");
                 String eleccion = scanner.nextLine().trim().toLowerCase();
 
                 if (eleccion.equalsIgnoreCase("s")) {
                     hangar.ObtenerListaAviones().remove(avionEncontradoEnHangar.get());
-                    System.out.println("Avión eliminado correctamente.");
+                    System.out.println("Avión retirado para un vuelo correctamente.");
                 } else {
-                    System.out.println("El avión no fue eliminado.");
+                    System.out.println("El avión no fue retirado del hangar.");
                 }
                 break; // Salir del bucle porque el avión ya fue encontrado
             }
@@ -106,5 +109,23 @@ public class AlmacenamientoAviones {
             System.out.println("No se encontró un avión con el código: " + codigoAvion);
         }
     }
+/*
+* SISTEMA DE CHECK IN YA ESTA BIEN, FALTAN BOLUDECES NOMAS PERO LO ESENCIAL YA ESTA HECHO, FALTAN HACER VALIDACIONES COMO POR EJEMPLO PEDIR POR PANTALLA EL MOSTAR MAS CHECK INS
+*
+*
+* DESPUES EN SISTEMA DE HANGARES QUE AGREGUE UN AVION AL HANGAR ESPECIFICO QUE LE PASES POR PARAMETRO EL NUMERO DE HANGAR Y EL AVION A AGREGAR Y DESPUES SI SE LES OCURRE OTRA COSA HAGANLO
+* TAMBIEN HAGAN VALIDACIONES MIENTRAS HACEN ESTO ASI LO SACAN DE ENCIMA Y EXCEPCIONES DONDE NECESITEN
+*
+*
+* LUEGO SIGAN CON OTRA COSA QUE QUIERAN HACER, COMO EL CONTROL DE PISTAS, O OTRA COSA QUE SE LES OCURRA, QUE VUELE SU CREATIVIDAD PERO HAGAN COSAS QUE SIRVAN Y QUE NO SEAN MEDIO BOLUDAS ASI NO NOS TOMAMOS TANTO TIEMPO CON BOLUDECES
+*
+*
+* HAGAN TODO LO ESENCIAL PARA EL PREMBARQUE Y DESPUES AHI SI QUIEREN ARRANQUEN CON LO DE LAS TIENDAS Y DESPUES CUANDO VUELVA EMPEZAMOS A SERIALIZAR Y DESCERIALIZAR
+*
+* SEGURO USEMOS JACKSON O GSON ASI ES MAS FACIL
+*
+* */
+
+
 }
 

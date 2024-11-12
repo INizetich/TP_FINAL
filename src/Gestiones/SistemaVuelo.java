@@ -1,7 +1,11 @@
-package GestionAviones;
+package Gestiones;
 
 import Enums.EstadoEmbarque;
 import GestionAeropuerto.*;
+import GestionAviones.Avion;
+import GestionAviones.Hangar;
+import GestionAviones.Vuelo;
+
 import java.util.*;
 
 public class SistemaVuelo {
@@ -78,12 +82,12 @@ public class SistemaVuelo {
             vuelo.setDestino(destino.getNombre());
             vuelo.setHorario(new Date()); // Usar la fecha y hora actuales
             vuelo.setAvion(avion); // Asignar el avión al vuelo
-            vuelo.setEstadoEmbarque(EstadoEmbarque.CERRADO);
+            vuelo.setEstadoEmbarque(EstadoEmbarque.ABIERTO);
 
             vuelos.add(vuelo); // Registrar el vuelo en la lista de vuelos
         }
 
-        System.out.println("Se generaron " + vuelos.size() + " vuelos utilizando aviones de los hangares.");
+
     }
 
 

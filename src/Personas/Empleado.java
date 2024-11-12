@@ -1,5 +1,7 @@
 package Personas;
 
+import Enums.TipoEmpleado;
+
 public class Empleado extends Persona{
     private TipoEmpleado tipoEmpleado;
 

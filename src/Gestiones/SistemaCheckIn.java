@@ -1,4 +1,4 @@
-package GestionCheckIn;
+package Gestiones;
 
 
 import Excepciones.CapacidadMaximaException;
@@ -6,7 +6,7 @@ import Excepciones.DniRegistradoException;
 import Excepciones.dniNoEncontradoException;
 import Enums.EstadoEmbarque;
 import GestionAviones.Vuelo;
-import GestionAviones.SistemaVuelo;
+import GestionCheckIn.CheckIn;
 import Personas.Pasajero;
 import java.text.SimpleDateFormat;
 import java.util.*;

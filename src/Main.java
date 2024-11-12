@@ -1,7 +1,7 @@
-import GestionAeropuerto.SistemaAeropuerto;
-import GestionAviones.AlmacenamientoAviones;
-import GestionAviones.SistemaVuelo;
-import GestionCheckIn.SistemaCheckIn;
+import Gestiones.SistemaAeropuerto;
+import Gestiones.AlmacenamientoAviones;
+import Gestiones.SistemaVuelo;
+import Gestiones.SistemaCheckIn;
 import Excepciones.dniNoEncontradoException;
 import Excepciones.DniRegistradoException;
 
@@ -18,12 +18,6 @@ import java.util.Scanner;
                 AlmacenamientoAviones almacenamientoAviones = new AlmacenamientoAviones();
                 almacenamientoAviones.generarHangares(7);
                 almacenamientoAviones.generarAviones(30);
-
-                /*lauty puto*/
-
-
-
-
 
                 ///CREACION DE VUELOS DE MANERA AUTOMATICA
                 SistemaVuelo.generarVuelosDesdeHangares(15,almacenamientoAviones);
@@ -80,8 +74,6 @@ import java.util.Scanner;
                             System.out.println("desea eliminar otro avion?");
                          avion = scanner.nextLine();
                         }while(avion.equalsIgnoreCase("s"));
-
-
                         almacenamientoAviones.mostrarHangares();
 
 

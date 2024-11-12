@@ -23,6 +23,8 @@ import java.util.Scanner;
                 ///Nize puto
                 ///lauty gay
 
+                ///tucu trolo
+
 
                 ///CREACION DE VUELOS DE MANERA AUTOMATICA
                 SistemaVuelo.generarVuelosDesdeHangares(15,almacenamientoAviones);

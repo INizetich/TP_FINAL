@@ -19,11 +19,10 @@ import java.util.Scanner;
                 almacenamientoAviones.generarHangares(7);
                 almacenamientoAviones.generarAviones(30);
 
-                 ///lauty puto
-                ///Nize puto
-                ///lauty gay
+                /*lauty puto*/
 
-                ///tucu trolo
+
+
 
 
                 ///CREACION DE VUELOS DE MANERA AUTOMATICA

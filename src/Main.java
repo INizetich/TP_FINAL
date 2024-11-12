@@ -13,6 +13,7 @@ import java.util.Scanner;
             public static void main(String[] args) {
                 int opc;
                 String opcion;
+                //aaaaaa
                 Scanner scanner = new Scanner(System.in);
                 AlmacenamientoAviones almacenamientoAviones = new AlmacenamientoAviones();
                 almacenamientoAviones.generarHangares(7);

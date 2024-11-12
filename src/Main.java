@@ -20,7 +20,7 @@ import java.util.Scanner;
                 almacenamientoAviones.generarAviones(30);
 
                  ///lauty puto
-
+                ///Nize puto
                 ///lauty gay
 
 

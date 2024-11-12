@@ -2,6 +2,8 @@ package GestionAeropuerto;
 
 
 
+import Enums.CodigoInternacional;
+
 import java.util.*;
 
 public class SistemaAeropuerto {

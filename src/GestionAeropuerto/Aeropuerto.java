@@ -1,5 +1,7 @@
 package GestionAeropuerto;
 
+import Enums.CodigoInternacional;
+
 public class Aeropuerto {
     private String nombre;
     private String direccion;

@@ -1,4 +1,4 @@
-package GestionAeropuerto;
+package Enums;
 
 public enum CodigoInternacional {
     EZE,

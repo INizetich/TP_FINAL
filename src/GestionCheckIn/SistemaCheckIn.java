@@ -4,7 +4,7 @@ package GestionCheckIn;
 import Excepciones.CapacidadMaximaException;
 import Excepciones.DniRegistradoException;
 import Excepciones.dniNoEncontradoException;
-import GestionAviones.EstadoEmbarque;
+import Enums.EstadoEmbarque;
 import GestionAviones.Vuelo;
 import GestionAviones.SistemaVuelo;
 import Personas.Pasajero;

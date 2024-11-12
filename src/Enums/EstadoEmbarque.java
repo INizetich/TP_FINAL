@@ -1,4 +1,4 @@
-package GestionAviones;
+package Enums;
 
 public enum EstadoEmbarque {
     ABIERTO,

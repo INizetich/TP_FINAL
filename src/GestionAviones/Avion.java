@@ -1,6 +1,8 @@
 package GestionAviones;
 
 
+import Interfaces.IAvion;
+
 public class Avion implements IAvion {
     private String nombre;
     private int capacidadAvion;

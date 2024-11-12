@@ -2,6 +2,8 @@ package GestionAviones;
 
 import java.util.*;
 
+import Enums.EstadoEmbarque;
+import Enums.PuertaEmbarque;
 import Excepciones.CapacidadMaximaException;
 import Personas.Pasajero;
 

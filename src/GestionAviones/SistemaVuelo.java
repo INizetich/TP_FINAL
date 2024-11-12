@@ -1,5 +1,6 @@
 package GestionAviones;
 
+import Enums.EstadoEmbarque;
 import GestionAeropuerto.*;
 import java.util.*;
 
@@ -33,8 +34,62 @@ public class SistemaVuelo {
         }
     }
 
-    // Método para generar aviones automáticamente
-    public static void generarAvionesYVuelos(int cantidadAviones) {
+
+    // Método para generar vuelos utilizando aviones almacenados en hangares
+    public static void generarVuelosDesdeHangares(int cantidadVuelos, AlmacenamientoAviones gestionHangares) {
+        Set<Aeropuerto> aeropuertos = SistemaAeropuerto.agregarAeropuertos(); // Obtener lista de aeropuertos
+        if (aeropuertos.size() < 2) {
+            System.out.println("Se necesitan al menos dos aeropuertos para generar vuelos.");
+            return;
+        }
+
+        // Obtener la lista de aviones desde los hangares
+        List<Avion> avionesDisponibles = new ArrayList<>();
+        for (Hangar<Avion> hangar : gestionHangares.getListaHangares()) {
+            avionesDisponibles.addAll(hangar.ObtenerListaAviones());
+        }
+
+        if (avionesDisponibles.isEmpty()) {
+            System.out.println("No hay aviones disponibles en los hangares para asignar a vuelos.");
+            return;
+        }
+
+        List<Aeropuerto> listaAeropuertos = new ArrayList<>(aeropuertos);
+        Random random = new Random();
+
+        for (int i = 0; i < cantidadVuelos; i++) {
+            if (avionesDisponibles.isEmpty()) {
+                System.out.println("No hay más aviones disponibles en los hangares para generar vuelos.");
+                break;
+            }
+
+            // Seleccionar un avión disponible y removerlo de la lista
+            Avion avion = avionesDisponibles.remove(0);
+
+            // Generar un vuelo para el avión seleccionado
+            Aeropuerto origen = listaAeropuertos.get(random.nextInt(listaAeropuertos.size()));
+            Aeropuerto destino;
+            do {
+                destino = listaAeropuertos.get(random.nextInt(listaAeropuertos.size()));
+            } while (origen.equals(destino)); // Asegurarse de que origen y destino no sean iguales
+
+            Vuelo vuelo = new Vuelo();
+            vuelo.setOrigen(origen.getNombre());
+            vuelo.setDestino(destino.getNombre());
+            vuelo.setHorario(new Date()); // Usar la fecha y hora actuales
+            vuelo.setAvion(avion); // Asignar el avión al vuelo
+            vuelo.setEstadoEmbarque(EstadoEmbarque.CERRADO);
+
+            vuelos.add(vuelo); // Registrar el vuelo en la lista de vuelos
+        }
+
+        System.out.println("Se generaron " + vuelos.size() + " vuelos utilizando aviones de los hangares.");
+    }
+
+
+
+
+   /* public static void generarAvionesYVuelos(int cantidadAviones) {
         Set<Aeropuerto> aeropuertos = SistemaAeropuerto.agregarAeropuertos(); // Obtener lista de aeropuertos
         if (aeropuertos.size() < 2) {
             System.out.println("Se necesitan al menos dos aeropuertos para generar vuelos.");
@@ -73,7 +128,7 @@ public class SistemaVuelo {
         }
 
 
-    }
+    }*/
 
 
     // Método para mostrar la lista de vuelos

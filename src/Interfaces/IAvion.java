@@ -1,4 +1,4 @@
-package GestionAviones;
+package Interfaces;
 
 public interface IAvion {
     String despegar();

@@ -112,7 +112,7 @@ public class AlmacenamientoAviones {
     }
 
     /*public void agregarAvionalHangar(int numeroHangar, Avion avion) throws HangarNoExistenteException {
-        if (this.numeroHangar !=) {
+        if (this.numeroHangar != numeroHangar) {
             listaHangares.add(avion);
             System.out.println("El Hangar seleccion" + listaHangares + "no tiene lugar");
         }else {

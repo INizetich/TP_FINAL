@@ -128,34 +128,6 @@ public class Menu {
                 switch (opcionCheckIn) {
                     case 1:
 
-                        // Confirmar Boleto
-                        System.out.println("**************************************************");
-                        System.out.println("*                 BOLETO DE AVIÓN                *");
-                        System.out.println("**************************************************");
-                        System.out.println("*");
-                        System.out.printf("*  Pasajero: %-35s *\n", .getNombre() + " " + datosPasajero.getApellido());
-                        System.out.printf("*  DNI: %-41s *\n", .getDNI());
-                        System.out.printf("*  Edad: %-40s *\n", .getEdad());
-                        System.out.printf("*  Fecha de Nacimiento: %-27s *\n", datosPasajero.getFechaNacimiento());
-                        System.out.printf("*  Email: %-38s *\n", datosPasajero.getEmail());
-                        System.out.printf("*  Teléfono: %-35s *\n", datosPasajero.getTelefono());
-                        System.out.printf("*  Dirección: %-34s *\n", datosPasajero.getDireccion());
-                        System.out.println("*");
-                        System.out.println("**************************************************");
-                        System.out.println("*");
-                        System.out.printf("*  ID Vuelo: %-36s *\n", datosPasajero.getIDVuelo());
-                        System.out.printf("*  Origen: %-40s *\n", datosPasajero.getOrigen());
-                        System.out.printf("*  Destino: %-39s *\n", datosPasajero.getDestino());
-                        System.out.printf("*  Puerta de Embarque: %-27s *\n", datosPasajero.getPuertaEmbarque());
-                        System.out.printf("*  Asiento: %-38d *\n", Asiento);
-                        System.out.printf("*  Tarifa: $%-37.2f *\n", Tarifa);
-                        System.out.printf("*  Código Único: %-32s *\n", IDUnico);
-                        System.out.println("*");
-                        System.out.println("**************************************************");
-                        System.out.println("*                 ¡BUEN VIAJE!                   *");
-                        System.out.println("**************************************************");
-                        checkInCompletado = true;
-                        break;
 
                     case 2:
                         // Despachar Equipaje

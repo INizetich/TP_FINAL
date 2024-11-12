@@ -1,5 +1,6 @@
 package Gestiones;
 
+import Excepciones.HangarNoExistenteException;
 import GestionAviones.Avion;
 import GestionAviones.Hangar;
 
@@ -109,8 +110,20 @@ public class AlmacenamientoAviones {
             System.out.println("No se encontró un avión con el código: " + codigoAvion);
         }
     }
+
+    /*public void agregarAvionalHangar(int numeroHangar, Avion avion) throws HangarNoExistenteException {
+        if (this.numeroHangar !=) {
+            listaHangares.add(avion);
+            System.out.println("El Hangar seleccion" + listaHangares + "no tiene lugar");
+        }else {
+            throw new HangarNoExistenteException("El hangar seleccionado tiene lugar");
+        }
+    }*/
+
+}
+
 /*
-* SISTEMA DE CHECK IN YA ESTA BIEN, FALTAN BOLUDECES NOMAS PERO LO ESENCIAL YA ESTA HECHO, FALTAN HACER VALIDACIONES COMO POR EJEMPLO PEDIR POR PANTALLA EL MOSTAR MAS CHECK INS
+//* SISTEMA DE CHECK IN YA ESTA BIEN, FALTAN BOLUDECES NOMAS PERO LO ESENCIAL YA ESTA HECHO, FALTAN HACER VALIDACIONES COMO POR EJEMPLO PEDIR POR PANTALLA EL MOSTAR MAS CHECK INS
 *
 *
 * DESPUES EN SISTEMA DE HANGARES QUE AGREGUE UN AVION AL HANGAR ESPECIFICO QUE LE PASES POR PARAMETRO EL NUMERO DE HANGAR Y EL AVION A AGREGAR Y DESPUES SI SE LES OCURRE OTRA COSA HAGANLO
@@ -127,5 +140,5 @@ public class AlmacenamientoAviones {
 * */
 
 
-}
+
 

@@ -10,6 +10,7 @@ import GestionCheckIn.CheckIn;
 import Personas.Pasajero;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.Scanner;
 
 public class SistemaCheckIn {
     private final Map<String, CheckIn> mapaCheckIn; // UUID como clave, CheckIn como valor
@@ -42,6 +43,7 @@ public class SistemaCheckIn {
                 .orElse(null);
 
         if (vueloSeleccionado == null) {
+            System.out.println("******************************************************************");
             System.out.println("El ID del vuelo ingresado no se encuentra en la lista de vuelos disponibles.");
             return;
         }
@@ -49,10 +51,10 @@ public class SistemaCheckIn {
         // Mostrar asientos disponibles
         List<String> asientosDisponibles = generarAsientosDisponibles(vueloSeleccionado);
         if (asientosDisponibles.isEmpty()) {
-            System.out.println("No hay asientos disponibles.");
+            System.out.println("No hay asientos disponibles. :(");
             return;
         }
-
+        System.out.println("******************************************************************************************************************************************************************************");
         System.out.println("Asientos disponibles: " + asientosDisponibles);
 
         // Seleccionar asiento
@@ -73,6 +75,7 @@ public class SistemaCheckIn {
             if (vueloSeleccionado.agregarPasajero(pasajero)) {
                 vueloSeleccionado.ocuparAsiento(asientoSeleccionado);
                 mapaCheckIn.put(pasajero.getDni(), new CheckIn(vueloSeleccionado, asientoSeleccionado, pasajero));
+                System.out.println("**********************************************************");
                 System.out.println("Check-in realizado exitosamente para " + pasajero.getNombre() + " " + pasajero.getApellido());
                 pasajero.setCheckIn(true);
             }
@@ -91,6 +94,7 @@ public class SistemaCheckIn {
         int cantidadEquipaje;
         do {
             Scanner scanner = new Scanner(System.in);
+            System.out.println("*******************************");
             System.out.println("Ingrese los datos del pasajero:");
             System.out.print("Nombre: ");
             nombre = scanner.nextLine();
@@ -106,11 +110,11 @@ public class SistemaCheckIn {
             if (mapaCheckIn.containsKey(dni)) {
                 throw new DniRegistradoException("El DNI " + dni + " ya está asociado a un check-in.");
             }
-            System.out.print("Cantidad de equipaje: ");
+            System.out.print("Cuanto equipaje desea llevar?: ");
             cantidadEquipaje = scanner.nextInt();
             scanner.nextLine();
-
-            System.out.println("desea editar su informacion? s/n");
+            System.out.println("*********************************");
+            System.out.println("Desea editar su informacion? s/n");
           eleccion = scanner.next().trim().toLowerCase() + "";
 
         }while (eleccion.equals("s"));
@@ -148,55 +152,60 @@ public class SistemaCheckIn {
 
 
     public void mostrarInformacionCheckIn(String dni) throws dniNoEncontradoException {
+
         boolean encontrado = false;
 
-        for (CheckIn checkIn : mapaCheckIn.values()) {
-            Pasajero pasajero = checkIn.getPasajero();
-            //el trim sirve para limpiar los espacios
-            if (pasajero.getDni().trim().equalsIgnoreCase(dni.trim())) {
-                // Verificar si el check-in se ha realizado
-                if (pasajero.isCheckInRealizado()) {
-                    System.out.println("Información del Check-In para " + pasajero.getNombre() + " " + pasajero.getApellido() + ":");
-                    System.out.println(checkIn.toString());
+            for (CheckIn checkIn : mapaCheckIn.values()) {
+                Pasajero pasajero = checkIn.getPasajero();
+                //el trim sirve para limpiar los espacios
+                if (pasajero.getDni().trim().equalsIgnoreCase(dni.trim())) {
+                    // Verificar si el check-in se ha realizado
+                    if (pasajero.isCheckInRealizado()) {
+                        System.out.println("Información del Check-In para " + pasajero.getNombre() + " " + pasajero.getApellido() + ":");
+                        System.out.println(checkIn.toString());
 
 
+                        // Generación del boleto de avión
+                        Vuelo vuelo = checkIn.getVuelo();
+                        StringBuilder boleto = new StringBuilder();
+                        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                        vuelo.setEstadoEmbarque(EstadoEmbarque.CERRADO);
+                        boleto.append("*********************************************************************\n");
+                        boleto.append("*                         BOLETO DE AVION                           *\n");
+                        boleto.append("*********************************************************************\n");
+                        boleto.append("*Pasajero: ").append(pasajero.getNombre()).append(" ").append(pasajero.getApellido()).append("\n");
+                        boleto.append("*DNI: ").append(pasajero.getDni()).append("\n");
+                        boleto.append("*Origen: ").append(vuelo.getOrigen()).append("\n");
+                        boleto.append("*Destino: ").append(vuelo.getDestino()).append("\n");
+                        boleto.append("*Fecha de vuelo: ").append(formatoFecha.format(vuelo.getHorario())).append("\n");
+                        boleto.append("*Número de asiento: ").append(pasajero.getNroAsiento()).append("\n");
+                        boleto.append("*Puerta de embarque: ").append(vuelo.getPuertaEmbarque()).append("\n");
+                        boleto.append("*********************************************************************\n");
+                        // Generar un código único para el boleto
+                        String codigoUnico = UUID.randomUUID().toString();
+                        boleto.append("Codigo unico de identificacion: ").append(codigoUnico).append("\n");
+                        boleto.append("*********************************************************************\n");
+                        boleto.append("*      ¡Buen viaje! Gracias por volar con nosotros.                 *\n");
+                        boleto.append("*********************************************************************\n");
 
-                    // Generación del boleto de avión
-                    Vuelo vuelo = checkIn.getVuelo();
-                    StringBuilder boleto = new StringBuilder();
-                    SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-                         vuelo.setEstadoEmbarque(EstadoEmbarque.CERRADO);
-                    boleto.append("************************************\n");
-                    boleto.append("            BOLETO DE AVION        \n");
-                    boleto.append("************************************\n");
-                    boleto.append("Pasajero: ").append(pasajero.getNombre()).append(" ").append(pasajero.getApellido()).append("\n");
-                    boleto.append("DNI: ").append(pasajero.getDni()).append("\n");
-                    boleto.append("Origen: ").append(vuelo.getOrigen()).append("\n");
-                    boleto.append("Destino: ").append(vuelo.getDestino()).append("\n");
-                    boleto.append("Fecha de vuelo: ").append(formatoFecha.format(vuelo.getHorario())).append("\n");
-                    boleto.append("Número de asiento: ").append(pasajero.getNroAsiento()).append("\n");
-                    boleto.append("Puerta de embarque: ").append(vuelo.getPuertaEmbarque()).append("\n");
-                    boleto.append("************************************\n");
-                    // Generar un código único para el boleto
-                    String codigoUnico = UUID.randomUUID().toString();
-                    boleto.append("Codigo unico de identificacion: ").append(codigoUnico).append("\n");
-                    boleto.append("************************************\n");
-                    boleto.append("¡Buen viaje! Gracias por volar con nosotros.\n");
-                    boleto.append("************************************");
 
-                    // Mostrar el boleto
-                    System.out.println(boleto.toString());
-                } else {
-                    System.out.println("El check-in aún no ha sido realizado para " + pasajero.getNombre() + " " + pasajero.getApellido());
+                        // Mostrar el boleto
+                        System.out.println(boleto.toString());
+                    } else {
+                        System.out.println("******************************************************************");
+                        System.out.println("El check-in aún no ha sido realizado para " + pasajero.getNombre() + " " + pasajero.getApellido());
+                    }
+                    encontrado = true;
+                    break;
+
                 }
-                encontrado = true;
-                break;
             }
-        }
 
-        if (!encontrado) {
-            throw new dniNoEncontradoException("El DNI no se encuentra dentro del sistema de check-in.");
-        }
+            if (!encontrado) {
+                System.out.println("******************************************************************");
+                throw new dniNoEncontradoException("El DNI no se encuentra dentro del sistema de check-in.");
+            }
+
     }
 
 

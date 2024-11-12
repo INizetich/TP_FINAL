@@ -32,7 +32,7 @@ public class SistemaVuelo {
     public static void registrarAvion(Avion avion) {
         if (!aviones.contains(avion)) {
             aviones.add(avion);
-            System.out.println("Avión registrado exitosamente.");
+            System.out.println("Avión registrado exitosamente!.");
         } else {
             System.out.println("El avión ya está registrado.");
         }

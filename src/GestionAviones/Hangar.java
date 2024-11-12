@@ -1,5 +1,11 @@
 package GestionAviones;
 
+/* DESPUES EN SISTEMA DE HANGARES QUE AGREGUE UN AVION AL HANGAR ESPECIFICO QUE LE PASES POR PARAMETRO EL
+ * NUMERO DE HANGAR Y EL AVION A AGREGAR Y DESPUES SI SE LES OCURRE OTRA COSA HAGANLO
+ * TAMBIEN HAGAN VALIDACIONES MIENTRAS HACEN ESTO ASI LO SACAN DE ENCIMA Y EXCEPCIONES DONDE NECESITEN*/
+
+import Excepciones.HangarNoExistenteException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,13 +15,11 @@ public class Hangar <T extends Avion>{
     private List<T> listaAviones;
 
     public Hangar() {
-
         this.numeroHangar = 0;
         this.listaAviones = new ArrayList<T>();
     }
 
     public Hangar(int numeroHangar) {
-
         this.numeroHangar = numeroHangar;
         this.listaAviones = new ArrayList<T>();
     }

@@ -60,6 +60,7 @@ public class SistemaCheckIn {
         String asientoSeleccionado = scanner.nextLine().toUpperCase();
 
         if (!asientosDisponibles.contains(asientoSeleccionado)) {
+            asientosDisponibles.remove(asientoSeleccionado);
             System.out.println("El asiento seleccionado no está disponible.");
             return;
         }
@@ -120,22 +121,26 @@ public class SistemaCheckIn {
 
     private List<String> generarAsientosDisponibles(Vuelo vuelo) {
         List<String> asientosDisponibles = new ArrayList<>();
+
+        // Generar asientos según la capacidad del avión
         for (int i = 1; i <= vuelo.getAvion().getCapacidadAvion(); i++) {
             String asientoA = "A" + i;
             String asientoB = "B" + i;
             String asientoC = "C" + i;
             String asientoD = "D" + i;
             String asientoE = "E" + i;
-            if (!vuelo.getAsientos().contains(asientoA)) {
-                asientosDisponibles.add(asientoA);
-                asientosDisponibles.add(asientoB);
-                asientosDisponibles.add(asientoC);
-                asientosDisponibles.add(asientoD);
-                asientosDisponibles.add(asientoE);
-            }
+
+            // Agregar asientos si no están ocupados
+            if (!vuelo.getAsientos().contains(asientoA)) asientosDisponibles.add(asientoA);
+            if (!vuelo.getAsientos().contains(asientoB)) asientosDisponibles.add(asientoB);
+            if (!vuelo.getAsientos().contains(asientoC)) asientosDisponibles.add(asientoC);
+            if (!vuelo.getAsientos().contains(asientoD)) asientosDisponibles.add(asientoD);
+            if (!vuelo.getAsientos().contains(asientoE)) asientosDisponibles.add(asientoE);
         }
+
         return asientosDisponibles;
     }
+
 
     public void mostrarMap() {
         mapaCheckIn.forEach((key, value) -> System.out.println("Código: " + key + " -> " + value));

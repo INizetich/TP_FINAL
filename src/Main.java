@@ -41,8 +41,7 @@ import java.util.Scanner;
                 scanner.nextLine();
                 switch (opc){
                     case 1:
-                        System.out.println("LISTA DE AVIONES EN HANGARES");
-                        almacenamientoAviones.mostrarHangares();
+
                         do {
                             try {
                                 // Realizar el check-in del pasajero

@@ -22,6 +22,8 @@ import java.util.Scanner;
 
                  ///lauty puto
 
+                ///lauty gay
+
 
                 ///CREACION DE VUELOS DE MANERA AUTOMATICA
                 SistemaVuelo.generarVuelosDesdeHangares(15,almacenamientoAviones);

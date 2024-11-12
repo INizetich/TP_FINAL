@@ -140,8 +140,7 @@ public class Vuelo {
                 avion +
                 ", puertaEmbarque=" + puertaEmbarque +
                 ", estadoEmbarque=" + estadoEmbarque +
-                ", listaPasajeros=" + listaPasajeros +
-                ", asientos=" + asientos +
+
                 '}';
     }
 }

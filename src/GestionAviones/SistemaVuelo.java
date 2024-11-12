@@ -67,7 +67,7 @@ public class SistemaVuelo {
             vuelo.setDestino(destino.getNombre());
             vuelo.setHorario(new Date()); // Usar la fecha y hora actuales
             vuelo.setAvion(avion); // Asignar el avión al vuelo
-            vuelo.setEstadoEmbarque(EstadoEmbarque.ABIERTO);
+            vuelo.setEstadoEmbarque(EstadoEmbarque.CERRADO);
 
             vuelos.add(vuelo); // Registrar el vuelo en la lista de vuelos
         }

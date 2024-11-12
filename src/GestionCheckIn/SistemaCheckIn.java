@@ -40,7 +40,7 @@ public class SistemaCheckIn {
                 .orElse(null);
 
         if (vueloSeleccionado == null) {
-            System.out.println("El ID del vuelo ingresado no se encuentra en la lista.");
+            System.out.println("El ID del vuelo ingresado no se encuentra en la lista de vuelos disponibles.");
             return;
         }
 

@@ -63,7 +63,7 @@ public class CheckIn {
     @Override
     public String toString() {
         return "CheckIn{" +
-                  vuelo +
+                vuelo +
                  pasajero +
                 '}';
     }

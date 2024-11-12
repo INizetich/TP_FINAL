@@ -7,7 +7,7 @@ import GestionCheckIn.DniRegistradoException;
 
 import java.util.Scanner;
 
-          ///hago un commit del main
+
 
         public class Main {
             public static void main(String[] args) {

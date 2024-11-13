@@ -68,8 +68,7 @@ public class Persona implements Comparable<Persona> {
                 "nombre='" + nombre + '\'' +
                 ", apellido='" + apellido + '\'' +
                 ", edad=" + edad +
-                ", dni='" + dni + '\'' +
-                '}';
+                ", dni='" + dni + '\'';
     }
 
     @Override

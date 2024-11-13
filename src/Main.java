@@ -1,12 +1,9 @@
-import Excepciones.HangarNoExistenteException;
+import Excepciones.*;
 import GestionAviones.Avion;
 import GestionPreEmbarque.PreEmbarque;
-import Gestiones.SistemaAeropuerto;
-import Gestiones.AlmacenamientoAviones;
-import Gestiones.SistemaVuelo;
-import Gestiones.SistemaCheckIn;
-import Excepciones.dniNoEncontradoException;
-import Excepciones.DniRegistradoException;
+import Gestiones.*;
+import Personas.Empleado;
+
 import java.util.Scanner;
 
         public class Main {
@@ -18,6 +15,7 @@ import java.util.Scanner;
                 boolean salir = false;
 
                 Scanner scanner = new Scanner(System.in);
+                Admin admin = new Admin();
                 AlmacenamientoAviones almacenamientoAviones = new AlmacenamientoAviones();
                 almacenamientoAviones.generarHangares(7);
                 almacenamientoAviones.generarAviones(30);
@@ -120,6 +118,82 @@ import java.util.Scanner;
                         System.out.println("Saliendo del programa...");
                         salir = true;
                         break;
+
+
+                        case 5:
+                            int opcionAdmin = 0;
+                            System.out.println("Ingrese su dni para loguearte");
+                            String loguin = scanner.nextLine().trim();
+                            do{
+                                 try{
+                                     if(admin.comprobarLogin(loguin)) {
+                                         System.out.println("BIENVENIDO AL SISTEMA DE ADMINISTRADOR");
+                                         System.out.println("Por favor, elija una opcion: ");
+                                         System.out.println("1.dar privilegios de administrador a una persona");
+                                         System.out.println("2.agregar una persona a la lista de personal");
+                                         System.out.println("3.eliminar una persona de la lista de personal por DNI");
+                                         System.out.println("4.eliminar una persona los privilegios de administrador por DNI");
+                                         System.out.println("5.mostrar la lista de empleados");
+                                         System.out.println("6.mostrar la lista de administradores");
+                                         System.out.println("7.cerrar sesion");
+                                         opcionAdmin = scanner.nextInt();
+                                         scanner.nextLine();
+
+                                         switch (opcionAdmin) {
+                                             case 1:
+                                                 admin.agregarAdministradorManual();
+                                                 break;
+
+                                             case 2:
+                                                 admin.agregarPersonal();
+                                                 break;
+
+                                             case 3:
+                                                 try{
+                                                     System.out.println("Ingrese el dni de la persona a eliminar");
+                                                     String dni = scanner.nextLine().trim();
+                                                     admin.eliminarPersonalPorDNI(dni);
+                                                 }catch (EmpleadoInexistenteException e){
+                                                     System.out.println(e.getMessage());
+                                                     e.printStackTrace();
+                                                     break;
+                                                 }
+
+                                                 break;
+
+                                             case 4:
+                                                 System.out.println("ingrese el dni de la persona a eliminar de la lista de administradores");
+                                                 String dniAdmin = scanner.nextLine().trim();
+                                                 admin.eliminarAdministradorDNI(dniAdmin);
+
+                                                 break;
+
+                                             case 5:
+                                                 admin.mostrarListaEmpleados();
+                                                 break;
+
+                                             case 6:
+                                                 admin.mostrarCuentasAdmin();
+                                                 break;
+
+                                             case 7:
+                                                 System.out.println("Saliendo del programa...");
+                                                 System.exit(0);
+                                                 break;
+                                         }
+                                     }
+                                 }catch (AccesoDenegadoException e){
+
+                                     e.printStackTrace();
+                                     break;
+                                 }
+
+
+
+
+                            }while (opcionAdmin < 8);
+
+                            break;
 
                         default:
                             System.out.println("Opción inválida. Por favor, elija nuevamente.");

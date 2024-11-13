@@ -1,5 +1,6 @@
 package Gestiones;
 
+import Excepciones.CodigoAvionNoExistenteException;
 import Excepciones.HangarNoExistenteException;
 import GestionAviones.Avion;
 import GestionAviones.Hangar;
@@ -74,7 +75,7 @@ public class AlmacenamientoAviones {
 
     }
 
-    public void eliminarAvionPorID(String codigoAvion) {
+    public void eliminarAvionPorID(String codigoAvion) throws CodigoAvionNoExistenteException {
         if (listaHangares.isEmpty()) {
             System.out.println("La lista de hangares está vacía.");
             return;
@@ -107,7 +108,7 @@ public class AlmacenamientoAviones {
         }
 
         if (!avionEncontrado) {
-            System.out.println("No se encontró un avión con el código: " + codigoAvion);
+           throw new CodigoAvionNoExistenteException("el codigo de avion no existe.");
         }
     }
 
@@ -137,23 +138,6 @@ public class AlmacenamientoAviones {
 
 
 }
-
-/*
-//* SISTEMA DE CHECK IN YA ESTA BIEN, FALTAN BOLUDECES NOMAS PERO LO ESENCIAL YA ESTA HECHO, FALTAN HACER VALIDACIONES COMO POR EJEMPLO PEDIR POR PANTALLA EL MOSTAR MAS CHECK INS
-*
-*
-* DESPUES EN SISTEMA DE HANGARES QUE AGREGUE UN AVION AL HANGAR ESPECIFICO QUE LE PASES POR PARAMETRO EL NUMERO DE HANGAR Y EL AVION A AGREGAR Y DESPUES SI SE LES OCURRE OTRA COSA HAGANLO
-* TAMBIEN HAGAN VALIDACIONES MIENTRAS HACEN ESTO ASI LO SACAN DE ENCIMA Y EXCEPCIONES DONDE NECESITEN
-*
-*
-* LUEGO SIGAN CON OTRA COSA QUE QUIERAN HACER, COMO EL CONTROL DE PISTAS, O OTRA COSA QUE SE LES OCURRA, QUE VUELE SU CREATIVIDAD PERO HAGAN COSAS QUE SIRVAN Y QUE NO SEAN MEDIO BOLUDAS ASI NO NOS TOMAMOS TANTO TIEMPO CON BOLUDECES
-*
-*
-* HAGAN TODO LO ESENCIAL PARA EL PREMBARQUE Y DESPUES AHI SI QUIEREN ARRANQUEN CON LO DE LAS TIENDAS Y DESPUES CUANDO VUELVA EMPEZAMOS A SERIALIZAR Y DESCERIALIZAR
-*
-* SEGURO USEMOS JACKSON O GSON ASI ES MAS FACIL
-*
-* */
 
 
 

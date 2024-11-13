@@ -74,6 +74,7 @@ public class SistemaCheckIn {
         try {
             if (vueloSeleccionado.agregarPasajero(pasajero)) {
                 vueloSeleccionado.ocuparAsiento(asientoSeleccionado);
+                vueloSeleccionado.setEstadoEmbarque(EstadoEmbarque.CERRADO);
                 mapaCheckIn.put(pasajero.getDni(), new CheckIn(vueloSeleccionado, asientoSeleccionado, pasajero));
                 System.out.println("**********************************************************");
                 System.out.println("Check-in realizado exitosamente para " + pasajero.getNombre() + " " + pasajero.getApellido());
@@ -169,7 +170,7 @@ public class SistemaCheckIn {
                         Vuelo vuelo = checkIn.getVuelo();
                         StringBuilder boleto = new StringBuilder();
                         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-                        vuelo.setEstadoEmbarque(EstadoEmbarque.CERRADO);
+
                         boleto.append("*********************************************************************\n");
                         boleto.append("*                         BOLETO DE AVION                           *\n");
                         boleto.append("*********************************************************************\n");

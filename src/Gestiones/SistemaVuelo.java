@@ -93,48 +93,6 @@ public class SistemaVuelo {
 
 
 
-   /* public static void generarAvionesYVuelos(int cantidadAviones) {
-        Set<Aeropuerto> aeropuertos = SistemaAeropuerto.agregarAeropuertos(); // Obtener lista de aeropuertos
-        if (aeropuertos.size() < 2) {
-            System.out.println("Se necesitan al menos dos aeropuertos para generar vuelos.");
-            return;
-        }
-
-        List<Aeropuerto> listaAeropuertos = new ArrayList<>(aeropuertos);
-        Random random = new Random();
-
-        for (int i = 0; i < cantidadAviones; i++) {
-            // Crear un avión con datos aleatorios
-            String nombre = "Boeing-" + (i + 746);
-            int capacidad = random.nextInt(150) + 50; // Capacidad entre 50 y 200 pasajeros
-            String motor = "Motor-" + (random.nextInt(10) + 1);
-            String modelo = "Modelo-" +"A"+ (random.nextInt(5) + 1);
-            String codigoAvion = UUID.randomUUID().toString().substring(0, 6).toUpperCase();
-
-            Avion avion = new Avion(nombre, capacidad, motor, modelo, codigoAvion);
-            aviones.add(avion); // Registrar el avión en la lista de aviones
-
-            // Generar un vuelo para el avión creado
-            Aeropuerto origen = listaAeropuertos.get(random.nextInt(listaAeropuertos.size()));
-            Aeropuerto destino;
-            do {
-                destino = listaAeropuertos.get(random.nextInt(listaAeropuertos.size()));
-            } while (origen.equals(destino)); // Asegurarse de que origen y destino no sean iguales
-
-            Vuelo vuelo = new Vuelo();
-            vuelo.setOrigen(origen.getNombre());
-            vuelo.setDestino(destino.getNombre());
-            vuelo.setHorario(new Date()); // Usar la fecha y hora actuales
-            vuelo.setAvion(avion); // Asignar el avión al vuelo
-            vuelo.setEstadoEmbarque(EstadoEmbarque.CERRADO);
-
-            vuelos.add(vuelo); // Registrar el vuelo en la lista de vuelos
-        }
-
-
-    }*/
-
-
     // Método para mostrar la lista de vuelos
     public static void mostrarVuelos() {
         if (vuelos.isEmpty()) {

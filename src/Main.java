@@ -1,8 +1,7 @@
 import Excepciones.*;
-import GestionAviones.Avion;
-import GestionPreEmbarque.PreEmbarque;
+import Aviones.Avion;
+import PreEmbarque.PreEmbarque;
 import Gestiones.*;
-import Personas.Empleado;
 
 import java.util.Scanner;
 

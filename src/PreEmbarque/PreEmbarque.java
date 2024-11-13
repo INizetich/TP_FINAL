@@ -1,4 +1,4 @@
-package GestionPreEmbarque;
+package PreEmbarque;
 import java.util.Random;
 
 public class PreEmbarque {

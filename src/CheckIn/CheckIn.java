@@ -1,10 +1,7 @@
-package GestionCheckIn;
+package CheckIn;
 
-import GestionAviones.Vuelo;
+import Aviones.Vuelo;
 import Personas.Pasajero;
-
-import java.util.Objects;
-import java.util.UUID;
 
 public class CheckIn {
     private Vuelo vuelo;

@@ -1,10 +1,10 @@
 package Gestiones;
 
 import Enums.EstadoEmbarque;
-import GestionAeropuerto.*;
-import GestionAviones.Avion;
-import GestionAviones.Hangar;
-import GestionAviones.Vuelo;
+import Aeropuerto.*;
+import Aviones.Avion;
+import Aviones.Hangar;
+import Aviones.Vuelo;
 
 import java.util.*;
 

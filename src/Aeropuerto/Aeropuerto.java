@@ -1,4 +1,4 @@
-package GestionAeropuerto;
+package Aeropuerto;
 
 import Enums.CodigoInternacional;
 

@@ -3,7 +3,7 @@ package Gestiones;
 
 
 import Enums.CodigoInternacional;
-import GestionAeropuerto.Aeropuerto;
+import Aeropuerto.Aeropuerto;
 
 import java.util.*;
 

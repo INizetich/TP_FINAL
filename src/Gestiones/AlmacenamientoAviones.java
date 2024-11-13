@@ -2,8 +2,8 @@ package Gestiones;
 
 import Excepciones.CodigoAvionNoExistenteException;
 import Excepciones.HangarNoExistenteException;
-import GestionAviones.Avion;
-import GestionAviones.Hangar;
+import Aviones.Avion;
+import Aviones.Hangar;
 
 import java.util.*;
 import java.util.Scanner;

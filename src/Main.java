@@ -8,6 +8,7 @@ import java.util.Scanner;
 
         public class Main {
             ///Negrito rriko
+            ///blanquito feo
 
             ///GORDO PUTO
             public static void main(String[] args) {

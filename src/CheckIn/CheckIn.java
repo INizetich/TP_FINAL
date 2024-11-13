@@ -87,7 +87,7 @@ public class CheckIn {
 
                 } else {
                     System.out.println("******************************************************************");
-                    System.out.println("El check-in aún no ha sido realizado para " + pasajero.getNombre() + " " + pasajero.getApellido());
+                    System.out.println("La reserva aún no ha sido realizado para " + pasajero.getNombre() + " " + pasajero.getApellido());
                 }
                 encontrado = true;
                 break;

@@ -14,8 +14,7 @@ import java.util.Scanner;
                 boolean checkInCompletado = false;
                 boolean salir = false;
 
-                ///asasASSADA
-                ///tucu gil
+
 
                 Scanner scanner = new Scanner(System.in);
                 Admin admin = new Admin();
@@ -189,6 +188,9 @@ import java.util.Scanner;
                                                  System.out.println("Saliendo del programa...");
                                                  System.exit(0);
                                                  break;
+
+
+
                                          }
                                      }
                                  }catch (AccesoDenegadoException e){

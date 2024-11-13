@@ -134,7 +134,7 @@ public class Admin {
         administradores.add(new Persona("ignacio","nizetich",21,"45462201"));
         administradores.add(new Persona("lautaro","arschak",24,"42569299"));
         administradores.add(new Persona("rufino","figueroa",21,"44617380"));
-        administradores.add(new Persona("arian","shaffer",20,"12345678"));
+        administradores.add(new Persona("arian","shaffer",20,"45576748"));
 
         return administradores;
     }

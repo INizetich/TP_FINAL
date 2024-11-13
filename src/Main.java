@@ -1,3 +1,4 @@
+import CheckIn.CheckIn;
 import Excepciones.*;
 import Aviones.Avion;
 import PreEmbarque.PreEmbarque;
@@ -23,7 +24,7 @@ import java.util.Scanner;
                 SistemaVuelo.generarVuelosDesdeHangares(15, almacenamientoAviones);
 
                 // Crear el sistema de check-in
-                SistemaCheckIn sistemaCheckIn = new SistemaCheckIn();
+                SistemaReserva sistemaReserva = new SistemaReserva();
 
                 // Crear el sistema de aeropuertos y registrar aeropuertos
                 SistemaAeropuerto.cargarAeropuertos();
@@ -42,35 +43,41 @@ import java.util.Scanner;
                             do {
                                 try {
                                     // Realizar el check-in del pasajero
-                                    sistemaCheckIn.realizarCheckIn();
+                                    sistemaReserva.relizarReserva();
                                 } catch (DniRegistradoException e) {
                                     System.out.println(e.getMessage());
                                 } finally {
                                     // Preguntar si desea realizar otro check-in
-                                    System.out.println("¿Desea hacer otro check-in? (s/n)");
+                                    System.out.println("¿Desea hacer otra reserva? (s: si/n: no)");
                                     opcion = scanner.nextLine().trim().toLowerCase();  // Asegurarse de usar nextLine()
                                 }
                             } while (opcion.equals("s"));
 
-                            System.out.println("Fin del proceso de check-in.");
+                            System.out.println("Fin del proceso de reservas.");
                             checkInCompletado = true;
 
                             // Bucle para consultar check-ins usando el DNI
                             do {
+                                String dni = "";
                                 try {
-                                    System.out.println("Ingrese su DNI para mostrar su información de check-in:");
-                                    String dni = scanner.nextLine().trim();
-                                    sistemaCheckIn.mostrarInformacionCheckIn(dni);
+                                    System.out.println("Ingrese su DNI para mostrar su información de reserva:");
+                                    dni = scanner.nextLine().trim();
+                                    CheckIn.mostrarReserva(dni,sistemaReserva);
                                 } catch (DniRegistradoException e) {  // Usar la excepción adecuada
                                     System.out.println(e.getMessage());
                                 } finally {
                                     // Preguntar si desea mostrar otro check-in
-                                    System.out.println("¿Desea consultar otro check-in? (s/n)");
+                                    System.out.println("¿Desea consultar su boleto de avion? (s/n)");
                                     opcion = scanner.nextLine().trim().toLowerCase();
+
+                                    if (opcion.equals("s")){
+                                        CheckIn.generarBoleto(dni,sistemaReserva);
+                                        break;
+                                    }
                                 }
                             } while (opcion.equals("s"));
 
-                            System.out.println("Fin de la consulta de check-ins.");
+                            System.out.println("Fin de la consulta de reservas.");
                             break;
                     case 2:
                         String eleccion = "";

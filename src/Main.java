@@ -14,6 +14,8 @@ import java.util.Scanner;
                 boolean checkInCompletado = false;
                 boolean salir = false;
 
+                ///asasASSADA
+
                 Scanner scanner = new Scanner(System.in);
                 Admin admin = new Admin();
                 AlmacenamientoAviones almacenamientoAviones = new AlmacenamientoAviones();

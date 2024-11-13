@@ -1,3 +1,5 @@
+import Excepciones.HangarNoExistenteException;
+import GestionAviones.Avion;
 import GestionPreEmbarque.PreEmbarque;
 import Gestiones.SistemaAeropuerto;
 import Gestiones.AlmacenamientoAviones;
@@ -74,17 +76,36 @@ import java.util.Scanner;
                             System.out.println("Fin de la consulta de check-ins.");
                             break;
                     case 2:
-                        String avion;
+                        String eleccion = "";
 
                         System.out.println("------------LISTA DE HANGARES------------");
                         almacenamientoAviones.mostrarHangares();
                         do {
-                            System.out.println("ingrese el avion a eliminar");
-                            almacenamientoAviones.eliminarAvionPorID(scanner.nextLine());
-                            System.out.println("desea eliminar otro avion?");
-                            avion = scanner.nextLine();
-                        } while (avion.equalsIgnoreCase("s"));
-                        almacenamientoAviones.mostrarHangares();
+                         System.out.println("ingrese el avion a eliminar");
+                        almacenamientoAviones.eliminarAvionPorID(scanner.nextLine());
+                          System.out.println("desea retirar otro avion?");
+                            eleccion = scanner.nextLine();
+                        } while (eleccion.equalsIgnoreCase("s"));
+
+
+
+                        try {
+                            almacenamientoAviones.mostrarHangares();
+                            Avion nuevoAvion = new Avion("Boeing 737", 200, "Motor turbofan", "Modelo B737", "AV123456");
+                            almacenamientoAviones.agregarAvionAlHangar(7, nuevoAvion);
+
+
+
+
+                        } catch (HangarNoExistenteException e) {
+                            System.out.println(e.getMessage());
+                        }
+                            System.out.println("desea ver la lista modificada? (s: si / n: no");
+                        eleccion = scanner.nextLine().trim().toLowerCase();
+                            if(eleccion.equals("s")){
+                                almacenamientoAviones.mostrarHangares();
+                            }
+
                         break;
 
                     case 3:

@@ -13,10 +13,28 @@ public class Hangar <T extends Avion>{
 
     private int numeroHangar;
     private List<T> listaAviones;
+private  final int capacidadMaxima = 7;
 
     public Hangar() {
         this.numeroHangar = 0;
         this.listaAviones = new ArrayList<T>();
+
+    }
+
+    public List<T> getListaAviones() {
+        return listaAviones;
+    }
+
+    public int getCapacidadMaxima() {
+        return capacidadMaxima;
+    }
+
+    public void setListaAviones(List<T> listaAviones) {
+        this.listaAviones = listaAviones;
+    }
+
+    public boolean estaLleno() {
+        return listaAviones.size() >= capacidadMaxima; // capacidadMaxima debe ser un atributo de Hangar
     }
 
     public Hangar(int numeroHangar) {
@@ -40,7 +58,7 @@ public class Hangar <T extends Avion>{
         this.numeroHangar = numeroHangar;
     }
 
-    public void agrearAvion(T avion) {
+    public void agregarAvion(T avion) {
         this.listaAviones.add(avion);
     }
 

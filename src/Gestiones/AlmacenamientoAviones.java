@@ -43,7 +43,7 @@ public class AlmacenamientoAviones {
 
             // Asignar el avión a un hangar aleatorio
             Hangar<Avion> hangar = listaHangares.get(random.nextInt(listaHangares.size()));
-            hangar.agrearAvion(avion);
+            hangar.agregarAvion(avion);
         }
 
     }
@@ -111,14 +111,30 @@ public class AlmacenamientoAviones {
         }
     }
 
-    /*public void agregarAvionalHangar(int numeroHangar, Avion avion) throws HangarNoExistenteException {
-        if (this.numeroHangar != numeroHangar) {
-            listaHangares.add(avion);
-            System.out.println("El Hangar seleccion" + listaHangares + "no tiene lugar");
-        }else {
-            throw new HangarNoExistenteException("El hangar seleccionado tiene lugar");
+    public void agregarAvionAlHangar(int numeroHangar, Avion avion) throws HangarNoExistenteException {
+        // Buscar el hangar por su número
+        Optional<Hangar<Avion>> hangarOpt = listaHangares.stream()
+                .filter(h -> h.getNumeroHangar() == numeroHangar)
+                .findFirst();
+
+        if (hangarOpt.isEmpty()) {
+            // Lanzar excepción si el hangar no existe
+            throw new HangarNoExistenteException("El hangar número " + numeroHangar + " no existe.");
         }
-    }*/
+
+        Hangar<Avion> hangar = hangarOpt.get();
+
+        // Verificar si el hangar tiene capacidad para más aviones
+        if (hangar.estaLleno()) {
+            System.out.println("El hangar número " + numeroHangar + " está lleno. No se puede agregar el avión.");
+            return;
+        }
+
+        // Agregar el avión al hangar
+        hangar.agregarAvion(avion);
+        System.out.println("El  " + avion.toString() + " ha sido agregado al hangar número " + numeroHangar + " exitosamente.");
+    }
+
 
 }
 

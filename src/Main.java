@@ -8,6 +8,8 @@ import java.util.Scanner;
 
         public class Main {
             //Chanchooooo
+
+            ///GORDO PUTO
             public static void main(String[] args) {
                 int opc;
                 String opcion;

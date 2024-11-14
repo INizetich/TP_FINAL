@@ -1,6 +1,7 @@
 package CheckIn;
 
 import Aviones.Vuelo;
+import Excepciones.ReservaInexistenteException;
 import Excepciones.dniNoEncontradoException;
 import Gestiones.SistemaReserva;
 import Personas.Pasajero;
@@ -96,14 +97,14 @@ public class CheckIn {
         }
 
         if (!encontrado) {
-            System.out.println("******************************************************************");
+
             throw new dniNoEncontradoException("El DNI no se encuentra dentro del sistema de reservas.");
         }
 
     }
 
 
-    public static void generarBoleto(String dni,SistemaReserva sistemaReserva){
+    public static void generarBoleto(String dni,SistemaReserva sistemaReserva) throws ReservaInexistenteException {
 
         for (CheckIn checkIn : sistemaReserva.getMapaReservas().values() ) {
             Pasajero pasajero = checkIn.getPasajero();
@@ -136,7 +137,7 @@ public class CheckIn {
                 System.out.println(boleto.toString());
 
             }else {
-                System.out.println("no hay ninguna reserva con ese numero de dni.");
+               throw new ReservaInexistenteException("el boleto de avion no tiene ningun dni asociado que haya realizado una reserva");
             }
         }
 

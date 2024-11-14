@@ -46,11 +46,19 @@ public class Main {
                         try {
                             sistemaReserva.relizarReserva();
                         } catch (DniRegistradoException e) {
-                            System.out.println(e.getMessage());
-                        } finally {
+                          e.printStackTrace();
+                        }catch (CodigoVueloInexistenteException e){
+                            e.printStackTrace();
+
+                        }catch (AsientoNoDisponibleException e) {
+                            e.printStackTrace();
+                        }finally {
                             System.out.println("¿Desea hacer otra reserva? (s: sí / n: no)");
                             opcion = scanner.nextLine().trim().toLowerCase();
                         }
+
+
+
                     } while (opcion.equals("s"));
 
                     System.out.println("Fin del proceso de reservas.");
@@ -62,16 +70,23 @@ public class Main {
                             System.out.println("Ingrese su DNI para mostrar su información de reserva:");
                             dni = scanner.nextLine().trim();
                             CheckIn.mostrarReserva(dni, sistemaReserva);
-                        } catch (DniRegistradoException e) {
-                            System.out.println(e.getMessage());
-                        } finally {
+                        } catch (dniNoEncontradoException e) {
+                            e.printStackTrace();
+                        }
+
+                        try{
                             System.out.println("¿Desea consultar su boleto de avión? (s: sí / n: no)");
                             opcion = scanner.nextLine().trim().toLowerCase();
                             if (opcion.equals("s")) {
                                 CheckIn.generarBoleto(dni, sistemaReserva);
-                                break;
                             }
+                        }catch (ReservaInexistenteException e){
+                            e.printStackTrace();
                         }
+
+                                break;
+
+
                     } while (opcion.equals("s"));
 
                     System.out.println("Fin de la consulta de reservas.");
@@ -83,8 +98,13 @@ public class Main {
                     almacenamientoAviones.mostrarHangares();
 
                     do {
-                        System.out.println("Ingrese el avión a eliminar:");
-                        almacenamientoAviones.eliminarAvionPorID(scanner.nextLine());
+                        try{
+                            System.out.println("Ingrese el avión a retirar del hangar:");
+                            almacenamientoAviones.eliminarAvionPorID(scanner.nextLine());
+                        }catch (CodigoAvionNoExistenteException e){
+                            e.printStackTrace();
+                        }
+
                         System.out.println("¿Desea retirar otro avión? (s: sí / n: no)");
                         eleccion = scanner.nextLine();
                     } while (eleccion.equalsIgnoreCase("s"));
@@ -165,10 +185,15 @@ public class Main {
 
                                             break;
                                         case 5:
-                                            System.out.print("\u001B[32m > \u001B[0m");
-                                            SistemaVuelo.mostrarVuelos();
-                                            System.out.println("Ingrese el ID de vuelo que desea asignarle un piloto");
-                                            admin.asignarPilotoAVueloPorID(scanner.nextLine());
+                                            try{
+                                                System.out.print("\u001B[32m > \u001B[0m");
+                                                SistemaVuelo.mostrarVuelos();
+                                                System.out.println("Ingrese el ID de vuelo que desea asignarle un piloto");
+                                                admin.asignarPilotoAVueloPorID(scanner.nextLine());
+                                            }catch (CodigoVueloInexistenteException e){
+                                                e.printStackTrace();
+                                            }
+
                                             break;
                                         case 6:
                                             admin.mostrarListaEmpleados();

@@ -1,6 +1,6 @@
 package Excepciones;
 
-public class CodigoAvionNoExistenteException extends RuntimeException {
+public class CodigoAvionNoExistenteException extends Exception {
     public CodigoAvionNoExistenteException(String message) {
         super(message);
     }

@@ -1,7 +1,9 @@
 package Gestiones;
 
 
+import Excepciones.AsientoNoDisponibleException;
 import Excepciones.CapacidadMaximaException;
+import Excepciones.CodigoVueloInexistenteException;
 import Excepciones.DniRegistradoException;
 import Enums.EstadoEmbarque;
 import Aviones.Vuelo;
@@ -21,10 +23,10 @@ public class SistemaReserva {
     }
 
 
-    public void relizarReserva()  {
+    public void relizarReserva() throws CodigoVueloInexistenteException, AsientoNoDisponibleException, DniRegistradoException {
         Scanner scanner = new Scanner(System.in);
 
-       SistemaVuelo.mostrarVuelos();
+        SistemaVuelo.mostrarVuelos();
 
         // Selección del vuelo
         System.out.print("Ingrese el ID del vuelo que desea abordar: ");
@@ -37,17 +39,15 @@ public class SistemaReserva {
                 .orElse(null);
 
         if (vueloSeleccionado == null) {
-            System.out.println("******************************************************************");
-            System.out.println("El ID del vuelo ingresado no se encuentra en la lista de vuelos disponibles.");
-            return;
+            throw new CodigoVueloInexistenteException("Error, código de vuelo inexistente.");
         }
 
         // Mostrar asientos disponibles
         List<String> asientosDisponibles = generarAsientosDisponibles(vueloSeleccionado);
         if (asientosDisponibles.isEmpty()) {
-            System.out.println("No hay asientos disponibles. :(");
-            return;
+            throw new AsientoNoDisponibleException("No hay asientos disponibles para este vuelo.");
         }
+
         System.out.println("******************************************************************************************************************************************************************************");
         System.out.println("Asientos disponibles: " + asientosDisponibles);
 
@@ -55,13 +55,10 @@ public class SistemaReserva {
         System.out.print("Seleccione un asiento disponible: ");
         String asientoSeleccionado = scanner.nextLine().toUpperCase();
 
+        // Comprobar si el asiento está disponible
         if (!asientosDisponibles.contains(asientoSeleccionado)) {
-            asientosDisponibles.remove(asientoSeleccionado);
-            System.out.println("El asiento seleccionado no está disponible.");
-            return;
+            throw new AsientoNoDisponibleException("El asiento seleccionado no está disponible.");
         }
-
-
 
         Pasajero pasajero = crearPasajero(asientoSeleccionado);
 
@@ -71,13 +68,14 @@ public class SistemaReserva {
                 vueloSeleccionado.setEstadoEmbarque(EstadoEmbarque.CERRADO);
                 mapaReservas.put(pasajero.getDni(), new CheckIn(vueloSeleccionado, asientoSeleccionado, pasajero));
                 System.out.println("**********************************************************");
-                System.out.println("reserva realizada exitosamente para " + pasajero.getNombre() + " " + pasajero.getApellido());
+                System.out.println("Reserva realizada exitosamente para " + pasajero.getNombre() + " " + pasajero.getApellido());
                 pasajero.setCheckIn(true);
             }
         } catch (CapacidadMaximaException e) {
             System.out.println(e.getMessage());
         }
     }
+
 
 
     private Pasajero crearPasajero(String asientoSeleccionado) throws DniRegistradoException {

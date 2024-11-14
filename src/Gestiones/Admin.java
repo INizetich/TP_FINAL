@@ -135,7 +135,7 @@ public class Admin {
     }
 
 
-    public void asignarPilotoAVueloPorID(String idVuelo) {
+    public void asignarPilotoAVueloPorID(String idVuelo) throws CodigoVueloInexistenteException {
         // Buscar vuelo por ID
         Vuelo vueloSeleccionado = SistemaVuelo.getVuelos().stream()
                 .filter(vuelo -> vuelo.getIdVuelo().equalsIgnoreCase(idVuelo))
@@ -143,8 +143,8 @@ public class Admin {
                 .orElse(null);
 
         if (vueloSeleccionado == null) {
-            System.out.println("No se encontró un vuelo con el ID proporcionado.");
-            return;
+            throw new CodigoVueloInexistenteException("Error, no existe un vuelo con ese codigo");
+
         }
 
         // Filtrar pilotos disponibles
@@ -179,7 +179,12 @@ public class Admin {
                     .orElse(null);
 
             if (pilotoSeleccionado != null) {
-                vueloSeleccionado.asignarPiloto(pilotoSeleccionado); // Asignar piloto al vuelo
+                try {
+                    vueloSeleccionado.asignarPiloto(pilotoSeleccionado);
+                }catch (NoEsPilotoException e){
+                    e.printStackTrace();
+                }
+             // Asignar piloto al vuelo
             } else {
                 System.out.println("No se encontró un piloto con el código proporcionado.");
             }

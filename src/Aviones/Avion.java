@@ -2,6 +2,7 @@ package Aviones;
 
 
 import Interfaces.IAvion;
+import Personas.Empleado;
 
 public class Avion implements IAvion {
     private String nombre;
@@ -9,6 +10,7 @@ public class Avion implements IAvion {
     private String motor;
     private String modelo;
     private String codigoAvion;
+    private Empleado empleado;
 
     public Avion(){
 
@@ -79,6 +81,19 @@ public class Avion implements IAvion {
                 ", codigoAvion='" + codigoAvion + '\'';
     }
 
+    private Empleado piloto;
+
+    public void asignarPiloto(Empleado piloto) {
+        this.piloto = piloto;
+        System.out.println("Piloto asignado al avión: " + piloto.getNombre() + " " + piloto.getApellido());
+    }
+
+    public Empleado getPiloto() {
+        return piloto;
+    }
+
+
+
     @Override
     public String despegar() {
         return " avion con codigo: " + codigoAvion+ " via libre para maniobrar sobre pista para su pronto despegue";
@@ -96,7 +111,7 @@ public class Avion implements IAvion {
 
     @Override
     public String asignarRuta(){
-        return  "Ruta asignada: " + codigoAvion+ "ruta libre para ir al destino";
+        return  "Ruta asignada al avion: " + codigoAvion+ "ruta libre para ir al destino";
     }
 
 

@@ -24,12 +24,7 @@ public class SistemaReserva {
     public void relizarReserva()  {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Lista de vuelos disponibles:");
-        SistemaVuelo.getVuelos().forEach(v -> System.out.println(
-                "ID: " + v.getIdVuelo() + " | Origen: " + v.getOrigen() +
-                        " | Destino: " + v.getDestino() + " | Avión: " + v.getAvion().getNombre() +
-                        " | Estado de embarque: " + v.getEstadoEmbarque()
-        ));
+       SistemaVuelo.mostrarVuelos();
 
         // Selección del vuelo
         System.out.print("Ingrese el ID del vuelo que desea abordar: ");

@@ -1,13 +1,13 @@
 package Personas;
 
 import Enums.TipoEmpleado;
-
-import java.util.UUID;
+import java.util.Objects;
+import java.util.Random;
 
 public class Empleado extends Persona{
     private TipoEmpleado tipoEmpleado;
-    private String codigoEmpleado;
-
+    private int NroEmpleado;
+   Random rand = new Random();
     public Empleado (){
         super();
         this.tipoEmpleado = null;
@@ -16,7 +16,7 @@ public class Empleado extends Persona{
     public Empleado (String nombre, String apellido, int edad,String dni, TipoEmpleado tipoEmpleado) {
         super(nombre, apellido, edad, dni);
         this.tipoEmpleado = tipoEmpleado;
-        this.codigoEmpleado = UUID.randomUUID().toString().substring(0, 6).toUpperCase();
+        this.NroEmpleado = rand.nextInt(0,99999);
     }
 
     public TipoEmpleado getTipoEmpleado() {
@@ -26,12 +26,19 @@ public class Empleado extends Persona{
         this.tipoEmpleado = tipoEmpleado;
     }
 
+    public int getNroEmpleado() {
+        return NroEmpleado;
+    }
+
+
 
     @Override
     public String toString() {
         return super.toString() +" ,"+
                 "tipoEmpleado=" + tipoEmpleado +
-                ", codigoEmpleado='" + codigoEmpleado + '\'' +
+                ", codigoEmpleado='" + NroEmpleado + '\'' +
                 '}';
     }
+
+
 }

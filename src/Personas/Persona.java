@@ -76,12 +76,12 @@ public class Persona implements Comparable<Persona> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Persona persona = (Persona) o;
-        return edad == persona.edad && Objects.equals(nombre, persona.nombre) && Objects.equals(apellido, persona.apellido) && Objects.equals(dni, persona.dni);
+        return Objects.equals(dni, persona.dni);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nombre, apellido, edad, dni);
+        return Objects.hashCode(dni);
     }
 
     @Override

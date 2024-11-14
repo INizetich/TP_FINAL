@@ -1,8 +1,9 @@
 package Gestiones;
 
+import Aviones.Avion;
+import Aviones.Vuelo;
 import Enums.TipoEmpleado;
-import Excepciones.AccesoDenegadoException;
-import Excepciones.EmpleadoInexistenteException;
+import Excepciones.*;
 import Personas.Empleado;
 import Personas.Persona;
 import java.util.Scanner;
@@ -84,17 +85,18 @@ public class Admin {
 
 
 
-    public void eliminarAdministradorDNI(String dni){
+    public void eliminarAdministradorDNI(String dni) throws dniNoEncontradoException {
         if (listaAdministradores.isEmpty()){
             System.out.println("no hay administradores en la lista de administradores");
         }else if (!listaAdministradores.isEmpty()) {
+
             Persona persona = listaAdministradores.stream()
                     .filter(a-> a.getDni().equalsIgnoreCase(dni))
                     .findFirst()
                     .orElse(null);
 
             if (persona == null){
-                System.out.println("la persona no existe en la lista de administradores");
+              throw new  dniNoEncontradoException("El dni no se encuentra registrado en ninguna cuenta admin.");
             }else {
                 listaAdministradores.remove(persona);
                 System.out.println("persona eliminado correctamente de la lista de administradores");
@@ -128,7 +130,67 @@ public class Admin {
 
     }
 
-///-----------------------------------------METODOS PRIVATE-----------------------------------------
+    public void cargarListaEmpleados(){
+        this.listaEmpleados = agregarPersonas();
+    }
+
+
+    public void asignarPilotoAVueloPorID(String idVuelo) {
+        // Buscar vuelo por ID
+        Vuelo vueloSeleccionado = SistemaVuelo.getVuelos().stream()
+                .filter(vuelo -> vuelo.getIdVuelo().equalsIgnoreCase(idVuelo))
+                .findFirst()
+                .orElse(null);
+
+        if (vueloSeleccionado == null) {
+            System.out.println("No se encontró un vuelo con el ID proporcionado.");
+            return;
+        }
+
+        // Filtrar pilotos disponibles
+        List<Empleado> pilotosDisponibles = new ArrayList<>();
+        for (Empleado empleado : listaEmpleados) {
+            if (empleado.getTipoEmpleado() == TipoEmpleado.PILOTO) {
+                pilotosDisponibles.add(empleado);
+            }
+        }
+
+        if (pilotosDisponibles.isEmpty()) {
+            System.out.println("No hay pilotos disponibles.");
+            return;
+        }
+
+        // Mostrar pilotos disponibles
+        System.out.println("Pilotos disponibles:");
+        for (Empleado piloto : pilotosDisponibles) {
+            System.out.println(piloto);
+        }
+
+        // Solicitar código de piloto
+        System.out.print("Ingrese el código del piloto: ");
+        if (scanner.hasNextInt()) { // Validar entrada del usuario
+            int codigoPiloto = scanner.nextInt();
+            scanner.nextLine(); // Consumir el salto de línea
+
+            // Buscar piloto por código
+            Empleado pilotoSeleccionado = pilotosDisponibles.stream()
+                    .filter(piloto -> piloto.getNroEmpleado() == codigoPiloto)
+                    .findFirst()
+                    .orElse(null);
+
+            if (pilotoSeleccionado != null) {
+                vueloSeleccionado.asignarPiloto(pilotoSeleccionado); // Asignar piloto al vuelo
+            } else {
+                System.out.println("No se encontró un piloto con el código proporcionado.");
+            }
+        } else {
+            System.out.println("Por favor, ingrese un código numérico válido.");
+            scanner.nextLine(); // Consumir entrada inválida
+        }
+    }
+
+
+    ///-----------------------------------------METODOS PRIVATE-----------------------------------------
     private static Set<Persona> agregarAdministradores(){
         Set<Persona> administradores = new HashSet<>();
         administradores.add(new Persona("ignacio","nizetich",21,"45462201"));
@@ -138,6 +200,8 @@ public class Admin {
 
         return administradores;
     }
+
+
 
     private  Persona crearCuentaAdmin(){
 
@@ -171,8 +235,24 @@ public class Admin {
     }
 
 
+//String nombre, String apellido, int edad,String dni, TipoEmpleado tipoEmpleado
 
 
+    private static Set<Empleado> agregarPersonas(){
+        Set<Empleado> personas = new HashSet<>();
+
+        personas.add(new Empleado("martin","ledesma",36,"28102912",TipoEmpleado.PILOTO));
+        personas.add(new Empleado("julian","sanchez",45,"25192182",TipoEmpleado.COPILOTO));
+        personas.add(new Empleado("martina","suarez",26,"41019285",TipoEmpleado.AZAFATA));
+        personas.add(new Empleado("santiago","valero",38,"32105812",TipoEmpleado.AZAFATA));
+        personas.add(new Empleado("julieta","canale",58,"21581057",TipoEmpleado.PILOTO));
+        personas.add(new Empleado("nahuel","pacheco",25,"46690655",TipoEmpleado.COPILOTO));
+        personas.add(new Empleado("crystal","campodonico",22,"92105375",TipoEmpleado.AZAFATA));
+        personas.add(new Empleado("micaela","ibañez",35,"31571920",TipoEmpleado.COPILOTO));
+        personas.add(new Empleado("cristian","chiliguay",49,"34581039",TipoEmpleado.PILOTO));
+
+        return personas;
+    }
 
 
 }

@@ -94,14 +94,16 @@ public class SistemaVuelo {
 
 
     // Método para mostrar la lista de vuelos
-    public static void mostrarVuelos() {
-        if (vuelos.isEmpty()) {
-            System.out.println("No hay vuelos registrados.");
-        } else {
-            System.out.println("LISTA DE VUELOS:");
-            vuelos.forEach(System.out::println);
-        }
+    public static void mostrarVuelos(){
+        System.out.println("Lista de vuelos disponibles:");
+        SistemaVuelo.getVuelos().forEach(v -> System.out.println(
+                "ID: " + v.getIdVuelo() + " | Origen: " + v.getOrigen() +
+                        " | Destino: " + v.getDestino() + " | Avión: " + v.getAvion().getNombre() +
+                        " | Estado de embarque: " + v.getEstadoEmbarque()
+        ));
+
     }
+
 
     // Método para eliminar un vuelo por ID
     public static void eliminarVuelo(String idVuelo) {

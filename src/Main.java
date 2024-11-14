@@ -154,10 +154,15 @@ public class Main {
                                             }
                                             break;
                                         case 4:
-                                            System.out.print("\u001B[32m > \u001B[0m");
-                                            System.out.println("ingrese el dni de la persona a eliminar de la lista de administradores");
-                                            String dniAdmin = scanner.nextLine().trim();
-                                            admin.eliminarAdministradorDNI(dniAdmin);
+                                            try{
+                                                System.out.print("\u001B[32m > \u001B[0m");
+                                                System.out.println("ingrese el dni de la persona a eliminar de la lista de administradores");
+                                                String dniAdmin = scanner.nextLine().trim();
+                                                admin.eliminarAdministradorDNI(dniAdmin);
+                                            }catch (dniNoEncontradoException e){
+                                                e.printStackTrace();
+                                            }
+
                                             break;
                                         case 5:
                                             System.out.print("\u001B[32m > \u001B[0m");

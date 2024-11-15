@@ -2,6 +2,8 @@ package Aeropuerto;
 
 import Enums.CodigoInternacional;
 
+import java.util.HashMap;
+
 public class Aeropuerto {
     private String nombre;
     private String direccion;
@@ -11,12 +13,14 @@ public class Aeropuerto {
         this.nombre = "";
         this.direccion = "";
         this.Codigo = null;
+
     }
 
     public Aeropuerto(String nombre, String direccion, CodigoInternacional codigo) {
         this.nombre = nombre;
         this.direccion = direccion;
         this.Codigo = codigo;
+
     }
 
     public String getNombre() {

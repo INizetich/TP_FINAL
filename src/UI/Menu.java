@@ -1,4 +1,4 @@
-package GUI;
+package UI;
 
 import Aviones.Avion;
 import CheckIn.CheckIn;
@@ -14,7 +14,7 @@ public class Menu {
 
     public static void Menu(){
         int opc;
-        String opcion;
+        String opcionString;
         boolean checkInCompletado = false;
         boolean salir = false;
         Scanner scanner = new Scanner(System.in);
@@ -35,12 +35,29 @@ public class Menu {
         SistemaAeropuerto.cargarAeropuertos();
 
         while (!salir) {
-            System.out.println("Elija una opción:");
-            System.out.println("1. Check-in");
-            System.out.println("2. Sistema de hangares");
-            System.out.println("3. Verificar seguridad");
-            System.out.println("4. Sistema de administración");
-            System.out.println("5. Salir");
+            System.out.print("************************************************************\n");
+            System.out.print("*       Bienvenido al Aeropuerto de la Programación         *\n");
+            System.out.print("************************************************************\n");
+            System.out.print("*                       MENÚ PRINCIPAL                      *\n");
+            System.out.print("************************************************************\n");
+            System.out.print("*                                                           *\n");
+            System.out.print("*  1. Sistema Reserva                                       *\n");
+            System.out.print("*  2. Check-In                                              *\n");
+            System.out.print("*  3. Gestion Administrador                                 *\n");
+            System.out.print("*  4. Información de Vuelos                                 *\n");
+            System.out.print("*  5. Servicios de Comida y Bebida                          *\n");
+            System.out.print("*  6. Zona de Descanso                                      *\n");
+            System.out.print("*  7. Verificar Seguridad                                   *\n");
+            System.out.print("*  8. Salir                                                 *\n");
+            System.out.print("*                                                           *\n");
+            System.out.print("************************************************************\n");
+            System.out.print("*                        __|__                             *\n");
+            System.out.print("*                 --@--@--(_)--@--@--                      *\n");
+            System.out.print("************************************************************\n");
+            System.out.print("Por favor, elige una opción: ");
+
+
+
             opc = scanner.nextInt();
             scanner.nextLine();
 
@@ -58,12 +75,12 @@ public class Menu {
                             e.printStackTrace();
                         }finally {
                             System.out.println("¿Desea hacer otra reserva? (s: sí / n: no)");
-                            opcion = scanner.nextLine().trim().toLowerCase();
+                            opcionString = scanner.nextLine().trim().toLowerCase();
                         }
 
 
 
-                    } while (opcion.equals("s"));
+                    } while (opcionString.equals("s"));
 
                     System.out.println("Fin del proceso de reservas.");
                     checkInCompletado = true;
@@ -80,8 +97,8 @@ public class Menu {
 
                         try{
                             System.out.println("¿Desea consultar su boleto de avión? (s: sí / n: no)");
-                            opcion = scanner.nextLine().trim().toLowerCase();
-                            if (opcion.equals("s")) {
+                            opcionString = scanner.nextLine().trim().toLowerCase();
+                            if (opcionString.equals("s")) {
                                 CheckIn.generarBoleto(dni, sistemaReserva);
                             }
                         }catch (ReservaInexistenteException e){
@@ -91,7 +108,7 @@ public class Menu {
                         break;
 
 
-                    } while (opcion.equals("s"));
+                    } while (opcionString.equals("s"));
 
                     System.out.println("Fin de la consulta de reservas.");
                     break;

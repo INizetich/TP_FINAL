@@ -23,7 +23,7 @@ public class SistemaReserva {
     }
 
 
-    public void relizarReserva() throws CodigoVueloInexistenteException, AsientoNoDisponibleException, DniRegistradoException {
+    public void realizarReserva() throws CodigoVueloInexistenteException, AsientoNoDisponibleException, DniRegistradoException {
         Scanner scanner = new Scanner(System.in);
 
         SistemaVuelo.mostrarVuelos();

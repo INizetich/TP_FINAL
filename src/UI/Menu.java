@@ -13,6 +13,8 @@ public class Menu {
 
 
     public static void Menu(){
+        ///VARIABLES PARA VALIDACIONES
+
         int opc;
         String opcionString;
         boolean checkInCompletado = false;
@@ -41,14 +43,14 @@ public class Menu {
             System.out.print("*                       MENÚ PRINCIPAL                      *\n");
             System.out.print("************************************************************\n");
             System.out.print("*                                                           *\n");
-            System.out.print("*  1. Sistema Reserva                                       *\n");
-            System.out.print("*  2. Check-In                                              *\n");
-            System.out.print("*  3. Gestion Administrador                                 *\n");
-            System.out.print("*  4. Información de Vuelos                                 *\n");
-            System.out.print("*  5. Servicios de Comida y Bebida                          *\n");
-            System.out.print("*  6. Zona de Descanso                                      *\n");
-            System.out.print("*  7. Verificar Seguridad                                   *\n");
-            System.out.print("*  8. Salir                                                 *\n");
+            System.out.print("*  1. Sistema Reserva/Check-In                              *\n");
+            System.out.print("*  2. Gestion Administrador                                 *\n");
+            System.out.print("*  3. Información de Vuelos                                 *\n");
+            System.out.print("*  4. Servicios de Comida y Bebidas                         *\n");
+            System.out.print("*  5. Zona de Descanso                                      *\n");
+            System.out.print("*  6. Verificar Seguridad                                   *\n");
+            System.out.print("*  7. Salir                                                 *\n");
+            System.out.print("*                                                           *\n");
             System.out.print("*                                                           *\n");
             System.out.print("************************************************************\n");
             System.out.print("*                        __|__                             *\n");
@@ -63,54 +65,87 @@ public class Menu {
 
             switch (opc) {
                 case 1:
-                    do {
-                        try {
-                            sistemaReserva.relizarReserva();
-                        } catch (DniRegistradoException e) {
-                            e.printStackTrace();
-                        }catch (CodigoVueloInexistenteException e){
-                            e.printStackTrace();
 
-                        }catch (AsientoNoDisponibleException e) {
-                            e.printStackTrace();
-                        }finally {
-                            System.out.println("¿Desea hacer otra reserva? (s: sí / n: no)");
-                            opcionString = scanner.nextLine().trim().toLowerCase();
-                        }
+                    System.out.println("BIENVENIDO AL SISTEMA DE RESERVA!");
+                    System.out.println("Por favor. elija una opcion:");
+                    System.out.println("1.realizar una reserva en un vuelo");
+                    System.out.println("2.mostrar una reserva asociada al pasajero");
+                    System.out.println("3.generar boleto de avion");
+                    int opcionReserva = scanner.nextInt();
+                    scanner.nextLine();
+
+                    switch (opcionReserva) {
+                        case 1:
+                            do {
+                                try {
+                                    sistemaReserva.realizarReserva();
+                                } catch (DniRegistradoException e) {
+                                    e.printStackTrace();
+                                } catch (CodigoVueloInexistenteException e) {
+                                    e.printStackTrace();
+
+                                } catch (AsientoNoDisponibleException e) {
+                                    e.printStackTrace();
+                                } finally {
+                                    System.out.println("¿Desea hacer otra reserva? (s: sí / n: no)");
+                                    opcionString = scanner.nextLine().trim().toLowerCase();
+                                }
+                            } while (opcionString.equals("s"));
+                            System.out.println("Fin del proceso de reservas.");
+                            checkInCompletado = true;
+                            break;
 
 
+                        case 2:
+                            String opcionConsulta = "";
+                            String dni = "";
+                            do {
 
-                    } while (opcionString.equals("s"));
+                                try {
+                                    System.out.println("Ingrese su DNI para mostrar su información de reserva:");
+                                    dni = scanner.nextLine().trim();
+                                    CheckIn.mostrarReserva(dni, sistemaReserva);
+                                    System.out.println("desea consultar otra reserva? (s: si/ n: no");
+                                    opcionConsulta = scanner.nextLine().trim().toLowerCase();
+                                } catch (dniNoEncontradoException e) {
+                                    e.printStackTrace();
+                                }
+                            } while (opcionConsulta.equals("s"));
 
-                    System.out.println("Fin del proceso de reservas.");
-                    checkInCompletado = true;
+                            break;
 
-                    do {
-                        String dni = "";
-                        try {
-                            System.out.println("Ingrese su DNI para mostrar su información de reserva:");
-                            dni = scanner.nextLine().trim();
-                            CheckIn.mostrarReserva(dni, sistemaReserva);
-                        } catch (dniNoEncontradoException e) {
-                            e.printStackTrace();
-                        }
 
-                        try{
-                            System.out.println("¿Desea consultar su boleto de avión? (s: sí / n: no)");
-                            opcionString = scanner.nextLine().trim().toLowerCase();
-                            if (opcionString.equals("s")) {
-                                CheckIn.generarBoleto(dni, sistemaReserva);
+                        case 3:
+                            String nroDni = "";
+                            try {
+
+                                System.out.println("¿Desea consultar su boleto de avión? (s: sí / n: no)");
+                                opcionString = scanner.nextLine().trim().toLowerCase();
+                                if (opcionString.equals("s")) {
+                                    System.out.println("Ingrese su numero de DNI");
+                                     nroDni = scanner.nextLine().trim();
+                                    CheckIn.generarBoleto(nroDni, sistemaReserva);
+                                }
+                                System.out.println("desea generar otro boleto de avion? (s: si/ n: no");
+                                String generarBoleto = scanner.nextLine().trim().toLowerCase();
+
+                                if (generarBoleto.equals("s")) {
+                                    System.out.println("Ingrese su numero de DNI");
+                                    nroDni = scanner.nextLine().trim();
+                                    CheckIn.generarBoleto(nroDni, sistemaReserva);
+                                }
+                            } catch (ReservaInexistenteException e) {
+                                e.printStackTrace();
                             }
-                        }catch (ReservaInexistenteException e){
-                            e.printStackTrace();
-                        }
 
-                        break;
+                            break;
 
 
-                    } while (opcionString.equals("s"));
+                    }
 
-                    System.out.println("Fin de la consulta de reservas.");
+
+
+
                     break;
 
                 case 2:

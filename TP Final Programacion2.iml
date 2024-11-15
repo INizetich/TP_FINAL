@@ -7,6 +7,21 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="json-20240303" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/lib/jackson-annotations-2.18.1-javadoc.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jackson-core-2.18.1-javadoc.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jackson-databind-2.18.1-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/src" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="library" name="Librerias" level="project" />
   </component>
 </module>

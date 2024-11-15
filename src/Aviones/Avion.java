@@ -1,15 +1,24 @@
 package Aviones;
 
 
+import Enums.TipoEmpleado;
+import Excepciones.NoEsPilotoException;
 import Interfaces.IAvion;
 import Personas.Empleado;
 
+
 public class Avion implements IAvion {
+
     private String nombre;
+
     private int capacidadAvion;
+
     private String motor;
+
     private String modelo;
+
     private String codigoAvion;
+
     private Empleado empleado;
 
     public Avion(){
@@ -59,6 +68,10 @@ public class Avion implements IAvion {
         return motor;
     }
 
+    public void setPiloto(Empleado piloto) {
+        this.empleado = piloto;
+    }
+
     public void setMotor(String motor) {
         this.motor = motor;
     }
@@ -71,25 +84,31 @@ public class Avion implements IAvion {
         this.modelo = modelo;
     }
 
+
     @Override
     public String toString() {
-        return "Avion: " +
+        return "Avion{" +
                 "nombre='" + nombre + '\'' +
                 ", capacidadAvion=" + capacidadAvion +
                 ", motor='" + motor + '\'' +
                 ", modelo='" + modelo + '\'' +
-                ", codigoAvion='" + codigoAvion + '\'';
+                ", codigoAvion='" + codigoAvion + '\'' +
+                ", Piloto=" + empleado +
+                '}';
     }
 
-    private Empleado piloto;
+    public void asignarPiloto(Empleado piloto) throws NoEsPilotoException {
+        this.empleado = piloto;
 
-    public void asignarPiloto(Empleado piloto) {
-        this.piloto = piloto;
-        System.out.println("Piloto asignado al avión: " + piloto.getNombre() + " " + piloto.getApellido());
+
+        if (piloto.getTipoEmpleado()!= TipoEmpleado.PILOTO) {
+            throw new NoEsPilotoException("la persona elegida no es piloto");
+
+        }
     }
 
     public Empleado getPiloto() {
-        return piloto;
+        return empleado;
     }
 
 

@@ -1,35 +1,45 @@
 package UI;
 
+import Aeropuerto.Aeropuerto;
 import Aviones.Avion;
 import CheckIn.CheckIn;
 import Excepciones.*;
 import Gestiones.*;
+import JSON.GestionJSON;
+import Personas.Empleado;
 import PreEmbarque.PreEmbarque;
 
+import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Menu {
 
 
 
-    public static void Menu(){
+    public static void Menu() throws InterruptedException, IOException {
         ///VARIABLES PARA VALIDACIONES
-
         int opc;
         String opcionString;
         boolean checkInCompletado = false;
         boolean salir = false;
         Scanner scanner = new Scanner(System.in);
-
+        ///INSTANCIA DE CLASES
         Admin admin = new Admin();
+        Aeropuerto aeropuerto = new Aeropuerto();
         admin.cargarListaEmpleados();
         AlmacenamientoAviones almacenamientoAviones = new AlmacenamientoAviones();
         almacenamientoAviones.generarHangares(7);
-        almacenamientoAviones.generarAviones(30);
+
+
+        almacenamientoAviones.generarAviones(30,admin.getListaEmpleados());
+
 
         // CREACIÓN DE VUELOS DE MANERA AUTOMÁTICA
         SistemaVuelo.generarVuelosDesdeHangares(15, almacenamientoAviones);
-
+       // almacenamientoAviones.mostrarHangares();
+        aeropuerto.cargarHangaresAeropuerto(admin.getListaEmpleados());
         // Crear el sistema de check-in
         SistemaReserva sistemaReserva = new SistemaReserva();
 
@@ -70,7 +80,8 @@ public class Menu {
                     System.out.println("Por favor. elija una opcion:");
                     System.out.println("1.realizar una reserva en un vuelo");
                     System.out.println("2.mostrar una reserva asociada al pasajero");
-                    System.out.println("3.generar boleto de avion");
+                    System.out.println("3.mostrar conexion del vuelo");
+                    System.out.println("4.generar boleto de avion");
                     int opcionReserva = scanner.nextInt();
                     scanner.nextLine();
 
@@ -116,6 +127,11 @@ public class Menu {
 
 
                         case 3:
+                           ConexionAeropuerto.mostrarConexiones();
+
+                            break;
+
+                        case 4:
                             String nroDni = "";
                             try {
 
@@ -123,7 +139,7 @@ public class Menu {
                                 opcionString = scanner.nextLine().trim().toLowerCase();
                                 if (opcionString.equals("s")) {
                                     System.out.println("Ingrese su numero de DNI");
-                                     nroDni = scanner.nextLine().trim();
+                                    nroDni = scanner.nextLine().trim();
                                     CheckIn.generarBoleto(nroDni, sistemaReserva);
                                 }
                                 System.out.println("desea generar otro boleto de avion? (s: si/ n: no");
@@ -137,8 +153,8 @@ public class Menu {
                             } catch (ReservaInexistenteException e) {
                                 e.printStackTrace();
                             }
-
                             break;
+
 
 
                     }
@@ -149,60 +165,22 @@ public class Menu {
                     break;
 
                 case 2:
-                    String eleccion;
-                    System.out.println("------------LISTA DE HANGARES------------");
-                    almacenamientoAviones.mostrarHangares();
 
-                    do {
-                        try{
-                            System.out.println("Ingrese el avión a retirar del hangar:");
-                            almacenamientoAviones.eliminarAvionPorID(scanner.nextLine());
-                        }catch (CodigoAvionNoExistenteException e){
-                            e.printStackTrace();
-                        }
-
-                        System.out.println("¿Desea retirar otro avión? (s: sí / n: no)");
-                        eleccion = scanner.nextLine();
-                    } while (eleccion.equalsIgnoreCase("s"));
-
-                    try {
-                        almacenamientoAviones.mostrarHangares();
-                        Avion nuevoAvion = new Avion("Boeing 737", 200, "Motor turbofan", "Modelo B737", "AV123456");
-                        almacenamientoAviones.agregarAvionAlHangar(7, nuevoAvion);
-                    } catch (HangarNoExistenteException e) {
-                        System.out.println(e.getMessage());
-                    }
-
-                    System.out.println("¿Desea ver la lista modificada? (s: sí / n: no)");
-                    eleccion = scanner.nextLine().trim().toLowerCase();
-                    if (eleccion.equals("s")) {
-                        almacenamientoAviones.mostrarHangares();
-                    }
-                    break;
-
-                case 3:
-                    PreEmbarque embarque = new PreEmbarque();
-                    if (checkInCompletado) {
-                        embarque.verificarSeguridad();
-                    } else {
-                        System.out.println("Primero debe completar el check-in.");
-                    }
-                    break;
-
-                case 4:
                     int opcionAdmin = 0;
                     System.out.println("\u001B[32mIngrese su dni para loguearte\u001B[0m");
                     String loguin = scanner.nextLine().trim();
                     do {
                         try {
                             if (admin.comprobarLogin(loguin)) {
+                                System.out.println("\u001B[32mACCESSO GARANTIZADO\u001B[0m");
+                                Thread.sleep(250);
                                 System.out.println("\u001B[31m----------------------BIENVENIDO AL SISTEMA DE ADMINISTRADOR----------------------\u001B[0m");
                                 do {
                                     System.out.println("\u001B[31m1.\u001B[0m Dar privilegios de administrador a una persona");
                                     System.out.println("\u001B[31m2.\u001B[0m Agregar una persona a la lista de personal");
                                     System.out.println("\u001B[31m3.\u001B[0m Eliminar una persona de la lista de personal por DNI");
                                     System.out.println("\u001B[31m4.\u001B[0m Eliminar una persona de los privilegios de administrador por DNI");
-                                    System.out.println("\u001B[31m5.\u001B[0m Asignar piloto a un vuelo");
+                                    System.out.println("\u001B[31m5.\u001B[0m Asignar piloto a un avion");
                                     System.out.println("\u001B[31m6.\u001B[0m Mostrar la lista de administradores");
                                     System.out.println("\u001B[31m7.\u001B[0m Mostrar la lista de empleados");
                                     System.out.println("\u001B[31m8.\u001B[0m Cerrar sesión");
@@ -243,9 +221,9 @@ public class Menu {
                                         case 5:
                                             try{
                                                 System.out.print("\u001B[32m > \u001B[0m");
-                                                SistemaVuelo.mostrarVuelos();
-                                                System.out.println("Ingrese el ID de vuelo que desea asignarle un piloto");
-                                                admin.asignarPilotoAVueloPorID(scanner.nextLine());
+                                                almacenamientoAviones.mostrarHangares();
+                                                System.out.println("Ingrese el codigo de avion que desea asignarle un piloto");
+                                                admin.asignarPilotoAvionPorID(scanner.nextLine(),almacenamientoAviones);
                                             }catch (CodigoVueloInexistenteException e){
                                                 e.printStackTrace();
                                             }
@@ -279,14 +257,74 @@ public class Menu {
                         }
                         break;
                     } while (opcionAdmin < 8); // Sale del ciclo si la opción es 8 (Cerrar sesión)
+                    /*String eleccion;
+                    System.out.println("------------LISTA DE HANGARES------------");
+                    almacenamientoAviones.mostrarHangares();
+
+                    do {
+                        try{
+                            System.out.println("Ingrese el avión a retirar del hangar:");
+                            almacenamientoAviones.eliminarAvionPorID(scanner.nextLine());
+                        }catch (CodigoAvionNoExistenteException e){
+                            e.printStackTrace();
+                        }
+
+                        System.out.println("¿Desea retirar otro avión? (s: sí / n: no)");
+                        eleccion = scanner.nextLine();
+                    } while (eleccion.equalsIgnoreCase("s"));
+
+                    try {
+                        almacenamientoAviones.mostrarHangares();
+                        Avion nuevoAvion = new Avion("Boeing 737", 200, "Motor turbofan", "Modelo B737", "AV123456");
+                        almacenamientoAviones.agregarAvionAlHangar(7, nuevoAvion);
+                    } catch (HangarNoExistenteException e) {
+                        System.out.println(e.getMessage());
+                    }
+
+                    System.out.println("¿Desea ver la lista modificada? (s: sí / n: no)");
+                    eleccion = scanner.nextLine().trim().toLowerCase();
+                    if (eleccion.equals("s")) {
+                        almacenamientoAviones.mostrarHangares();
+                    }
+                    break;
+
+                case 3:
+                    PreEmbarque embarque = new PreEmbarque();
+                    if (checkInCompletado) {
+                        embarque.verificarSeguridad();
+                    } else {
+                        System.out.println("Primero debe completar el check-in.");
+                    }*/
+                    break;
+
+                case 4:
+
                     break;
 
 
 
                 case 5:
-                    System.out.println("Saliendo del programa...");
+
+
+                    // Lógica para cerrar sesión y serializar los datos
+                    System.out.println("Cerrando sesión...");
+                    System.out.println("Guardando datos...");
+
+                    // Serializar los objetos utilizando Jackson
+                    Set<Aeropuerto> aeropuertos = SistemaAeropuerto.getListaAeropuertos();
+                    GestionJSON.serializarSet(aeropuertos, "aeropuertos.json");
+
+                    List<Avion> aviones = almacenamientoAviones.obtenerAvionesDeTodosLosHangares();
+                    GestionJSON.serializarLista(aviones, "aviones.json");
+
+                    Set<Empleado> empleados = admin.getListaEmpleados();
+                    GestionJSON.serializarSet(empleados, "empleados.json");
+
+                    // Aquí puedes serializar otros objetos adicionales si lo deseas
+
                     salir = true;
                     break;
+
 
                 default:
                     System.out.println("Opción inválida. Por favor, elija nuevamente.");

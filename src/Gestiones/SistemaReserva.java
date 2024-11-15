@@ -1,14 +1,11 @@
 package Gestiones;
 
-
-import Excepciones.AsientoNoDisponibleException;
-import Excepciones.CapacidadMaximaException;
-import Excepciones.CodigoVueloInexistenteException;
-import Excepciones.DniRegistradoException;
+import Excepciones.*;
 import Enums.EstadoEmbarque;
 import Aviones.Vuelo;
 import CheckIn.CheckIn;
 import Personas.Pasajero;
+import Pertenencias.Valija;
 
 import java.util.*;
 import java.util.Scanner;
@@ -16,12 +13,9 @@ import java.util.Scanner;
 public class SistemaReserva {
     private final Map<String, CheckIn> mapaReservas; // UUID como clave, CheckIn como valor
 
-
     public SistemaReserva() {
-
         this.mapaReservas = new HashMap<>();
     }
-
 
     public void realizarReserva() throws CodigoVueloInexistenteException, AsientoNoDisponibleException, DniRegistradoException {
         Scanner scanner = new Scanner(System.in);
@@ -67,6 +61,11 @@ public class SistemaReserva {
                 vueloSeleccionado.ocuparAsiento(asientoSeleccionado);
                 vueloSeleccionado.setEstadoEmbarque(EstadoEmbarque.CERRADO);
                 mapaReservas.put(pasajero.getDni(), new CheckIn(vueloSeleccionado, asientoSeleccionado, pasajero));
+
+                // **Registrar la conexión entre aeropuertos**
+                ConexionAeropuerto conexionAeropuerto = new ConexionAeropuerto();
+                conexionAeropuerto.registrarConexion(vueloSeleccionado.getOrigen(), vueloSeleccionado.getDestino(), vueloSeleccionado.getIdVuelo());
+
                 System.out.println("**********************************************************");
                 System.out.println("Reserva realizada exitosamente para " + pasajero.getNombre() + " " + pasajero.getApellido());
                 pasajero.setCheckIn(true);
@@ -76,23 +75,23 @@ public class SistemaReserva {
         }
     }
 
-
-
-    private Pasajero crearPasajero(String asientoSeleccionado) throws DniRegistradoException {
+    private Pasajero crearPasajero(String asientoSeleccionado) throws DniRegistradoException, DatosInvalidoValijaException {
         String eleccion;
         String nombre;
         String apellido;
         int edad;
         String dni;
-        int cantidadEquipaje;
+        double tarifaExtra = 0.0;
+        List<Valija> valijas = new ArrayList<>();
+        Scanner scanner = new Scanner(System.in);
+
         do {
-            Scanner scanner = new Scanner(System.in);
             System.out.println("*******************************");
             System.out.println("Ingrese los datos del pasajero:");
             System.out.print("Nombre: ");
             nombre = scanner.nextLine();
             System.out.print("Apellido: ");
-             apellido = scanner.nextLine();
+            apellido = scanner.nextLine();
             System.out.print("Edad: ");
             edad = scanner.nextInt();
             scanner.nextLine();
@@ -105,23 +104,60 @@ public class SistemaReserva {
                 }
             } while (dni.length() != 8);
 
-
-
             // Verificar si el DNI ya está asociado a un check-in
             if (mapaReservas.containsKey(dni)) {
                 throw new DniRegistradoException("El DNI " + dni + " ya está asociado a una reserva");
             }
-            System.out.print("Cuanto equipaje desea llevar?: ");
-            cantidadEquipaje = scanner.nextInt();
+
+            System.out.print("¿Cuántas valijas llevará? ");
+            int cantidadEquipaje = scanner.nextInt();
             scanner.nextLine();
+
+
+            // Cobro por valijas adicionales
+            if (cantidadEquipaje > 2) {
+                tarifaExtra += (cantidadEquipaje - 2) * 50; // Cobro extra por cada valija adicional
+                System.out.println("Se aplicará un cargo adicional de $" + (cantidadEquipaje - 2) * 50 + "USD por valijas adicionales.");
+            }
+
+            // Recolectar detalles de cada valija
+            for (int i = 1; i <= cantidadEquipaje; i++) {
+                System.out.println("Ingrese los datos de la valija " + i + ":");
+                System.out.print("Dimensión: ");
+                String dimension = scanner.nextLine();
+
+                if (dimension.isEmpty()){
+                    throw new DatosInvalidoValijaException("la dimension de la valija no puede estar vacia");
+                }
+                System.out.print("Peso (en kg): ");
+                double peso = scanner.nextDouble();
+                scanner.nextLine();
+
+                // Cobro por peso extra
+                if (peso > 25) {
+                    tarifaExtra += (peso - 25) * 10; // Cobro extra por cada kg adicional
+                    System.out.println("Se aplicará un cargo adicional de $" + (peso - 25) * 10 + "USD por peso extra en la valija " + i + ".");
+                }else if (peso <= 0){
+                    throw new DatosInvalidoValijaException("el peso de la valija debe ser mayor a 0");
+                }
+
+                valijas.add(new Valija(dimension, peso));
+            }
+
             System.out.println("*********************************");
-            System.out.println("Desea editar su informacion? s/n");
-          eleccion = scanner.next().trim().toLowerCase() + "";
+            System.out.println("¿Desea editar su información? (s/n)");
+            eleccion = scanner.nextLine().trim().toLowerCase();
+        } while (eleccion.equals("s"));
 
-        }while (eleccion.equals("s"));
+        // Mostrar tarifa total
+        if (tarifaExtra > 0) {
+            System.out.println("Tarifa adicional total por equipaje: $" + tarifaExtra);
+        }
 
-        return new Pasajero(nombre, apellido, edad, dni, cantidadEquipaje,asientoSeleccionado);
+        // Crear el pasajero con la primera valija (si la lógica lo requiere)
+        Valija valijaPrincipal = valijas.isEmpty() ? null : valijas.get(0);
 
+        return new Pasajero(nombre, apellido, edad, dni, valijaPrincipal, asientoSeleccionado);
     }
 
     private List<String> generarAsientosDisponibles(Vuelo vuelo) {
@@ -146,11 +182,9 @@ public class SistemaReserva {
         return asientosDisponibles;
     }
 
-
     public void mostrarMap() {
         mapaReservas.forEach((key, value) -> System.out.println("Código: " + key + " -> " + value));
     }
-
 
     public Map<String, CheckIn> getMapaReservas() {
         return mapaReservas;

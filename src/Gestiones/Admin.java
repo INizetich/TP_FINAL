@@ -1,6 +1,7 @@
 package Gestiones;
 
 import Aviones.Avion;
+import Aviones.Hangar;
 import Aviones.Vuelo;
 import Enums.TipoEmpleado;
 import Excepciones.*;
@@ -17,11 +18,29 @@ public class Admin {
     private  Set<Persona> listaAdministradores;
     private  Set<Empleado> listaEmpleados;
 
+
     public Admin() {
         this.listaAdministradores = agregarAdministradores();
         this.listaEmpleados = new HashSet<>();
+
     }
 
+
+    public Set<Empleado> getListaEmpleados() {
+        return listaEmpleados;
+    }
+
+    public void setListaEmpleados(Set<Empleado> listaEmpleados) {
+        this.listaEmpleados = listaEmpleados;
+    }
+
+    public Set<Persona> getListaAdministradores() {
+        return listaAdministradores;
+    }
+
+    public void setListaAdministradores(Set<Persona> listaAdministradores) {
+        this.listaAdministradores = listaAdministradores;
+    }
 
     public  void agregarPersonal(){
         Empleado empleado = crearEmpleado();
@@ -135,16 +154,22 @@ public class Admin {
     }
 
 
-    public void asignarPilotoAVueloPorID(String idVuelo) throws CodigoVueloInexistenteException {
-        // Buscar vuelo por ID
-        Vuelo vueloSeleccionado = SistemaVuelo.getVuelos().stream()
-                .filter(vuelo -> vuelo.getIdVuelo().equalsIgnoreCase(idVuelo))
-                .findFirst()
-                .orElse(null);
+    public void asignarPilotoAvionPorID(String codigoAvion,AlmacenamientoAviones almacenamientoAviones) throws CodigoVueloInexistenteException {
+        // Buscar avión por código dentro de los hangares
+        Avion avionSeleccionado = null;
+        for (Hangar<Avion> hangar : almacenamientoAviones.getListaHangares()) {
+            avionSeleccionado = hangar.ObtenerListaAviones().stream()
+                    .filter(avion -> avion.getCodigoAvion().equalsIgnoreCase(codigoAvion))
+                    .findFirst()
+                    .orElse(null);
 
-        if (vueloSeleccionado == null) {
-            throw new CodigoVueloInexistenteException("Error, no existe un vuelo con ese codigo");
+            if (avionSeleccionado != null) {
+                break; // Salir del ciclo una vez que el avión ha sido encontrado
+            }
+        }
 
+        if (avionSeleccionado == null) {
+            throw new CodigoVueloInexistenteException("Error, no existe un avión con ese código.");
         }
 
         // Filtrar pilotos disponibles
@@ -180,11 +205,11 @@ public class Admin {
 
             if (pilotoSeleccionado != null) {
                 try {
-                    vueloSeleccionado.asignarPiloto(pilotoSeleccionado);
-                }catch (NoEsPilotoException e){
+                    avionSeleccionado.asignarPiloto(pilotoSeleccionado);
+                    System.out.println("Piloto asignado exitosamente al avión.");
+                } catch (NoEsPilotoException e) {
                     e.printStackTrace();
                 }
-             // Asignar piloto al vuelo
             } else {
                 System.out.println("No se encontró un piloto con el código proporcionado.");
             }
@@ -193,6 +218,10 @@ public class Admin {
             scanner.nextLine(); // Consumir entrada inválida
         }
     }
+
+
+
+
 
 
     ///-----------------------------------------METODOS PRIVATE-----------------------------------------
@@ -255,6 +284,20 @@ public class Admin {
         personas.add(new Empleado("crystal","campodonico",22,"92105375",TipoEmpleado.AZAFATA));
         personas.add(new Empleado("micaela","ibañez",35,"31571920",TipoEmpleado.COPILOTO));
         personas.add(new Empleado("cristian","chiliguay",49,"34581039",TipoEmpleado.PILOTO));
+        personas.add(new Empleado("rodolfo","rodriguez",65,"59104958",TipoEmpleado.PILOTO));
+        personas.add(new Empleado("gabriel","ruiz",43,"28454151",TipoEmpleado.PILOTO));
+        personas.add(new Empleado("jose","calvo",35,"30195815",TipoEmpleado.COPILOTO));
+        personas.add(new Empleado("valentina","martinez",25,"41958571",TipoEmpleado.AZAFATA));
+        personas.add(new Empleado("lucila","fernandez",47,"25317232",TipoEmpleado.AZAFATA));
+        personas.add(new Empleado("sasha","rodiguez",22,"44591481",TipoEmpleado.AZAFATA));
+        personas.add(new Empleado("ignacio","nizetich",21,"45462201",TipoEmpleado.COPILOTO));
+        personas.add(new Empleado("nicolas","roskoczy",25,"41716501",TipoEmpleado.COPILOTO));
+        personas.add(new Empleado("gustavo","roskoczy",51,"27105918",TipoEmpleado.PILOTO));
+        personas.add(new Empleado("gerardo","rubio",51,"26104958",TipoEmpleado.COPILOTO));
+        personas.add(new Empleado("carmela","garcia",18,"47195019",TipoEmpleado.AZAFATA));
+        personas.add(new Empleado("rufino","figueroa",22,"46689104",TipoEmpleado.PILOTO));
+        personas.add(new Empleado("jeronimo","benavidez",34,"35105918",TipoEmpleado.PILOTO));
+
 
         return personas;
     }

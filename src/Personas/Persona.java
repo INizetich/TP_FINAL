@@ -1,13 +1,20 @@
 package Personas;
 
 
+
+
+import java.io.Serializable;
 import java.lang.Comparable;
 import java.util.Objects;
 
-public class Persona implements Comparable<Persona> {
+public class Persona implements Comparable<Persona>, Serializable {
+
     private String nombre;
+
     private String apellido;
+
     private int edad;
+
     private String dni;
 
 

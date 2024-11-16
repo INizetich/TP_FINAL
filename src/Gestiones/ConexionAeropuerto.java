@@ -17,21 +17,29 @@ public class ConexionAeropuerto {
         return conexiones;
     }
 
-    // Mostrar conexiones con IDs de vuelos en una sola línea
     public static void mostrarConexiones() {
-        System.out.println("Conexiones entre aeropuertos del vuelo: ");
+        System.out.println("🌐✈️ vuelos reservados ✈️🌐");
 
-        // Iterar sobre las conexiones
-        conexiones.forEach((origen, destinos) -> {
-            // Concatenar los destinos y los vuelos correspondientes en una sola línea
-            StringBuilder conexionInfo = new StringBuilder("Origen: " + origen);
+        if (conexiones.isEmpty()) {
+            System.out.println("🚫 No se encuentra ningún vuelo reservado en este momento. 🛫");
+        }else if (!conexiones.isEmpty()) {
+            // Iterar sobre las conexiones
+            conexiones.forEach((origen, destinos) -> {
+                // Concatenar los destinos y los vuelos correspondientes en una sola línea
+                StringBuilder conexionInfo = new StringBuilder("🛫 Origen: " + origen);
 
-            destinos.forEach((destino, idVuelos) -> {
-                conexionInfo.append(" | Destino: " + destino + " -> Vuelos: " + String.join(", ", idVuelos));
+                destinos.forEach((destino, idVuelos) -> {
+                    // Agregar los destinos con los respectivos vuelos
+                    conexionInfo.append(" | 🌍 Destino: " + destino + " -> 🛬 Vuelo: " + String.join(", ", idVuelos));
+                });
+
+                // Imprimir la información de la conexión de forma bonita
+                System.out.println(conexionInfo.toString());
             });
 
-            // Imprimir la información de la conexión en una sola línea
-            System.out.println(conexionInfo.toString());
-        });
-    }
+            System.out.println("==============================================");
+            System.out.println("¡Viaja con nosotros y disfruta de los mejores vuelos a un precio accesible! ✈️🌍");
+        }
+        }
+
 }

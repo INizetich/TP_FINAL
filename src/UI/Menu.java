@@ -106,11 +106,11 @@ public class Menu {
 
 
                         case 3:
-                           ConexionAeropuerto.mostrarConexiones();
+                          // ConexionAeropuerto.mostrarConexionPorVuelo();
 
                             break;
 
-                        case 4:
+                       /* case 4:
                             String nroDni = "";
                             try {
 
@@ -132,7 +132,7 @@ public class Menu {
                             } catch (ReservaInexistenteException e) {
                                 e.printStackTrace();
                             }
-                            break;
+                            break;*/
 
 
 

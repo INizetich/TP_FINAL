@@ -1,26 +1,26 @@
 {
-  "Persona{nombre='ignacio', apellido='nizetich', edad=21, dni='45462201'nroAsiento='A1', cantidadEquipaje=[Valija{dimension='15x10x25', peso=26.0}, Valija{dimension='50x15x25', peso=24.0}]}" : {
+  "Persona{nombre='ignacio', apellido='nizetich', edad=21, dni='45462201'nroAsiento='A1', cantidadEquipaje=[Valija{dimension='50x25x10', peso=23.0}]}" : {
     "vuelo" : {
-      "idVuelo" : "49BE025F",
-      "destino" : "John F. Kennedy International Airport",
-      "origen" : "Aeropuerto Internacional Ezeiza",
-      "horario" : 1731782354000,
+      "idVuelo" : "91BEEA02",
+      "destino" : "Hong Kong International Airport",
+      "origen" : "Los Angeles International Airport",
+      "horario" : 1731801244000,
       "avion" : {
-        "nombre" : "Boeing-751",
-        "capacidadAvion" : 70,
+        "nombre" : "Boeing-756",
+        "capacidadAvion" : 119,
         "motor" : "Motor a reacción",
-        "modelo" : "Modelo-A39",
-        "codigoAvion" : "479B0C0A",
+        "modelo" : "Modelo-A51",
+        "codigoAvion" : "5E8519D6",
         "piloto" : {
-          "nombre" : "cristian",
-          "apellido" : "chiliguay",
-          "edad" : 49,
-          "dni" : "34581039",
+          "nombre" : "martin",
+          "apellido" : "ledesma",
+          "edad" : 36,
+          "dni" : "28102912",
           "tipoEmpleado" : "PILOTO",
-          "nroEmpleado" : 23069
+          "nroEmpleado" : 91282
         }
       },
-      "puertaEmbarque" : "B5",
+      "puertaEmbarque" : "A1",
       "estadoEmbarque" : "CERRADO",
       "listaPasajeros" : [ {
         "nombre" : "ignacio",
@@ -29,13 +29,10 @@
         "dni" : "45462201",
         "nroAsiento" : "A1",
         "valija" : [ {
-          "dimension" : "15x10x25",
-          "peso" : 26.0
-        }, {
-          "dimension" : "50x15x25",
-          "peso" : 24.0
+          "dimension" : "50x25x10",
+          "peso" : 23.0
         } ],
-        "codigoPasajero" : "6F13A3A6",
+        "codigoPasajero" : "F09B59D8",
         "checkInRealizado" : true
       } ],
       "asientos" : [ "A1" ]
@@ -48,15 +45,12 @@
       "dni" : "45462201",
       "nroAsiento" : "A1",
       "valija" : [ {
-        "dimension" : "15x10x25",
-        "peso" : 26.0
-      }, {
-        "dimension" : "50x15x25",
-        "peso" : 24.0
+        "dimension" : "50x25x10",
+        "peso" : 23.0
       } ],
-      "codigoPasajero" : "6F13A3A6",
+      "codigoPasajero" : "F09B59D8",
       "checkInRealizado" : true
     },
-    "codigoCheckIn" : "404d730d-a791-43"
+    "codigoCheckIn" : "aa912053-8b0d-4b"
   }
 }

@@ -4,6 +4,7 @@ import Excepciones.*;
 import Enums.EstadoEmbarque;
 import Aviones.Vuelo;
 import CheckIn.CheckIn;
+import JSON.GestionJSON;
 import Personas.Pasajero;
 import Pertenencias.Valija;
 
@@ -11,7 +12,7 @@ import java.util.*;
 import java.util.Scanner;
 
 public class SistemaReserva {
-    private final Map<String, CheckIn> mapaReservas; // UUID como clave, CheckIn como valor
+    private final Map<Pasajero, CheckIn> mapaReservas; // UUID como clave, CheckIn como valor
 
     public SistemaReserva() {
         this.mapaReservas = new HashMap<>();
@@ -60,15 +61,18 @@ public class SistemaReserva {
             if (vueloSeleccionado.agregarPasajero(pasajero)) {
                 vueloSeleccionado.ocuparAsiento(asientoSeleccionado);
                 vueloSeleccionado.setEstadoEmbarque(EstadoEmbarque.CERRADO);
-                mapaReservas.put(pasajero.getDni(), new CheckIn(vueloSeleccionado, asientoSeleccionado, pasajero));
+                mapaReservas.put(pasajero, new CheckIn(vueloSeleccionado, asientoSeleccionado, pasajero));
 
                 // **Registrar la conexión entre aeropuertos**
                 ConexionAeropuerto conexionAeropuerto = new ConexionAeropuerto();
                 conexionAeropuerto.registrarConexion(vueloSeleccionado.getOrigen(), vueloSeleccionado.getDestino(), vueloSeleccionado.getIdVuelo());
 
+                pasajero.setCheckIn(true);
+                GestionJSON.serializarMapa(mapaReservas, "Archivos JSON/Check-In.json");
+                GestionJSON.serializarMapa(ConexionAeropuerto.getConexiones(), "Archivos JSON/ConexionesAeropuertos.json");
                 System.out.println("**********************************************************");
                 System.out.println("Reserva realizada exitosamente para " + pasajero.getNombre() + " " + pasajero.getApellido());
-                pasajero.setCheckIn(true);
+
             }
         } catch (CapacidadMaximaException e) {
             System.out.println(e.getMessage());
@@ -154,11 +158,11 @@ public class SistemaReserva {
             System.out.println("Tarifa adicional total por equipaje: $" + tarifaExtra);
         }
 
-        // Crear el pasajero con la primera valija (si la lógica lo requiere)
-        Valija valijaPrincipal = valijas.isEmpty() ? null : valijas.get(0);
-
-        return new Pasajero(nombre, apellido, edad, dni, valijaPrincipal, asientoSeleccionado);
+        return new Pasajero(nombre, apellido, edad, dni, valijas, asientoSeleccionado);
     }
+
+
+
 
     private List<String> generarAsientosDisponibles(Vuelo vuelo) {
         List<String> asientosDisponibles = new ArrayList<>();
@@ -168,15 +172,15 @@ public class SistemaReserva {
             String asientoA = "A" + i;
             String asientoB = "B" + i;
             String asientoC = "C" + i;
-            String asientoD = "D" + i;
-            String asientoE = "E" + i;
+            //String asientoD = "D" + i;
+            //String asientoE = "E" + i;
 
             // Agregar asientos si no están ocupados
             if (!vuelo.getAsientos().contains(asientoA)) asientosDisponibles.add(asientoA);
             if (!vuelo.getAsientos().contains(asientoB)) asientosDisponibles.add(asientoB);
             if (!vuelo.getAsientos().contains(asientoC)) asientosDisponibles.add(asientoC);
-            if (!vuelo.getAsientos().contains(asientoD)) asientosDisponibles.add(asientoD);
-            if (!vuelo.getAsientos().contains(asientoE)) asientosDisponibles.add(asientoE);
+           // if (!vuelo.getAsientos().contains(asientoD)) asientosDisponibles.add(asientoD);
+            //if (!vuelo.getAsientos().contains(asientoE)) asientosDisponibles.add(asientoE);
         }
 
         return asientosDisponibles;
@@ -186,7 +190,7 @@ public class SistemaReserva {
         mapaReservas.forEach((key, value) -> System.out.println("Código: " + key + " -> " + value));
     }
 
-    public Map<String, CheckIn> getMapaReservas() {
+    public Map<Pasajero, CheckIn> getMapaReservas() {
         return mapaReservas;
     }
 }

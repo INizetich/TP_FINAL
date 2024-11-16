@@ -1,0 +1,56 @@
+{
+  "Persona{nombre='ignacio', apellido='nizetich', edad=21, dni='45462201'nroAsiento='A1', cantidadEquipaje=[Valija{dimension='50x25x10', peso=21.0}]}" : {
+    "vuelo" : {
+      "idVuelo" : "AF29DD46",
+      "destino" : "John F. Kennedy International Airport",
+      "origen" : "Amsterdam Airport Schiphol",
+      "horario" : 1731756369000,
+      "avion" : {
+        "nombre" : "Boeing-760",
+        "capacidadAvion" : 291,
+        "motor" : "Motor a reacción",
+        "modelo" : "Modelo-A29",
+        "codigoAvion" : "E7CBA7C9",
+        "piloto" : {
+          "nombre" : "gabriel",
+          "apellido" : "ruiz",
+          "edad" : 43,
+          "dni" : "28454151",
+          "tipoEmpleado" : "PILOTO",
+          "nroEmpleado" : 79217
+        }
+      },
+      "puertaEmbarque" : "B5",
+      "estadoEmbarque" : "CERRADO",
+      "listaPasajeros" : [ {
+        "nombre" : "ignacio",
+        "apellido" : "nizetich",
+        "edad" : 21,
+        "dni" : "45462201",
+        "nroAsiento" : "A1",
+        "valija" : [ {
+          "dimension" : "50x25x10",
+          "peso" : 21.0
+        } ],
+        "codigoPasajero" : "AC5152B1",
+        "checkInRealizado" : true
+      } ],
+      "asientos" : [ "A1" ]
+    },
+    "numeroAsiento" : "A1",
+    "pasajero" : {
+      "nombre" : "ignacio",
+      "apellido" : "nizetich",
+      "edad" : 21,
+      "dni" : "45462201",
+      "nroAsiento" : "A1",
+      "valija" : [ {
+        "dimension" : "50x25x10",
+        "peso" : 21.0
+      } ],
+      "codigoPasajero" : "AC5152B1",
+      "checkInRealizado" : true
+    },
+    "codigoCheckIn" : "99764385-1abc-46"
+  }
+}

@@ -6,6 +6,10 @@ import Aviones.Avion;
 import Aviones.Hangar;
 import Aviones.Vuelo;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.*;
 
 public class SistemaVuelo {
@@ -41,7 +45,8 @@ public class SistemaVuelo {
 
 
 
-    // Método para generar vuelos utilizando aviones almacenados en hangares
+
+
     public static void generarVuelosDesdeHangares(int cantidadVuelos, AlmacenamientoAviones gestionHangares) {
         Set<Aeropuerto> aeropuertos = SistemaAeropuerto.agregarAeropuertos(); // Obtener lista de aeropuertos
         if (aeropuertos.size() < 2) {
@@ -82,14 +87,21 @@ public class SistemaVuelo {
             Vuelo vuelo = new Vuelo();
             vuelo.setOrigen(origen.getNombre());
             vuelo.setDestino(destino.getNombre());
-            vuelo.setHorario(new Date()); // Usar la fecha y hora actuales
+
+            // Generar una hora aleatoria para el vuelo
+            LocalTime horaInicio = LocalTime.of(6, 0); // Hora inicial: 6:00 AM
+            LocalTime horaFin = LocalTime.of(23, 59);  // Hora final: 11:59 PM
+            long segundosAleatorios = ThreadLocalRandom.current().nextLong(horaInicio.toSecondOfDay(), horaFin.toSecondOfDay());
+            LocalTime horaAleatoria = LocalTime.ofSecondOfDay(segundosAleatorios);
+
+            // Asignar fecha y hora al vuelo
+            vuelo.setHorario(java.sql.Timestamp.valueOf(LocalDateTime.of(LocalDate.now(), horaAleatoria))); // Combina fecha actual con la hora aleatoria
+
             vuelo.setAvion(avion); // Asignar el avión al vuelo
             vuelo.setEstadoEmbarque(EstadoEmbarque.ABIERTO);
 
             vuelos.add(vuelo); // Registrar el vuelo en la lista de vuelos
         }
-
-
     }
 
 

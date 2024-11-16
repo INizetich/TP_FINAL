@@ -3,14 +3,15 @@ package Personas;
 
 import Pertenencias.Valija;
 
+import java.util.List;
 import java.util.UUID;
 public class Pasajero extends Persona{
     private String nroAsiento;
-    private Valija valija;
+    private List<Valija> valija;
  private boolean checkIn;
     private String codigoPasajero;
 
-    public Pasajero(String nombre, String apellido, int edad, String dni, Valija valija,String nroAsiento) {
+    public Pasajero(String nombre, String apellido, int edad, String dni, List<Valija> valija,String nroAsiento) {
         super(nombre, apellido, edad, dni);
         this.nroAsiento = nroAsiento;
         this.valija = valija;
@@ -34,13 +35,7 @@ public class Pasajero extends Persona{
         this.checkIn = checkIn;
     }
 
-    public Valija getCantidadEquipaje() {
-        return valija;
-    }
 
-    public void setCantidadEquipaje(Valija valija) {
-        this.valija = valija;
-    }
 
     public String getNroAsiento() {
         return nroAsiento;
@@ -56,6 +51,14 @@ public class Pasajero extends Persona{
 
     public void setNroAsiento(String nroAsiento) {
         this.nroAsiento = nroAsiento;
+    }
+
+    public List<Valija> getValija() {
+        return valija;
+    }
+
+    public void setValija(List<Valija> valija) {
+        this.valija = valija;
     }
 
     @Override

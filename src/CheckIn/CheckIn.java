@@ -13,14 +13,15 @@ public class CheckIn {
     private Vuelo vuelo;
     private String numeroAsiento;
     private Pasajero pasajero;
-    private boolean realizado;
-    private String codigoPasajero;
+    private static String CodigoCheckIn;
+
+
     public CheckIn(Vuelo vuelo, String numeroAsiento, Pasajero pasajero) {
         this.vuelo = vuelo;
         this.numeroAsiento = numeroAsiento;
-        this.realizado = true; // El check-in se marca como realizado al crearlo
         this.pasajero = pasajero;
-        this.codigoPasajero = null;
+        this.CodigoCheckIn = UUID.randomUUID().toString().substring(0, 16);
+
     }
 
     public Vuelo getVuelo() {
@@ -47,20 +48,14 @@ public class CheckIn {
         this.pasajero = pasajero;
     }
 
-    public boolean isRealizado() {
-        return realizado;
-    }
 
-    public void setRealizado(boolean realizado) {
-        this.realizado = realizado;
-    }
 
     public String getCodigoCheckIn() {
-        return codigoPasajero;
+        return CodigoCheckIn;
     }
 
     public void setCodigoCheckIn(String codigoPasajero) {
-        this.codigoPasajero = codigoPasajero;
+        this.CodigoCheckIn = codigoPasajero;
     }
 
     @Override
@@ -125,9 +120,7 @@ public class CheckIn {
                 boleto.append("*Número de asiento: ").append(pasajero.getNroAsiento()).append("\n");
                 boleto.append("*Puerta de embarque: ").append(vuelo.getPuertaEmbarque()).append("\n");
                 boleto.append("*********************************************************************\n");
-                // Generar un código único para el boleto
-                String codigoUnico = UUID.randomUUID().toString();
-                boleto.append("Codigo unico de identificacion: ").append(codigoUnico).append("\n");
+                boleto.append("Codigo unico de identificacion: ").append(CodigoCheckIn).append("\n");
                 boleto.append("*********************************************************************\n");
                 boleto.append("*      ¡Buen viaje! Gracias por volar con nosotros.                 *\n");
                 boleto.append("*********************************************************************\n");

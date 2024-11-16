@@ -2,6 +2,8 @@ package UI;
 
 import Aeropuerto.Aeropuerto;
 import Aviones.Avion;
+import Aviones.Hangar;
+import Aviones.Vuelo;
 import CheckIn.CheckIn;
 import Excepciones.*;
 import Gestiones.*;
@@ -33,7 +35,7 @@ public class Menu {
         almacenamientoAviones.generarHangares(7);
 
 
-        almacenamientoAviones.generarAviones(30,admin.getListaEmpleados());
+        almacenamientoAviones.generarAviones(15,admin.getListaEmpleados());
 
 
         // CREACIÓN DE VUELOS DE MANERA AUTOMÁTICA
@@ -308,19 +310,25 @@ public class Menu {
 
                     // Lógica para cerrar sesión y serializar los datos
                     System.out.println("Cerrando sesión...");
-                    System.out.println("Guardando datos...");
-
                     // Serializar los objetos utilizando Jackson
+
+                    ///SERIALIZO EL SET DE AEROPUERTOS
                     Set<Aeropuerto> aeropuertos = SistemaAeropuerto.getListaAeropuertos();
-                    GestionJSON.serializarSet(aeropuertos, "aeropuertos.json");
-
+                    GestionJSON.serializarSet(aeropuertos, "Archivos JSON/aeropuertos.json");
+                    ///SERIALIZO LA LISTA DE AVIONES
                     List<Avion> aviones = almacenamientoAviones.obtenerAvionesDeTodosLosHangares();
-                    GestionJSON.serializarLista(aviones, "aviones.json");
-
+                    GestionJSON.serializarLista(aviones, "Archivos JSON/aviones.json");
+                     ///SERIALIZO EL SET DE EMPLEADOS
                     Set<Empleado> empleados = admin.getListaEmpleados();
-                    GestionJSON.serializarSet(empleados, "empleados.json");
+                    GestionJSON.serializarSet(empleados, "Archivos JSON/empleados.json");
+                     ///SERIALIZO LA LISTA DE VUELOS
+                    List<Vuelo> vuelos = SistemaVuelo.getVuelos();
+                    GestionJSON.serializarLista(vuelos, "Archivos JSON/vuelos.json");
+                    ///SERIALIZO LA LISTA DE HANGARES
+                    List<Hangar<Avion>> listaHangares = almacenamientoAviones.getListaHangares();
+                    GestionJSON.serializarLista(listaHangares, "Archivos JSON/listaHangares.json");
 
-                    // Aquí puedes serializar otros objetos adicionales si lo deseas
+
 
                     salir = true;
                     break;

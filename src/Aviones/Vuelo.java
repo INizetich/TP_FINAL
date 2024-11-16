@@ -22,6 +22,7 @@ public class Vuelo {
     private Set<Pasajero> listaPasajeros;
     private Set<String>asientos = new HashSet<>();
 
+
     public Vuelo() {
         this.idVuelo = generarIdVuelo();
         this.destino = "";
@@ -109,6 +110,10 @@ public class Vuelo {
         this.puertaEmbarque = puertaEmbarque;
     }
 
+    public void setAsientos(Set<String> asientos) {
+        this.asientos = asientos;
+    }
+
     public Set<String> getAsientos() {
         return asientos;
     }
@@ -129,12 +134,17 @@ public class Vuelo {
         }
     }
     public void ocuparAsiento(String asiento){
-        asientos.add(asiento);
+     asientos.add(asiento);
     }
 
     public boolean estaAsientoDisponible(String asiento) {
         return !asiento.contains(asiento);
     }
+
+
+
+
+
 
     @Override
     public String toString() {

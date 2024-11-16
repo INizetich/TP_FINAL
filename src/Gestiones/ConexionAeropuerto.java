@@ -4,13 +4,17 @@ import java.util.*;
 
 public class ConexionAeropuerto {
     // Mapa de conexiones: Origen -> (Destino -> IDs de vuelos)
-    private static final Map<String, Map<String, Set<String>>> conexiones = new HashMap<>();
+    private static  Map<String, Map<String, Set<String>>> conexiones = new HashMap<>();
 
     // Registrar la conexión entre dos aeropuertos usando sus códigos internacionales y el ID del vuelo
     public void registrarConexion(String codigoOrigen, String codigoDestino, String idVuelo) {
         conexiones.putIfAbsent(codigoOrigen, new HashMap<>());
         conexiones.get(codigoOrigen).putIfAbsent(codigoDestino, new HashSet<>());
         conexiones.get(codigoOrigen).get(codigoDestino).add(idVuelo);
+    }
+
+    public static Map<String, Map<String, Set<String>>> getConexiones() {
+        return conexiones;
     }
 
     // Mostrar conexiones con IDs de vuelos en una sola línea

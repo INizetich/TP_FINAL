@@ -1,0 +1,373 @@
+[ {
+  "idVuelo" : "A299E5E4",
+  "destino" : "Aeropuerto Internacional São Paulo-Guarulhos",
+  "origen" : "Aeropuerto Internacional de la Ciudad de México",
+  "horario" : 1731772431000,
+  "avion" : {
+    "nombre" : "Boeing-746",
+    "capacidadAvion" : 140,
+    "motor" : "Motor a reacción",
+    "modelo" : "Modelo-A3",
+    "codigoAvion" : "C7B3AD96",
+    "piloto" : {
+      "nombre" : "martin",
+      "apellido" : "ledesma",
+      "edad" : 36,
+      "dni" : "28102912",
+      "tipoEmpleado" : "PILOTO",
+      "nroEmpleado" : 85169
+    }
+  },
+  "puertaEmbarque" : "C3",
+  "estadoEmbarque" : "ABIERTO",
+  "listaPasajeros" : [ ],
+  "asientos" : [ ]
+}, {
+  "idVuelo" : "FBA23BCC",
+  "destino" : "Frankfurter Flughafen",
+  "origen" : "Dubai International Airport",
+  "horario" : 1731787927000,
+  "avion" : {
+    "nombre" : "Boeing-751",
+    "capacidadAvion" : 235,
+    "motor" : "Motor a reacción",
+    "modelo" : "Modelo-A25",
+    "codigoAvion" : "35E01036",
+    "piloto" : {
+      "nombre" : "rodolfo",
+      "apellido" : "rodriguez",
+      "edad" : 65,
+      "dni" : "59104958",
+      "tipoEmpleado" : "PILOTO",
+      "nroEmpleado" : 10249
+    }
+  },
+  "puertaEmbarque" : "C1",
+  "estadoEmbarque" : "ABIERTO",
+  "listaPasajeros" : [ ],
+  "asientos" : [ ]
+}, {
+  "idVuelo" : "4724BEC3",
+  "destino" : "Aeropuerto Internacional Ezeiza",
+  "origen" : "北京首都国际机场",
+  "horario" : 1731779203000,
+  "avion" : {
+    "nombre" : "Boeing-756",
+    "capacidadAvion" : 239,
+    "motor" : "Motor a reacción",
+    "modelo" : "Modelo-A81",
+    "codigoAvion" : "27175F02",
+    "piloto" : {
+      "nombre" : "rodolfo",
+      "apellido" : "rodriguez",
+      "edad" : 65,
+      "dni" : "59104958",
+      "tipoEmpleado" : "PILOTO",
+      "nroEmpleado" : 10249
+    }
+  },
+  "puertaEmbarque" : "C5",
+  "estadoEmbarque" : "ABIERTO",
+  "listaPasajeros" : [ ],
+  "asientos" : [ ]
+}, {
+  "idVuelo" : "BF616C99",
+  "destino" : "Frankfurter Flughafen",
+  "origen" : "Sydney Kingsford Smith International Airport",
+  "horario" : 1731780030000,
+  "avion" : {
+    "nombre" : "Boeing-758",
+    "capacidadAvion" : 316,
+    "motor" : "Motor a reacción",
+    "modelo" : "Modelo-A91",
+    "codigoAvion" : "9CFC088B",
+    "piloto" : {
+      "nombre" : "cristian",
+      "apellido" : "chiliguay",
+      "edad" : 49,
+      "dni" : "34581039",
+      "tipoEmpleado" : "PILOTO",
+      "nroEmpleado" : 74522
+    }
+  },
+  "puertaEmbarque" : "A3",
+  "estadoEmbarque" : "ABIERTO",
+  "listaPasajeros" : [ ],
+  "asientos" : [ ]
+}, {
+  "idVuelo" : "DE52214A",
+  "destino" : "Frankfurter Flughafen",
+  "origen" : "Hong Kong International Airport",
+  "horario" : 1731782741000,
+  "avion" : {
+    "nombre" : "Boeing-749",
+    "capacidadAvion" : 98,
+    "motor" : "Motor a reacción",
+    "modelo" : "Modelo-A6",
+    "codigoAvion" : "F02D6368",
+    "piloto" : {
+      "nombre" : "cristian",
+      "apellido" : "chiliguay",
+      "edad" : 49,
+      "dni" : "34581039",
+      "tipoEmpleado" : "PILOTO",
+      "nroEmpleado" : 74522
+    }
+  },
+  "puertaEmbarque" : "C1",
+  "estadoEmbarque" : "ABIERTO",
+  "listaPasajeros" : [ ],
+  "asientos" : [ ]
+}, {
+  "idVuelo" : "B790ECD0",
+  "destino" : "Aeropuerto Internacional de la Ciudad de México",
+  "origen" : "Hong Kong International Airport",
+  "horario" : 1731776210000,
+  "avion" : {
+    "nombre" : "Boeing-752",
+    "capacidadAvion" : 335,
+    "motor" : "Motor turbofan",
+    "modelo" : "Modelo-A21",
+    "codigoAvion" : "D04C0030",
+    "piloto" : {
+      "nombre" : "gabriel",
+      "apellido" : "ruiz",
+      "edad" : 43,
+      "dni" : "28454151",
+      "tipoEmpleado" : "PILOTO",
+      "nroEmpleado" : 79217
+    }
+  },
+  "puertaEmbarque" : "A1",
+  "estadoEmbarque" : "ABIERTO",
+  "listaPasajeros" : [ ],
+  "asientos" : [ ]
+}, {
+  "idVuelo" : "F5096D52",
+  "destino" : "Amsterdam Airport Schiphol",
+  "origen" : "Aeropuerto Internacional de la Ciudad de México",
+  "horario" : 1731760929000,
+  "avion" : {
+    "nombre" : "Boeing-753",
+    "capacidadAvion" : 104,
+    "motor" : "Motor a reacción",
+    "modelo" : "Modelo-A8",
+    "codigoAvion" : "48ECC207",
+    "piloto" : {
+      "nombre" : "gustavo",
+      "apellido" : "roskoczy",
+      "edad" : 51,
+      "dni" : "27105918",
+      "tipoEmpleado" : "PILOTO",
+      "nroEmpleado" : 31850
+    }
+  },
+  "puertaEmbarque" : "A3",
+  "estadoEmbarque" : "ABIERTO",
+  "listaPasajeros" : [ ],
+  "asientos" : [ ]
+}, {
+  "idVuelo" : "03C2F6DF",
+  "destino" : "Hong Kong International Airport",
+  "origen" : "Aeropuerto Internacional Ezeiza",
+  "horario" : 1731757545000,
+  "avion" : {
+    "nombre" : "Boeing-754",
+    "capacidadAvion" : 131,
+    "motor" : "Motor a reacción",
+    "modelo" : "Modelo-A96",
+    "codigoAvion" : "5EDF74E9",
+    "piloto" : {
+      "nombre" : "gabriel",
+      "apellido" : "ruiz",
+      "edad" : 43,
+      "dni" : "28454151",
+      "tipoEmpleado" : "PILOTO",
+      "nroEmpleado" : 79217
+    }
+  },
+  "puertaEmbarque" : "C5",
+  "estadoEmbarque" : "ABIERTO",
+  "listaPasajeros" : [ ],
+  "asientos" : [ ]
+}, {
+  "idVuelo" : "D92E5A36",
+  "destino" : "Los Angeles International Airport",
+  "origen" : "Aeropuerto Internacional El Dorado",
+  "horario" : 1731793753000,
+  "avion" : {
+    "nombre" : "Boeing-747",
+    "capacidadAvion" : 236,
+    "motor" : "Motor a reacción",
+    "modelo" : "Modelo-A23",
+    "codigoAvion" : "1B52D7BE",
+    "piloto" : {
+      "nombre" : "rodolfo",
+      "apellido" : "rodriguez",
+      "edad" : 65,
+      "dni" : "59104958",
+      "tipoEmpleado" : "PILOTO",
+      "nroEmpleado" : 10249
+    }
+  },
+  "puertaEmbarque" : "B5",
+  "estadoEmbarque" : "ABIERTO",
+  "listaPasajeros" : [ ],
+  "asientos" : [ ]
+}, {
+  "idVuelo" : "03A90F2B",
+  "destino" : "Los Angeles International Airport",
+  "origen" : "Aeropuerto Internacional Ezeiza",
+  "horario" : 1731806932000,
+  "avion" : {
+    "nombre" : "Boeing-757",
+    "capacidadAvion" : 212,
+    "motor" : "Motor turbofan",
+    "modelo" : "Modelo-A58",
+    "codigoAvion" : "54AA46CA",
+    "piloto" : {
+      "nombre" : "rufino",
+      "apellido" : "figueroa",
+      "edad" : 22,
+      "dni" : "46689104",
+      "tipoEmpleado" : "PILOTO",
+      "nroEmpleado" : 44127
+    }
+  },
+  "puertaEmbarque" : "C1",
+  "estadoEmbarque" : "ABIERTO",
+  "listaPasajeros" : [ ],
+  "asientos" : [ ]
+}, {
+  "idVuelo" : "2080690C",
+  "destino" : "北京首都国际机场",
+  "origen" : "Aeropuerto Internacional São Paulo-Guarulhos",
+  "horario" : 1731786947000,
+  "avion" : {
+    "nombre" : "Boeing-759",
+    "capacidadAvion" : 297,
+    "motor" : "Motor turbofan",
+    "modelo" : "Modelo-A49",
+    "codigoAvion" : "D6F27F0D",
+    "piloto" : {
+      "nombre" : "martin",
+      "apellido" : "ledesma",
+      "edad" : 36,
+      "dni" : "28102912",
+      "tipoEmpleado" : "PILOTO",
+      "nroEmpleado" : 85169
+    }
+  },
+  "puertaEmbarque" : "C4",
+  "estadoEmbarque" : "ABIERTO",
+  "listaPasajeros" : [ ],
+  "asientos" : [ ]
+}, {
+  "idVuelo" : "E40139E4",
+  "destino" : "北京首都国际机场",
+  "origen" : "John F. Kennedy International Airport",
+  "horario" : 1731751307000,
+  "avion" : {
+    "nombre" : "Boeing-748",
+    "capacidadAvion" : 72,
+    "motor" : "Motor a reacción",
+    "modelo" : "Modelo-A85",
+    "codigoAvion" : "CC3118EB",
+    "piloto" : {
+      "nombre" : "martin",
+      "apellido" : "ledesma",
+      "edad" : 36,
+      "dni" : "28102912",
+      "tipoEmpleado" : "PILOTO",
+      "nroEmpleado" : 85169
+    }
+  },
+  "puertaEmbarque" : "A3",
+  "estadoEmbarque" : "ABIERTO",
+  "listaPasajeros" : [ ],
+  "asientos" : [ ]
+}, {
+  "idVuelo" : "3B3C3E9F",
+  "destino" : "Aeropuerto Internacional São Paulo-Guarulhos",
+  "origen" : "Hong Kong International Airport",
+  "horario" : 1731804373000,
+  "avion" : {
+    "nombre" : "Boeing-750",
+    "capacidadAvion" : 329,
+    "motor" : "Motor a reacción",
+    "modelo" : "Modelo-A1",
+    "codigoAvion" : "8E503AF4",
+    "piloto" : {
+      "nombre" : "gabriel",
+      "apellido" : "ruiz",
+      "edad" : 43,
+      "dni" : "28454151",
+      "tipoEmpleado" : "PILOTO",
+      "nroEmpleado" : 79217
+    }
+  },
+  "puertaEmbarque" : "B4",
+  "estadoEmbarque" : "ABIERTO",
+  "listaPasajeros" : [ ],
+  "asientos" : [ ]
+}, {
+  "idVuelo" : "8E34B266",
+  "destino" : "北京首都国际机场",
+  "origen" : "Aeropuerto Internacional São Paulo-Guarulhos",
+  "horario" : 1731780023000,
+  "avion" : {
+    "nombre" : "Boeing-755",
+    "capacidadAvion" : 59,
+    "motor" : "Motor turbofan",
+    "modelo" : "Modelo-A32",
+    "codigoAvion" : "F7EF839E",
+    "piloto" : {
+      "nombre" : "cristian",
+      "apellido" : "chiliguay",
+      "edad" : 49,
+      "dni" : "34581039",
+      "tipoEmpleado" : "PILOTO",
+      "nroEmpleado" : 74522
+    }
+  },
+  "puertaEmbarque" : "A2",
+  "estadoEmbarque" : "ABIERTO",
+  "listaPasajeros" : [ ],
+  "asientos" : [ ]
+}, {
+  "idVuelo" : "AF29DD46",
+  "destino" : "John F. Kennedy International Airport",
+  "origen" : "Amsterdam Airport Schiphol",
+  "horario" : 1731756369000,
+  "avion" : {
+    "nombre" : "Boeing-760",
+    "capacidadAvion" : 291,
+    "motor" : "Motor a reacción",
+    "modelo" : "Modelo-A29",
+    "codigoAvion" : "E7CBA7C9",
+    "piloto" : {
+      "nombre" : "gabriel",
+      "apellido" : "ruiz",
+      "edad" : 43,
+      "dni" : "28454151",
+      "tipoEmpleado" : "PILOTO",
+      "nroEmpleado" : 79217
+    }
+  },
+  "puertaEmbarque" : "B5",
+  "estadoEmbarque" : "CERRADO",
+  "listaPasajeros" : [ {
+    "nombre" : "ignacio",
+    "apellido" : "nizetich",
+    "edad" : 21,
+    "dni" : "45462201",
+    "nroAsiento" : "A1",
+    "valija" : [ {
+      "dimension" : "50x25x10",
+      "peso" : 21.0
+    } ],
+    "codigoPasajero" : "AC5152B1",
+    "checkInRealizado" : true
+  } ],
+  "asientos" : [ "A1" ]
+} ]

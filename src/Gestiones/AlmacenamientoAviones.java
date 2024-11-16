@@ -4,7 +4,7 @@ import Excepciones.CodigoAvionNoExistenteException;
 import Excepciones.HangarNoExistenteException;
 import Aviones.Avion;
 import Aviones.Hangar;
-
+import Personas.Empleado;
 import java.util.*;
 import java.util.Scanner;
 public class AlmacenamientoAviones {
@@ -25,7 +25,7 @@ public class AlmacenamientoAviones {
     }
 
     // Generar aviones automáticamente y asignarlos a hangares
-    public void generarAviones(int cantidadAviones) {
+    public void generarAviones(int cantidadAviones, Set<Empleado> listaEmpleados) {
         if (listaHangares.isEmpty()) {
             System.out.println("No hay hangares creados. Primero genera los hangares.");
             return;
@@ -88,7 +88,7 @@ public class AlmacenamientoAviones {
             // Buscar el avión en el hangar actual
             Optional<Avion> avionEncontradoEnHangar = hangar.ObtenerListaAviones()
                     .stream()
-                    .filter(avion -> avion.getCodigoAvion().equals(codigoAvion))
+                    .filter(avion -> avion.getCodigoAvion().equalsIgnoreCase(codigoAvion))
                     .findFirst();
 
             if (avionEncontradoEnHangar.isPresent()) {

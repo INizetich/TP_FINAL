@@ -22,6 +22,21 @@ public class Admin {
         this.listaEmpleados = new HashSet<>();
     }
 
+    public Set<Empleado> getListaEmpleados() {
+        return listaEmpleados;
+    }
+
+    public void setListaEmpleados(Set<Empleado> listaEmpleados) {
+        this.listaEmpleados = listaEmpleados;
+    }
+
+    public Set<Persona> getListaAdministradores() {
+        return listaAdministradores;
+    }
+
+    public void setListaAdministradores(Set<Persona> listaAdministradores) {
+        this.listaAdministradores = listaAdministradores;
+    }
 
     public  void agregarPersonal(){
         Empleado empleado = crearEmpleado();
@@ -130,9 +145,7 @@ public class Admin {
 
     }
 
-    public void cargarListaEmpleados(){
-        this.listaEmpleados = agregarPersonas();
-    }
+
 
 
     public void asignarPilotoAVueloPorID(String idVuelo) throws CodigoVueloInexistenteException {
@@ -192,6 +205,10 @@ public class Admin {
             System.out.println("Por favor, ingrese un código numérico válido.");
             scanner.nextLine(); // Consumir entrada inválida
         }
+    }
+
+    public void cargarListaEmpleados(){
+
     }
 
 

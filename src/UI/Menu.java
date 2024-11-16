@@ -25,7 +25,7 @@ public class Menu {
         admin.cargarListaEmpleados();
         AlmacenamientoAviones almacenamientoAviones = new AlmacenamientoAviones();
         almacenamientoAviones.generarHangares(7);
-        almacenamientoAviones.generarAviones(30);
+        almacenamientoAviones.generarAviones(30, admin.getListaEmpleados());
 
         // CREACIÓN DE VUELOS DE MANERA AUTOMÁTICA
         SistemaVuelo.generarVuelosDesdeHangares(15, almacenamientoAviones);

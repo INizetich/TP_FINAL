@@ -2,7 +2,7 @@ package Aeropuerto;
 
 import Enums.CodigoInternacional;
 
-import java.util.HashMap;
+
 
 public class Aeropuerto {
     private String nombre;

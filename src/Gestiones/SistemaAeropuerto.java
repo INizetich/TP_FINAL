@@ -9,33 +9,34 @@ import Enums.CodigoInternacional;
 import java.util.*;
 
 public class SistemaAeropuerto {
-    private static Set<Aeropuerto> listaAeropuertos;
+    private static  Set<Aeropuerto> listaAeropuertos;
 
     
 
-    public static Set<Aeropuerto> getListaAeropuertos() {
+    public static  Set<Aeropuerto> getListaAeropuertos() {
         return listaAeropuertos;
     }
 
-    public static Aeropuerto buscarAeropuertoPorCodigo(CodigoInternacional codigo) {
+    public  Aeropuerto buscarAeropuertoPorCodigo(CodigoInternacional codigo) {
         return listaAeropuertos.stream()
                 .filter(aeropuerto -> aeropuerto.getCodigo() == codigo)
                 .findFirst()
                 .orElse(null);
     }
 
-    public static void mostrarAeropuertos() {
+    public  void mostrarAeropuertos() {
         System.out.println("Aeropuertos disponibles:");
         for (Aeropuerto aeropuerto : listaAeropuertos) {
             System.out.println("Código: " + aeropuerto.getCodigo() + " - " + aeropuerto.getNombre()+ " - "+aeropuerto.getDireccion());
         }
     }
 
-    public static void cargarAeropuertos() {
+    public static  void cargarAeropuertos() {
         listaAeropuertos = agregarAeropuertos();
+        listaAeropuertos.forEach(a -> System.out.println(a.getNombre()));
     }
 
-    public static Set<Aeropuerto> agregarAeropuertos() {
+    public static  Set<Aeropuerto> agregarAeropuertos() {
         Set<Aeropuerto> listaAeropuerto = new HashSet<>();
         listaAeropuerto.add(new Aeropuerto("Aeropuerto Internacional Ezeiza",
                 "AU Tte. Gral. Pablo Riccheri Km 33,5, B1802 Ezeiza, Provincia de Buenos Aires",

@@ -3,25 +3,24 @@ package Aeropuerto;
 import Aviones.Avion;
 import Aviones.Hangar;
 import Enums.CodigoInternacional;
-import Excepciones.CodigoAvionNoExistenteException;
-import Excepciones.HangarNoExistenteException;
+
 import Gestiones.AlmacenamientoAviones;
 import Personas.Empleado;
-import com.google.gson.annotations.SerializedName;
+
 
 import java.io.Serializable;
 import java.util.*;
 
 public  class Aeropuerto implements Serializable {
 
-    private static String nombre;
+    private  String nombre;
 
-    private static String direccion;
+    private  String direccion;
 
-    private static CodigoInternacional Codigo;
+    private  CodigoInternacional Codigo;
 
-    private static   List<Hangar> hangares = new ArrayList<>();
-    private static AlmacenamientoAviones almacenamiento = new AlmacenamientoAviones();
+    private    List<Hangar> hangares = new ArrayList<>();
+    private  AlmacenamientoAviones almacenamiento = new AlmacenamientoAviones();
 
 
 
@@ -41,7 +40,7 @@ public  class Aeropuerto implements Serializable {
 
 
 
-    public static String getNombre() {
+    public  String getNombre() {
         return nombre;
     }
 

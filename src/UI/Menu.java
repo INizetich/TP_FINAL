@@ -7,7 +7,7 @@ import Excepciones.*;
 import Gestiones.*;
 import JSON.GestionJSON;
 import Personas.Empleado;
-import PreEmbarque.PreEmbarque;
+
 
 import java.io.IOException;
 import java.util.List;
@@ -22,7 +22,7 @@ public class Menu {
         ///VARIABLES PARA VALIDACIONES
         int opc;
         String opcionString;
-        boolean checkInCompletado = false;
+       
         boolean salir = false;
         Scanner scanner = new Scanner(System.in);
         ///INSTANCIA DE CLASES
@@ -103,7 +103,7 @@ public class Menu {
                                 }
                             } while (opcionString.equals("s"));
                             System.out.println("Fin del proceso de reservas.");
-                            checkInCompletado = true;
+                            
                             break;
 
 

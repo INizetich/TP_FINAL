@@ -4,10 +4,10 @@ import java.util.*;
 
 import Enums.EstadoEmbarque;
 import Enums.PuertaEmbarque;
-import Enums.TipoEmpleado;
+
 import Excepciones.CapacidadMaximaException;
-import Excepciones.NoEsPilotoException;
-import Personas.Empleado;
+
+
 import Personas.Pasajero;
 
 public class Vuelo {
@@ -16,7 +16,7 @@ public class Vuelo {
     private String origen;  // Nombre del aeropuerto origen
     private Date horario;
     private Avion avion;
-    private Empleado piloto;
+  
     private PuertaEmbarque puertaEmbarque;
     private EstadoEmbarque estadoEmbarque;
     private Set<Pasajero> listaPasajeros;

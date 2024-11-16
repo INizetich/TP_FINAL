@@ -19,7 +19,7 @@ public  class Aeropuerto implements Serializable {
 
     private  CodigoInternacional Codigo;
 
-    private    List<Hangar> hangares = new ArrayList<>();
+
     private  AlmacenamientoAviones almacenamiento = new AlmacenamientoAviones();
 
 
@@ -65,9 +65,7 @@ public  class Aeropuerto implements Serializable {
     }
 
 
-    public List<Hangar> getHangares() {
-        return hangares;
-    }
+
 
 
 

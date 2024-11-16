@@ -1,11 +1,15 @@
 package Personas;
 
 import Enums.TipoEmpleado;
-import java.util.Objects;
+
+
+
 import java.util.Random;
 
-public class Empleado extends Persona{
+public class Empleado extends Persona {
+
     private TipoEmpleado tipoEmpleado;
+
     private int NroEmpleado;
    Random rand = new Random();
     public Empleado (){
@@ -19,6 +23,8 @@ public class Empleado extends Persona{
         this.NroEmpleado = rand.nextInt(0,99999);
     }
 
+
+
     public TipoEmpleado getTipoEmpleado() {
         return tipoEmpleado;
     }
@@ -31,6 +37,9 @@ public class Empleado extends Persona{
     }
 
 
+    public void setNroEmpleado(int nroEmpleado) {
+        NroEmpleado = nroEmpleado;
+    }
 
     @Override
     public String toString() {

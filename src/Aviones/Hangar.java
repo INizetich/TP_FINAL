@@ -4,22 +4,27 @@ package Aviones;
  * NUMERO DE HANGAR Y EL AVION A AGREGAR Y DESPUES SI SE LES OCURRE OTRA COSA HAGANLO
  * TAMBIEN HAGAN VALIDACIONES MIENTRAS HACEN ESTO ASI LO SACAN DE ENCIMA Y EXCEPCIONES DONDE NECESITEN*/
 
+
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Hangar <T extends Avion>{
+public class Hangar <T extends Avion> implements Serializable {
 
     private int numeroHangar;
-    private List<T> listaAviones;
+
+    private List<Avion> listaAviones;
+
 private  final int capacidadMaxima = 7;
 
     public Hangar() {
         this.numeroHangar = 0;
-        this.listaAviones = new ArrayList<T>();
+        this.listaAviones = new ArrayList<>();
 
     }
 
-    public List<T> getListaAviones() {
+    public List<Avion> getListaAviones() {
         return listaAviones;
     }
 
@@ -27,7 +32,7 @@ private  final int capacidadMaxima = 7;
         return capacidadMaxima;
     }
 
-    public void setListaAviones(List<T> listaAviones) {
+    public void setListaAviones(List<Avion> listaAviones) {
         this.listaAviones = listaAviones;
     }
 
@@ -37,7 +42,7 @@ private  final int capacidadMaxima = 7;
 
     public Hangar(int numeroHangar) {
         this.numeroHangar = numeroHangar;
-        this.listaAviones = new ArrayList<T>();
+        this.listaAviones = new ArrayList<>();
     }
 
     public int getNumeroHangar() {
@@ -67,7 +72,7 @@ private  final int capacidadMaxima = 7;
         }
     }
 
-    public List<T> ObtenerListaAviones() {
+    public List<Avion> ObtenerListaAviones() {
         return this.listaAviones;
     }
 

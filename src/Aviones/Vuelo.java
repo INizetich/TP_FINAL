@@ -4,10 +4,10 @@ import java.util.*;
 
 import Enums.EstadoEmbarque;
 import Enums.PuertaEmbarque;
-import Enums.TipoEmpleado;
+
 import Excepciones.CapacidadMaximaException;
-import Excepciones.NoEsPilotoException;
-import Personas.Empleado;
+
+
 import Personas.Pasajero;
 
 public class Vuelo {
@@ -16,7 +16,7 @@ public class Vuelo {
     private String origen;  // Nombre del aeropuerto origen
     private Date horario;
     private Avion avion;
-    private Empleado piloto;
+  
     private PuertaEmbarque puertaEmbarque;
     private EstadoEmbarque estadoEmbarque;
     private Set<Pasajero> listaPasajeros;
@@ -128,16 +128,6 @@ public class Vuelo {
             System.out.println(it.next());
         }
     }
-
-    public void asignarPiloto(Empleado piloto) throws NoEsPilotoException {
-        if (piloto.getTipoEmpleado() == TipoEmpleado.PILOTO){
-            this.piloto = piloto;
-            System.out.println("piloto asignado correctamente al vuelo: "+getIdVuelo());
-        }else {
-           throw new NoEsPilotoException("error: el empleado seleccionado no es un piloto.");
-        }
-    }
-
     public void ocuparAsiento(String asiento){
         asientos.add(asiento);
     }
@@ -156,7 +146,10 @@ public class Vuelo {
                 avion +
                 ", puertaEmbarque=" + puertaEmbarque +
                 ", estadoEmbarque=" + estadoEmbarque +
-                  "Piloto asignado=" + piloto +
                 '}';
     }
-}
+
+    }
+
+
+

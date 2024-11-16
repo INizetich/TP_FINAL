@@ -1,0 +1,421 @@
+[ {
+  "nombre" : "Boeing-750",
+  "capacidadAvion" : 83,
+  "motor" : "Motor turbofan",
+  "modelo" : "Modelo-A24",
+  "codigoAvion" : "C6E1B6BA",
+  "piloto" : {
+    "nombre" : "rufino",
+    "apellido" : "figueroa",
+    "edad" : 22,
+    "dni" : "46689104",
+    "tipoEmpleado" : "PILOTO",
+    "nroEmpleado" : 94752
+  }
+}, {
+  "nombre" : "Boeing-754",
+  "capacidadAvion" : 311,
+  "motor" : "Motor a reacción",
+  "modelo" : "Modelo-A20",
+  "codigoAvion" : "04A58DE8",
+  "piloto" : {
+    "nombre" : "cristian",
+    "apellido" : "chiliguay",
+    "edad" : 49,
+    "dni" : "34581039",
+    "tipoEmpleado" : "PILOTO",
+    "nroEmpleado" : 75354
+  }
+}, {
+  "nombre" : "Boeing-755",
+  "capacidadAvion" : 341,
+  "motor" : "Motor a reacción",
+  "modelo" : "Modelo-A64",
+  "codigoAvion" : "C953AFAB",
+  "piloto" : {
+    "nombre" : "jeronimo",
+    "apellido" : "benavidez",
+    "edad" : 34,
+    "dni" : "35105918",
+    "tipoEmpleado" : "PILOTO",
+    "nroEmpleado" : 23098
+  }
+}, {
+  "nombre" : "Boeing-758",
+  "capacidadAvion" : 313,
+  "motor" : "Motor a reacción",
+  "modelo" : "Modelo-A18",
+  "codigoAvion" : "04B422A2",
+  "piloto" : {
+    "nombre" : "jeronimo",
+    "apellido" : "benavidez",
+    "edad" : 34,
+    "dni" : "35105918",
+    "tipoEmpleado" : "PILOTO",
+    "nroEmpleado" : 23098
+  }
+}, {
+  "nombre" : "Boeing-764",
+  "capacidadAvion" : 73,
+  "motor" : "Motor turbofan",
+  "modelo" : "Modelo-A91",
+  "codigoAvion" : "BDE97503",
+  "piloto" : {
+    "nombre" : "cristian",
+    "apellido" : "chiliguay",
+    "edad" : 49,
+    "dni" : "34581039",
+    "tipoEmpleado" : "PILOTO",
+    "nroEmpleado" : 75354
+  }
+}, {
+  "nombre" : "Boeing-767",
+  "capacidadAvion" : 71,
+  "motor" : "Motor turbofan",
+  "modelo" : "Modelo-A37",
+  "codigoAvion" : "705FA209",
+  "piloto" : {
+    "nombre" : "martin",
+    "apellido" : "ledesma",
+    "edad" : 36,
+    "dni" : "28102912",
+    "tipoEmpleado" : "PILOTO",
+    "nroEmpleado" : 26972
+  }
+}, {
+  "nombre" : "Boeing-771",
+  "capacidadAvion" : 50,
+  "motor" : "Motor turbofan",
+  "modelo" : "Modelo-A49",
+  "codigoAvion" : "59822DF5",
+  "piloto" : {
+    "nombre" : "martin",
+    "apellido" : "ledesma",
+    "edad" : 36,
+    "dni" : "28102912",
+    "tipoEmpleado" : "PILOTO",
+    "nroEmpleado" : 26972
+  }
+}, {
+  "nombre" : "Boeing-746",
+  "capacidadAvion" : 349,
+  "motor" : "Motor turbofan",
+  "modelo" : "Modelo-A42",
+  "codigoAvion" : "FC51683B",
+  "piloto" : {
+    "nombre" : "julieta",
+    "apellido" : "canale",
+    "edad" : 58,
+    "dni" : "21581057",
+    "tipoEmpleado" : "PILOTO",
+    "nroEmpleado" : 60857
+  }
+}, {
+  "nombre" : "Boeing-753",
+  "capacidadAvion" : 340,
+  "motor" : "Motor a reacción",
+  "modelo" : "Modelo-A10",
+  "codigoAvion" : "A9EC2FA3",
+  "piloto" : {
+    "nombre" : "cristian",
+    "apellido" : "chiliguay",
+    "edad" : 49,
+    "dni" : "34581039",
+    "tipoEmpleado" : "PILOTO",
+    "nroEmpleado" : 75354
+  }
+}, {
+  "nombre" : "Boeing-760",
+  "capacidadAvion" : 138,
+  "motor" : "Motor a reacción",
+  "modelo" : "Modelo-A44",
+  "codigoAvion" : "B3166201",
+  "piloto" : {
+    "nombre" : "cristian",
+    "apellido" : "chiliguay",
+    "edad" : 49,
+    "dni" : "34581039",
+    "tipoEmpleado" : "PILOTO",
+    "nroEmpleado" : 75354
+  }
+}, {
+  "nombre" : "Boeing-768",
+  "capacidadAvion" : 83,
+  "motor" : "Motor a reacción",
+  "modelo" : "Modelo-A95",
+  "codigoAvion" : "7A913C59",
+  "piloto" : {
+    "nombre" : "gustavo",
+    "apellido" : "roskoczy",
+    "edad" : 51,
+    "dni" : "27105918",
+    "tipoEmpleado" : "PILOTO",
+    "nroEmpleado" : 41402
+  }
+}, {
+  "nombre" : "Boeing-749",
+  "capacidadAvion" : 270,
+  "motor" : "Motor a reacción",
+  "modelo" : "Modelo-A91",
+  "codigoAvion" : "943552B8",
+  "piloto" : {
+    "nombre" : "rodolfo",
+    "apellido" : "rodriguez",
+    "edad" : 65,
+    "dni" : "59104958",
+    "tipoEmpleado" : "PILOTO",
+    "nroEmpleado" : 58627
+  }
+}, {
+  "nombre" : "Boeing-752",
+  "capacidadAvion" : 346,
+  "motor" : "Motor turbofan",
+  "modelo" : "Modelo-A54",
+  "codigoAvion" : "E425987D",
+  "piloto" : {
+    "nombre" : "jeronimo",
+    "apellido" : "benavidez",
+    "edad" : 34,
+    "dni" : "35105918",
+    "tipoEmpleado" : "PILOTO",
+    "nroEmpleado" : 23098
+  }
+}, {
+  "nombre" : "Boeing-756",
+  "capacidadAvion" : 96,
+  "motor" : "Motor turbofan",
+  "modelo" : "Modelo-A17",
+  "codigoAvion" : "27937465",
+  "piloto" : {
+    "nombre" : "cristian",
+    "apellido" : "chiliguay",
+    "edad" : 49,
+    "dni" : "34581039",
+    "tipoEmpleado" : "PILOTO",
+    "nroEmpleado" : 75354
+  }
+}, {
+  "nombre" : "Boeing-773",
+  "capacidadAvion" : 328,
+  "motor" : "Motor turbofan",
+  "modelo" : "Modelo-A31",
+  "codigoAvion" : "1C37409E",
+  "piloto" : {
+    "nombre" : "jeronimo",
+    "apellido" : "benavidez",
+    "edad" : 34,
+    "dni" : "35105918",
+    "tipoEmpleado" : "PILOTO",
+    "nroEmpleado" : 23098
+  }
+}, {
+  "nombre" : "Boeing-774",
+  "capacidadAvion" : 243,
+  "motor" : "Motor turbofan",
+  "modelo" : "Modelo-A7",
+  "codigoAvion" : "F4FA01A5",
+  "piloto" : {
+    "nombre" : "martin",
+    "apellido" : "ledesma",
+    "edad" : 36,
+    "dni" : "28102912",
+    "tipoEmpleado" : "PILOTO",
+    "nroEmpleado" : 26972
+  }
+}, {
+  "nombre" : "Boeing-775",
+  "capacidadAvion" : 291,
+  "motor" : "Motor a reacción",
+  "modelo" : "Modelo-A19",
+  "codigoAvion" : "6947D933",
+  "piloto" : {
+    "nombre" : "gabriel",
+    "apellido" : "ruiz",
+    "edad" : 43,
+    "dni" : "28454151",
+    "tipoEmpleado" : "PILOTO",
+    "nroEmpleado" : 89287
+  }
+}, {
+  "nombre" : "Boeing-747",
+  "capacidadAvion" : 153,
+  "motor" : "Motor turbofan",
+  "modelo" : "Modelo-A7",
+  "codigoAvion" : "F22AB8EE",
+  "piloto" : {
+    "nombre" : "jeronimo",
+    "apellido" : "benavidez",
+    "edad" : 34,
+    "dni" : "35105918",
+    "tipoEmpleado" : "PILOTO",
+    "nroEmpleado" : 23098
+  }
+}, {
+  "nombre" : "Boeing-748",
+  "capacidadAvion" : 221,
+  "motor" : "Motor a reacción",
+  "modelo" : "Modelo-A31",
+  "codigoAvion" : "6CFA42A1",
+  "piloto" : {
+    "nombre" : "rodolfo",
+    "apellido" : "rodriguez",
+    "edad" : 65,
+    "dni" : "59104958",
+    "tipoEmpleado" : "PILOTO",
+    "nroEmpleado" : 58627
+  }
+}, {
+  "nombre" : "Boeing-751",
+  "capacidadAvion" : 189,
+  "motor" : "Motor turbofan",
+  "modelo" : "Modelo-A63",
+  "codigoAvion" : "195D62A0",
+  "piloto" : {
+    "nombre" : "gustavo",
+    "apellido" : "roskoczy",
+    "edad" : 51,
+    "dni" : "27105918",
+    "tipoEmpleado" : "PILOTO",
+    "nroEmpleado" : 41402
+  }
+}, {
+  "nombre" : "Boeing-757",
+  "capacidadAvion" : 298,
+  "motor" : "Motor a reacción",
+  "modelo" : "Modelo-A8",
+  "codigoAvion" : "D0323609",
+  "piloto" : {
+    "nombre" : "jeronimo",
+    "apellido" : "benavidez",
+    "edad" : 34,
+    "dni" : "35105918",
+    "tipoEmpleado" : "PILOTO",
+    "nroEmpleado" : 23098
+  }
+}, {
+  "nombre" : "Boeing-759",
+  "capacidadAvion" : 225,
+  "motor" : "Motor turbofan",
+  "modelo" : "Modelo-A9",
+  "codigoAvion" : "61EDD5C1",
+  "piloto" : {
+    "nombre" : "julieta",
+    "apellido" : "canale",
+    "edad" : 58,
+    "dni" : "21581057",
+    "tipoEmpleado" : "PILOTO",
+    "nroEmpleado" : 60857
+  }
+}, {
+  "nombre" : "Boeing-761",
+  "capacidadAvion" : 106,
+  "motor" : "Motor turbofan",
+  "modelo" : "Modelo-A30",
+  "codigoAvion" : "26974F27",
+  "piloto" : {
+    "nombre" : "martin",
+    "apellido" : "ledesma",
+    "edad" : 36,
+    "dni" : "28102912",
+    "tipoEmpleado" : "PILOTO",
+    "nroEmpleado" : 26972
+  }
+}, {
+  "nombre" : "Boeing-765",
+  "capacidadAvion" : 222,
+  "motor" : "Motor a reacción",
+  "modelo" : "Modelo-A86",
+  "codigoAvion" : "60C07101",
+  "piloto" : {
+    "nombre" : "gabriel",
+    "apellido" : "ruiz",
+    "edad" : 43,
+    "dni" : "28454151",
+    "tipoEmpleado" : "PILOTO",
+    "nroEmpleado" : 89287
+  }
+}, {
+  "nombre" : "Boeing-766",
+  "capacidadAvion" : 287,
+  "motor" : "Motor a reacción",
+  "modelo" : "Modelo-A21",
+  "codigoAvion" : "BD981DE7",
+  "piloto" : {
+    "nombre" : "rufino",
+    "apellido" : "figueroa",
+    "edad" : 22,
+    "dni" : "46689104",
+    "tipoEmpleado" : "PILOTO",
+    "nroEmpleado" : 94752
+  }
+}, {
+  "nombre" : "Boeing-763",
+  "capacidadAvion" : 99,
+  "motor" : "Motor a reacción",
+  "modelo" : "Modelo-A14",
+  "codigoAvion" : "1CD5C66D",
+  "piloto" : {
+    "nombre" : "rufino",
+    "apellido" : "figueroa",
+    "edad" : 22,
+    "dni" : "46689104",
+    "tipoEmpleado" : "PILOTO",
+    "nroEmpleado" : 94752
+  }
+}, {
+  "nombre" : "Boeing-770",
+  "capacidadAvion" : 193,
+  "motor" : "Motor turbofan",
+  "modelo" : "Modelo-A68",
+  "codigoAvion" : "DDFF5CA2",
+  "piloto" : {
+    "nombre" : "gustavo",
+    "apellido" : "roskoczy",
+    "edad" : 51,
+    "dni" : "27105918",
+    "tipoEmpleado" : "PILOTO",
+    "nroEmpleado" : 41402
+  }
+}, {
+  "nombre" : "Boeing-762",
+  "capacidadAvion" : 133,
+  "motor" : "Motor turbofan",
+  "modelo" : "Modelo-A26",
+  "codigoAvion" : "0E5BBBE7",
+  "piloto" : {
+    "nombre" : "rufino",
+    "apellido" : "figueroa",
+    "edad" : 22,
+    "dni" : "46689104",
+    "tipoEmpleado" : "PILOTO",
+    "nroEmpleado" : 94752
+  }
+}, {
+  "nombre" : "Boeing-769",
+  "capacidadAvion" : 330,
+  "motor" : "Motor a reacción",
+  "modelo" : "Modelo-A52",
+  "codigoAvion" : "2523A74B",
+  "piloto" : {
+    "nombre" : "rodolfo",
+    "apellido" : "rodriguez",
+    "edad" : 65,
+    "dni" : "59104958",
+    "tipoEmpleado" : "PILOTO",
+    "nroEmpleado" : 58627
+  }
+}, {
+  "nombre" : "Boeing-772",
+  "capacidadAvion" : 137,
+  "motor" : "Motor a reacción",
+  "modelo" : "Modelo-A41",
+  "codigoAvion" : "D54077FC",
+  "piloto" : {
+    "nombre" : "rufino",
+    "apellido" : "figueroa",
+    "edad" : 22,
+    "dni" : "46689104",
+    "tipoEmpleado" : "PILOTO",
+    "nroEmpleado" : 94752
+  }
+} ]

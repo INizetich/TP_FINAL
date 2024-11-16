@@ -39,6 +39,8 @@ public class SistemaVuelo {
     }
 
 
+
+
     // Método para generar vuelos utilizando aviones almacenados en hangares
     public static void generarVuelosDesdeHangares(int cantidadVuelos, AlmacenamientoAviones gestionHangares) {
         Set<Aeropuerto> aeropuertos = SistemaAeropuerto.agregarAeropuertos(); // Obtener lista de aeropuertos

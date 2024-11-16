@@ -1,17 +1,19 @@
 package Personas;
 
 
+import Pertenencias.Valija;
+
 import java.util.UUID;
 public class Pasajero extends Persona{
     private String nroAsiento;
-    private int cantidadEquipaje;
+    private Valija valija;
  private boolean checkIn;
     private String codigoPasajero;
 
-    public Pasajero(String nombre, String apellido, int edad, String dni, int cantidadEquipaje,String nroAsiento) {
+    public Pasajero(String nombre, String apellido, int edad, String dni, Valija valija,String nroAsiento) {
         super(nombre, apellido, edad, dni);
         this.nroAsiento = nroAsiento;
-        this.cantidadEquipaje = cantidadEquipaje;
+        this.valija = valija;
         this.checkIn = false;
         this.codigoPasajero = UUID.randomUUID().toString().substring(0, 8).toUpperCase();
     }
@@ -19,7 +21,7 @@ public class Pasajero extends Persona{
     public Pasajero(){
         super();
         this.nroAsiento = "";
-        this.cantidadEquipaje = 0;
+        this.valija = null;
  this.checkIn = false;
  this.codigoPasajero = UUID.randomUUID().toString().substring(0, 8).toUpperCase();
     }
@@ -32,12 +34,12 @@ public class Pasajero extends Persona{
         this.checkIn = checkIn;
     }
 
-    public int getCantidadEquipaje() {
-        return cantidadEquipaje;
+    public Valija getCantidadEquipaje() {
+        return valija;
     }
 
-    public void setCantidadEquipaje(int cantidadEquipaje) {
-        this.cantidadEquipaje = cantidadEquipaje;
+    public void setCantidadEquipaje(Valija valija) {
+        this.valija = valija;
     }
 
     public String getNroAsiento() {
@@ -60,7 +62,7 @@ public class Pasajero extends Persona{
     public String toString() {
         return super.toString() +
                 "nroAsiento='" + nroAsiento + '\'' +
-                ", cantidadEquipaje=" + cantidadEquipaje +
+                ", cantidadEquipaje=" + valija +
                 '}';
     }
 

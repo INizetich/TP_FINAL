@@ -49,41 +49,18 @@ public class Menu {
         SistemaAeropuerto.cargarAeropuertos();
 
         while (!salir) {
-            System.out.print("************************************************************\n");
-            System.out.print("*       Bienvenido al Aeropuerto de la Programación         *\n");
-            System.out.print("************************************************************\n");
-            System.out.print("*                       MENÚ PRINCIPAL                      *\n");
-            System.out.print("************************************************************\n");
-            System.out.print("*                                                           *\n");
-            System.out.print("*  1. Sistema Reserva/Check-In                              *\n");
-            System.out.print("*  2. Gestion Administrador                                 *\n");
-            System.out.print("*  3. Información de Vuelos                                 *\n");
-            System.out.print("*  4. Servicios de Comida y Bebidas                         *\n");
-            System.out.print("*  5. Zona de Descanso                                      *\n");
-            System.out.print("*  6. Verificar Seguridad                                   *\n");
-            System.out.print("*  7. Salir                                                 *\n");
-            System.out.print("*                                                           *\n");
-            System.out.print("*                                                           *\n");
-            System.out.print("************************************************************\n");
-            System.out.print("*                        __|__                             *\n");
-            System.out.print("*                 --@--@--(_)--@--@--                      *\n");
-            System.out.print("************************************************************\n");
-            System.out.print("Por favor, elige una opción: ");
 
-
-
+            // Menú principal con opciones generales
+            System.out.println("Bienvenido al sistema de Aeropuerto. Elige una opción:");
+            System.out.println("1️⃣ Ingresar al menú de Clientes 👤");
+            System.out.println("2️⃣ Ingresar al menú de Administración 👨‍💼");
             opc = scanner.nextInt();
             scanner.nextLine();
 
             switch (opc) {
                 case 1:
 
-                    System.out.println("BIENVENIDO AL SISTEMA DE RESERVA!");
-                    System.out.println("Por favor. elija una opcion:");
-                    System.out.println("1.realizar una reserva en un vuelo");
-                    System.out.println("2.mostrar una reserva asociada al pasajero");
-                    System.out.println("3.mostrar conexion del vuelo");
-                    System.out.println("4.generar boleto de avion");
+
                     int opcionReserva = scanner.nextInt();
                     scanner.nextLine();
 

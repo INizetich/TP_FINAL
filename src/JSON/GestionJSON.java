@@ -58,6 +58,17 @@ public class GestionJSON {
         }
     }
 
+    // Método para deserializar un archivo JSON a una lista de objetos
+    public static  <T> List<T> deserializarLista(Class<T> clase, String nombreArchivo) {
+        try {
+            return objectMapper.readValue(new File(nombreArchivo), objectMapper.getTypeFactory().constructCollectionType(List.class, clase));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
     // Método para deserializar un archivo JSON a un Set de objetos
     public static  <T> Set<T> deserializarSet(Class<T> clase, String nombreArchivo) {
         try {
@@ -68,15 +79,6 @@ public class GestionJSON {
         return null;
     }
 
-    // Método para deserializar un archivo JSON a una lista de objetos
-    public static  <T> List<T> deserializarLista(Class<T> clase, String nombreArchivo) {
-        try {
-            return objectMapper.readValue(new File(nombreArchivo), objectMapper.getTypeFactory().constructCollectionType(List.class, clase));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
 
 

@@ -1,23 +1,23 @@
 {
-  "Persona{nombre='ignacio', apellido='nizetich', edad=21, dni='45462201'nroAsiento='A1', cantidadEquipaje=[Valija{dimension='50x25x10', peso=21.0}]}" : {
+  "Persona{nombre='ignacio', apellido='nizetich', edad=21, dni='45462201'nroAsiento='A1', cantidadEquipaje=[Valija{dimension='15x10x25', peso=26.0}, Valija{dimension='50x15x25', peso=24.0}]}" : {
     "vuelo" : {
-      "idVuelo" : "AF29DD46",
+      "idVuelo" : "49BE025F",
       "destino" : "John F. Kennedy International Airport",
-      "origen" : "Amsterdam Airport Schiphol",
-      "horario" : 1731756369000,
+      "origen" : "Aeropuerto Internacional Ezeiza",
+      "horario" : 1731782354000,
       "avion" : {
-        "nombre" : "Boeing-760",
-        "capacidadAvion" : 291,
+        "nombre" : "Boeing-751",
+        "capacidadAvion" : 70,
         "motor" : "Motor a reacción",
-        "modelo" : "Modelo-A29",
-        "codigoAvion" : "E7CBA7C9",
+        "modelo" : "Modelo-A39",
+        "codigoAvion" : "479B0C0A",
         "piloto" : {
-          "nombre" : "gabriel",
-          "apellido" : "ruiz",
-          "edad" : 43,
-          "dni" : "28454151",
+          "nombre" : "cristian",
+          "apellido" : "chiliguay",
+          "edad" : 49,
+          "dni" : "34581039",
           "tipoEmpleado" : "PILOTO",
-          "nroEmpleado" : 79217
+          "nroEmpleado" : 23069
         }
       },
       "puertaEmbarque" : "B5",
@@ -29,10 +29,13 @@
         "dni" : "45462201",
         "nroAsiento" : "A1",
         "valija" : [ {
-          "dimension" : "50x25x10",
-          "peso" : 21.0
+          "dimension" : "15x10x25",
+          "peso" : 26.0
+        }, {
+          "dimension" : "50x15x25",
+          "peso" : 24.0
         } ],
-        "codigoPasajero" : "AC5152B1",
+        "codigoPasajero" : "6F13A3A6",
         "checkInRealizado" : true
       } ],
       "asientos" : [ "A1" ]
@@ -45,12 +48,15 @@
       "dni" : "45462201",
       "nroAsiento" : "A1",
       "valija" : [ {
-        "dimension" : "50x25x10",
-        "peso" : 21.0
+        "dimension" : "15x10x25",
+        "peso" : 26.0
+      }, {
+        "dimension" : "50x15x25",
+        "peso" : 24.0
       } ],
-      "codigoPasajero" : "AC5152B1",
+      "codigoPasajero" : "6F13A3A6",
       "checkInRealizado" : true
     },
-    "codigoCheckIn" : "99764385-1abc-46"
+    "codigoCheckIn" : "404d730d-a791-43"
   }
 }

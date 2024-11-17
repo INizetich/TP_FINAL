@@ -6,16 +6,23 @@ import CheckIn.CheckIn;
 import Excepciones.*;
 import Gestiones.*;
 import JSON.GestionJSON;
+import javazoom.jl.player.Player;
 
+import java.io.FileInputStream;
 import java.util.List;
 import java.util.Scanner;
 
 public class MenuClientes {
 
+    private static final String Click = "src/Sonidos/Click.mp3";
+    private static final String Soundtrack = "src/Sonidos/SoundtrackTienda.mp3";
+
     public static void mostrarMenuCliente() {
+
         ///VARIABLES IMPORTANTES
         String opcionString = "";
         // INSTANCIA DE CLASES IMPORTANTES
+
         Admin admin = new Admin();
         Aeropuerto aeropuerto = new Aeropuerto();
         admin.cargarListaEmpleados();
@@ -36,6 +43,7 @@ public class MenuClientes {
         int opcionCliente;
 
         do {
+
             System.out.println("\n======== Menú de Clientes ========");
             System.out.println("1️⃣ Hacer una reserva 🛫");
             System.out.println("2️⃣ Ingresar a tiendas 🏬");
@@ -167,6 +175,7 @@ public class MenuClientes {
                     break;
 
                 case 2:
+                    musicaMenuTiendas();
                     // Implementar el caso 2 (Ingresar a tiendas)
                     System.out.println("Usted ha elegido ingresar a tiendas. 🏬");
                     System.out.println("🔄Presione Enter para volver al menú principal...🔄");
@@ -191,5 +200,18 @@ public class MenuClientes {
                     break;
             }
         } while (opcionCliente != 4);
+    }
+
+    private static void musicaMenuTiendas() {
+        Thread audioThread = new Thread(() -> {
+            try (FileInputStream fis = new FileInputStream(Soundtrack)) {
+                Player player = new Player(fis);
+                player.play();
+            } catch (Exception e) {
+                System.out.println("Error al reproducir el archivo: " + e.getMessage());
+            }
+        });
+        audioThread.setDaemon(true); // El hilo se detendrá automáticamente cuando termine el programa
+        audioThread.start();
     }
 }

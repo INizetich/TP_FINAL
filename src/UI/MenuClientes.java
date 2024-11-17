@@ -47,8 +47,8 @@ public class MenuClientes {
 
             System.out.println("\n======== Menú de Clientes ========");
             System.out.println("1️⃣ Hacer una reserva 🛫");
-            System.out.println("2️⃣ Ingresar a tiendas 🏬");
-            System.out.println("3️⃣ ATM 💰");
+            System.out.println("2️⃣ ATM 💰");
+            System.out.println("3️⃣ Ingresar a tiendas 🏬");
             System.out.println("4️⃣ Salir 👋");
             opcionCliente = scanner.nextInt();
             scanner.nextLine(); // Limpiar el buffer de entrada
@@ -176,7 +176,7 @@ public class MenuClientes {
 
                 case 2:
 
-                    // Implementar el caso 3 (ATM)
+                    // Implementar el caso 2 (ATM)
 
                     System.out.println("Usted ha elegido ATM. 💰");
                     System.out.println("🔄Presione Enter para volver al menú principal...🔄");
@@ -196,7 +196,7 @@ public class MenuClientes {
                         System.out.println("5. 🚪 Salir");
                         System.out.println("💰 Crédito disponible: $" + String.format("%.2f", credito));
                         System.out.print("Seleccione una opción: ");
-                        musicaMenuTiendas();
+
                         opcion = scanner.nextInt();
 
                         switch (opcion) {
@@ -208,8 +208,6 @@ public class MenuClientes {
                             default -> System.out.println("❌ Opción inválida. Intente nuevamente.");
                         }
                     } while (opcion != 5);
-
-                    scanner.close();
 
                     System.out.println("🔄Presione Enter para volver al menú principal...🔄");
                     scanner.nextLine();
@@ -280,7 +278,7 @@ private static void mostrarComida(Scanner scanner) {
 }
 
 private static void mostrarArticulosVarios(Scanner scanner) {
-    ClickSonido();
+
     System.out.println("\n====================================");
     System.out.println("       🛍️ ARTÍCULOS VARIOS 🛍️");
     System.out.println("====================================");
@@ -290,7 +288,7 @@ private static void mostrarArticulosVarios(Scanner scanner) {
     System.out.println("====================================");
     System.out.print("Seleccione un artículo (0 para volver): ");
     int articulo = scanner.nextInt();
-
+    ClickSonido();
     if (articulo > 0 && articulo <= 3) {
         double precio = switch (articulo) {
             case 1 -> 3.00;
@@ -299,23 +297,29 @@ private static void mostrarArticulosVarios(Scanner scanner) {
             default -> 0.0;
         };
         realizarCompra(precio, "artículo");
+        ClickSonido();
     } else if (articulo != 0) {
         System.out.println("❌ Opción inválida.");
+        ClickSonido();
     }
 }
 
 private static void agregarCredito(Scanner scanner) {
+    ClickSonido();
     System.out.print("\n💵 Ingrese la cantidad de crédito a agregar: $");
     double monto = scanner.nextDouble();
     if (monto > 0) {
         credito += monto;
         System.out.println("✅ Crédito agregado exitosamente. Crédito actual: $" + String.format("%.2f", credito));
+        ClickSonido();
     } else {
         System.out.println("❌ El monto debe ser mayor a $0.");
+        ClickSonido();
     }
 }
 
 private static void realizarCompra(double precio, String tipo) {
+    ClickSonido();
     if (credito >= precio) {
         credito -= precio;
         System.out.println("✅ Compra de " + tipo + " realizada con éxito. Crédito restante: $" + String.format("%.2f", credito));

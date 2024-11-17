@@ -1,8 +1,12 @@
 package JSON;
 
+import Aviones.Vuelo;
+import CheckIn.CheckIn;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -13,14 +17,16 @@ public class GestionJSON {
  private static ObjectMapper objectMapper = new ObjectMapper();
 
 
-    // Método para serializar una lista de objetos a un archivo JSON
-    public static void serializarLista(List<?> lista, String nombreArchivo) {
-        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+    public static <T> void serializarLista(List<T> lista, String archivoDestino) {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule()); // Registrar el módulo para soporte de fechas
+        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS); // Para serializar como ISO-8601
+
         try {
-            objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File(nombreArchivo), lista);
-
-
-        } catch (IOException e) {
+            mapper.writerWithDefaultPrettyPrinter().writeValue(new File(archivoDestino), lista);
+            System.out.println("Serialización exitosa en el archivo: " + archivoDestino);
+        } catch (Exception e) {
+            System.err.println("Error al serializar la lista: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -40,15 +46,10 @@ public class GestionJSON {
 
 
 
-
-
-
-
-
-
-    ///metoro para serializar un map de objetos a un archivo JSON
+    ///metodo para serializar un map de objetos a un archivo JSON
     public static <K, V> void serializarMapa(Map<K, V> mapa, String nombreArchivo) {
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+        objectMapper.registerModule(new JavaTimeModule());
         try {
             objectMapper.writeValue(new File(nombreArchivo), mapa);
 
@@ -57,6 +58,7 @@ public class GestionJSON {
             System.out.println("Error al serializar el mapa.");
         }
     }
+
 
     // Método para deserializar un archivo JSON a una lista de objetos
     public static  <T> List<T> deserializarLista(Class<T> clase, String nombreArchivo) {
@@ -84,12 +86,62 @@ public class GestionJSON {
 
     public static <K, V> Map<K, V> deserializarMapa(Class<K> claveClase, Class<V> valorClase, String nombreArchivo) {
         try {
-            return objectMapper.readValue(new File(nombreArchivo), objectMapper.getTypeFactory().constructMapType(Map.class, claveClase, valorClase));
+            // Habilitar el módulo para Java 8 Date/Time
+            objectMapper.registerModule(new JavaTimeModule());
+
+            return objectMapper.readValue(new File(nombreArchivo),
+                    objectMapper.getTypeFactory().constructMapType(Map.class, claveClase, valorClase));
         } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
     }
+
+
+
+
+    public static List<Vuelo> deserializarVuelos(String archivoFuente) {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule()); // Soporte para fechas
+
+        try {
+            return mapper.readValue(new File(archivoFuente), new TypeReference<List<Vuelo>>() {});
+        } catch (Exception e) {
+            System.err.println("Error al deserializar vuelos: " + e.getMessage());
+            e.printStackTrace();
+            return new ArrayList<>(); // Retorna una lista vacía en caso de error
+        }
+    }
+
+
+
+
+
+    public static Map<String, Set<CheckIn>> deserializarReservas(String nombreArchivo) {
+        try {
+            // Crear un mapa vacío
+            Map<String, Set<CheckIn>> reservas = new HashMap<>();
+
+            // Leer el archivo JSON para obtener el mapa completo
+            Map<String, List<CheckIn>> reservasTemp = objectMapper.readValue(new File(nombreArchivo),
+                    objectMapper.getTypeFactory().constructMapType(Map.class, String.class, List.class));
+
+            // Convertir las listas de CheckIn a sets
+            for (Map.Entry<String, List<CheckIn>> entry : reservasTemp.entrySet()) {
+                // Convertir la lista a un Set
+                Set<CheckIn> checkInsSet = new HashSet<>(entry.getValue());
+                reservas.put(entry.getKey(), checkInsSet);
+            }
+
+            return reservas;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+
 
 
 

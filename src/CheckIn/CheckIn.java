@@ -4,10 +4,15 @@ import Aviones.Vuelo;
 import Excepciones.ReservaInexistenteException;
 import Excepciones.dniNoEncontradoException;
 import Gestiones.SistemaReserva;
+import JSON.GestionJSON;
 import Personas.Pasajero;
 import Utilidades.Utilities;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.text.SimpleDateFormat;
+import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 public class CheckIn {
@@ -17,12 +22,16 @@ public class CheckIn {
     private static String CodigoCheckIn;
 
 
-    public CheckIn(Vuelo vuelo, String numeroAsiento, Pasajero pasajero) {
+    // Constructor con @JsonCreator y @JsonProperty
+    @JsonCreator
+    public CheckIn(@JsonProperty("vuelo") Vuelo vuelo,
+                   @JsonProperty("numeroAsiento") String numeroAsiento,
+                   @JsonProperty("pasajero") Pasajero pasajero) {
         this.vuelo = vuelo;
         this.numeroAsiento = numeroAsiento;
         this.pasajero = pasajero;
+        // Generar Código de CheckIn automáticamente
         this.CodigoCheckIn = UUID.randomUUID().toString().substring(0, 16);
-
     }
 
     public Vuelo getVuelo() {
@@ -68,91 +77,123 @@ public class CheckIn {
     }
 
 
-
     public static void mostrarReserva(String dni, SistemaReserva sistemaReserva) throws dniNoEncontradoException {
         boolean encontrado = false;
 
-        for (CheckIn checkIn : sistemaReserva.getMapaReservas().values()) {
-            Pasajero pasajero = checkIn.getPasajero();
+        try {
+            // Deserializar el mapa de reservas desde el archivo JSON
+            Map<String, Set<CheckIn>> mapaReservas = GestionJSON.deserializarReservas("Archivos JSON/Check-In.json");
 
-            // Limpiar espacios y comparar el DNI
-            if (pasajero.getDni().trim().equalsIgnoreCase(dni.trim())) {
-                // Verificar si el check-in ha sido realizado
-                if (pasajero.isCheckInRealizado()) {
-                    System.out.println("============================");
-                    System.out.println("🎉 Reserva Confirmada 🎉");
-                    System.out.println("============================");
-                    System.out.println("👤 Pasajero: " + pasajero.getNombre() + " " + pasajero.getApellido());
-                    System.out.println("🆔 DNI: " + pasajero.getDni());
-
-                    // Mostrar detalles del vuelo
-                    Vuelo vuelo = checkIn.getVuelo();
-                    System.out.println("✈️ Vuelo: " + vuelo.getOrigen() + " ➡️ " + vuelo.getDestino());
-                    System.out.println("📅 Fecha del Vuelo: " + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(vuelo.getHorario()));
-                    System.out.println("💺 Número de Asiento: " + checkIn.getNumeroAsiento());
-                    System.out.println("🗳️ Código de Check-In: " + checkIn.getCodigoCheckIn());
-
-                    System.out.println("============================");
-                } else {
-                    System.out.println("========================================================================");
-                    System.out.println("❌ La reserva aún no ha sido realizada para " + pasajero.getNombre() + " " + pasajero.getApellido());
-                }
-                encontrado = true;
-                break;
+            if (mapaReservas == null || mapaReservas.isEmpty()) {
+                System.out.println("No hay reservas disponibles en el sistema.");
+                return;
             }
-        }
 
-        if (!encontrado) {
-            throw new dniNoEncontradoException("El DNI no se encuentra dentro del sistema de reservas.");
+            // Recorrer el mapa de reservas
+            for (Set<CheckIn> checkIns : mapaReservas.values()) {
+                for (CheckIn checkIn : checkIns) {
+                    Pasajero pasajero = checkIn.getPasajero();
+
+                    // Limpiar espacios y comparar el DNI
+                    if (pasajero.getDni().trim().equalsIgnoreCase(dni.trim())) {
+                        // Verificar si el check-in ha sido realizado
+                        if (pasajero.isCheckInRealizado()) {
+                            System.out.println("============================");
+                            System.out.println("🎉 Reserva Confirmada 🎉");
+                            System.out.println("============================");
+                            System.out.println("👤 Pasajero: " + pasajero.getNombre() + " " + pasajero.getApellido());
+                            System.out.println("🆔 DNI: " + pasajero.getDni());
+
+                            // Mostrar detalles del vuelo
+                            Vuelo vuelo = checkIn.getVuelo();
+                            System.out.println("✈️ Vuelo: " + vuelo.getOrigen() + " ➡️ " + vuelo.getDestino());
+                            System.out.println("📅 Fecha del Vuelo: " + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(vuelo.getHorario()));
+                            System.out.println("💺 Número de Asiento: " + checkIn.getNumeroAsiento());
+                            System.out.println("🗳️ Código de Check-In: " + checkIn.getCodigoCheckIn());
+
+                            System.out.println("============================");
+                        } else {
+                            System.out.println("========================================================================");
+                            System.out.println("❌ La reserva aún no ha sido realizada para " + pasajero.getNombre() + " " + pasajero.getApellido());
+                        }
+                        encontrado = true;
+                        break;
+                    }
+                }
+                if (encontrado) {
+                    break;
+                }
+            }
+
+            if (!encontrado) {
+                throw new dniNoEncontradoException("El DNI no se encuentra dentro del sistema de reservas.");
+            }
+        } catch (Exception e) {
+            System.out.println("Error al mostrar la reserva: " + e.getMessage());
         }
     }
+
+
 
 
     public static void generarBoleto(String dni, SistemaReserva sistemaReserva) throws ReservaInexistenteException {
-
         Utilities.mostrarCargando();
 
-        for (CheckIn checkIn : sistemaReserva.getMapaReservas().values()) {
-            Pasajero pasajero = checkIn.getPasajero();
-            if (pasajero.getDni().trim().equalsIgnoreCase(dni.trim())) {
-                // Generación del boleto de avión
-                Vuelo vuelo = checkIn.getVuelo();
-                StringBuilder boleto = new StringBuilder();
-                SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        // Variable para verificar si el DNI fue encontrado
+        boolean encontrado = false;
 
-                // Cabecera del boleto con emojis
-                boleto.append("======================================================================\n");
-                boleto.append("🌟                        BOLETO DE AVION                        🌟\n");
-                boleto.append("======================================================================\n");
+        // Iterar sobre el mapa de reservas
+        for (Set<CheckIn> checkIns : sistemaReserva.getMapaReservas().values()) {
+            for (CheckIn checkIn : checkIns) {
+                Pasajero pasajero = checkIn.getPasajero();
 
-                // Información del pasajero y vuelo con emojis
-                boleto.append("👤 Pasajero: ").append(pasajero.getNombre()).append(" ").append(pasajero.getApellido()).append("\n");
-                boleto.append("🆔 DNI: ").append(pasajero.getDni()).append("\n");
-                boleto.append("🌍 Origen: ").append(vuelo.getOrigen()).append("\n");
-                boleto.append("✈️ Destino: ").append(vuelo.getDestino()).append("\n");
-                boleto.append("📅 Fecha de vuelo: ").append(formatoFecha.format(vuelo.getHorario())).append("\n");
-                boleto.append("🪑 Número de asiento: ").append(pasajero.getNroAsiento()).append("\n");
-                boleto.append("🚪 Puerta de embarque: ").append(vuelo.getPuertaEmbarque()).append("\n");
+                // Verificar si el DNI coincide
+                if (pasajero.getDni().trim().equalsIgnoreCase(dni.trim())) {
+                    encontrado = true; // Se ha encontrado el pasajero
 
-                // Pie de boleto con emojis
-                boleto.append("======================================================================\n");
-                boleto.append("🔑 Código único de identificación: ").append(CodigoCheckIn).append("\n");
-                boleto.append("======================================================================\n");
+                    // Generación del boleto de avión
+                    Vuelo vuelo = checkIn.getVuelo();
+                    StringBuilder boleto = new StringBuilder();
+                    SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
-                // Despedida con emojis
-                boleto.append("🎉 *¡Buen viaje! Gracias por volar con nosotros.* ✈️🌍\n");
-                boleto.append("======================================================================");
+                    // Cabecera del boleto con emojis
+                    boleto.append("======================================================================\n");
+                    boleto.append("🌟                        BOLETO DE AVION                        🌟\n");
+                    boleto.append("======================================================================\n");
 
-                // Mostrar el boleto
-                System.out.println(boleto.toString());
+                    // Información del pasajero y vuelo con emojis
+                    boleto.append("👤 Pasajero: ").append(pasajero.getNombre()).append(" ").append(pasajero.getApellido()).append("\n");
+                    boleto.append("🆔 DNI: ").append(pasajero.getDni()).append("\n");
+                    boleto.append("🌍 Origen: ").append(vuelo.getOrigen()).append("\n");
+                    boleto.append("✈️ Destino: ").append(vuelo.getDestino()).append("\n");
+                    boleto.append("📅 Fecha de vuelo: ").append(formatoFecha.format(vuelo.getHorario())).append("\n");
+                    boleto.append("🪑 Número de asiento: ").append(pasajero.getNroAsiento()).append("\n");
+                    boleto.append("🚪 Puerta de embarque: ").append(vuelo.getPuertaEmbarque()).append("\n");
 
-            } else {
-                throw new ReservaInexistenteException("El boleto de avión no tiene ningún DNI asociado que haya realizado una reserva.");
+                    // Pie de boleto con emojis
+                    boleto.append("======================================================================\n");
+                    boleto.append("🔑 Código único de identificación: ").append(checkIn.getCodigoCheckIn()).append("\n");
+                    boleto.append("======================================================================\n");
+
+                    // Despedida con emojis
+                    boleto.append("🎉 *¡Buen viaje! Gracias por volar con nosotros.* ✈️🌍\n");
+                    boleto.append("======================================================================");
+
+                    // Mostrar el boleto
+                    System.out.println(boleto.toString());
+                    break; // Si se encuentra el boleto, terminamos el ciclo
+                }
+            }
+            if (encontrado) {
+                break; // Si ya se encontró el DNI, terminamos el ciclo externo
             }
         }
+
+        // Si no se encuentra el DNI en ninguna reserva, lanzamos la excepción
+        if (!encontrado) {
+            throw new ReservaInexistenteException("El boleto de avión no tiene ningún DNI asociado que haya realizado una reserva.");
+        }
     }
-
-
 
 
 }

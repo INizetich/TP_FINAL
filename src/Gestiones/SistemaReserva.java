@@ -1,5 +1,6 @@
 package Gestiones;
 
+import Config.Configs;
 import Excepciones.*;
 import Enums.EstadoEmbarque;
 import Aviones.Vuelo;
@@ -8,17 +9,36 @@ import JSON.GestionJSON;
 import Personas.Pasajero;
 import Pertenencias.Valija;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 import java.util.Scanner;
 
 public class SistemaReserva {
-    private final Map<String, CheckIn> mapaReservas; // UUID como clave, CheckIn como valor
+    private final Map<String, Set<CheckIn>> mapaReservas;
 
     public SistemaReserva() {
         this.mapaReservas = new HashMap<>();
     }
 
     public void realizarReserva() throws CodigoVueloInexistenteException, AsientoNoDisponibleException, DniRegistradoException {
+
+        if (!Configs.isFirstRun()){
+            List<Vuelo> vuelos = GestionJSON.deserializarVuelos("Archivos JSON/vuelos.json");
+            SistemaVuelo.setVuelosGenerados(vuelos);
+        }
+
+        // Comprobar si el archivo de CheckIn existe antes de deserializar
+        File checkInFile = new File("Archivos JSON/Check-In.json");
+        Map<String, Set<CheckIn>> reservasJSON = new HashMap<>();
+
+        if (checkInFile.exists()) {
+            reservasJSON = GestionJSON.deserializarReservas("Archivos JSON/Check-In.json");
+        }
+
+        // Inicializar el mapa de reservas
+        mapaReservas.putAll(reservasJSON);
+
         Scanner scanner = new Scanner(System.in);
 
         boolean vueloSeleccionadoCorrecto = false;  // Variable para controlar la selección del vuelo
@@ -32,7 +52,7 @@ public class SistemaReserva {
             String idVueloSeleccionado = scanner.nextLine().toUpperCase();
 
             // Filtrar la lista de vuelos por el id de vuelo
-            Vuelo vueloSeleccionado = SistemaVuelo.getVuelos().stream()
+            Vuelo vueloSeleccionado = SistemaVuelo.obtenerVuelosGenerados().stream()
                     .filter(v -> v.getIdVuelo().equalsIgnoreCase(idVueloSeleccionado))
                     .findFirst()
                     .orElse(null);
@@ -74,8 +94,9 @@ public class SistemaReserva {
             System.out.println("==================================================");
             System.out.println("🪑 " + String.join(" 🪑 ", asientosDisponibles));
             System.out.println("==================================================");
-        String asientoSeleccionado = "";
-        boolean token = true;
+
+            String asientoSeleccionado = "";
+            boolean token = true;
             while (token) {
                 try {
                     // Seleccionar asiento
@@ -97,33 +118,53 @@ public class SistemaReserva {
                 }
             }
 
-
-
-
+            // Crear el pasajero
             Pasajero pasajero = crearPasajero(asientoSeleccionado);
 
             try {
+                // Agregar pasajero al vuelo
                 if (vueloSeleccionado.agregarPasajero(pasajero)) {
                     vueloSeleccionado.ocuparAsiento(asientoSeleccionado);
                     vueloSeleccionado.setEstadoEmbarque(EstadoEmbarque.CERRADO);
-                    mapaReservas.put(pasajero.getDni(), new CheckIn(vueloSeleccionado, asientoSeleccionado, pasajero));
+
+                    // Crear un nuevo CheckIn
+                    CheckIn nuevoCheckIn = new CheckIn(vueloSeleccionado, asientoSeleccionado, pasajero);
+
+                    // Verificar si ya existe un Set para ese DNI en el mapa de reservas
+                    Set<CheckIn> checkInsExistentes = mapaReservas.getOrDefault(pasajero.getDni(), new HashSet<>());
+
+                    // Agregar el nuevo CheckIn al Set de reservas
+                    checkInsExistentes.add(nuevoCheckIn);
+
+                    // Guardar el Set actualizado en el mapa de reservas
+                    mapaReservas.put(pasajero.getDni(), checkInsExistentes);
 
                     // Registrar la conexión entre aeropuertos
                     ConexionAeropuerto conexionAeropuerto = new ConexionAeropuerto();
                     conexionAeropuerto.registrarConexion(vueloSeleccionado.getOrigen(), vueloSeleccionado.getDestino(), vueloSeleccionado.getIdVuelo());
 
                     pasajero.setCheckIn(true);
-                    GestionJSON.serializarMapa(mapaReservas, "Archivos JSON/Check-In.json");
-                    GestionJSON.serializarMapa(ConexionAeropuerto.getConexiones(), "Archivos JSON/ConexionesAeropuertos.json");
+
+                    try {
+                        GestionJSON.serializarMapa(mapaReservas, "Archivos JSON/Check-In.json");
+                        GestionJSON.serializarMapa(ConexionAeropuerto.getConexiones(), "Archivos JSON/ConexionesAeropuertos.json");
+                    } catch (Exception e) {
+                        System.out.println("Error al guardar reservas o conexiones.");
+                        e.printStackTrace();
+                    }
+
+
                     System.out.println("============================================================================");
                     System.out.println("Reserva realizada exitosamente para " + pasajero.getNombre() + " " + pasajero.getApellido());
+
+                    // Una vez realizada la primera reserva, actualiza el estado para indicar que ya no es la primera ejecución
+                    Configs.setFirstRunComplete();
                 }
             } catch (CapacidadMaximaException e) {
                 System.out.println(e.getMessage());
             }
         }
     }
-
 
 
 
@@ -247,7 +288,7 @@ public class SistemaReserva {
         mapaReservas.forEach((key, value) -> System.out.println("Código: " + key + " -> " + value));
     }
 
-    public Map<String, CheckIn> getMapaReservas() {
+    public Map<String, Set<CheckIn>> getMapaReservas() {
         return mapaReservas;
     }
 }

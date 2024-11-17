@@ -3,19 +3,26 @@ package Personas;
 
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.io.Serializable;
 import java.lang.Comparable;
 import java.util.Objects;
 
 public class Persona implements Comparable<Persona>, Serializable {
 
+    @JsonProperty("dni")
+    private String dni;
+
+    @JsonProperty("nombre")
     private String nombre;
 
+    @JsonProperty("apellido")
     private String apellido;
 
     private int edad;
 
-    private String dni;
+
 
 
     public Persona() {

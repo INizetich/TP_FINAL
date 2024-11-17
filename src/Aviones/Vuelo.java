@@ -1,5 +1,6 @@
 package Aviones;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 import Enums.EstadoEmbarque;
@@ -9,22 +10,40 @@ import Excepciones.CapacidadMaximaException;
 
 
 import Personas.Pasajero;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+@JsonPropertyOrder({"idVuelo", "origen", "destino", "horario", "estadoEmbarque", "avion", "puertaEmbarque", "listaPasajeros", "asientos"})
 public class Vuelo {
-    private  String idVuelo;
-    private String destino; // Nombre del aeropuerto destino
-    private String origen;  // Nombre del aeropuerto origen
-    private Date horario;
-    private Avion avion;
-  
+    @JsonProperty("idVuelo")
+    private String idVuelo;
+
+    @JsonProperty("origen")
+    private String origen;
+
+    @JsonProperty("destino")
+    private String destino;
+
+    @JsonProperty("puertaEmbarque")
     private PuertaEmbarque puertaEmbarque;
+
+    @JsonProperty("horario")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    private LocalDateTime horario;
+
+    @JsonProperty("avion")
+    private Avion avion;
+
     private EstadoEmbarque estadoEmbarque;
+
     private Set<Pasajero> listaPasajeros;
     private Set<String>asientos = new HashSet<>();
 
 
-    public Vuelo() {
-        this.idVuelo = generarIdVuelo();
+    public Vuelo(String idVuelo) {
+        this.idVuelo = idVuelo;
         this.destino = "";
         this.origen = "";
         this.horario = null;
@@ -34,16 +53,25 @@ public class Vuelo {
         this.puertaEmbarque = PuertaEmbarque.obtenerPuertaAleatoria();
     }
 
-    public Vuelo(String origen, String destino, Date horario, Avion avion) {
-        this.idVuelo = generarIdVuelo();
+    @JsonCreator
+    public Vuelo(
+            @JsonProperty("id") String id,
+            @JsonProperty("origen") String origen,
+            @JsonProperty("destino") String destino,
+            @JsonProperty("horario") LocalDateTime horario,
+            @JsonProperty("estadoEmbarque") EstadoEmbarque estadoEmbarque,
+            @JsonProperty("avion") Avion avion
+    ) {
+        this.idVuelo = id;
         this.origen = origen;
         this.destino = destino;
         this.horario = horario;
+        this.estadoEmbarque = estadoEmbarque;
         this.avion = avion;
-        this.estadoEmbarque = EstadoEmbarque.ABIERTO;
         this.listaPasajeros = new HashSet<>();
-        this.puertaEmbarque = PuertaEmbarque.obtenerPuertaAleatoria();
+
     }
+
 
     private String generarIdVuelo() {
         return UUID.randomUUID().toString().substring(0, 8).toUpperCase();
@@ -70,11 +98,11 @@ public class Vuelo {
         this.origen = origen;
     }
 
-    public Date getHorario() {
+    public LocalDateTime getHorario() {
         return horario;
     }
 
-    public void setHorario(Date horario) {
+    public void setHorario(LocalDateTime horario) {
         this.horario = horario;
     }
 
@@ -119,12 +147,17 @@ public class Vuelo {
     }
 
     public boolean agregarPasajero(Pasajero pasajero) throws CapacidadMaximaException {
+        if (listaPasajeros.contains(pasajero)) {
+            System.out.println("El pasajero ya está registrado en este vuelo.");
+            return false;
+        }
         if (listaPasajeros.size() < avion.getCapacidadAvion()) {
             listaPasajeros.add(pasajero);
             return true;
         }
         throw new CapacidadMaximaException("El avión llegó a su capacidad máxima.");
     }
+
 
     public void mostrarListaPasajeros(){
         Iterator<Pasajero> it = listaPasajeros.iterator();
@@ -134,7 +167,7 @@ public class Vuelo {
         }
     }
     public void ocuparAsiento(String asiento){
-     asientos.add(asiento);
+        asientos.add(asiento);
     }
 
     public boolean estaAsientoDisponible(String asiento) {
@@ -159,7 +192,7 @@ public class Vuelo {
                 '}';
     }
 
-    }
+}
 
 
 

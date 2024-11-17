@@ -1,56 +1,110 @@
 {
-  "45462201" : {
+  "28454151" : [ {
     "vuelo" : {
-      "idVuelo" : "E0AB4BE6",
-      "destino" : "Aeropuerto Internacional São Paulo-Guarulhos",
-      "origen" : "Sydney Kingsford Smith International Airport",
-      "horario" : 1731852384000,
+      "idVuelo" : "CB901D39",
+      "origen" : "Aeropuerto Internacional de la Ciudad de México",
+      "destino" : "Los Angeles International Airport",
+      "horario" : "2024-11-17 07:50",
+      "estadoEmbarque" : "CERRADO",
       "avion" : {
-        "nombre" : "Boeing-755",
-        "capacidadAvion" : 131,
+        "nombre" : "Boeing-750",
+        "capacidadAvion" : 172,
         "motor" : "Motor turbofan",
-        "modelo" : "Modelo-A54",
-        "codigoAvion" : "4B88ACB2",
+        "modelo" : "Modelo-A23",
+        "codigoAvion" : "C71D3169",
         "piloto" : {
-          "nombre" : "martin",
-          "apellido" : "ledesma",
           "edad" : 36,
-          "dni" : "28102912",
           "tipoEmpleado" : "PILOTO",
-          "nroEmpleado" : 3337
+          "nroEmpleado" : 99416,
+          "dni" : "28102912",
+          "nombre" : "martin",
+          "apellido" : "ledesma"
         }
       },
-      "puertaEmbarque" : "C1",
-      "estadoEmbarque" : "CERRADO",
+      "puertaEmbarque" : "B1",
       "listaPasajeros" : [ {
-        "nombre" : "ignacio",
-        "apellido" : "nizetich",
-        "edad" : 21,
-        "dni" : "45462201",
-        "nroAsiento" : "A1",
+        "edad" : 43,
+        "checkInRealizado" : true,
+        "dni" : "28454151",
+        "nombre" : "gabriel",
+        "apellido" : "ruiz",
+        "numeroAsiento" : "B1",
         "valija" : [ {
-          "dimension" : "15x15x1",
+          "dimension" : "15x15x15",
           "peso" : 23.0
         } ],
-        "codigoPasajero" : "19A0A08C",
-        "checkInRealizado" : true
+        "codigoPasajero" : "CF0D45A9"
+      } ],
+      "asientos" : [ "B1" ]
+    },
+    "numeroAsiento" : "B1",
+    "pasajero" : {
+      "edad" : 43,
+      "checkInRealizado" : true,
+      "dni" : "28454151",
+      "nombre" : "gabriel",
+      "apellido" : "ruiz",
+      "numeroAsiento" : "B1",
+      "valija" : [ {
+        "dimension" : "15x15x15",
+        "peso" : 23.0
+      } ],
+      "codigoPasajero" : "CF0D45A9"
+    },
+    "codigoCheckIn" : "8e66f1fa-99be-4d"
+  } ],
+  "45462201" : [ {
+    "vuelo" : {
+      "idVuelo" : "CB901D39",
+      "origen" : "Amsterdam Airport Schiphol",
+      "destino" : "Miami International Airport",
+      "horario" : "2024-11-17 16:32",
+      "estadoEmbarque" : "CERRADO",
+      "avion" : {
+        "nombre" : "Boeing-746",
+        "capacidadAvion" : 101,
+        "motor" : "Motor turbofan",
+        "modelo" : "Modelo-A25",
+        "codigoAvion" : "E386A3D1",
+        "piloto" : {
+          "edad" : 58,
+          "tipoEmpleado" : "PILOTO",
+          "nroEmpleado" : 30295,
+          "dni" : "21581057",
+          "nombre" : "julieta",
+          "apellido" : "canale"
+        }
+      },
+      "puertaEmbarque" : "C2",
+      "listaPasajeros" : [ {
+        "edad" : 21,
+        "checkInRealizado" : true,
+        "dni" : "45462201",
+        "nombre" : "ignacio",
+        "apellido" : "nizetich",
+        "numeroAsiento" : "A1",
+        "valija" : [ {
+          "dimension" : "15x15x15",
+          "peso" : 23.0
+        } ],
+        "codigoPasajero" : "E502A0B9"
       } ],
       "asientos" : [ "A1" ]
     },
     "numeroAsiento" : "A1",
     "pasajero" : {
+      "edad" : 21,
+      "checkInRealizado" : true,
+      "dni" : "45462201",
       "nombre" : "ignacio",
       "apellido" : "nizetich",
-      "edad" : 21,
-      "dni" : "45462201",
-      "nroAsiento" : "A1",
+      "numeroAsiento" : "A1",
       "valija" : [ {
-        "dimension" : "15x15x1",
+        "dimension" : "15x15x15",
         "peso" : 23.0
       } ],
-      "codigoPasajero" : "19A0A08C",
-      "checkInRealizado" : true
+      "codigoPasajero" : "E502A0B9"
     },
-    "codigoCheckIn" : "cf7fa6d7-9504-49"
-  }
+    "codigoCheckIn" : "51842c9f-8806-44"
+  } ]
 }

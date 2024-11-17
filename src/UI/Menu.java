@@ -65,25 +65,7 @@ public class Menu {
                     scanner.nextLine();
 
                     switch (opcionReserva) {
-                        case 1:
-                            do {
-                                try {
-                                    sistemaReserva.realizarReserva();
-                                } catch (DniRegistradoException e) {
-                                    e.printStackTrace();
-                                } catch (CodigoVueloInexistenteException e) {
-                                    e.printStackTrace();
 
-                                } catch (AsientoNoDisponibleException e) {
-                                    e.printStackTrace();
-                                } finally {
-                                    System.out.println("¿Desea hacer otra reserva? (s: sí / n: no)");
-                                    opcionString = scanner.nextLine().trim().toLowerCase();
-                                }
-                            } while (opcionString.equals("s"));
-                            System.out.println("Fin del proceso de reservas.");
-                            
-                            break;
 
 
                         case 2:

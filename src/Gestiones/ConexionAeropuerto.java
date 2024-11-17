@@ -17,21 +17,30 @@ public class ConexionAeropuerto {
         return conexiones;
     }
 
-    // Mostrar conexiones con IDs de vuelos en una sola línea
     public static void mostrarConexiones() {
-        System.out.println("Conexiones entre aeropuertos del vuelo: ");
+        System.out.println("🌐✈️  Vuelos reservados ✈️🌐");
+
+        if (conexiones.isEmpty()) {
+            System.out.println("🚫 No se encuentra ningún vuelo reservado en este momento. 🛫");
+        }
+
 
         // Iterar sobre las conexiones
         conexiones.forEach((origen, destinos) -> {
             // Concatenar los destinos y los vuelos correspondientes en una sola línea
-            StringBuilder conexionInfo = new StringBuilder("Origen: " + origen);
+            StringBuilder conexionInfo = new StringBuilder("🛫 Origen: " + origen);
 
             destinos.forEach((destino, idVuelos) -> {
-                conexionInfo.append(" | Destino: " + destino + " -> Vuelos: " + String.join(", ", idVuelos));
+                // Agregar los destinos con los respectivos vuelos
+                conexionInfo.append(" | 🌍 Destino: " + destino + " -> 🛬 Vuelo: " + String.join(", ", idVuelos));
             });
 
-            // Imprimir la información de la conexión en una sola línea
+            // Imprimir la información de la conexión de forma bonita
             System.out.println(conexionInfo.toString());
         });
+
+        System.out.println("==============================================");
+        System.out.println("¡Viaja con nosotros y disfruta de las mejores conexiones! ✈️🌍");
     }
+
 }

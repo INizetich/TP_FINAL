@@ -33,7 +33,6 @@ public class SistemaAeropuerto {
 
     public static  void cargarAeropuertos() {
         listaAeropuertos = agregarAeropuertos();
-        listaAeropuertos.forEach(a -> System.out.println(a.getNombre()));
     }
 
     public static  Set<Aeropuerto> agregarAeropuertos() {

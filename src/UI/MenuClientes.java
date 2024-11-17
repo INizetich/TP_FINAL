@@ -205,7 +205,9 @@ public class MenuClientes {
                             case 3 -> mostrarArticulosVarios(scanner);
                             case 4 -> agregarCredito(scanner);
                             case 5 -> System.out.println("¡Gracias por visitar el kiosko! 🛒");
+
                             default -> System.out.println("❌ Opción inválida. Intente nuevamente.");
+
                         }
                     } while (opcion != 5);
 
@@ -227,120 +229,121 @@ public class MenuClientes {
 
     }
 
-///VARIABLES PARA EL APARTADO KIOSCO
-private static void mostrarBebidas(Scanner scanner) {
-    ClickSonido();
-    System.out.println("\n====================================");
-    System.out.println("           🥤 BEBIDAS 🥤");
-    System.out.println("====================================");
-    System.out.println("1. 🧊 Agua mineral   - $1.00");
-    System.out.println("2. 🥤 Gaseosa        - $1.50");
-    System.out.println("3. 🍹 Jugo natural   - $2.00");
-    System.out.println("====================================");
-    System.out.print("Seleccione su bebida (0 para volver): ");
-    int bebida = scanner.nextInt();
-
-    if (bebida > 0 && bebida <= 3) {
-        double precio = bebida == 1 ? 1.00 : bebida == 2 ? 1.50 : 2.00;
-        realizarCompra(precio, "bebida");
-    } else if (bebida != 0) {
-        System.out.println("❌ Opción inválida.");
-    }
-}
-
-private static void mostrarComida(Scanner scanner) {
-    ClickSonido();
-    System.out.println("\n====================================");
-    System.out.println("           🍔 COMIDA 🍔");
-    System.out.println("====================================");
-    System.out.println("1. 🥟 Empanada       - $1.50");
-    System.out.println("2. 🥪 Sandwich       - $2.50");
-    System.out.println("3. 🍟 Papas fritas   - $1.75");
-    System.out.println("4. 🌭 Hot Dog        - $2.00");
-    System.out.println("5. 🍕 Porción pizza  - $3.00");
-    System.out.println("====================================");
-    System.out.print("Seleccione su comida (0 para volver): ");
-    int comida = scanner.nextInt();
-
-    if (comida > 0 && comida <= 5) {
-        double precio = switch (comida) {
-            case 1 -> 1.50;
-            case 2 -> 2.50;
-            case 3 -> 1.75;
-            case 4 -> 2.00;
-            case 5 -> 3.00;
-            default -> 0.0;
-        };
-        realizarCompra(precio, "comida");
-    } else if (comida != 0) {
-        System.out.println("❌ Opción inválida.");
-    }
-}
-
-private static void mostrarArticulosVarios(Scanner scanner) {
-
-    System.out.println("\n====================================");
-    System.out.println("       🛍️ ARTÍCULOS VARIOS 🛍️");
-    System.out.println("====================================");
-    System.out.println("1. 📖 Revista        - $3.00");
-    System.out.println("2. 🍬 Chicle         - $0.50");
-    System.out.println("3. 🔥 Encendedor     - $1.20");
-    System.out.println("====================================");
-    System.out.print("Seleccione un artículo (0 para volver): ");
-    int articulo = scanner.nextInt();
-    ClickSonido();
-    if (articulo > 0 && articulo <= 3) {
-        double precio = switch (articulo) {
-            case 1 -> 3.00;
-            case 2 -> 0.50;
-            case 3 -> 1.20;
-            default -> 0.0;
-        };
-        realizarCompra(precio, "artículo");
+    /// VARIABLES PARA EL APARTADO KIOSCO
+    private static void mostrarBebidas(Scanner scanner) {
         ClickSonido();
-    } else if (articulo != 0) {
-        System.out.println("❌ Opción inválida.");
-        ClickSonido();
-    }
-}
+        System.out.println("\n====================================");
+        System.out.println("           🥤 BEBIDAS 🥤");
+        System.out.println("====================================");
+        System.out.println("1. 🧊 Agua mineral   - $1.00");
+        System.out.println("2. 🥤 Gaseosa        - $1.50");
+        System.out.println("3. 🍹 Jugo natural   - $2.00");
+        System.out.println("====================================");
+        System.out.print("Seleccione su bebida (0 para volver): ");
+        int bebida = scanner.nextInt();
 
-private static void agregarCredito(Scanner scanner) {
-    ClickSonido();
-    System.out.print("\n💵 Ingrese la cantidad de crédito a agregar: $");
-    double monto = scanner.nextDouble();
-    if (monto > 0) {
-        credito += monto;
-        System.out.println("✅ Crédito agregado exitosamente. Crédito actual: $" + String.format("%.2f", credito));
-        ClickSonido();
-    } else {
-        System.out.println("❌ El monto debe ser mayor a $0.");
-        ClickSonido();
-    }
-}
-
-private static void realizarCompra(double precio, String tipo) {
-    ClickSonido();
-    if (credito >= precio) {
-        credito -= precio;
-        System.out.println("✅ Compra de " + tipo + " realizada con éxito. Crédito restante: $" + String.format("%.2f", credito));
-    } else {
-        System.out.println("❌ No tienes suficiente crédito para esta compra.");
-    }
-}
-/// //////////////////////////////////////////////////////////////////////////
-/// /// METODOS PARA EL SONIDO
-private static void ClickSonido() {
-    Thread audioThread = new Thread(() -> {
-        try (FileInputStream fis = new FileInputStream(Click)) {
-            Player player = new Player(fis);
-            player.play();
-        } catch (Exception e) {
-            System.out.println("Error al reproducir el archivo: " + e.getMessage());
+        if (bebida > 0 && bebida <= 3) {
+            double precio = bebida == 1 ? 1.00 : bebida == 2 ? 1.50 : 2.00;
+            realizarCompra(precio, "bebida");
+        } else if (bebida != 0) {
+            System.out.println("❌ Opción inválida.");
         }
-    });
-    audioThread.setDaemon(true); // El hilo se detendrá automáticamente cuando termine el programa
-    audioThread.start();
-}
+    }
+
+    private static void mostrarComida(Scanner scanner) {
+        ClickSonido();
+        System.out.println("\n====================================");
+        System.out.println("           🍔 COMIDA 🍔");
+        System.out.println("====================================");
+        System.out.println("1. 🥟 Empanada       - $1.50");
+        System.out.println("2. 🥪 Sandwich       - $2.50");
+        System.out.println("3. 🍟 Papas fritas   - $1.75");
+        System.out.println("4. 🌭 Hot Dog        - $2.00");
+        System.out.println("5. 🍕 Porción pizza  - $3.00");
+        System.out.println("====================================");
+        System.out.print("Seleccione su comida (0 para volver): ");
+        int comida = scanner.nextInt();
+
+        if (comida > 0 && comida <= 5) {
+            double precio = switch (comida) {
+                case 1 -> 1.50;
+                case 2 -> 2.50;
+                case 3 -> 1.75;
+                case 4 -> 2.00;
+                case 5 -> 3.00;
+                default -> 0.0;
+            };
+            realizarCompra(precio, "comida");
+        } else if (comida != 0) {
+            System.out.println("❌ Opción inválida.");
+        }
+    }
+
+    private static void mostrarArticulosVarios(Scanner scanner) {
+
+        System.out.println("\n====================================");
+        System.out.println("       🛍️ ARTÍCULOS VARIOS 🛍️");
+        System.out.println("====================================");
+        System.out.println("1. 📖 Revista        - $3.00");
+        System.out.println("2. 🍬 Chicle         - $0.50");
+        System.out.println("3. 🔥 Encendedor     - $1.20");
+        System.out.println("====================================");
+        System.out.print("Seleccione un artículo (0 para volver): ");
+        int articulo = scanner.nextInt();
+        ClickSonido();
+        if (articulo > 0 && articulo <= 3) {
+            double precio = switch (articulo) {
+                case 1 -> 3.00;
+                case 2 -> 0.50;
+                case 3 -> 1.20;
+                default -> 0.0;
+            };
+            realizarCompra(precio, "artículo");
+            ClickSonido();
+        } else if (articulo != 0) {
+            System.out.println("❌ Opción inválida.");
+            ClickSonido();
+        }
+    }
+
+    private static void agregarCredito(Scanner scanner) {
+        ClickSonido();
+        System.out.print("\n💵 Ingrese la cantidad de crédito a agregar: $");
+        double monto = scanner.nextDouble();
+        if (monto > 0) {
+            credito += monto;
+            System.out.println("✅ Crédito agregado exitosamente. Crédito actual: $" + String.format("%.2f", credito));
+            ClickSonido();
+        } else {
+            System.out.println("❌ El monto debe ser mayor a $0.");
+            ClickSonido();
+        }
+    }
+
+    private static void realizarCompra(double precio, String tipo) {
+        ClickSonido();
+        if (credito >= precio) {
+            credito -= precio;
+            System.out.println("✅ Compra de " + tipo + " realizada con éxito. Crédito restante: $" + String.format("%.2f", credito));
+        } else {
+            System.out.println("❌ No tienes suficiente crédito para esta compra.");
+        }
+    }
+
+    /// //////////////////////////////////////////////////////////////////////////
+    /// /// METODOS PARA EL SONIDO
+    private static void ClickSonido() {
+        Thread audioThread = new Thread(() -> {
+            try (FileInputStream fis = new FileInputStream(Click)) {
+                Player player = new Player(fis);
+                player.play();
+            } catch (Exception e) {
+                System.out.println("Error al reproducir el archivo: " + e.getMessage());
+            }
+        });
+        audioThread.setDaemon(true); // El hilo se detendrá automáticamente cuando termine el programa
+        audioThread.start();
+    }
 
 
     private static void musicaMenuTiendas() {
@@ -354,6 +357,7 @@ private static void ClickSonido() {
         });
         audioThread.setDaemon(true); // El hilo se detendrá automáticamente cuando termine el programa
         audioThread.start();
+
     }
-    }
+}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////

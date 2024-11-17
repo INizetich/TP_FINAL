@@ -120,6 +120,7 @@ public class Menu {
                                     CheckIn.mostrarReserva(dni, sistemaReserva);
                                     System.out.println("desea consultar otra reserva? (s: si/ n: no");
                                     opcionConsulta = scanner.nextLine().trim().toLowerCase();
+
                                 } catch (dniNoEncontradoException e) {
                                     e.printStackTrace();
                                 }

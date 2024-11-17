@@ -9,13 +9,16 @@ import Personas.Pasajero;
 import Utilidades.Utilities;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import javazoom.jl.player.Player;
 
+import java.io.FileInputStream;
 import java.text.SimpleDateFormat;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
 public class CheckIn {
+    private static final String Click = "src/Sonidos/Click.mp3";
     private Vuelo vuelo;
     private String numeroAsiento;
     private Pasajero pasajero;
@@ -112,9 +115,12 @@ public class CheckIn {
                             System.out.println("🗳️ Código de Check-In: " + checkIn.getCodigoCheckIn());
 
                             System.out.println("============================");
+                            ClickSonido();
                         } else {
                             System.out.println("========================================================================");
                             System.out.println("❌ La reserva aún no ha sido realizada para " + pasajero.getNombre() + " " + pasajero.getApellido());
+                            ClickSonido();
+
                         }
                         encontrado = true;
                         break;
@@ -127,6 +133,7 @@ public class CheckIn {
 
             if (!encontrado) {
                 throw new dniNoEncontradoException("El DNI no se encuentra dentro del sistema de reservas.");
+
             }
         } catch (Exception e) {
             System.out.println("Error al mostrar la reserva: " + e.getMessage());
@@ -181,6 +188,7 @@ public class CheckIn {
 
                     // Mostrar el boleto
                     System.out.println(boleto.toString());
+                    ClickSonido();
                     break; // Si se encuentra el boleto, terminamos el ciclo
                 }
             }
@@ -192,8 +200,27 @@ public class CheckIn {
         // Si no se encuentra el DNI en ninguna reserva, lanzamos la excepción
         if (!encontrado) {
             throw new ReservaInexistenteException("El boleto de avión no tiene ningún DNI asociado que haya realizado una reserva.");
-        }
+
+        }  ClickSonido();
+
     }
+
+
+    /// //////////////////////////////////////////////////////////////////////////
+    /// /// METODOS PARA EL SONIDO
+    private static void ClickSonido() {
+        Thread audioThread = new Thread(() -> {
+            try (FileInputStream fis = new FileInputStream(Click)) {
+                Player player = new Player(fis);
+                player.play();
+            } catch (Exception e) {
+                System.out.println("Error al reproducir el archivo: " + e.getMessage());
+            }
+        });
+        audioThread.setDaemon(true); // El hilo se detendrá automáticamente cuando termine el programa
+        audioThread.start();
+    }
+
 
 
 }

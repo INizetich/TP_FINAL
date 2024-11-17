@@ -97,7 +97,7 @@ public class CheckIn {
                     // Limpiar espacios y comparar el DNI
                     if (pasajero.getDni().trim().equalsIgnoreCase(dni.trim())) {
                         // Verificar si el check-in ha sido realizado
-                        if (pasajero.isCheckInRealizado()) {
+                        if (pasajero.isCheckIn()) {
                             System.out.println("============================");
                             System.out.println("🎉 Reserva Confirmada 🎉");
                             System.out.println("============================");

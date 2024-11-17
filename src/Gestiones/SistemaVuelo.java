@@ -1,21 +1,13 @@
 package Gestiones;
 
-import Aeropuerto.Aeropuerto;
+
 import Aviones.Avion;
-import Aviones.Hangar;
 import Aviones.Vuelo;
 import Enums.EstadoEmbarque;
+import Enums.PuertaEmbarque;
 
-
-import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.*;
 public class SistemaVuelo{
     private static List<Vuelo> vuelos = new ArrayList<>(); // Lista para almacenar los vuelos
     private static List<Avion> aviones = new ArrayList<>(); // Lista para almacenar los aviones
@@ -37,10 +29,11 @@ public class SistemaVuelo{
         SistemaVuelo.aviones = aviones;
     }
 
-    public static void generarVuelosDesdeHangares(int cantidadVuelos, AlmacenamientoAviones gestionHangares) {
+   /* public static void generarVuelosDesdeHangares(int cantidadVuelos, AlmacenamientoAviones gestionHangares) {
+        // Asegurarse de que solo se generen los vuelos una vez
         if (!vuelosGenerados.isEmpty()) {
             System.out.println("Ya existen vuelos generados, se utilizarán los mismos.");
-            return;
+            return; // Si ya se generaron vuelos, no se generan de nuevo
         }
 
         Set<Aeropuerto> aeropuertos = SistemaAeropuerto.agregarAeropuertos(); // Obtener lista de aeropuertos
@@ -66,6 +59,7 @@ public class SistemaVuelo{
         // Obtener los ID únicos predefinidos
         List<Vuelo> vuelosConIDUnico = crearVuelosConIDUnico(); // Tu método de vuelos con ID.
 
+        // Generar vuelos solo si no existen previamente
         for (int i = 0; i < cantidadVuelos && i < vuelosConIDUnico.size(); i++) {
             if (avionesDisponibles.isEmpty()) {
                 System.out.println("No hay más aviones disponibles en los hangares para generar vuelos.");
@@ -100,14 +94,15 @@ public class SistemaVuelo{
 
             vuelo.setEstadoEmbarque(EstadoEmbarque.ABIERTO);
 
-            vuelosGenerados.add(vuelo); // Registrar el vuelo en la lista estática
+            // Registrar el vuelo en la lista estática
+            vuelosGenerados.add(vuelo); // Los vuelos se añaden una vez y no se modifican después
         }
-    }
+    }*/
 
     public static void mostrarVuelos() {
         System.out.println("✈️  Lista de Vuelos Disponibles  ✈️");
         System.out.println("-------------------------------------------------");
-        SistemaVuelo.obtenerVuelosGenerados().forEach(v -> System.out.println(
+        SistemaVuelo.getVuelosGenerados().forEach(v -> System.out.println(
                 "🆔 ID de Vuelo: " + v.getIdVuelo() +
                         " | 🌍 Origen: " + v.getOrigen() +
                         " | ✈️ Destino: " + v.getDestino() +
@@ -123,33 +118,71 @@ public class SistemaVuelo{
     }
 
     // Método para obtener los vuelos generados
-    public static List<Vuelo> obtenerVuelosGenerados() {
+    public static void obtenerVuelosGenerados(AlmacenamientoAviones gestionHangar) {
+         vuelosGenerados = crearVuelosConIDUnico(gestionHangar);
+    }
+
+    public static List<Vuelo> getVuelosGenerados() {
         return vuelosGenerados;
     }
 
-
-    private static List<Vuelo> crearVuelosConIDUnico(){
+    private static List<Vuelo> crearVuelosConIDUnico(AlmacenamientoAviones gestionHangares) {
         List<Vuelo> vuelos = new ArrayList<>();
 
-        vuelos.add(new Vuelo("CB901D39"));
-        vuelos.add(new Vuelo("B26A01FF"));
-        vuelos.add(new Vuelo("B3182DFD"));
-        vuelos.add(new Vuelo("959BB1F9"));
-        vuelos.add(new Vuelo("8B6D37C3"));
-        vuelos.add(new Vuelo("2224890D"));
-        vuelos.add(new Vuelo("E2230368"));
-        vuelos.add(new Vuelo("DEC08F87"));
-        vuelos.add(new Vuelo("946B006E"));
-        vuelos.add(new Vuelo("CF082E1B"));
-        vuelos.add(new Vuelo("28B441FC"));
-        vuelos.add(new Vuelo("8F763DFB"));
-        vuelos.add(new Vuelo("EC68E773"));
-        vuelos.add(new Vuelo("E08C0EC8"));
-        vuelos.add(new Vuelo("F30BDB13"));
+        // Obtener la lista de aviones disponibles
+        List<Avion> avionesDisponibles = gestionHangares.obtenerAvionesDeTodosLosHangares();
 
+        if (avionesDisponibles.isEmpty()) {
+            System.out.println("No hay aviones disponibles para asignar a los vuelos.");
+            return vuelos; // Regresar una lista vacía si no hay aviones
+        }
+
+        Random random = new Random();
+
+        // Crear los vuelos con un avión aleatorio asignado y una puerta de embarque aleatoria
+        vuelos.add(crearVuelo("C6103495", "Aeropuerto Internacional Ezeiza", "Miami International Airport", avionesDisponibles, random));
+        vuelos.add(crearVuelo("B26A01FF", "Frankfurter Flughafen", "Aeropuerto Internacional El Dorado", avionesDisponibles, random));
+        vuelos.add(crearVuelo("B3182DFD", "北京首都国际机场", "Aeropuerto Internacional de la Ciudad de México", avionesDisponibles, random));
+        vuelos.add(crearVuelo("959BB1F9", "John F. Kennedy International Airport", "Los Angeles International Airport", avionesDisponibles, random));
+        vuelos.add(crearVuelo("8B6D37C3", "Dubai International Airport", "Sydney Kingsford Smith International Airport", avionesDisponibles, random));
+        vuelos.add(crearVuelo("2224890D", "Aeropuerto Internacional São Paulo-Guarulhos", "Miami International Airport", avionesDisponibles, random));
+        vuelos.add(crearVuelo("E2230368", "Hong Kong International Airport", "Aeropuerto Internacional Ezeiza", avionesDisponibles, random));
+        vuelos.add(crearVuelo("DEC08F87", "Frankfurter Flughafen", "Miami International Airport", avionesDisponibles, random));
+        vuelos.add(crearVuelo("946B006E", "John F. Kennedy International Airport", "北京首都国际机场", avionesDisponibles, random));
+        vuelos.add(crearVuelo("CF082E1B", "Sydney Kingsford Smith International Airport", "Aeropuerto Internacional São Paulo-Guarulhos", avionesDisponibles, random));
+        vuelos.add(crearVuelo("28B441FC", "Aeropuerto Internacional de la Ciudad de México", "Aeropuerto Internacional El Dorado", avionesDisponibles, random));
+        vuelos.add(crearVuelo("8F763DFB", "Aeropuerto Internacional São Paulo-Guarulhos", "Sydney Kingsford Smith International Airport", avionesDisponibles, random));
+        vuelos.add(crearVuelo("EC68E773", "北京首都国际机场", "Miami International Airport", avionesDisponibles, random));
+        vuelos.add(crearVuelo("E08C0EC8", "Dubai International Airport", "Los Angeles International Airport", avionesDisponibles, random));
+        vuelos.add(crearVuelo("F30BDB13", "Miami International Airport", "Aeropuerto Internacional Ezeiza", avionesDisponibles, random));
+        vuelos.add(crearVuelo("ZP140A49", "John F. Kennedy International Airport", "Miami International Airport", avionesDisponibles, random));
 
         return vuelos;
     }
+
+
+    private static Avion obtenerAvionAleatorio(List<Avion> avionesDisponibles, Random random) {
+        return avionesDisponibles.get(random.nextInt(avionesDisponibles.size()));
+    }
+
+    // Método auxiliar para crear un vuelo
+    private static Vuelo crearVuelo(String idVuelo, String aeropuertoOrigen, String aeropuertoDestino, List<Avion> avionesDisponibles, Random random) {
+        return new Vuelo(idVuelo, aeropuertoOrigen, aeropuertoDestino, LocalDateTime.now().plusMinutes(random.nextInt(60)), EstadoEmbarque.ABIERTO,obtenerAvionAleatorio(avionesDisponibles, random));
+    }
+    /*
+
+
+     Vuelo(
+            @JsonProperty("id") String id,
+            @JsonProperty("origen") String origen,
+            @JsonProperty("destino") String destino,
+            @JsonProperty("horario") LocalDateTime horario,
+            @JsonProperty("estadoEmbarque") EstadoEmbarque estadoEmbarque,
+            @JsonProperty("avion") Avion avion
+
+     */
+
+
 
 
 }

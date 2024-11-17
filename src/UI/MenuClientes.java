@@ -16,6 +16,7 @@ public class MenuClientes {
         ///VARIABLES IMPORTANTES
         String opcionString = "";
         // INSTANCIA DE CLASES IMPORTANTES
+        SistemaReserva sistemaReserva = new SistemaReserva();
         Admin admin = new Admin();
         Aeropuerto aeropuerto = new Aeropuerto();
         admin.cargarListaEmpleados();
@@ -26,11 +27,10 @@ public class MenuClientes {
 
         almacenamientoAviones.generarAviones(15, admin.getListaEmpleados());
 
-        // CREACIÓN DE VUELOS DE MANERA AUTOMÁTICA
-        SistemaVuelo.generarVuelosDesdeHangares(15, almacenamientoAviones);
+
         aeropuerto.cargarHangaresAeropuerto(admin.getListaEmpleados());
         // Crear el sistema de check-in
-        SistemaReserva sistemaReserva = new SistemaReserva();
+
 
         Scanner scanner = new Scanner(System.in);
         int opcionCliente;
@@ -182,7 +182,9 @@ public class MenuClientes {
 
                 case 4:
                     System.out.println("🚪 Gracias por utilizar nuestros servicios. ¡Hasta luego! 🚪");
-                    List<Vuelo> vuelos = SistemaVuelo.obtenerVuelosGenerados();
+                    SistemaVuelo.obtenerVuelosGenerados(almacenamientoAviones);
+
+                    List<Vuelo> vuelos = SistemaVuelo.getVuelosGenerados();
                     GestionJSON.serializarLista(vuelos,"Archivos JSON/vuelos.json");
                     break;
 

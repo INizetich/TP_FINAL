@@ -16,9 +16,10 @@ import java.util.Scanner;
 
 public class SistemaReserva {
     private final Map<String, Set<CheckIn>> mapaReservas;
-
+private AlmacenamientoAviones almacenamiento;
     public SistemaReserva() {
         this.mapaReservas = new HashMap<>();
+        this.almacenamiento = new AlmacenamientoAviones();
     }
 
     public void realizarReserva() throws CodigoVueloInexistenteException, AsientoNoDisponibleException, DniRegistradoException {
@@ -26,6 +27,7 @@ public class SistemaReserva {
         if (!Configs.isFirstRun()){
             List<Vuelo> vuelos = GestionJSON.deserializarVuelos("Archivos JSON/vuelos.json");
             SistemaVuelo.setVuelosGenerados(vuelos);
+
         }
 
         // Comprobar si el archivo de CheckIn existe antes de deserializar
@@ -44,6 +46,7 @@ public class SistemaReserva {
         boolean vueloSeleccionadoCorrecto = false;  // Variable para controlar la selección del vuelo
 
         while (!vueloSeleccionadoCorrecto) {
+
             // Mostrar los vuelos disponibles
             SistemaVuelo.mostrarVuelos();
 
@@ -52,7 +55,7 @@ public class SistemaReserva {
             String idVueloSeleccionado = scanner.nextLine().toUpperCase();
 
             // Filtrar la lista de vuelos por el id de vuelo
-            Vuelo vueloSeleccionado = SistemaVuelo.obtenerVuelosGenerados().stream()
+            Vuelo vueloSeleccionado = SistemaVuelo.getVuelosGenerados().stream()
                     .filter(v -> v.getIdVuelo().equalsIgnoreCase(idVueloSeleccionado))
                     .findFirst()
                     .orElse(null);
@@ -139,8 +142,10 @@ public class SistemaReserva {
                     // Guardar el Set actualizado en el mapa de reservas
                     mapaReservas.put(pasajero.getDni(), checkInsExistentes);
 
+
                     // Registrar la conexión entre aeropuertos
                     ConexionAeropuerto conexionAeropuerto = new ConexionAeropuerto();
+
                     conexionAeropuerto.registrarConexion(vueloSeleccionado.getOrigen(), vueloSeleccionado.getDestino(), vueloSeleccionado.getIdVuelo());
 
                     pasajero.setCheckIn(true);

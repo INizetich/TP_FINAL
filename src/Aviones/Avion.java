@@ -1,28 +1,20 @@
 package Aviones;
 
-
 import Enums.TipoEmpleado;
 import Excepciones.NoEsPilotoException;
 import Interfaces.IAvion;
 import Personas.Empleado;
 
-
 public class Avion implements IAvion {
 
     private String nombre;
-
     private int capacidadAvion;
-
     private String motor;
-
     private String modelo;
-
     private String codigoAvion;
-
     private Empleado empleado;
 
-    public Avion(){
-
+    public Avion() {
         this.nombre = "";
         this.capacidadAvion = 0;
         this.motor = "";
@@ -30,7 +22,7 @@ public class Avion implements IAvion {
         this.codigoAvion = "";
     }
 
-    public Avion(String nombre, int capacidadAvion, String motor, String modelo,String codigoAvion) {
+    public Avion(String nombre, int capacidadAvion, String motor, String modelo, String codigoAvion) {
         this.nombre = nombre;
         this.capacidadAvion = capacidadAvion;
         this.motor = motor;
@@ -38,15 +30,14 @@ public class Avion implements IAvion {
         this.codigoAvion = codigoAvion;
     }
 
-    public String  getCodigoAvion() {
+    // Getters y setters
+    public String getCodigoAvion() {
         return codigoAvion;
     }
 
-    public void setCodigoAvion(String  codigoAvion) {
+    public void setCodigoAvion(String codigoAvion) {
         this.codigoAvion = codigoAvion;
     }
-
-
 
     public String getNombre() {
         return nombre;
@@ -68,10 +59,6 @@ public class Avion implements IAvion {
         return motor;
     }
 
-    public void setPiloto(Empleado piloto) {
-        this.empleado = piloto;
-    }
-
     public void setMotor(String motor) {
         this.motor = motor;
     }
@@ -84,6 +71,17 @@ public class Avion implements IAvion {
         this.modelo = modelo;
     }
 
+    public void asignarPiloto(Empleado piloto) throws NoEsPilotoException {
+        this.empleado = piloto;
+
+        if (piloto.getTipoEmpleado() != TipoEmpleado.PILOTO) {
+            throw new NoEsPilotoException("La persona elegida no es piloto.");
+        }
+    }
+
+    public Empleado getPiloto() {
+        return empleado;
+    }
 
     @Override
     public String toString() {
@@ -97,42 +95,23 @@ public class Avion implements IAvion {
                 '}';
     }
 
-    public void asignarPiloto(Empleado piloto) throws NoEsPilotoException {
-        this.empleado = piloto;
-
-
-        if (piloto.getTipoEmpleado()!= TipoEmpleado.PILOTO) {
-            throw new NoEsPilotoException("la persona elegida no es piloto");
-
-        }
-    }
-
-    public Empleado getPiloto() {
-        return empleado;
-    }
-
-
-
     @Override
     public String despegar() {
-        return " avion con codigo: " + codigoAvion+ " via libre para maniobrar sobre pista para su pronto despegue";
+        return "Avión con código: " + codigoAvion + " via libre para maniobrar sobre pista para su pronto despegue.";
     }
 
     @Override
     public String aterrizar() {
-        return " avion con codigo: " + codigoAvion+ " via libre para descender a pista";
+        return "Avión con código: " + codigoAvion + " via libre para descender a pista.";
     }
 
     @Override
     public String cargarCombustible() {
-        return " avion con codigo: " + codigoAvion+ " via libre para el reabastecimiento de combustible";
+        return "Avión con código: " + codigoAvion + " via libre para el reabastecimiento de combustible.";
     }
 
     @Override
-    public String asignarRuta(){
-        return  "Ruta asignada al avion: " + codigoAvion+ "ruta libre para ir al destino";
+    public String asignarRuta() {
+        return "Ruta asignada al avión: " + codigoAvion + ". Ruta libre para ir al destino.";
     }
-
-
-
 }

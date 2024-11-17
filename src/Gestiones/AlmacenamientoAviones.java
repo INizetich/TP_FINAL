@@ -27,30 +27,6 @@ public class AlmacenamientoAviones {
 
     }
 
-    // Generar aviones automáticamente y asignarlos a hangares
-    public void generarAviones(int cantidadAviones) {
-        if (listaHangares.isEmpty()) {
-            System.out.println("No hay hangares creados. Primero genera los hangares.");
-            return;
-        }
-
-        Random random = new Random();
-        for (int i = 1; i <= cantidadAviones; i++) {
-            // Crear un avión con datos aleatorios
-            String nombre = "Boeing-" + (745 + i);
-            int capacidad = random.nextInt(300) + 50; // Capacidad entre 50 y 350
-            String motor = random.nextBoolean() ? "Motor a reacción" : "Motor turbofan";
-            String modelo = "Modelo-" + "A" + random.nextInt(100);
-            String codigoAvion = UUID.randomUUID().toString().substring(0, 8).toUpperCase();
-
-            Avion avion = new Avion(nombre, capacidad, motor, modelo, codigoAvion);
-
-            // Asignar el avión a un hangar aleatorio
-            Hangar<Avion> hangar = listaHangares.get(random.nextInt(listaHangares.size()));
-            hangar.agregarAvion(avion);
-        }
-
-    }
 
     public List<Hangar<Avion>> getListaHangares() {
         return listaHangares;

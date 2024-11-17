@@ -39,7 +39,7 @@ public class Menu {
 
 
         // CREACIÓN DE VUELOS DE MANERA AUTOMÁTICA
-        SistemaVuelo.generarVuelosDesdeHangares(15, almacenamientoAviones);
+       // SistemaVuelo.generarVuelosDesdeHangares(15, almacenamientoAviones);
        // almacenamientoAviones.mostrarHangares();
         aeropuerto.cargarHangaresAeropuerto(admin.getListaEmpleados());
         // Crear el sistema de check-in

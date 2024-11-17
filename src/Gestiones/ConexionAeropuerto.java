@@ -43,4 +43,7 @@ public class ConexionAeropuerto {
         System.out.println("¡Viaja con nosotros y disfruta de las mejores conexiones! ✈️🌍");
     }
 
+    public static void setConexiones(Map<String, Map<String, Set<String>>> conexiones) {
+        ConexionAeropuerto.conexiones = conexiones;
+    }
 }

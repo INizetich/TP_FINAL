@@ -1,14 +1,13 @@
 package Aviones;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 import Enums.EstadoEmbarque;
 import Enums.PuertaEmbarque;
-
 import Excepciones.CapacidadMaximaException;
-
-
 import Personas.Pasajero;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -38,19 +37,21 @@ public class Vuelo {
 
     private EstadoEmbarque estadoEmbarque;
 
+    @JsonProperty("listaPasajeros")
     private Set<Pasajero> listaPasajeros;
-    private Set<String>asientos = new HashSet<>();
 
+    private Set<String> asientos;
 
     public Vuelo(String idVuelo) {
         this.idVuelo = idVuelo;
-        this.destino = "";
         this.origen = "";
+        this.destino = "";
         this.horario = null;
         this.avion = null;
         this.estadoEmbarque = null;
         this.listaPasajeros = new HashSet<>();
         this.puertaEmbarque = PuertaEmbarque.obtenerPuertaAleatoria();
+        this.asientos = new HashSet<>();
     }
 
     @JsonCreator
@@ -68,13 +69,68 @@ public class Vuelo {
         this.horario = horario;
         this.estadoEmbarque = estadoEmbarque;
         this.avion = avion;
+        this.puertaEmbarque = PuertaEmbarque.obtenerPuertaAleatoria();
         this.listaPasajeros = new HashSet<>();
-
+        this.asientos = new HashSet<>();
     }
 
+    // Métodos y validaciones de pasajeros y asientos
+    public boolean agregarPasajero(Pasajero pasajero) throws CapacidadMaximaException {
+        if (listaPasajeros.contains(pasajero)) {
+            System.out.println("El pasajero ya está registrado en este vuelo.");
+            return false;
+        }
+        if (listaPasajeros.size() < avion.getCapacidadAvion()) {
+            listaPasajeros.add(pasajero);
+            return true;
+        }
+        throw new CapacidadMaximaException("El avión ha alcanzado su capacidad máxima.");
+    }
 
-    private String generarIdVuelo() {
-        return UUID.randomUUID().toString().substring(0, 8).toUpperCase();
+    public void mostrarListaPasajeros() {
+        Iterator<Pasajero> it = listaPasajeros.iterator();
+        while (it.hasNext()) {
+            System.out.println(it.next());
+        }
+    }
+
+    public void ocuparAsiento(String asiento) {
+        if (!asientos.contains(asiento)) {
+            asientos.add(asiento);
+        }
+    }
+
+    public boolean estaAsientoDisponible(String asiento) {
+        return !asientos.contains(asiento);
+    }
+
+    @Override
+    public String toString() {
+        return "Vuelo{" +
+                "idVuelo='" + idVuelo + '\'' +
+                ", origen='" + origen + '\'' +
+                ", destino='" + destino + '\'' +
+                ", horario=" + horario +
+                ", avion=" + avion +
+                ", puertaEmbarque=" + puertaEmbarque +
+                ", estadoEmbarque=" + estadoEmbarque +
+                '}';
+    }
+
+    public String getIdVuelo() {
+        return idVuelo;
+    }
+
+    public void setIdVuelo(String idVuelo) {
+        this.idVuelo = idVuelo;
+    }
+
+    public String getOrigen() {
+        return origen;
+    }
+
+    public void setOrigen(String origen) {
+        this.origen = origen;
     }
 
     public String getDestino() {
@@ -85,17 +141,12 @@ public class Vuelo {
         this.destino = destino;
     }
 
-    public String getOrigen() {
-        return origen;
+    public PuertaEmbarque getPuertaEmbarque() {
+        return puertaEmbarque;
     }
 
-
-    public String getIdVuelo() {
-        return idVuelo;
-    }
-
-    public void setOrigen(String origen) {
-        this.origen = origen;
+    public void setPuertaEmbarque(PuertaEmbarque puertaEmbarque) {
+        this.puertaEmbarque = puertaEmbarque;
     }
 
     public LocalDateTime getHorario() {
@@ -130,69 +181,11 @@ public class Vuelo {
         this.listaPasajeros = listaPasajeros;
     }
 
-    public PuertaEmbarque getPuertaEmbarque() {
-        return puertaEmbarque;
-    }
-
-    public void setPuertaEmbarque(PuertaEmbarque puertaEmbarque) {
-        this.puertaEmbarque = puertaEmbarque;
+    public Set<String> getAsientos() {
+        return asientos;
     }
 
     public void setAsientos(Set<String> asientos) {
         this.asientos = asientos;
     }
-
-    public Set<String> getAsientos() {
-        return asientos;
-    }
-
-    public boolean agregarPasajero(Pasajero pasajero) throws CapacidadMaximaException {
-        if (listaPasajeros.contains(pasajero)) {
-            System.out.println("El pasajero ya está registrado en este vuelo.");
-            return false;
-        }
-        if (listaPasajeros.size() < avion.getCapacidadAvion()) {
-            listaPasajeros.add(pasajero);
-            return true;
-        }
-        throw new CapacidadMaximaException("El avión llegó a su capacidad máxima.");
-    }
-
-
-    public void mostrarListaPasajeros(){
-        Iterator<Pasajero> it = listaPasajeros.iterator();
-
-        while (it.hasNext()) {
-            System.out.println(it.next());
-        }
-    }
-    public void ocuparAsiento(String asiento){
-        asientos.add(asiento);
-    }
-
-    public boolean estaAsientoDisponible(String asiento) {
-        return !asiento.contains(asiento);
-    }
-
-
-
-
-
-
-    @Override
-    public String toString() {
-        return "Vuelo{" +
-                "idVuelo='" + idVuelo + '\'' +
-                ", origen='" + origen + '\'' +
-                ", destino='" + destino + '\'' +
-                ", horario=" + horario +
-                avion +
-                ", puertaEmbarque=" + puertaEmbarque +
-                ", estadoEmbarque=" + estadoEmbarque +
-                '}';
-    }
-
 }
-
-
-

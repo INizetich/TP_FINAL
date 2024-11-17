@@ -143,8 +143,23 @@ public class GestionJSON {
 
 
 
+    public static Map<String, Map<String, Set<String>>> deserializarVuelosReservados(String filePath) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
 
+        // Tipo del mapa genérico
+        TypeReference<Map<String, Map<String, Set<String>>>> typeRef = new TypeReference<>() {};
 
+        // Leer y deserializar desde el archivo JSON
+        return mapper.readValue(new File(filePath), typeRef);
+    }
 
 
 }
+
+
+
+
+
+
+
+

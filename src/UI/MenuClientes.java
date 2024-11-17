@@ -14,6 +14,7 @@ import java.util.Scanner;
 
 public class MenuClientes {
 
+    private static double credito = 0.0;
     private static final String Click = "src/Sonidos/Click.mp3";
     private static final String Soundtrack = "src/Sonidos/SoundtrackTienda.mp3";
 
@@ -71,7 +72,8 @@ public class MenuClientes {
                             do {
                                 try {
                                     sistemaReserva.realizarReserva();
-                                } catch (DniRegistradoException | CodigoVueloInexistenteException | AsientoNoDisponibleException e) {
+                                } catch (DniRegistradoException | CodigoVueloInexistenteException |
+                                         AsientoNoDisponibleException e) {
                                     e.printStackTrace();
                                 } finally {
                                     System.out.println("==================================");
@@ -111,7 +113,6 @@ public class MenuClientes {
 
                             ConexionAeropuerto.mostrarConexiones();
                             break;
-
 
 
                         case 4:
@@ -166,7 +167,6 @@ public class MenuClientes {
                             break;
 
 
-
                         // Agregar más casos si es necesario
                     }
                     // Esperar que el usuario presione Enter para volver al menú principal
@@ -175,16 +175,42 @@ public class MenuClientes {
                     break;
 
                 case 2:
-                    musicaMenuTiendas();
-                    // Implementar el caso 2 (Ingresar a tiendas)
-                    System.out.println("Usted ha elegido ingresar a tiendas. 🏬");
+
+                    // Implementar el caso 3 (ATM)
+
+                    System.out.println("Usted ha elegido ATM. 💰");
                     System.out.println("🔄Presione Enter para volver al menú principal...🔄");
                     scanner.nextLine();
                     break;
 
                 case 3:
-                    // Implementar el caso 3 (ATM)
-                    System.out.println("Usted ha elegido ATM. 💰");
+                    musicaMenuTiendas();
+                    System.out.println("Usted ha elegido ingresar al Kiosco. 🏬");
+                    int opcion;
+                    do {
+                        System.out.println("\n=== 🛒 Bienvenido al Mini Kiosco 🛒 ===");
+                        System.out.println("1. 🥤 Bebidas");
+                        System.out.println("2. 🍔 Comida");
+                        System.out.println("3. 🛍️ Artículos varios");
+                        System.out.println("4. 💵 Agregar crédito");
+                        System.out.println("5. 🚪 Salir");
+                        System.out.println("💰 Crédito disponible: $" + String.format("%.2f", credito));
+                        System.out.print("Seleccione una opción: ");
+                        musicaMenuTiendas();
+                        opcion = scanner.nextInt();
+
+                        switch (opcion) {
+                            case 1 -> mostrarBebidas(scanner);
+                            case 2 -> mostrarComida(scanner);
+                            case 3 -> mostrarArticulosVarios(scanner);
+                            case 4 -> agregarCredito(scanner);
+                            case 5 -> System.out.println("¡Gracias por visitar el kiosko! 🛒");
+                            default -> System.out.println("❌ Opción inválida. Intente nuevamente.");
+                        }
+                    } while (opcion != 5);
+
+                    scanner.close();
+
                     System.out.println("🔄Presione Enter para volver al menú principal...🔄");
                     scanner.nextLine();
                     break;
@@ -192,7 +218,7 @@ public class MenuClientes {
                 case 4:
                     System.out.println("🚪 Gracias por utilizar nuestros servicios. ¡Hasta luego! 🚪");
                     List<Vuelo> vuelos = SistemaVuelo.obtenerVuelosGenerados();
-                    GestionJSON.serializarLista(vuelos,"Archivos JSON/vuelos.json");
+                    GestionJSON.serializarLista(vuelos, "Archivos JSON/vuelos.json");
                     break;
 
                 default:
@@ -200,7 +226,118 @@ public class MenuClientes {
                     break;
             }
         } while (opcionCliente != 4);
+
     }
+
+///VARIABLES PARA EL APARTADO KIOSCO
+private static void mostrarBebidas(Scanner scanner) {
+    ClickSonido();
+    System.out.println("\n====================================");
+    System.out.println("           🥤 BEBIDAS 🥤");
+    System.out.println("====================================");
+    System.out.println("1. 🧊 Agua mineral   - $1.00");
+    System.out.println("2. 🥤 Gaseosa        - $1.50");
+    System.out.println("3. 🍹 Jugo natural   - $2.00");
+    System.out.println("====================================");
+    System.out.print("Seleccione su bebida (0 para volver): ");
+    int bebida = scanner.nextInt();
+
+    if (bebida > 0 && bebida <= 3) {
+        double precio = bebida == 1 ? 1.00 : bebida == 2 ? 1.50 : 2.00;
+        realizarCompra(precio, "bebida");
+    } else if (bebida != 0) {
+        System.out.println("❌ Opción inválida.");
+    }
+}
+
+private static void mostrarComida(Scanner scanner) {
+    ClickSonido();
+    System.out.println("\n====================================");
+    System.out.println("           🍔 COMIDA 🍔");
+    System.out.println("====================================");
+    System.out.println("1. 🥟 Empanada       - $1.50");
+    System.out.println("2. 🥪 Sandwich       - $2.50");
+    System.out.println("3. 🍟 Papas fritas   - $1.75");
+    System.out.println("4. 🌭 Hot Dog        - $2.00");
+    System.out.println("5. 🍕 Porción pizza  - $3.00");
+    System.out.println("====================================");
+    System.out.print("Seleccione su comida (0 para volver): ");
+    int comida = scanner.nextInt();
+
+    if (comida > 0 && comida <= 5) {
+        double precio = switch (comida) {
+            case 1 -> 1.50;
+            case 2 -> 2.50;
+            case 3 -> 1.75;
+            case 4 -> 2.00;
+            case 5 -> 3.00;
+            default -> 0.0;
+        };
+        realizarCompra(precio, "comida");
+    } else if (comida != 0) {
+        System.out.println("❌ Opción inválida.");
+    }
+}
+
+private static void mostrarArticulosVarios(Scanner scanner) {
+    ClickSonido();
+    System.out.println("\n====================================");
+    System.out.println("       🛍️ ARTÍCULOS VARIOS 🛍️");
+    System.out.println("====================================");
+    System.out.println("1. 📖 Revista        - $3.00");
+    System.out.println("2. 🍬 Chicle         - $0.50");
+    System.out.println("3. 🔥 Encendedor     - $1.20");
+    System.out.println("====================================");
+    System.out.print("Seleccione un artículo (0 para volver): ");
+    int articulo = scanner.nextInt();
+
+    if (articulo > 0 && articulo <= 3) {
+        double precio = switch (articulo) {
+            case 1 -> 3.00;
+            case 2 -> 0.50;
+            case 3 -> 1.20;
+            default -> 0.0;
+        };
+        realizarCompra(precio, "artículo");
+    } else if (articulo != 0) {
+        System.out.println("❌ Opción inválida.");
+    }
+}
+
+private static void agregarCredito(Scanner scanner) {
+    System.out.print("\n💵 Ingrese la cantidad de crédito a agregar: $");
+    double monto = scanner.nextDouble();
+    if (monto > 0) {
+        credito += monto;
+        System.out.println("✅ Crédito agregado exitosamente. Crédito actual: $" + String.format("%.2f", credito));
+    } else {
+        System.out.println("❌ El monto debe ser mayor a $0.");
+    }
+}
+
+private static void realizarCompra(double precio, String tipo) {
+    if (credito >= precio) {
+        credito -= precio;
+        System.out.println("✅ Compra de " + tipo + " realizada con éxito. Crédito restante: $" + String.format("%.2f", credito));
+    } else {
+        System.out.println("❌ No tienes suficiente crédito para esta compra.");
+    }
+}
+/// //////////////////////////////////////////////////////////////////////////
+/// /// METODOS PARA EL SONIDO
+private static void ClickSonido() {
+    Thread audioThread = new Thread(() -> {
+        try (FileInputStream fis = new FileInputStream(Click)) {
+            Player player = new Player(fis);
+            player.play();
+        } catch (Exception e) {
+            System.out.println("Error al reproducir el archivo: " + e.getMessage());
+        }
+    });
+    audioThread.setDaemon(true); // El hilo se detendrá automáticamente cuando termine el programa
+    audioThread.start();
+}
+
 
     private static void musicaMenuTiendas() {
         Thread audioThread = new Thread(() -> {
@@ -214,4 +351,5 @@ public class MenuClientes {
         audioThread.setDaemon(true); // El hilo se detendrá automáticamente cuando termine el programa
         audioThread.start();
     }
-}
+    }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////

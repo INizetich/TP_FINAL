@@ -62,6 +62,13 @@
   "tipoEmpleado" : "PILOTO",
   "nroEmpleado" : 860
 }, {
+  "nombre" : "robertito",
+  "apellido" : "mascapito",
+  "edad" : 24,
+  "dni" : "12345678",
+  "tipoEmpleado" : "PILOTO",
+  "nroEmpleado" : 60483
+}, {
   "nombre" : "santiago",
   "apellido" : "valero",
   "edad" : 38,

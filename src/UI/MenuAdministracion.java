@@ -1,5 +1,6 @@
 package UI;
 import Aeropuerto.Aeropuerto;
+import Config.ConfigAdmin;
 import Excepciones.AccesoDenegadoException;
 import Excepciones.CodigoVueloInexistenteException;
 import Excepciones.EmpleadoInexistenteException;
@@ -8,6 +9,7 @@ import Gestiones.*;
 import JSON.GestionJSON;
 import Personas.Persona;
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
@@ -15,6 +17,7 @@ import java.util.Set;
 public class MenuAdministracion {
 
     public static void mostrarMenuAdministracion() {
+        ConfigAdmin.cargarConfiguracionAdmin();
         // INSTANCIA DE CLASES IMPORTANTES
         Admin admin = new Admin();
         Aeropuerto aeropuerto = new Aeropuerto();
@@ -56,17 +59,24 @@ public class MenuAdministracion {
 
                         switch (opcionAdmin) {
                             case 1:
-                                admin.agregarAdministradorManual();
+                                try{
+                                    admin.agregarAdministradorManual();
+                                }catch (InputMismatchException e){
+                                    e.printStackTrace();
+                                }
+
                                 break;
                             case 2:
-                                admin.agregarPersonal();
+                                try{
+                                    admin.agregarPersonal();
+                                }catch (InputMismatchException e){
+                                    e.printStackTrace();
+                                }
+
                                 break;
                             case 3:
                                 try {
-                                    System.out.print("\u001B[32m > \u001B[0m");
-                                    System.out.println("Ingrese el dni de la persona a eliminar");
-                                    String dni = scanner.nextLine().trim();
-                                    admin.eliminarPersonalPorDNI(dni);
+                                    admin.eliminarPersonalPorDNI();
                                 } catch (EmpleadoInexistenteException e) {
                                     System.out.println(e.getMessage());
                                     e.printStackTrace();

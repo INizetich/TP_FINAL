@@ -1,0 +1,134 @@
+{
+  "45462201" : [ {
+    "vuelo" : {
+      "idVuelo" : "C6103495",
+      "origen" : "Aeropuerto Internacional Ezeiza",
+      "destino" : "Miami International Airport",
+      "horario" : "2024-11-18T18:13:59.100346700",
+      "estadoEmbarque" : "CERRADO",
+      "avion" : {
+        "nombre" : "Boeing-759",
+        "capacidadAvion" : 245,
+        "motor" : "Motor turbofan",
+        "modelo" : "Modelo-A81",
+        "codigoAvion" : "AA188260",
+        "piloto" : {
+          "nombre" : "julieta",
+          "apellido" : "canale",
+          "edad" : 58,
+          "dni" : "21581057",
+          "tipoEmpleado" : "PILOTO",
+          "nroEmpleado" : 88332
+        }
+      },
+      "puertaEmbarque" : "C5",
+      "listaPasajeros" : [ {
+        "edad" : 21,
+        "dni" : "45462201",
+        "nombre" : "ignacio",
+        "apellido" : "nizetich",
+        "numeroAsiento" : "A1",
+        "valija" : [ {
+          "dimension" : "15x15x15",
+          "peso" : 23.0
+        } ],
+        "checkInRealizado" : true,
+        "codigoPasajero" : "5411990D"
+      }, {
+        "edad" : 21,
+        "dni" : "44310293",
+        "nombre" : "tucu",
+        "apellido" : "mano",
+        "numeroAsiento" : "A2",
+        "valija" : [ {
+          "dimension" : "15x15x15",
+          "peso" : 23.0
+        } ],
+        "checkInRealizado" : true,
+        "codigoPasajero" : "2A0392CC"
+      } ],
+      "asientos" : [ "A1", "A2" ]
+    },
+    "numeroAsiento" : "A1",
+    "pasajero" : {
+      "edad" : 21,
+      "dni" : "45462201",
+      "nombre" : "ignacio",
+      "apellido" : "nizetich",
+      "numeroAsiento" : "A1",
+      "valija" : [ {
+        "dimension" : "15x15x15",
+        "peso" : 23.0
+      } ],
+      "checkInRealizado" : true,
+      "codigoPasajero" : "5411990D"
+    },
+    "codigoCheckIn" : "85AB61F1"
+  } ],
+  "44310293" : [ {
+    "vuelo" : {
+      "idVuelo" : "C6103495",
+      "origen" : "Aeropuerto Internacional Ezeiza",
+      "destino" : "Miami International Airport",
+      "horario" : "2024-11-18T18:13:59.100346700",
+      "estadoEmbarque" : "CERRADO",
+      "avion" : {
+        "nombre" : "Boeing-759",
+        "capacidadAvion" : 245,
+        "motor" : "Motor turbofan",
+        "modelo" : "Modelo-A81",
+        "codigoAvion" : "AA188260",
+        "piloto" : {
+          "nombre" : "julieta",
+          "apellido" : "canale",
+          "edad" : 58,
+          "dni" : "21581057",
+          "tipoEmpleado" : "PILOTO",
+          "nroEmpleado" : 88332
+        }
+      },
+      "puertaEmbarque" : "C5",
+      "listaPasajeros" : [ {
+        "edad" : 21,
+        "dni" : "45462201",
+        "nombre" : "ignacio",
+        "apellido" : "nizetich",
+        "numeroAsiento" : "A1",
+        "valija" : [ {
+          "dimension" : "15x15x15",
+          "peso" : 23.0
+        } ],
+        "checkInRealizado" : true,
+        "codigoPasajero" : "5411990D"
+      }, {
+        "edad" : 21,
+        "dni" : "44310293",
+        "nombre" : "tucu",
+        "apellido" : "mano",
+        "numeroAsiento" : "A2",
+        "valija" : [ {
+          "dimension" : "15x15x15",
+          "peso" : 23.0
+        } ],
+        "checkInRealizado" : true,
+        "codigoPasajero" : "2A0392CC"
+      } ],
+      "asientos" : [ "A1", "A2" ]
+    },
+    "numeroAsiento" : "A2",
+    "pasajero" : {
+      "edad" : 21,
+      "dni" : "44310293",
+      "nombre" : "tucu",
+      "apellido" : "mano",
+      "numeroAsiento" : "A2",
+      "valija" : [ {
+        "dimension" : "15x15x15",
+        "peso" : 23.0
+      } ],
+      "checkInRealizado" : true,
+      "codigoPasajero" : "2A0392CC"
+    },
+    "codigoCheckIn" : "85AB61F1"
+  } ]
+}

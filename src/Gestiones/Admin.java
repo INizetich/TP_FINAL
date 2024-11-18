@@ -3,6 +3,7 @@ package Gestiones;
 import Aviones.Avion;
 import Aviones.Hangar;
 
+import Config.ConfigAdmin;
 import Config.Configs;
 import Enums.TipoEmpleado;
 import Excepciones.*;
@@ -13,11 +14,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.json.JSONException;
 
 import java.io.File;
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.io.IOException;
+import java.util.*;
 
 public class Admin {
     Scanner scanner = new Scanner(System.in);
@@ -50,16 +48,69 @@ public class Admin {
         this.listaAdministradores = listaAdministradores;
     }
 
-    public  void agregarPersonal(){
-        Empleado empleado = crearEmpleado();
-        this.listaEmpleados.add(empleado);
+    public  void agregarPersonal() throws InputMismatchException{
+        boolean seguir = true;
+        if (ConfigAdmin.isFirstRunAdmin()) {
+            File personal = new File("Archivos JSON/empleados.json");
+
+            if (personal.exists()) {
+                Set<Empleado> empleadosJSON = null;
+                try {
+                    // Deserializamos el archivo de administradores
+                    empleadosJSON = GestionJSON.deserializarSet(Empleado.class, personal.getPath());
+                    if (empleadosJSON.isEmpty()) {
+                        System.out.println("🚫 No se encontraron empleados deserializados.");
+                    } else {
+                        setListaEmpleados(empleadosJSON); // Establecemos la lista de administradores
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            } else {
+                System.out.println("🚫 El archivo de empleados no existe. Asegúrese de que se haya creado correctamente.");
+                // Asegurarse de que el archivo exista en la primera ejecución o crear uno vacío
+                try {
+                    personal.createNewFile();
+                    System.out.println("✔️ Archivo de administradores creado.");
+                } catch (IOException e) {
+                    System.out.println("🚫 Error al crear el archivo de administradores.");
+                    e.printStackTrace();
+                    return; // Salir si no se puede crear el archivo
+                }
+            }
+
+            while (seguir) {
+                // Crear una nueva cuenta de administrador
+                Empleado empleado = crearEmpleado();
+                listaEmpleados.add(empleado);
+
+                // Serializamos la lista de empleados nuevamente en el archivo JSON
+                try {
+                    GestionJSON.serializarSet(listaEmpleados, personal.getPath());
+                    System.out.println("✔️ empleado/s agregado/s y archivo actualizado.");
+                } catch (Exception e) {
+                    System.out.println("🚫 Error al serializar el archivo de empleados.");
+                    e.printStackTrace();
+                }
+
+                System.out.println("¿Desea agregar otra persona? (s/n)");
+                String opcion = scanner.nextLine();
+
+                if (opcion.equalsIgnoreCase("n")) {
+                    seguir = false; // Salir del bucle
+                }
+            }
+        } else {
+            System.out.println("🚫 El sistema está en su primera ejecución, no se pueden agregar administradores.");
+        }
     }
 
 
 
-    public void agregarAdministradorManual() {
+    public void agregarAdministradorManual() throws InputMismatchException {
         boolean seguir = true;
-        if (!Configs.isFirstRun()) {
+        if (ConfigAdmin.isFirstRunAdmin()) {
             File admins = new File("Archivos JSON/admins.json");
 
             if (admins.exists()) {
@@ -78,7 +129,15 @@ public class Admin {
 
             } else {
                 System.out.println("🚫 El archivo de administradores no existe. Asegúrese de que se haya creado correctamente.");
-                return;
+                // Asegurarse de que el archivo exista en la primera ejecución o crear uno vacío
+                try {
+                    admins.createNewFile();
+                    System.out.println("✔️ Archivo de administradores creado.");
+                } catch (IOException e) {
+                    System.out.println("🚫 Error al crear el archivo de administradores.");
+                    e.printStackTrace();
+                    return; // Salir si no se puede crear el archivo
+                }
             }
 
             while (seguir) {
@@ -95,66 +154,161 @@ public class Admin {
                     e.printStackTrace();
                 }
 
-                System.out.println("¿Desea crear otra cuenta de administrador?");
+                System.out.println("¿Desea crear otra cuenta de administrador? (s/n)");
                 String opcion = scanner.nextLine();
 
                 if (opcion.equalsIgnoreCase("n")) {
                     seguir = false; // Salir del bucle
                 }
             }
+        } else {
+            System.out.println("🚫 El sistema está en su primera ejecución, no se pueden agregar administradores.");
         }
     }
 
 
-    public void eliminarCuentaAdmin(){}
 
 
 
     public  boolean comprobarLogin(String dni) throws AccesoDenegadoException {
-        boolean token = false;
-        if (listaAdministradores.isEmpty()){
-            System.out.println("no hay ninguna cuenta ADMIN.");
-            return token;
-        }else if (!listaAdministradores.isEmpty()){
-                Persona persona = listaAdministradores.stream()
-                        .filter(a->a.getDni().equalsIgnoreCase(dni))
-                        .findFirst()
-                        .orElse(null);
+boolean token = false;
+        if (ConfigAdmin.isFirstRunAdmin()) {
+            File loguin = new File("Archivos JSON/admins.json");
 
-                if (persona == null){
-                   throw new AccesoDenegadoException("Acceso denegado, Usted no cuenta con privilegios de administrador");
-
-                }else {
-                    token = true;
+            if (loguin.exists()) {
+                Set<Persona> loguinPersonas = null;
+                try {
+                    // Deserializamos el archivo de administradores
+                    loguinPersonas = GestionJSON.deserializarSet(Persona.class, loguin.getPath());
+                    if (loguinPersonas.isEmpty()) {
+                        System.out.println("🚫 No se encontraron administradores deserializados.");
+                    } else {
+                        setListaAdministradores(loguinPersonas); // Establecemos la lista de administradores
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
+
+            } else {
+                System.out.println("🚫 El archivo de administradores no existe. Asegúrese de que se haya creado correctamente.");
+                // Asegurarse de que el archivo exista en la primera ejecución o crear uno vacío
+                try {
+                    loguin.createNewFile();
+                    System.out.println("✔️ Archivo de administradores creado.");
+                } catch (IOException e) {
+                    System.out.println("🚫 Error al crear el archivo de administradores.");
+                    e.printStackTrace();
+                    return token;// Salir si no se puede crear el archivo
+                }
+            }
+            Persona persona = listaAdministradores.stream()
+                    .filter(a -> a.getDni().equalsIgnoreCase(dni))
+                    .findFirst()
+                    .orElse(null);
+
+            if (persona == null) {
+                throw new AccesoDenegadoException("🚫 Error: usted no cuenta con privilegios de administrador");
+            }else {
+                token = true;
+            }
+
         }
         return token;
-
     }
 
 
-        public  void eliminarPersonalPorDNI(String dni) throws EmpleadoInexistenteException {
-
-         if (listaEmpleados.isEmpty()){
-             System.out.println("no hay personal en la lista de empleados");
-             return;
-         }else if (!listaEmpleados.isEmpty()){
-             Empleado empleado = listaEmpleados.stream()
-                     .filter(a -> a.getDni().equalsIgnoreCase(dni))
-                     .findFirst()
-                     .orElse(null);
-
-             if (empleado != null){
-                     listaEmpleados.remove(empleado);
-                     System.out.println("empleado eliminado correctamente de la lista de personal");
-
-             }else {
-                 throw new EmpleadoInexistenteException("el empleado no existe en la lista de empleados");
-             }
 
 
-         }
+
+
+
+
+
+
+
+
+
+
+
+
+    public void eliminarPersonalPorDNI() throws EmpleadoInexistenteException {
+        if (ConfigAdmin.isFirstRunAdmin()) {
+            File personalEliminado = new File("Archivos JSON/empleados.json");
+
+            // Verificamos si el archivo existe
+            if (personalEliminado.exists()) {
+                Set<Empleado> empleadosAEliminar = null;
+                try {
+                    // Deserializamos el conjunto de empleados desde el archivo JSON
+                    empleadosAEliminar = GestionJSON.deserializarSet(Empleado.class, personalEliminado.getPath());
+
+                    // Verificamos si la lista está vacía
+                    if (empleadosAEliminar.isEmpty()) {
+                        System.out.println("🚫 No se encontraron empleados deserializados.");
+                    } else {
+                        // Actualizamos la lista de empleados
+                        setListaEmpleados(empleadosAEliminar);
+
+                        // Mostramos la lista de empleados después de deserializar
+                        System.out.println("💼 Lista de empleados actualizada:");
+                        mostrarListaEmpleados();
+                    }
+                } catch (JSONException e) {
+                    System.out.println("🚫 Error al deserializar los empleados.");
+                    e.printStackTrace();
+                    return;
+                }
+            } else {
+                // Si el archivo no existe, lo creamos vacío
+                System.out.println("🚫 El archivo de empleados no existe. Creando archivo vacío...");
+                try {
+                    if (personalEliminado.createNewFile()) {
+                        System.out.println("✔️ Archivo de empleados creado.");
+                    } else {
+                        System.out.println("🚫 No se pudo crear el archivo de empleados.");
+                        return;
+                    }
+                } catch (IOException e) {
+                    System.out.println("🚫 Error al crear el archivo de empleados.");
+                    e.printStackTrace();
+                    return; // Salir si no se puede crear el archivo
+                }
+            }
+
+            // Pedimos el DNI del empleado a eliminar
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("\u001B[32m > \u001B[0m");
+            System.out.print("🔑 Ingresa el DNI del empleado a eliminar: ");
+            String dni = scanner.nextLine();
+
+            // Intentamos eliminar al empleado
+            Empleado empleado = listaEmpleados.stream()
+                    .filter(a -> a.getDni().equalsIgnoreCase(dni))
+                    .findFirst()
+                    .orElse(null);
+
+            if (empleado == null) {
+                throw new EmpleadoInexistenteException("🚫 Error: El empleado con DNI " + dni + " no existe.");
+            } else {
+                listaEmpleados.remove(empleado);
+                System.out.println("✔️ Empleado eliminado correctamente de la lista.");
+            }
+
+            // Serializamos la lista de empleados nuevamente en el archivo JSON
+            try {
+                GestionJSON.serializarSet(listaEmpleados, personalEliminado.getPath());
+                System.out.println("✔️ Archivo de empleados actualizado.");
+            } catch (Exception e) {
+                System.out.println("🚫 Error al serializar el archivo de empleados.");
+                e.printStackTrace();
+            }
+        }
     }
+
+
+
+
+
 
 
 
@@ -192,16 +346,31 @@ public class Admin {
     }
 
     public void mostrarListaEmpleados() {
-        if (listaEmpleados.isEmpty()){
-            System.out.println("la lista de empleados esta vacia");
+        if (listaEmpleados.isEmpty()) {
+            System.out.println("🚫 La lista de empleados está vacía.");
             return;
-        }else if (!listaEmpleados.isEmpty()) {
-            for (Empleado empleado : listaEmpleados) {
-                System.out.println(empleado);
-            }
         }
 
+        // Cabecera
+        System.out.println("╔════════════════════════════════════════════════════════════════════╗");
+        System.out.println("║                       Lista de Empleados                          ║");
+        System.out.println("╠════════════════════╦════════════════════╦════════════════════╦════════════════════╗");
+        System.out.println("║      DNI           ║     Nombre         ║     Apellido       ║      Cargo          ║");
+        System.out.println("╠════════════════════╬════════════════════╬════════════════════╬════════════════════╣");
+
+        // Mostrar cada empleado
+        for (Empleado empleado : listaEmpleados) {
+            // Suponiendo que la clase Empleado tiene estos métodos getDni(), getNombre(), getApellido(), getCargo()
+            System.out.printf("║ %-18s ║ %-18s ║ %-18s ║ %-18s ║\n",
+                    empleado.getDni(),
+                    empleado.getNombre(),
+                    empleado.getApellido(),
+                    empleado.getTipoEmpleado());
+        }
+
+        System.out.println("╚════════════════════╩════════════════════╩════════════════════╩════════════════════╝");
     }
+
 
     public void cargarListaEmpleados(){
         this.listaEmpleados = agregarPersonas();

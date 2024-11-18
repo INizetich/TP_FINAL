@@ -1,0 +1,239 @@
+[ {
+  "numeroHangar" : 1,
+  "listaAviones" : [ {
+    "nombre" : "Boeing-746",
+    "capacidadAvion" : 177,
+    "motor" : "Motor turbofan",
+    "modelo" : "Modelo-A46",
+    "codigoAvion" : "640D1DD5",
+    "piloto" : {
+      "nombre" : "martin",
+      "apellido" : "ledesma",
+      "edad" : 36,
+      "dni" : "28102912",
+      "tipoEmpleado" : "PILOTO",
+      "nroEmpleado" : 94310
+    }
+  }, {
+    "nombre" : "Boeing-750",
+    "capacidadAvion" : 267,
+    "motor" : "Motor turbofan",
+    "modelo" : "Modelo-A40",
+    "codigoAvion" : "8B6A805B",
+    "piloto" : {
+      "nombre" : "gustavo",
+      "apellido" : "roskoczy",
+      "edad" : 51,
+      "dni" : "27105918",
+      "tipoEmpleado" : "PILOTO",
+      "nroEmpleado" : 77042
+    }
+  }, {
+    "nombre" : "Boeing-756",
+    "capacidadAvion" : 115,
+    "motor" : "Motor a reacción",
+    "modelo" : "Modelo-A99",
+    "codigoAvion" : "BA7EC978",
+    "piloto" : {
+      "nombre" : "cristian",
+      "apellido" : "chiliguay",
+      "edad" : 49,
+      "dni" : "34581039",
+      "tipoEmpleado" : "PILOTO",
+      "nroEmpleado" : 530
+    }
+  }, {
+    "nombre" : "Boeing-759",
+    "capacidadAvion" : 245,
+    "motor" : "Motor turbofan",
+    "modelo" : "Modelo-A81",
+    "codigoAvion" : "AA188260",
+    "piloto" : {
+      "nombre" : "julieta",
+      "apellido" : "canale",
+      "edad" : 58,
+      "dni" : "21581057",
+      "tipoEmpleado" : "PILOTO",
+      "nroEmpleado" : 88332
+    }
+  }, {
+    "nombre" : "Boeing-760",
+    "capacidadAvion" : 186,
+    "motor" : "Motor turbofan",
+    "modelo" : "Modelo-A69",
+    "codigoAvion" : "126E777D",
+    "piloto" : {
+      "nombre" : "jeronimo",
+      "apellido" : "benavidez",
+      "edad" : 34,
+      "dni" : "35105918",
+      "tipoEmpleado" : "PILOTO",
+      "nroEmpleado" : 24977
+    }
+  } ],
+  "capacidadMaxima" : 7
+}, {
+  "numeroHangar" : 2,
+  "listaAviones" : [ ],
+  "capacidadMaxima" : 7
+}, {
+  "numeroHangar" : 3,
+  "listaAviones" : [ {
+    "nombre" : "Boeing-754",
+    "capacidadAvion" : 66,
+    "motor" : "Motor a reacción",
+    "modelo" : "Modelo-A42",
+    "codigoAvion" : "7835BD89",
+    "piloto" : {
+      "nombre" : "martin",
+      "apellido" : "ledesma",
+      "edad" : 36,
+      "dni" : "28102912",
+      "tipoEmpleado" : "PILOTO",
+      "nroEmpleado" : 94310
+    }
+  }, {
+    "nombre" : "Boeing-755",
+    "capacidadAvion" : 279,
+    "motor" : "Motor turbofan",
+    "modelo" : "Modelo-A90",
+    "codigoAvion" : "45DC4240",
+    "piloto" : {
+      "nombre" : "julieta",
+      "apellido" : "canale",
+      "edad" : 58,
+      "dni" : "21581057",
+      "tipoEmpleado" : "PILOTO",
+      "nroEmpleado" : 88332
+    }
+  } ],
+  "capacidadMaxima" : 7
+}, {
+  "numeroHangar" : 4,
+  "listaAviones" : [ {
+    "nombre" : "Boeing-749",
+    "capacidadAvion" : 128,
+    "motor" : "Motor a reacción",
+    "modelo" : "Modelo-A2",
+    "codigoAvion" : "7C676B89",
+    "piloto" : {
+      "nombre" : "martin",
+      "apellido" : "ledesma",
+      "edad" : 36,
+      "dni" : "28102912",
+      "tipoEmpleado" : "PILOTO",
+      "nroEmpleado" : 94310
+    }
+  } ],
+  "capacidadMaxima" : 7
+}, {
+  "numeroHangar" : 5,
+  "listaAviones" : [ {
+    "nombre" : "Boeing-747",
+    "capacidadAvion" : 347,
+    "motor" : "Motor turbofan",
+    "modelo" : "Modelo-A29",
+    "codigoAvion" : "CD27266C",
+    "piloto" : {
+      "nombre" : "julieta",
+      "apellido" : "canale",
+      "edad" : 58,
+      "dni" : "21581057",
+      "tipoEmpleado" : "PILOTO",
+      "nroEmpleado" : 88332
+    }
+  }, {
+    "nombre" : "Boeing-752",
+    "capacidadAvion" : 346,
+    "motor" : "Motor turbofan",
+    "modelo" : "Modelo-A84",
+    "codigoAvion" : "8AB57084",
+    "piloto" : {
+      "nombre" : "jeronimo",
+      "apellido" : "benavidez",
+      "edad" : 34,
+      "dni" : "35105918",
+      "tipoEmpleado" : "PILOTO",
+      "nroEmpleado" : 24977
+    }
+  }, {
+    "nombre" : "Boeing-758",
+    "capacidadAvion" : 135,
+    "motor" : "Motor a reacción",
+    "modelo" : "Modelo-A50",
+    "codigoAvion" : "048CCAF4",
+    "piloto" : {
+      "nombre" : "gustavo",
+      "apellido" : "roskoczy",
+      "edad" : 51,
+      "dni" : "27105918",
+      "tipoEmpleado" : "PILOTO",
+      "nroEmpleado" : 77042
+    }
+  } ],
+  "capacidadMaxima" : 7
+}, {
+  "numeroHangar" : 6,
+  "listaAviones" : [ {
+    "nombre" : "Boeing-748",
+    "capacidadAvion" : 228,
+    "motor" : "Motor turbofan",
+    "modelo" : "Modelo-A74",
+    "codigoAvion" : "11E19521",
+    "piloto" : {
+      "nombre" : "martin",
+      "apellido" : "ledesma",
+      "edad" : 36,
+      "dni" : "28102912",
+      "tipoEmpleado" : "PILOTO",
+      "nroEmpleado" : 94310
+    }
+  }, {
+    "nombre" : "Boeing-751",
+    "capacidadAvion" : 176,
+    "motor" : "Motor a reacción",
+    "modelo" : "Modelo-A11",
+    "codigoAvion" : "C74AADBC",
+    "piloto" : {
+      "nombre" : "rodolfo",
+      "apellido" : "rodriguez",
+      "edad" : 65,
+      "dni" : "59104958",
+      "tipoEmpleado" : "PILOTO",
+      "nroEmpleado" : 6518
+    }
+  }, {
+    "nombre" : "Boeing-757",
+    "capacidadAvion" : 82,
+    "motor" : "Motor turbofan",
+    "modelo" : "Modelo-A87",
+    "codigoAvion" : "922578B4",
+    "piloto" : {
+      "nombre" : "rodolfo",
+      "apellido" : "rodriguez",
+      "edad" : 65,
+      "dni" : "59104958",
+      "tipoEmpleado" : "PILOTO",
+      "nroEmpleado" : 6518
+    }
+  } ],
+  "capacidadMaxima" : 7
+}, {
+  "numeroHangar" : 7,
+  "listaAviones" : [ {
+    "nombre" : "Boeing-753",
+    "capacidadAvion" : 69,
+    "motor" : "Motor a reacción",
+    "modelo" : "Modelo-A87",
+    "codigoAvion" : "252BE63A",
+    "piloto" : {
+      "nombre" : "gabriel",
+      "apellido" : "ruiz",
+      "edad" : 43,
+      "dni" : "28454151",
+      "tipoEmpleado" : "PILOTO",
+      "nroEmpleado" : 94988
+    }
+  } ],
+  "capacidadMaxima" : 7
+} ]

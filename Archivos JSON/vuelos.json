@@ -1,0 +1,409 @@
+[ {
+  "idVuelo" : "C6103495",
+  "origen" : "Aeropuerto Internacional Ezeiza",
+  "destino" : "Miami International Airport",
+  "horario" : "2024-11-18T18:13:59.100346700",
+  "estadoEmbarque" : "CERRADO",
+  "avion" : {
+    "nombre" : "Boeing-759",
+    "capacidadAvion" : 245,
+    "motor" : "Motor turbofan",
+    "modelo" : "Modelo-A81",
+    "codigoAvion" : "AA188260",
+    "piloto" : {
+      "nombre" : "julieta",
+      "apellido" : "canale",
+      "edad" : 58,
+      "dni" : "21581057",
+      "tipoEmpleado" : "PILOTO",
+      "nroEmpleado" : 88332
+    }
+  },
+  "puertaEmbarque" : "C5",
+  "listaPasajeros" : [ {
+    "edad" : 21,
+    "dni" : "45462201",
+    "nombre" : "ignacio",
+    "apellido" : "nizetich",
+    "numeroAsiento" : "A1",
+    "valija" : [ {
+      "dimension" : "15x15x15",
+      "peso" : 23.0
+    } ],
+    "checkInRealizado" : true,
+    "codigoPasajero" : "5411990D"
+  }, {
+    "edad" : 21,
+    "dni" : "44310293",
+    "nombre" : "tucu",
+    "apellido" : "mano",
+    "numeroAsiento" : "A2",
+    "valija" : [ {
+      "dimension" : "15x15x15",
+      "peso" : 23.0
+    } ],
+    "checkInRealizado" : true,
+    "codigoPasajero" : "2A0392CC"
+  } ],
+  "asientos" : [ "A1", "A2" ]
+}, {
+  "idVuelo" : "B26A01FF",
+  "origen" : "Frankfurter Flughafen",
+  "destino" : "Aeropuerto Internacional El Dorado",
+  "horario" : "2024-11-18T18:36:59.100346700",
+  "estadoEmbarque" : "ABIERTO",
+  "avion" : {
+    "nombre" : "Boeing-755",
+    "capacidadAvion" : 279,
+    "motor" : "Motor turbofan",
+    "modelo" : "Modelo-A90",
+    "codigoAvion" : "45DC4240",
+    "piloto" : {
+      "nombre" : "julieta",
+      "apellido" : "canale",
+      "edad" : 58,
+      "dni" : "21581057",
+      "tipoEmpleado" : "PILOTO",
+      "nroEmpleado" : 88332
+    }
+  },
+  "puertaEmbarque" : "A3",
+  "listaPasajeros" : [ ],
+  "asientos" : [ ]
+}, {
+  "idVuelo" : "B3182DFD",
+  "origen" : "北京首都国际机场",
+  "destino" : "Aeropuerto Internacional de la Ciudad de México",
+  "horario" : "2024-11-18T18:20:59.100346700",
+  "estadoEmbarque" : "ABIERTO",
+  "avion" : {
+    "nombre" : "Boeing-751",
+    "capacidadAvion" : 176,
+    "motor" : "Motor a reacción",
+    "modelo" : "Modelo-A11",
+    "codigoAvion" : "C74AADBC",
+    "piloto" : {
+      "nombre" : "rodolfo",
+      "apellido" : "rodriguez",
+      "edad" : 65,
+      "dni" : "59104958",
+      "tipoEmpleado" : "PILOTO",
+      "nroEmpleado" : 6518
+    }
+  },
+  "puertaEmbarque" : "C2",
+  "listaPasajeros" : [ ],
+  "asientos" : [ ]
+}, {
+  "idVuelo" : "959BB1F9",
+  "origen" : "John F. Kennedy International Airport",
+  "destino" : "Los Angeles International Airport",
+  "horario" : "2024-11-18T18:53:59.100346700",
+  "estadoEmbarque" : "ABIERTO",
+  "avion" : {
+    "nombre" : "Boeing-757",
+    "capacidadAvion" : 82,
+    "motor" : "Motor turbofan",
+    "modelo" : "Modelo-A87",
+    "codigoAvion" : "922578B4",
+    "piloto" : {
+      "nombre" : "rodolfo",
+      "apellido" : "rodriguez",
+      "edad" : 65,
+      "dni" : "59104958",
+      "tipoEmpleado" : "PILOTO",
+      "nroEmpleado" : 6518
+    }
+  },
+  "puertaEmbarque" : "B4",
+  "listaPasajeros" : [ ],
+  "asientos" : [ ]
+}, {
+  "idVuelo" : "8B6D37C3",
+  "origen" : "Dubai International Airport",
+  "destino" : "Sydney Kingsford Smith International Airport",
+  "horario" : "2024-11-18T18:39:59.100346700",
+  "estadoEmbarque" : "ABIERTO",
+  "avion" : {
+    "nombre" : "Boeing-750",
+    "capacidadAvion" : 267,
+    "motor" : "Motor turbofan",
+    "modelo" : "Modelo-A40",
+    "codigoAvion" : "8B6A805B",
+    "piloto" : {
+      "nombre" : "gustavo",
+      "apellido" : "roskoczy",
+      "edad" : 51,
+      "dni" : "27105918",
+      "tipoEmpleado" : "PILOTO",
+      "nroEmpleado" : 77042
+    }
+  },
+  "puertaEmbarque" : "C2",
+  "listaPasajeros" : [ ],
+  "asientos" : [ ]
+}, {
+  "idVuelo" : "2224890D",
+  "origen" : "Aeropuerto Internacional São Paulo-Guarulhos",
+  "destino" : "Miami International Airport",
+  "horario" : "2024-11-18T19:05:59.100346700",
+  "estadoEmbarque" : "ABIERTO",
+  "avion" : {
+    "nombre" : "Boeing-748",
+    "capacidadAvion" : 228,
+    "motor" : "Motor turbofan",
+    "modelo" : "Modelo-A74",
+    "codigoAvion" : "11E19521",
+    "piloto" : {
+      "nombre" : "martin",
+      "apellido" : "ledesma",
+      "edad" : 36,
+      "dni" : "28102912",
+      "tipoEmpleado" : "PILOTO",
+      "nroEmpleado" : 94310
+    }
+  },
+  "puertaEmbarque" : "A5",
+  "listaPasajeros" : [ ],
+  "asientos" : [ ]
+}, {
+  "idVuelo" : "E2230368",
+  "origen" : "Hong Kong International Airport",
+  "destino" : "Aeropuerto Internacional Ezeiza",
+  "horario" : "2024-11-18T19:04:59.100346700",
+  "estadoEmbarque" : "ABIERTO",
+  "avion" : {
+    "nombre" : "Boeing-751",
+    "capacidadAvion" : 176,
+    "motor" : "Motor a reacción",
+    "modelo" : "Modelo-A11",
+    "codigoAvion" : "C74AADBC",
+    "piloto" : {
+      "nombre" : "rodolfo",
+      "apellido" : "rodriguez",
+      "edad" : 65,
+      "dni" : "59104958",
+      "tipoEmpleado" : "PILOTO",
+      "nroEmpleado" : 6518
+    }
+  },
+  "puertaEmbarque" : "C1",
+  "listaPasajeros" : [ ],
+  "asientos" : [ ]
+}, {
+  "idVuelo" : "DEC08F87",
+  "origen" : "Frankfurter Flughafen",
+  "destino" : "Miami International Airport",
+  "horario" : "2024-11-18T18:52:59.100346700",
+  "estadoEmbarque" : "ABIERTO",
+  "avion" : {
+    "nombre" : "Boeing-748",
+    "capacidadAvion" : 228,
+    "motor" : "Motor turbofan",
+    "modelo" : "Modelo-A74",
+    "codigoAvion" : "11E19521",
+    "piloto" : {
+      "nombre" : "martin",
+      "apellido" : "ledesma",
+      "edad" : 36,
+      "dni" : "28102912",
+      "tipoEmpleado" : "PILOTO",
+      "nroEmpleado" : 94310
+    }
+  },
+  "puertaEmbarque" : "C1",
+  "listaPasajeros" : [ ],
+  "asientos" : [ ]
+}, {
+  "idVuelo" : "946B006E",
+  "origen" : "John F. Kennedy International Airport",
+  "destino" : "北京首都国际机场",
+  "horario" : "2024-11-18T18:36:59.100346700",
+  "estadoEmbarque" : "ABIERTO",
+  "avion" : {
+    "nombre" : "Boeing-760",
+    "capacidadAvion" : 186,
+    "motor" : "Motor turbofan",
+    "modelo" : "Modelo-A69",
+    "codigoAvion" : "126E777D",
+    "piloto" : {
+      "nombre" : "jeronimo",
+      "apellido" : "benavidez",
+      "edad" : 34,
+      "dni" : "35105918",
+      "tipoEmpleado" : "PILOTO",
+      "nroEmpleado" : 24977
+    }
+  },
+  "puertaEmbarque" : "A3",
+  "listaPasajeros" : [ ],
+  "asientos" : [ ]
+}, {
+  "idVuelo" : "CF082E1B",
+  "origen" : "Sydney Kingsford Smith International Airport",
+  "destino" : "Aeropuerto Internacional São Paulo-Guarulhos",
+  "horario" : "2024-11-18T18:35:59.100346700",
+  "estadoEmbarque" : "ABIERTO",
+  "avion" : {
+    "nombre" : "Boeing-760",
+    "capacidadAvion" : 186,
+    "motor" : "Motor turbofan",
+    "modelo" : "Modelo-A69",
+    "codigoAvion" : "126E777D",
+    "piloto" : {
+      "nombre" : "jeronimo",
+      "apellido" : "benavidez",
+      "edad" : 34,
+      "dni" : "35105918",
+      "tipoEmpleado" : "PILOTO",
+      "nroEmpleado" : 24977
+    }
+  },
+  "puertaEmbarque" : "B4",
+  "listaPasajeros" : [ ],
+  "asientos" : [ ]
+}, {
+  "idVuelo" : "28B441FC",
+  "origen" : "Aeropuerto Internacional de la Ciudad de México",
+  "destino" : "Aeropuerto Internacional El Dorado",
+  "horario" : "2024-11-18T19:07:59.100346700",
+  "estadoEmbarque" : "ABIERTO",
+  "avion" : {
+    "nombre" : "Boeing-758",
+    "capacidadAvion" : 135,
+    "motor" : "Motor a reacción",
+    "modelo" : "Modelo-A50",
+    "codigoAvion" : "048CCAF4",
+    "piloto" : {
+      "nombre" : "gustavo",
+      "apellido" : "roskoczy",
+      "edad" : 51,
+      "dni" : "27105918",
+      "tipoEmpleado" : "PILOTO",
+      "nroEmpleado" : 77042
+    }
+  },
+  "puertaEmbarque" : "B2",
+  "listaPasajeros" : [ ],
+  "asientos" : [ ]
+}, {
+  "idVuelo" : "8F763DFB",
+  "origen" : "Aeropuerto Internacional São Paulo-Guarulhos",
+  "destino" : "Sydney Kingsford Smith International Airport",
+  "horario" : "2024-11-18T18:31:59.100346700",
+  "estadoEmbarque" : "ABIERTO",
+  "avion" : {
+    "nombre" : "Boeing-760",
+    "capacidadAvion" : 186,
+    "motor" : "Motor turbofan",
+    "modelo" : "Modelo-A69",
+    "codigoAvion" : "126E777D",
+    "piloto" : {
+      "nombre" : "jeronimo",
+      "apellido" : "benavidez",
+      "edad" : 34,
+      "dni" : "35105918",
+      "tipoEmpleado" : "PILOTO",
+      "nroEmpleado" : 24977
+    }
+  },
+  "puertaEmbarque" : "B4",
+  "listaPasajeros" : [ ],
+  "asientos" : [ ]
+}, {
+  "idVuelo" : "EC68E773",
+  "origen" : "北京首都国际机场",
+  "destino" : "Miami International Airport",
+  "horario" : "2024-11-18T18:47:59.100346700",
+  "estadoEmbarque" : "ABIERTO",
+  "avion" : {
+    "nombre" : "Boeing-748",
+    "capacidadAvion" : 228,
+    "motor" : "Motor turbofan",
+    "modelo" : "Modelo-A74",
+    "codigoAvion" : "11E19521",
+    "piloto" : {
+      "nombre" : "martin",
+      "apellido" : "ledesma",
+      "edad" : 36,
+      "dni" : "28102912",
+      "tipoEmpleado" : "PILOTO",
+      "nroEmpleado" : 94310
+    }
+  },
+  "puertaEmbarque" : "C3",
+  "listaPasajeros" : [ ],
+  "asientos" : [ ]
+}, {
+  "idVuelo" : "E08C0EC8",
+  "origen" : "Dubai International Airport",
+  "destino" : "Los Angeles International Airport",
+  "horario" : "2024-11-18T18:42:59.100346700",
+  "estadoEmbarque" : "ABIERTO",
+  "avion" : {
+    "nombre" : "Boeing-746",
+    "capacidadAvion" : 177,
+    "motor" : "Motor turbofan",
+    "modelo" : "Modelo-A46",
+    "codigoAvion" : "640D1DD5",
+    "piloto" : {
+      "nombre" : "martin",
+      "apellido" : "ledesma",
+      "edad" : 36,
+      "dni" : "28102912",
+      "tipoEmpleado" : "PILOTO",
+      "nroEmpleado" : 94310
+    }
+  },
+  "puertaEmbarque" : "C3",
+  "listaPasajeros" : [ ],
+  "asientos" : [ ]
+}, {
+  "idVuelo" : "F30BDB13",
+  "origen" : "Miami International Airport",
+  "destino" : "Aeropuerto Internacional Ezeiza",
+  "horario" : "2024-11-18T18:32:59.100346700",
+  "estadoEmbarque" : "ABIERTO",
+  "avion" : {
+    "nombre" : "Boeing-757",
+    "capacidadAvion" : 82,
+    "motor" : "Motor turbofan",
+    "modelo" : "Modelo-A87",
+    "codigoAvion" : "922578B4",
+    "piloto" : {
+      "nombre" : "rodolfo",
+      "apellido" : "rodriguez",
+      "edad" : 65,
+      "dni" : "59104958",
+      "tipoEmpleado" : "PILOTO",
+      "nroEmpleado" : 6518
+    }
+  },
+  "puertaEmbarque" : "A4",
+  "listaPasajeros" : [ ],
+  "asientos" : [ ]
+}, {
+  "idVuelo" : "ZP140A49",
+  "origen" : "John F. Kennedy International Airport",
+  "destino" : "Miami International Airport",
+  "horario" : "2024-11-18T19:02:59.101339800",
+  "estadoEmbarque" : "ABIERTO",
+  "avion" : {
+    "nombre" : "Boeing-754",
+    "capacidadAvion" : 66,
+    "motor" : "Motor a reacción",
+    "modelo" : "Modelo-A42",
+    "codigoAvion" : "7835BD89",
+    "piloto" : {
+      "nombre" : "martin",
+      "apellido" : "ledesma",
+      "edad" : 36,
+      "dni" : "28102912",
+      "tipoEmpleado" : "PILOTO",
+      "nroEmpleado" : 94310
+    }
+  },
+  "puertaEmbarque" : "B2",
+  "listaPasajeros" : [ ],
+  "asientos" : [ ]
+} ]

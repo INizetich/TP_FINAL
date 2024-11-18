@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GestionJSON {
- private static ObjectMapper objectMapper = new ObjectMapper();
+    private static ObjectMapper objectMapper = new ObjectMapper();
 
 
     public static <T> void serializarLista(List<T> lista, String archivoDestino) {
@@ -141,36 +141,19 @@ public class GestionJSON {
         return null;
     }
 
-    /*public static List<Vuelo> deserializarVuelos(String path) {
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            List<Vuelo> vuelos = mapper.readValue(new File(path), new TypeReference<List<Vuelo>>(){});
-            return vuelos;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }*/
 
 
 
-    public static Map<String, Map<String, Set<String>>> deserializarVuelosReservados(String filePath) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
+    // Método estático para deserializar las conexiones desde un archivo JSON
+    public static Map<String, Map<String, Set<String>>> deserializarConexiones(String filePath) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
 
-        // Tipo del mapa genérico
-        TypeReference<Map<String, Map<String, Set<String>>>> typeRef = new TypeReference<>() {};
-
-        // Leer y deserializar desde el archivo JSON
-        return mapper.readValue(new File(filePath), typeRef);
+        // Leer el archivo y convertirlo al tipo esperado
+        return objectMapper.readValue(
+                new File(filePath),
+                new TypeReference<Map<String, Map<String, Set<String>>>>() {}
+        );
     }
 
 
 }
-
-
-
-
-
-
-
-

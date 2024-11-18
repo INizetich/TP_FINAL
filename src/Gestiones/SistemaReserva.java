@@ -16,7 +16,7 @@ import java.util.Scanner;
 
 public class SistemaReserva {
     private final Map<String, Set<CheckIn>> mapaReservas;
-private AlmacenamientoAviones almacenamiento;
+    private AlmacenamientoAviones almacenamiento;
     public SistemaReserva() {
         this.mapaReservas = new HashMap<>();
         this.almacenamiento = new AlmacenamientoAviones();
@@ -45,7 +45,7 @@ private AlmacenamientoAviones almacenamiento;
                 }
             } else {
                 System.out.println("🚫 El archivo de vuelos no existe. Asegúrese de que se haya creado correctamente.");
-                return; // O puedes decidir continuar sin permitir reservas
+                return; // Salir si el archivo no existe
             }
 
             // Comprobar si el archivo de CheckIn existe antes de deserializar
@@ -58,13 +58,21 @@ private AlmacenamientoAviones almacenamiento;
 
             // Inicializar el mapa de reservas
             mapaReservas.putAll(reservasJSON);
+
+            File conexionesFile = new File("Archivos JSON/ConexionesAeropuertos.json");
+            Map<String, Map<String, Set<String>>> conexionesJSON = new HashMap<>();
+            if (conexionesFile.exists()) {
+                try {
+                    conexionesJSON = GestionJSON.deserializarConexiones(conexionesFile.getPath());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            ConexionAeropuerto.setConexiones(conexionesJSON);
         }
 
-        // Variable para controlar la selección del vuelo
-        boolean vueloSeleccionadoCorrecto = false;
-
         while (continuarReservas) {
-            vueloSeleccionadoCorrecto = false; // Reiniciar la variable en cada nueva reserva
+            boolean vueloSeleccionadoCorrecto = false; // Reiniciar la variable en cada nueva reserva
 
             while (!vueloSeleccionadoCorrecto) {
                 // Mostrar los vuelos disponibles
@@ -106,7 +114,7 @@ private AlmacenamientoAviones almacenamiento;
                 // Si el usuario decide no cambiar el vuelo, salir del ciclo
                 vueloSeleccionadoCorrecto = true;
 
-                // Si no se cambia el vuelo, continuar con el proceso de reserva
+                // Continuar con el proceso de reserva
                 List<String> asientosDisponibles = generarAsientosDisponibles(vueloSeleccionado);
                 if (asientosDisponibles.isEmpty()) {
                     System.out.println("No hay asientos disponibles para este vuelo.");
@@ -165,9 +173,12 @@ private AlmacenamientoAviones almacenamiento;
                         pasajero.setCheckIn(true);
 
                         try {
+                            List<Vuelo> vuelos = SistemaVuelo.getVuelosGenerados();
+                            GestionJSON.serializarLista(vuelos,"Archivos JSON/vuelos.json");
                             // Serializar y guardar las reservas y conexiones
                             GestionJSON.serializarMapa(mapaReservas, "Archivos JSON/Check-In.json");
                             GestionJSON.serializarMapa(ConexionAeropuerto.getConexiones(), "Archivos JSON/ConexionesAeropuertos.json");
+                            Configs.setFirstRunComplete();
                         } catch (Exception e) {
                             System.out.println("Error al guardar reservas o conexiones.");
                             e.printStackTrace();
@@ -181,16 +192,15 @@ private AlmacenamientoAviones almacenamiento;
                 }
             }
 
-            // Preguntar si desea hacer otra reserva
+            // Una vez completado el ciclo de selección y reserva, preguntar al usuario si desea continuar
             System.out.println("==================================");
             System.out.println("➡️ ¿Desea hacer otra reserva? ✈️");
             System.out.print("👉 (s: ✔️ / n: ❌): ");
             String respuesta = scanner.nextLine().trim().toLowerCase();
-            if (!respuesta.equals("s")) {
-                continuarReservas = false; // Salir del ciclo si la respuesta no es "s"
-            }
+            continuarReservas = respuesta.equals("s");
         }
     }
+
 
 
 

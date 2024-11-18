@@ -1,4 +1,6 @@
 package UI;
+import Aviones.Avion;
+import Aviones.Hangar;
 import javazoom.jl.player.Player;
 import java.io.FileInputStream;
 import java.util.Scanner;
@@ -14,9 +16,13 @@ import java.util.List;
 import java.util.Scanner;
 
 public class MenuClientes {
+    private static final String GREEN = "\u001B[32m";
+    private static final String WHITE = "\u001B[37m";
+    private static final String RESET = "\u001B[0m";
     private static double credito = 0.0; // Crédito disponible del cliente
-    private static final String Click = "src/Resourses/click.mp3";
-    private static final String Soundtrack = "src/Resourses/SoundtrackTienda.mp3";
+    private static final String Click = "src/Sonidos/click.mp3";
+    private static final String Soundtrack = "src/Sonidos/SoundtrackTienda.mp3";
+    private static final String Soundtrack2 = "src/Sonidos/Star Wars Jedi Temple March.mp3";
     public static void mostrarMenuCliente() {
         ///VARIABLES IMPORTANTES
         String opcionString = "";
@@ -38,6 +44,7 @@ public class MenuClientes {
 
         Scanner scanner = new Scanner(System.in);
         int opcionCliente;
+
 
         do {
             System.out.println("\n======== Menú de Clientes ========");
@@ -72,11 +79,7 @@ public class MenuClientes {
                                 } catch (DniRegistradoException | CodigoVueloInexistenteException | AsientoNoDisponibleException e) {
                                     e.printStackTrace();
                                 } finally {
-                                    System.out.println("==================================");
-                                    System.out.println(" ➡️ ¿Desea hacer otra reserva? ✈️");
-                                    System.out.println("👉 (s: ✔️ / n: ❌)");
-                                    System.out.println("==================================");
-                                    opcionString = scanner.nextLine().trim().toLowerCase();
+
                                     reproducirClick();
                                 }
                             } while (opcionString.equals("s"));
@@ -201,24 +204,29 @@ public class MenuClientes {
                             case 2 -> mostrarComida(scanner);
                             case 3 -> mostrarArticulosVarios(scanner);
                             case 4 -> System.out.println("¡Gracias por visitar el kiosko! 🛒");
+
                             default -> System.out.println("❌ Opción inválida. Intente nuevamente.");
                         }
-                    } while (opcion != 5);
-
-                    scanner.close();
-
+                    } while (opcion != 4);
                     System.out.println("🔄Presione Enter para volver al menú principal...🔄");
                     scanner.nextLine();
                     break;
 
                 case 3:
                     // Implementar el caso 3 (ATM)
-                    System.out.println("Usted ha elegido ATM. 💰");
-                    System.out.println("\n=== 🏦 Simulación de ATM ===");
-                    System.out.println("1. 💳 Agregar Crédito");
-                    System.out.println("2. 💵 Consultar Saldo");
-                    System.out.println("3. 💸 Retirar Dinero");
-                    System.out.println("4. 🚪 Salir");
+                     System.out.println(GREEN + "====================================" + RESET);
+                     System.out.println(GREEN + "         █████╗ ████████╗███╗   ███╗" + RESET);
+                     System.out.println(GREEN + "        ██╔══██╗╚══██╔══╝████╗ ████║" + RESET);
+                     System.out.println(GREEN + "        ███████║   ██║   ██╔████╔██║" + RESET);
+                     System.out.println(GREEN + "        ██╔══██║   ██║   ██║╚██╔╝██║" + RESET);
+                     System.out.println(GREEN + "        ██║  ██║   ██║   ██║ ╚═╝ ██║" + RESET);
+                     System.out.println(GREEN + "        ╚═╝  ╚═╝   ╚═╝   ╚═╝     ╚═╝" + RESET);
+                     System.out.println(GREEN + "====================================" + RESET);
+                        System.out.println("\n======== ATM ========");
+                    System.out.println(GREEN + "1. 💳 Agregar Crédito" + RESET);
+                    System.out.println(GREEN + "2. 💵 Consultar Saldo" + RESET);
+                    System.out.println(GREEN + "3. 💸 Retirar Dinero" + RESET);
+                    System.out.println(GREEN + "4. 🚪 Salir" + RESET);
                     System.out.print("Seleccione una opción 👉: ");
 
                      opcion = scanner.nextInt();
@@ -246,9 +254,12 @@ public class MenuClientes {
 
                 case 4:
                     System.out.println("🚪 Gracias por utilizar nuestros servicios. ¡Hasta luego! 🚪");
-                    List<Vuelo> vuelos = SistemaVuelo.getVuelosGenerados();
-                    GestionJSON.serializarLista(vuelos,"Archivos JSON/vuelos.json");
-                    Configs.setFirstRunComplete();
+
+                    ///SERIALIZO LA LISTA DE HANGARES
+                    List<Hangar<Avion>> listaHangares = almacenamientoAviones.getListaHangares();
+                    GestionJSON.serializarLista(listaHangares, "Archivos JSON/listaHangares.json");
+
+
                     break;
 
                 default:
@@ -385,7 +396,7 @@ public class MenuClientes {
 
     private static void musicaMenu() {
         Thread audioThread = new Thread(() -> {
-            try (FileInputStream fis = new FileInputStream(Soundtrack)) {
+            try (FileInputStream fis = new FileInputStream(Soundtrack2)) {
                 Player player = new Player(fis);
                 player.play();
             } catch (Exception e) {

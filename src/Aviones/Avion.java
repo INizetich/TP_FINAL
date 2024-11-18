@@ -5,6 +5,7 @@ import Excepciones.NoEsPilotoException;
 import Interfaces.IAvion;
 import Personas.Empleado;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true) // Ignora campos desconocidos durante la deserialización
 public class Avion implements IAvion {
@@ -81,6 +82,8 @@ public class Avion implements IAvion {
         }
         this.empleado = piloto;
     }
+
+
 
     public Empleado getPiloto() {
         return empleado;

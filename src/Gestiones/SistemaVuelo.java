@@ -114,7 +114,7 @@ public class SistemaVuelo{
 
     // Método para obtener los vuelos generados
     public static void obtenerVuelosGenerados(AlmacenamientoAviones gestionHangar) {
-         vuelosGenerados = crearVuelosConIDUnico(gestionHangar);
+        vuelosGenerados = crearVuelosConIDUnico(gestionHangar);
     }
 
     public static List<Vuelo> getVuelosGenerados() {
@@ -186,4 +186,3 @@ public class SistemaVuelo{
 
 
 }
-

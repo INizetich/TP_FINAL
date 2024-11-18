@@ -78,7 +78,7 @@ public  class Aeropuerto implements Serializable {
         for (Hangar hangar : listaHangares) {
             if (hangar.getListaAviones().isEmpty()) {
                 // Agregar aviones automáticamente si es necesario
-                almacenamiento.generarAviones(5,listaEmpleados); // Suponiendo que tienes este método en AlmacenamientoAviones
+                almacenamiento.generarAviones(5, listaEmpleados); // Suponiendo que tienes este método en AlmacenamientoAviones
                 hangar.agregarAvion(new Avion("Avion-" + UUID.randomUUID().toString().substring(0,4).toUpperCase(), 200, "Motor A", "Modelo A"+UUID.randomUUID().toString().substring(0,4).toUpperCase(), UUID.randomUUID().toString().substring(0,6).toUpperCase()));
             }
         }

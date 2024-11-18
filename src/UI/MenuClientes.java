@@ -3,6 +3,7 @@ package UI;
 import Aeropuerto.Aeropuerto;
 import Aviones.Vuelo;
 import CheckIn.CheckIn;
+import Config.Configs;
 import Excepciones.*;
 import Gestiones.*;
 import JSON.GestionJSON;
@@ -183,6 +184,7 @@ public class MenuClientes {
                     System.out.println("🚪 Gracias por utilizar nuestros servicios. ¡Hasta luego! 🚪");
                     List<Vuelo> vuelos = SistemaVuelo.getVuelosGenerados();
                     GestionJSON.serializarLista(vuelos,"Archivos JSON/vuelos.json");
+                    Configs.setFirstRunComplete();
                     break;
 
                 default:

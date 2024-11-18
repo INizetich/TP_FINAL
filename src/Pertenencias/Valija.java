@@ -1,7 +1,11 @@
 package Pertenencias;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Valija {
+    @JsonProperty("dimension")
     private String dimension;
+    @JsonProperty("peso")
     private double peso;
 
     public Valija(String dimension, double peso) {

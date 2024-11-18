@@ -115,32 +115,6 @@ public class GestionJSON {
 
 
 
-
-
-    /*public static Map<String, Set<CheckIn>> deserializarReservas(String nombreArchivo) {
-        try {
-            // Crear un mapa vacío
-            Map<String, Set<CheckIn>> reservas = new HashMap<>();
-
-            // Leer el archivo JSON para obtener el mapa completo
-            Map<String, List<CheckIn>> reservasTemp = objectMapper.getTypeFactory().constructMapType(Map.class, String.class,
-                    Class.toClass(objectMapper.getTypeFactory().constructCollectionType(List.class, CheckIn.class)));
-
-            // Convertir las listas de CheckIn a sets
-            for (Map.Entry<String, List<CheckIn>> entry : reservasTemp.entrySet()) {
-                // Convertir la lista a un Set
-                Set<CheckIn> checkInsSet = new HashSet<>(entry.getValue());
-                reservas.put(entry.getKey(), checkInsSet);
-            }
-
-            return reservas;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }*/
-
     public static Map<String, Set<CheckIn>> deserializarReservas(String nombreArchivo) {
         try {
             // Crear el ObjectMapper
@@ -166,6 +140,17 @@ public class GestionJSON {
         }
         return null;
     }
+
+    /*public static List<Vuelo> deserializarVuelos(String path) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            List<Vuelo> vuelos = mapper.readValue(new File(path), new TypeReference<List<Vuelo>>(){});
+            return vuelos;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }*/
 
 
 

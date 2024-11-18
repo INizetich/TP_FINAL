@@ -168,7 +168,7 @@ public class SistemaVuelo{
         String puertaEmbarque = String.valueOf(PuertaEmbarque.obtenerPuertaAleatoria());
 
         // Inicializar lista de pasajeros y asientos vacíos
-        List<Pasajero> listaPasajeros = new ArrayList<>();
+        Set<Pasajero> listaPasajeros = new HashSet<>();
         List<String> asientos = new ArrayList<>();
 
         // Crear el vuelo usando el constructor completo
@@ -180,18 +180,7 @@ public class SistemaVuelo{
                 listaPasajeros,
                 asientos);
     }
-    /*
 
-
-     Vuelo(
-            @JsonProperty("id") String id,
-            @JsonProperty("origen") String origen,
-            @JsonProperty("destino") String destino,
-            @JsonProperty("horario") LocalDateTime horario,
-            @JsonProperty("estadoEmbarque") EstadoEmbarque estadoEmbarque,
-            @JsonProperty("avion") Avion avion
-
-     */
 
 
 

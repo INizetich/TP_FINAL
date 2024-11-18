@@ -2,6 +2,8 @@ package Personas;
 
 import Pertenencias.Valija;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,8 +25,8 @@ public class Pasajero extends Persona {
 
     public Pasajero(String nombre, String apellido, int edad, String dni, List<Valija> valija, String nroAsiento) {
         super(nombre, apellido, edad, dni);
-        this.nroAsiento = nroAsiento;
-        this.valija = valija;
+        this.nroAsiento = nroAsiento != null ? nroAsiento : "Sin Asignar";
+        this.valija = valija != null ? valija : new ArrayList<>();
         this.checkIn = false;
         this.codigoPasajero = UUID.randomUUID().toString().substring(0, 8).toUpperCase();
     }
@@ -38,12 +40,13 @@ public class Pasajero extends Persona {
         this.codigoPasajero = UUID.randomUUID().toString().substring(0, 8).toUpperCase();
     }
 
-    // Métodos y validaciones
     public void realizarCheckIn(String numeroAsiento) {
+        if (numeroAsiento == null || numeroAsiento.isEmpty()) {
+            throw new IllegalArgumentException("El número de asiento no puede estar vacío.");
+        }
         this.checkIn = true;
         this.nroAsiento = numeroAsiento;
     }
-
     @Override
     public String toString() {
         return super.toString() +

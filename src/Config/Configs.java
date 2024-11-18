@@ -1,5 +1,6 @@
 package Config;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -7,18 +8,6 @@ import java.util.Properties;
 
 public class Configs {
     private static final String CONFIG_FILE = "properties/config.properties";
-
-    static {
-        // Registrar el shutdown hook para cambiar first_run a true cuando se detenga el programa
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            // Cambiar first_run a true cuando el programa se detenga
-            try {
-                setFirstRun(true); // Establecer first_run a true
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }));
-    }
 
     // Lee el valor de first_run
     public static boolean isFirstRun() {
@@ -32,10 +21,13 @@ public class Configs {
         }
     }
 
-    // Establece el valor de first_run en el archivo de configuración
+    // Establece el valor de first_run en el archivo de configuración solo la primera vez
     public static void setFirstRunComplete() {
         try {
-            setFirstRun(false); // Cambiar first_run a false
+            // Solo se debe actualizar first_run a false si es la primera ejecución
+            if (isFirstRun()) {
+                setFirstRun(false);  // Cambiar first_run a false
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -44,7 +36,14 @@ public class Configs {
     // Método para establecer el valor de first_run
     private static void setFirstRun(boolean value) throws IOException {
         Properties properties = new Properties();
-        try (FileInputStream fis = new FileInputStream(CONFIG_FILE)) {
+
+        // Si el archivo no existe, lo creamos
+        File configFile = new File(CONFIG_FILE);
+        if (!configFile.exists()) {
+            configFile.createNewFile();
+        }
+
+        try (FileInputStream fis = new FileInputStream(configFile)) {
             properties.load(fis);
         } catch (IOException e) {
             // Si el archivo no existe, no pasa nada y continuamos
@@ -53,7 +52,7 @@ public class Configs {
         // Actualizamos el valor de first_run
         properties.setProperty("first_run", String.valueOf(value));
 
-        try (FileOutputStream fos = new FileOutputStream(CONFIG_FILE)) {
+        try (FileOutputStream fos = new FileOutputStream(configFile)) {
             properties.store(fos, null);
         }
     }

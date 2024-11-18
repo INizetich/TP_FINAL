@@ -3,10 +3,16 @@ package Gestiones;
 import Aviones.Avion;
 import Aviones.Hangar;
 
+import Config.Configs;
 import Enums.TipoEmpleado;
 import Excepciones.*;
+import JSON.GestionJSON;
 import Personas.Empleado;
 import Personas.Persona;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.json.JSONException;
+
+import java.io.File;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -15,7 +21,9 @@ import java.util.Set;
 
 public class Admin {
     Scanner scanner = new Scanner(System.in);
+    @JsonProperty("admins")
     private  Set<Persona> listaAdministradores;
+    @JsonProperty("empleados")
     private  Set<Empleado> listaEmpleados;
 
 
@@ -47,10 +55,56 @@ public class Admin {
         this.listaEmpleados.add(empleado);
     }
 
-    public void agregarAdministradorManual(){
-        Persona personaAdmin = crearCuentaAdmin();
-        listaAdministradores.add(personaAdmin);
+
+
+    public void agregarAdministradorManual() {
+        boolean seguir = true;
+        if (!Configs.isFirstRun()) {
+            File admins = new File("Archivos JSON/admins.json");
+
+            if (admins.exists()) {
+                Set<Persona> adminsJSON = null;
+                try {
+                    // Deserializamos el archivo de administradores
+                    adminsJSON = GestionJSON.deserializarSet(Persona.class, admins.getPath());
+                    if (adminsJSON.isEmpty()) {
+                        System.out.println("🚫 No se encontraron administradores deserializados.");
+                    } else {
+                        setListaAdministradores(adminsJSON); // Establecemos la lista de administradores
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            } else {
+                System.out.println("🚫 El archivo de administradores no existe. Asegúrese de que se haya creado correctamente.");
+                return;
+            }
+
+            while (seguir) {
+                // Crear una nueva cuenta de administrador
+                Persona administrador = crearCuentaAdmin();
+                listaAdministradores.add(administrador);
+
+                // Serializamos la lista de administradores nuevamente en el archivo JSON
+                try {
+                    GestionJSON.serializarSet(listaAdministradores, admins.getPath());
+                    System.out.println("✔️ Administrador agregado y archivo actualizado.");
+                } catch (Exception e) {
+                    System.out.println("🚫 Error al serializar el archivo de administradores.");
+                    e.printStackTrace();
+                }
+
+                System.out.println("¿Desea crear otra cuenta de administrador?");
+                String opcion = scanner.nextLine();
+
+                if (opcion.equalsIgnoreCase("n")) {
+                    seguir = false; // Salir del bucle
+                }
+            }
+        }
     }
+
 
     public void eliminarCuentaAdmin(){}
 

@@ -22,7 +22,7 @@ public class MenuClientes {
     private static double credito = 0.0; // Crédito disponible del cliente
     private static final String Click = "src/Sonidos/click.mp3";
     private static final String Soundtrack = "src/Sonidos/SoundtrackTienda.mp3";
-    private static final String Soundtrack2 = "src/Sonidos/Star Wars Jedi Temple March.mp3";
+
     public static void mostrarMenuCliente() {
         ///VARIABLES IMPORTANTES
         String opcionString = "";
@@ -396,7 +396,7 @@ public class MenuClientes {
 
     private static void musicaMenu() {
         Thread audioThread = new Thread(() -> {
-            try (FileInputStream fis = new FileInputStream(Soundtrack2)) {
+            try (FileInputStream fis = new FileInputStream(Soundtrack)) {
                 Player player = new Player(fis);
                 player.play();
             } catch (Exception e) {

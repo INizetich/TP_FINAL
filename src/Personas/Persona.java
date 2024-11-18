@@ -3,6 +3,7 @@ package Personas;
 
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
@@ -34,13 +35,19 @@ public class Persona implements Comparable<Persona>, Serializable {
 
     }
 
-    public Persona(String nombre, String apellido, int edad, String dni) {
-        this.nombre = nombre;
-        this.apellido = apellido;
+    // Constructor
+    @JsonCreator
+    public Persona(@JsonProperty("nombre") String nombre,
+                   @JsonProperty("apellido") String apellido,
+                   @JsonProperty("edad") int edad,
+                   @JsonProperty("dni") String dni) {
         this.edad = edad;
         this.dni = dni;
-
+        this.nombre = nombre;
+        this.apellido = apellido;
     }
+
+
 
     public String getNombre() {
         return nombre;

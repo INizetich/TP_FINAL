@@ -26,7 +26,7 @@ public class SistemaReserva {
         Scanner scanner = new Scanner(System.in);
         boolean continuarReservas = true; // Variable para controlar si continuar con reservas
 
-        // Si es la primera ejecución, deserializa los archivos correspondientes
+        // Si NO es la primera ejecución, deserializa los archivos correspondientes
         if (!Configs.isFirstRun()) {
             // Verificar si el archivo de vuelos existe antes de deserializar
             File vuelosFile = new File("Archivos JSON/vuelos.json");

@@ -1,0 +1,21 @@
+[ {
+  "edad" : 20,
+  "dni" : "45576748",
+  "nombre" : "arian",
+  "apellido" : "shaffer"
+}, {
+  "edad" : 24,
+  "dni" : "42569299",
+  "nombre" : "lautaro",
+  "apellido" : "arschak"
+}, {
+  "edad" : 21,
+  "dni" : "45462201",
+  "nombre" : "ignacio",
+  "apellido" : "nizetich"
+}, {
+  "edad" : 21,
+  "dni" : "44617380",
+  "nombre" : "rufino",
+  "apellido" : "figueroa"
+} ]

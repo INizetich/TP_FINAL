@@ -1,5 +1,7 @@
 package UI;
-
+import javazoom.jl.player.Player;
+import java.io.FileInputStream;
+import java.util.Scanner;
 import Aeropuerto.Aeropuerto;
 import Aviones.Vuelo;
 import CheckIn.CheckIn;
@@ -12,7 +14,9 @@ import java.util.List;
 import java.util.Scanner;
 
 public class MenuClientes {
-
+    private static double credito = 0.0; // Crédito disponible del cliente
+    private static final String Click = "src/Resourses/click.mp3";
+    private static final String Soundtrack = "src/Resourses/SoundtrackTienda.mp3";
     public static void mostrarMenuCliente() {
         ///VARIABLES IMPORTANTES
         String opcionString = "";
@@ -42,6 +46,7 @@ public class MenuClientes {
             System.out.println("3️⃣ ATM 💰");
             System.out.println("4️⃣ Salir 👋");
             opcionCliente = scanner.nextInt();
+            reproducirClick();
             scanner.nextLine(); // Limpiar el buffer de entrada
 
             switch (opcionCliente) {
@@ -55,6 +60,7 @@ public class MenuClientes {
                     System.out.println("4️⃣ Generar boleto de avión 🎟️");
                     System.out.println("=====================================================");
                     int opcionReserva = scanner.nextInt();
+                    reproducirClick();
                     scanner.nextLine(); // Limpiar el buffer de entrada
 
                     switch (opcionReserva) {
@@ -71,11 +77,13 @@ public class MenuClientes {
                                     System.out.println("👉 (s: ✔️ / n: ❌)");
                                     System.out.println("==================================");
                                     opcionString = scanner.nextLine().trim().toLowerCase();
+                                    reproducirClick();
                                 }
                             } while (opcionString.equals("s"));
                             System.out.println("==================================");
                             System.out.println("✅ Fin del proceso de reservas. ✈️");
                             System.out.println("==================================");
+                            reproducirClick();
                             break;
 
                         case 2:
@@ -87,12 +95,14 @@ public class MenuClientes {
                                     System.out.println("🆔 Ingrese su DNI para mostrar su información de reserva: 📑");
                                     System.out.println("==================================");
                                     dni = scanner.nextLine().trim();
+                                    reproducirClick();
                                     CheckIn.mostrarReserva(dni, sistemaReserva);
                                     System.out.println("==================================");
                                     System.out.println("🔄 ¿Desea consultar otra reserva? 🤔");
                                     System.out.println("👉 (s: ✔️ / n: ❌)");
                                     System.out.println("==================================");
                                     opcionConsulta = scanner.nextLine().trim().toLowerCase();
+                                    reproducirClick();
                                 } catch (dniNoEncontradoException e) {
                                     e.printStackTrace();
                                 }
@@ -118,12 +128,14 @@ public class MenuClientes {
                                         System.out.println("🌟 ¿Desea consultar su boleto de avión? 🌟");
                                         System.out.println("📝 Ingrese 's' para ✔️ o 'n' para ❌.");
                                         opcionString = scanner.nextLine().trim().toLowerCase();
+                                        reproducirClick();
                                     }
 
                                     if (opcionString.equals("s")) {
                                         System.out.println("==============================================");
                                         System.out.print("🔍 Ingrese su número de DNI: ");
                                         nroDni = scanner.nextLine().trim();
+                                        reproducirClick();
 
 
                                         // Generar el boleto
@@ -135,6 +147,7 @@ public class MenuClientes {
                                     System.out.println("¿Desea generar otro boleto de avión? 🤔");
                                     System.out.println("📝 Ingrese 's' para ✔️ o 'n' para ❌.");
                                     generarBoleto = scanner.nextLine().trim().toLowerCase();
+                                    reproducirClick();
                                 } catch (ReservaInexistenteException e) {
                                     // Mostrar animación de carga
                                     Utilidades.Utilities.mostrarCargando();
@@ -144,6 +157,7 @@ public class MenuClientes {
                                     System.out.println("🛑 Por favor, verifique la información e intente nuevamente. 🛑");
                                     System.out.println("\nPresione Enter para seguir con el programa... 👈");
                                     scanner.nextLine();
+                                    reproducirClick();
 
                                     mostrarMensajeFinal = false;
                                     break;
@@ -169,6 +183,30 @@ public class MenuClientes {
                 case 2:
                     // Implementar el caso 2 (Ingresar a tiendas)
                     System.out.println("Usted ha elegido ingresar a tiendas. 🏬");
+                    musicaMenu();
+                    int opcion;
+                    do {
+                        System.out.println("\n=== 🛒 Bienvenido al Mini Kiosko 🛒 ===");
+                        System.out.println("1. 🥤 Bebidas");
+                        System.out.println("2. 🍔 Comida");
+                        System.out.println("3. 🛍️ Artículos varios");
+                        System.out.println("4. 🚪 Salir");
+                        System.out.println("💰 Crédito disponible: $" + String.format("%.2f", credito));
+                        System.out.print("Seleccione una opción: ");
+
+                        opcion = scanner.nextInt();
+
+                        switch (opcion) {
+                            case 1 -> mostrarBebidas(scanner);
+                            case 2 -> mostrarComida(scanner);
+                            case 3 -> mostrarArticulosVarios(scanner);
+                            case 4 -> System.out.println("¡Gracias por visitar el kiosko! 🛒");
+                            default -> System.out.println("❌ Opción inválida. Intente nuevamente.");
+                        }
+                    } while (opcion != 5);
+
+                    scanner.close();
+
                     System.out.println("🔄Presione Enter para volver al menú principal...🔄");
                     scanner.nextLine();
                     break;
@@ -176,6 +214,32 @@ public class MenuClientes {
                 case 3:
                     // Implementar el caso 3 (ATM)
                     System.out.println("Usted ha elegido ATM. 💰");
+                    System.out.println("\n=== 🏦 Simulación de ATM ===");
+                    System.out.println("1. 💳 Agregar Crédito");
+                    System.out.println("2. 💵 Consultar Saldo");
+                    System.out.println("3. 💸 Retirar Dinero");
+                    System.out.println("4. 🚪 Salir");
+                    System.out.print("Seleccione una opción 👉: ");
+
+                     opcion = scanner.nextInt();
+                    switch (opcion) {
+                        case 1:
+                            agregarCredito(scanner);
+                            break;
+                        case 2:
+                            consultarSaldo();
+                            break;
+                        case 3:
+                            retirarDinero(scanner);
+                            break;
+                        case 4:
+                            System.out.println("👋 Gracias por usar el ATM. ¡Hasta luego!");
+                            break;
+
+                        default:
+                            System.out.println("❌ Opción inválida. Por favor, intente de nuevo.");
+                            break;
+                    }
                     System.out.println("🔄Presione Enter para volver al menú principal...🔄");
                     scanner.nextLine();
                     break;
@@ -193,4 +257,155 @@ public class MenuClientes {
             }
         } while (opcionCliente != 4);
     }
+
+
+    private static void mostrarBebidas(Scanner scanner) {
+        reproducirClick();
+        System.out.println("\n====================================");
+        System.out.println("           🥤 BEBIDAS 🥤");
+        System.out.println("====================================");
+        System.out.println("1. 🧊 Agua mineral   - $1.00");
+        System.out.println("2. 🥤 Gaseosa        - $1.50");
+        System.out.println("3. 🍹 Jugo natural   - $2.00");
+        System.out.println("====================================");
+        System.out.print("Seleccione su bebida (0 para volver): ");
+        int bebida = scanner.nextInt();
+        reproducirClick();
+
+        if (bebida > 0 && bebida <= 3) {
+            double precio = bebida == 1 ? 1.00 : bebida == 2 ? 1.50 : 2.00;
+            realizarCompra(precio, "bebida");
+            reproducirClick();
+        } else if (bebida != 0) {
+            System.out.println("❌ Opción inválida.");
+            reproducirClick();
+        }
+    }
+
+    private static void mostrarComida(Scanner scanner) {
+        reproducirClick();
+        System.out.println("\n====================================");
+        System.out.println("           🍔 COMIDA 🍔");
+        System.out.println("====================================");
+        System.out.println("1. 🥟 Empanada       - $1.50");
+        System.out.println("2. 🥪 Sandwich       - $2.50");
+        System.out.println("3. 🍟 Papas fritas   - $1.75");
+        System.out.println("4. 🌭 Hot Dog        - $2.00");
+        System.out.println("5. 🍕 Porción pizza  - $3.00");
+        System.out.println("====================================");
+        System.out.print("Seleccione su comida (0 para volver): ");
+        int comida = scanner.nextInt();
+        reproducirClick();
+        if (comida > 0 && comida <= 5) {
+            double precio = switch (comida) {
+                case 1 -> 1.50;
+                case 2 -> 2.50;
+                case 3 -> 1.75;
+                case 4 -> 2.00;
+                case 5 -> 3.00;
+                default -> 0.0;
+            };
+            realizarCompra(precio, "comida");
+        } else if (comida != 0) {
+            System.out.println("❌ Opción inválida.");
+            reproducirClick();
+        }
+    }
+
+    private static void mostrarArticulosVarios(Scanner scanner) {
+        reproducirClick();
+        System.out.println("\n====================================");
+        System.out.println("       🛍️ ARTÍCULOS VARIOS 🛍️");
+        System.out.println("====================================");
+        System.out.println("1. 📖 Revista        - $3.00");
+        System.out.println("2. 🍬 Chicle         - $0.50");
+        System.out.println("3. 🔥 Encendedor     - $1.20");
+        System.out.println("====================================");
+        System.out.print("Seleccione un artículo (0 para volver): ");
+        int articulo = scanner.nextInt();
+
+        if (articulo > 0 && articulo <= 3) {
+            double precio = switch (articulo) {
+                case 1 -> 3.00;
+                case 2 -> 0.50;
+                case 3 -> 1.20;
+                default -> 0.0;
+            };
+            realizarCompra(precio, "artículo");
+        } else if (articulo != 0) {
+            System.out.println("❌ Opción inválida.");
+        }
+    }
+
+    private static void consultarSaldo() {
+        System.out.println("\n💳 Saldo actual en su cuenta: $" + String.format("%.2f", credito));
+        reproducirClick();
+    }
+
+    // Método para retirar dinero
+    private static void retirarDinero(Scanner scanner) {
+        System.out.print("\n💸 Ingrese la cantidad de dinero a retirar: $");
+        double monto = scanner.nextDouble();
+        if (monto > 0 && monto <= credito) {
+            credito -= monto;
+            System.out.println("✅ Retiro exitoso. Crédito restante: $" + String.format("%.2f", credito));
+            reproducirClick();
+        } else if (monto > credito) {
+            System.out.println("❌ Fondos insuficientes. Intente con un monto menor.");
+            reproducirClick();
+        } else {
+            System.out.println("❌ El monto debe ser mayor a $0.");
+            reproducirClick();
+        }
+    }
+
+    private static void agregarCredito(Scanner scanner) {
+        System.out.print("\n💵 Ingrese la cantidad de crédito a agregar: $");
+        double monto = scanner.nextDouble();
+        if (monto > 0) {
+            credito += monto;
+            System.out.println("✅ Crédito agregado exitosamente. Crédito actual: $" + String.format("%.2f", credito));
+            reproducirClick();
+        } else {
+            System.out.println("❌ El monto debe ser mayor a $0.");
+            reproducirClick();
+        }
+    }
+
+    private static void realizarCompra(double precio, String tipo) {
+        if (credito >= precio) {
+            credito -= precio;
+            System.out.println("✅ Compra de " + tipo + " realizada con éxito. Crédito restante: $" + String.format("%.2f", credito));
+            reproducirClick();
+        } else {
+            System.out.println("❌ No tienes suficiente crédito para esta compra.");
+            reproducirClick();
+        }
+    }
+
+    private static void musicaMenu() {
+        Thread audioThread = new Thread(() -> {
+            try (FileInputStream fis = new FileInputStream(Soundtrack)) {
+                Player player = new Player(fis);
+                player.play();
+            } catch (Exception e) {
+                System.out.println("Error al reproducir el archivo: " + e.getMessage());
+            }
+        });
+        audioThread.setDaemon(true); // El hilo se detendrá automáticamente cuando termine el programa
+        audioThread.start();
+    }
+    private static void reproducirClick() {
+        Thread audioThread = new Thread(() -> {
+            try (FileInputStream fis = new FileInputStream(Click)) {
+                Player player = new Player(fis);
+                player.play();
+            } catch (Exception e) {
+                System.out.println("Error al reproducir el archivo: " + e.getMessage());
+            }
+        });
+        audioThread.setDaemon(true); // El hilo se detendrá automáticamente cuando termine el programa
+        audioThread.start();
+    }
 }
+

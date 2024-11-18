@@ -1,0 +1,312 @@
+[ {
+  "idVuelo" : "C6103495",
+  "origen" : "Aeropuerto Internacional Ezeiza",
+  "destino" : "Miami International Airport",
+  "horario" : "2024-11-18T11:50:10.104765400",
+  "estadoEmbarque" : "CERRADO",
+  "avion" : {
+    "nombre" : "Boeing-750",
+    "capacidadAvion" : 251,
+    "motor" : "Motor turbofan",
+    "modelo" : "Modelo-A11",
+    "codigoAvion" : "939F491C",
+    "piloto" : null
+  },
+  "puertaEmbarque" : "C3",
+  "listaPasajeros" : [ {
+    "edad" : 23,
+    "dni" : "42569299",
+    "nombre" : "Lau",
+    "apellido" : "Taro",
+    "numeroAsiento" : "A6",
+    "valija" : [ {
+      "dimension" : "10",
+      "peso" : 40.0
+    } ],
+    "checkInRealizado" : true,
+    "codigoPasajero" : "25D889A3"
+  }, {
+    "edad" : 7,
+    "dni" : "45555555",
+    "nombre" : "n",
+    "apellido" : "n",
+    "numeroAsiento" : "A2",
+    "valija" : [ {
+      "dimension" : "1",
+      "peso" : 2.0
+    }, {
+      "dimension" : "1",
+      "peso" : 4.0
+    } ],
+    "checkInRealizado" : true,
+    "codigoPasajero" : "3BB1CB75"
+  }, {
+    "edad" : 1,
+    "dni" : "22222222",
+    "nombre" : "a",
+    "apellido" : "a",
+    "numeroAsiento" : "A1",
+    "valija" : [ {
+      "dimension" : "2",
+      "peso" : 12.0
+    } ],
+    "checkInRealizado" : true,
+    "codigoPasajero" : "E2EFD294"
+  } ],
+  "asientos" : [ "A1", "A2", "A6" ]
+}, {
+  "idVuelo" : "B26A01FF",
+  "origen" : "Frankfurter Flughafen",
+  "destino" : "Aeropuerto Internacional El Dorado",
+  "horario" : "2024-11-18T11:24:10.105742900",
+  "estadoEmbarque" : "ABIERTO",
+  "avion" : {
+    "nombre" : "Boeing-748",
+    "capacidadAvion" : 324,
+    "motor" : "Motor a reacción",
+    "modelo" : "Modelo-A2",
+    "codigoAvion" : "AE1D40B2",
+    "piloto" : null
+  },
+  "puertaEmbarque" : "C2",
+  "listaPasajeros" : [ ],
+  "asientos" : [ ]
+}, {
+  "idVuelo" : "B3182DFD",
+  "origen" : "北京首都国际机场",
+  "destino" : "Aeropuerto Internacional de la Ciudad de México",
+  "horario" : "2024-11-18T11:59:10.105742900",
+  "estadoEmbarque" : "ABIERTO",
+  "avion" : {
+    "nombre" : "Boeing-755",
+    "capacidadAvion" : 341,
+    "motor" : "Motor a reacción",
+    "modelo" : "Modelo-A51",
+    "codigoAvion" : "6E71BCDB",
+    "piloto" : null
+  },
+  "puertaEmbarque" : "C2",
+  "listaPasajeros" : [ ],
+  "asientos" : [ ]
+}, {
+  "idVuelo" : "959BB1F9",
+  "origen" : "John F. Kennedy International Airport",
+  "destino" : "Los Angeles International Airport",
+  "horario" : "2024-11-18T11:28:10.105742900",
+  "estadoEmbarque" : "ABIERTO",
+  "avion" : {
+    "nombre" : "Boeing-753",
+    "capacidadAvion" : 121,
+    "motor" : "Motor turbofan",
+    "modelo" : "Modelo-A62",
+    "codigoAvion" : "6AE35D99",
+    "piloto" : null
+  },
+  "puertaEmbarque" : "B1",
+  "listaPasajeros" : [ ],
+  "asientos" : [ ]
+}, {
+  "idVuelo" : "8B6D37C3",
+  "origen" : "Dubai International Airport",
+  "destino" : "Sydney Kingsford Smith International Airport",
+  "horario" : "2024-11-18T12:02:10.105742900",
+  "estadoEmbarque" : "ABIERTO",
+  "avion" : {
+    "nombre" : "Boeing-746",
+    "capacidadAvion" : 119,
+    "motor" : "Motor a reacción",
+    "modelo" : "Modelo-A33",
+    "codigoAvion" : "A70C6D45",
+    "piloto" : null
+  },
+  "puertaEmbarque" : "C1",
+  "listaPasajeros" : [ ],
+  "asientos" : [ ]
+}, {
+  "idVuelo" : "2224890D",
+  "origen" : "Aeropuerto Internacional São Paulo-Guarulhos",
+  "destino" : "Miami International Airport",
+  "horario" : "2024-11-18T11:38:10.105742900",
+  "estadoEmbarque" : "ABIERTO",
+  "avion" : {
+    "nombre" : "Boeing-753",
+    "capacidadAvion" : 121,
+    "motor" : "Motor turbofan",
+    "modelo" : "Modelo-A62",
+    "codigoAvion" : "6AE35D99",
+    "piloto" : null
+  },
+  "puertaEmbarque" : "A4",
+  "listaPasajeros" : [ ],
+  "asientos" : [ ]
+}, {
+  "idVuelo" : "E2230368",
+  "origen" : "Hong Kong International Airport",
+  "destino" : "Aeropuerto Internacional Ezeiza",
+  "horario" : "2024-11-18T12:00:10.105742900",
+  "estadoEmbarque" : "ABIERTO",
+  "avion" : {
+    "nombre" : "Boeing-754",
+    "capacidadAvion" : 108,
+    "motor" : "Motor turbofan",
+    "modelo" : "Modelo-A13",
+    "codigoAvion" : "A1973036",
+    "piloto" : null
+  },
+  "puertaEmbarque" : "B3",
+  "listaPasajeros" : [ ],
+  "asientos" : [ ]
+}, {
+  "idVuelo" : "DEC08F87",
+  "origen" : "Frankfurter Flughafen",
+  "destino" : "Miami International Airport",
+  "horario" : "2024-11-18T11:17:10.105742900",
+  "estadoEmbarque" : "ABIERTO",
+  "avion" : {
+    "nombre" : "Boeing-748",
+    "capacidadAvion" : 324,
+    "motor" : "Motor a reacción",
+    "modelo" : "Modelo-A2",
+    "codigoAvion" : "AE1D40B2",
+    "piloto" : null
+  },
+  "puertaEmbarque" : "C2",
+  "listaPasajeros" : [ ],
+  "asientos" : [ ]
+}, {
+  "idVuelo" : "946B006E",
+  "origen" : "John F. Kennedy International Airport",
+  "destino" : "北京首都国际机场",
+  "horario" : "2024-11-18T11:37:10.105742900",
+  "estadoEmbarque" : "ABIERTO",
+  "avion" : {
+    "nombre" : "Boeing-754",
+    "capacidadAvion" : 108,
+    "motor" : "Motor turbofan",
+    "modelo" : "Modelo-A13",
+    "codigoAvion" : "A1973036",
+    "piloto" : null
+  },
+  "puertaEmbarque" : "B3",
+  "listaPasajeros" : [ ],
+  "asientos" : [ ]
+}, {
+  "idVuelo" : "CF082E1B",
+  "origen" : "Sydney Kingsford Smith International Airport",
+  "destino" : "Aeropuerto Internacional São Paulo-Guarulhos",
+  "horario" : "2024-11-18T11:56:10.105742900",
+  "estadoEmbarque" : "ABIERTO",
+  "avion" : {
+    "nombre" : "Boeing-746",
+    "capacidadAvion" : 119,
+    "motor" : "Motor a reacción",
+    "modelo" : "Modelo-A33",
+    "codigoAvion" : "A70C6D45",
+    "piloto" : null
+  },
+  "puertaEmbarque" : "C3",
+  "listaPasajeros" : [ ],
+  "asientos" : [ ]
+}, {
+  "idVuelo" : "28B441FC",
+  "origen" : "Aeropuerto Internacional de la Ciudad de México",
+  "destino" : "Aeropuerto Internacional El Dorado",
+  "horario" : "2024-11-18T11:22:10.105742900",
+  "estadoEmbarque" : "ABIERTO",
+  "avion" : {
+    "nombre" : "Boeing-758",
+    "capacidadAvion" : 333,
+    "motor" : "Motor turbofan",
+    "modelo" : "Modelo-A31",
+    "codigoAvion" : "B585CBA3",
+    "piloto" : null
+  },
+  "puertaEmbarque" : "A1",
+  "listaPasajeros" : [ ],
+  "asientos" : [ ]
+}, {
+  "idVuelo" : "8F763DFB",
+  "origen" : "Aeropuerto Internacional São Paulo-Guarulhos",
+  "destino" : "Sydney Kingsford Smith International Airport",
+  "horario" : "2024-11-18T11:20:10.105742900",
+  "estadoEmbarque" : "ABIERTO",
+  "avion" : {
+    "nombre" : "Boeing-754",
+    "capacidadAvion" : 108,
+    "motor" : "Motor turbofan",
+    "modelo" : "Modelo-A13",
+    "codigoAvion" : "A1973036",
+    "piloto" : null
+  },
+  "puertaEmbarque" : "A3",
+  "listaPasajeros" : [ ],
+  "asientos" : [ ]
+}, {
+  "idVuelo" : "EC68E773",
+  "origen" : "北京首都国际机场",
+  "destino" : "Miami International Airport",
+  "horario" : "2024-11-18T11:45:10.105742900",
+  "estadoEmbarque" : "ABIERTO",
+  "avion" : {
+    "nombre" : "Boeing-750",
+    "capacidadAvion" : 251,
+    "motor" : "Motor turbofan",
+    "modelo" : "Modelo-A11",
+    "codigoAvion" : "939F491C",
+    "piloto" : null
+  },
+  "puertaEmbarque" : "A3",
+  "listaPasajeros" : [ ],
+  "asientos" : [ ]
+}, {
+  "idVuelo" : "E08C0EC8",
+  "origen" : "Dubai International Airport",
+  "destino" : "Los Angeles International Airport",
+  "horario" : "2024-11-18T11:38:10.105742900",
+  "estadoEmbarque" : "ABIERTO",
+  "avion" : {
+    "nombre" : "Boeing-748",
+    "capacidadAvion" : 324,
+    "motor" : "Motor a reacción",
+    "modelo" : "Modelo-A2",
+    "codigoAvion" : "AE1D40B2",
+    "piloto" : null
+  },
+  "puertaEmbarque" : "C2",
+  "listaPasajeros" : [ ],
+  "asientos" : [ ]
+}, {
+  "idVuelo" : "F30BDB13",
+  "origen" : "Miami International Airport",
+  "destino" : "Aeropuerto Internacional Ezeiza",
+  "horario" : "2024-11-18T12:00:10.105742900",
+  "estadoEmbarque" : "ABIERTO",
+  "avion" : {
+    "nombre" : "Boeing-753",
+    "capacidadAvion" : 121,
+    "motor" : "Motor turbofan",
+    "modelo" : "Modelo-A62",
+    "codigoAvion" : "6AE35D99",
+    "piloto" : null
+  },
+  "puertaEmbarque" : "A2",
+  "listaPasajeros" : [ ],
+  "asientos" : [ ]
+}, {
+  "idVuelo" : "ZP140A49",
+  "origen" : "John F. Kennedy International Airport",
+  "destino" : "Miami International Airport",
+  "horario" : "2024-11-18T11:58:10.105742900",
+  "estadoEmbarque" : "ABIERTO",
+  "avion" : {
+    "nombre" : "Boeing-758",
+    "capacidadAvion" : 333,
+    "motor" : "Motor turbofan",
+    "modelo" : "Modelo-A31",
+    "codigoAvion" : "B585CBA3",
+    "piloto" : null
+  },
+  "puertaEmbarque" : "C2",
+  "listaPasajeros" : [ ],
+  "asientos" : [ ]
+} ]

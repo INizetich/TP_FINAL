@@ -1,0 +1,289 @@
+{
+  "42569299" : [ {
+    "vuelo" : {
+      "idVuelo" : "C6103495",
+      "origen" : "Aeropuerto Internacional Ezeiza",
+      "destino" : "Miami International Airport",
+      "horario" : "2024-11-18T11:50:10.104765400",
+      "estadoEmbarque" : "CERRADO",
+      "avion" : {
+        "nombre" : "Boeing-750",
+        "capacidadAvion" : 251,
+        "motor" : "Motor turbofan",
+        "modelo" : "Modelo-A11",
+        "codigoAvion" : "939F491C",
+        "piloto" : null
+      },
+      "puertaEmbarque" : "C3",
+      "listaPasajeros" : [ {
+        "edad" : 23,
+        "dni" : "42569299",
+        "nombre" : "Lau",
+        "apellido" : "Taro",
+        "numeroAsiento" : "A6",
+        "valija" : [ {
+          "dimension" : "10",
+          "peso" : 40.0
+        } ],
+        "checkInRealizado" : true,
+        "codigoPasajero" : "25D889A3"
+      }, {
+        "edad" : 7,
+        "dni" : "45555555",
+        "nombre" : "n",
+        "apellido" : "n",
+        "numeroAsiento" : "A2",
+        "valija" : [ {
+          "dimension" : "1",
+          "peso" : 2.0
+        }, {
+          "dimension" : "1",
+          "peso" : 4.0
+        } ],
+        "checkInRealizado" : true,
+        "codigoPasajero" : "3BB1CB75"
+      } ],
+      "asientos" : [ "A2", "A6" ]
+    },
+    "numeroAsiento" : "A6",
+    "pasajero" : {
+      "edad" : 23,
+      "dni" : "42569299",
+      "nombre" : "Lau",
+      "apellido" : "Taro",
+      "numeroAsiento" : "A6",
+      "valija" : [ {
+        "dimension" : "10",
+        "peso" : 40.0
+      } ],
+      "checkInRealizado" : true,
+      "codigoPasajero" : "25D889A3"
+    },
+    "codigoCheckIn" : "F716E619"
+  } ],
+  "45555555" : [ {
+    "vuelo" : {
+      "idVuelo" : "C6103495",
+      "origen" : "Aeropuerto Internacional Ezeiza",
+      "destino" : "Miami International Airport",
+      "horario" : "2024-11-18T11:50:10.104765400",
+      "estadoEmbarque" : "CERRADO",
+      "avion" : {
+        "nombre" : "Boeing-750",
+        "capacidadAvion" : 251,
+        "motor" : "Motor turbofan",
+        "modelo" : "Modelo-A11",
+        "codigoAvion" : "939F491C",
+        "piloto" : null
+      },
+      "puertaEmbarque" : "C3",
+      "listaPasajeros" : [ {
+        "edad" : 23,
+        "dni" : "42569299",
+        "nombre" : "Lau",
+        "apellido" : "Taro",
+        "numeroAsiento" : "A6",
+        "valija" : [ {
+          "dimension" : "10",
+          "peso" : 40.0
+        } ],
+        "checkInRealizado" : true,
+        "codigoPasajero" : "25D889A3"
+      }, {
+        "edad" : 7,
+        "dni" : "45555555",
+        "nombre" : "n",
+        "apellido" : "n",
+        "numeroAsiento" : "A2",
+        "valija" : [ {
+          "dimension" : "1",
+          "peso" : 2.0
+        }, {
+          "dimension" : "1",
+          "peso" : 4.0
+        } ],
+        "checkInRealizado" : true,
+        "codigoPasajero" : "3BB1CB75"
+      } ],
+      "asientos" : [ "A2", "A6" ]
+    },
+    "numeroAsiento" : "A2",
+    "pasajero" : {
+      "edad" : 7,
+      "dni" : "45555555",
+      "nombre" : "n",
+      "apellido" : "n",
+      "numeroAsiento" : "A2",
+      "valija" : [ {
+        "dimension" : "1",
+        "peso" : 2.0
+      }, {
+        "dimension" : "1",
+        "peso" : 4.0
+      } ],
+      "checkInRealizado" : true,
+      "codigoPasajero" : "3BB1CB75"
+    },
+    "codigoCheckIn" : "F716E619"
+  } ],
+  "22222222" : [ {
+    "vuelo" : {
+      "idVuelo" : "C6103495",
+      "origen" : "Aeropuerto Internacional Ezeiza",
+      "destino" : "Miami International Airport",
+      "horario" : "2024-11-18T11:50:10.104765400",
+      "estadoEmbarque" : "CERRADO",
+      "avion" : {
+        "nombre" : "Boeing-750",
+        "capacidadAvion" : 251,
+        "motor" : "Motor turbofan",
+        "modelo" : "Modelo-A11",
+        "codigoAvion" : "939F491C",
+        "piloto" : null
+      },
+      "puertaEmbarque" : "C3",
+      "listaPasajeros" : [ {
+        "edad" : 23,
+        "dni" : "42569299",
+        "nombre" : "Lau",
+        "apellido" : "Taro",
+        "numeroAsiento" : "A6",
+        "valija" : [ {
+          "dimension" : "10",
+          "peso" : 40.0
+        } ],
+        "checkInRealizado" : true,
+        "codigoPasajero" : "25D889A3"
+      }, {
+        "edad" : 7,
+        "dni" : "45555555",
+        "nombre" : "n",
+        "apellido" : "n",
+        "numeroAsiento" : "A2",
+        "valija" : [ {
+          "dimension" : "1",
+          "peso" : 2.0
+        }, {
+          "dimension" : "1",
+          "peso" : 4.0
+        } ],
+        "checkInRealizado" : true,
+        "codigoPasajero" : "3BB1CB75"
+      }, {
+        "edad" : 1,
+        "dni" : "22222222",
+        "nombre" : "a",
+        "apellido" : "a",
+        "numeroAsiento" : "A1",
+        "valija" : [ {
+          "dimension" : "2",
+          "peso" : 12.0
+        } ],
+        "checkInRealizado" : true,
+        "codigoPasajero" : "E2EFD294"
+      } ],
+      "asientos" : [ "A1", "A2", "A6" ]
+    },
+    "numeroAsiento" : "A1",
+    "pasajero" : {
+      "edad" : 1,
+      "dni" : "22222222",
+      "nombre" : "a",
+      "apellido" : "a",
+      "numeroAsiento" : "A1",
+      "valija" : [ {
+        "dimension" : "2",
+        "peso" : 12.0
+      } ],
+      "checkInRealizado" : true,
+      "codigoPasajero" : "E2EFD294"
+    },
+    "codigoCheckIn" : "F716E619"
+  } ],
+  "22222223" : [ {
+    "vuelo" : {
+      "idVuelo" : "C6103495",
+      "origen" : "Aeropuerto Internacional Ezeiza",
+      "destino" : "Miami International Airport",
+      "horario" : "2024-11-18T11:50:10.104765400",
+      "estadoEmbarque" : "CERRADO",
+      "avion" : {
+        "nombre" : "Boeing-750",
+        "capacidadAvion" : 251,
+        "motor" : "Motor turbofan",
+        "modelo" : "Modelo-A11",
+        "codigoAvion" : "939F491C",
+        "piloto" : null
+      },
+      "puertaEmbarque" : "C3",
+      "listaPasajeros" : [ {
+        "edad" : 23,
+        "dni" : "42569299",
+        "nombre" : "Lau",
+        "apellido" : "Taro",
+        "numeroAsiento" : "A6",
+        "valija" : [ {
+          "dimension" : "10",
+          "peso" : 40.0
+        } ],
+        "checkInRealizado" : true,
+        "codigoPasajero" : "25D889A3"
+      }, {
+        "edad" : 7,
+        "dni" : "45555555",
+        "nombre" : "n",
+        "apellido" : "n",
+        "numeroAsiento" : "A2",
+        "valija" : [ {
+          "dimension" : "1",
+          "peso" : 2.0
+        }, {
+          "dimension" : "1",
+          "peso" : 4.0
+        } ],
+        "checkInRealizado" : true,
+        "codigoPasajero" : "3BB1CB75"
+      }, {
+        "edad" : 1,
+        "dni" : "22222222",
+        "nombre" : "a",
+        "apellido" : "a",
+        "numeroAsiento" : "A1",
+        "valija" : [ {
+          "dimension" : "2",
+          "peso" : 12.0
+        } ],
+        "checkInRealizado" : true,
+        "codigoPasajero" : "E2EFD294"
+      }, {
+        "edad" : 1,
+        "dni" : "22222223",
+        "nombre" : "A",
+        "apellido" : "A",
+        "numeroAsiento" : "A3",
+        "valija" : [ {
+          "dimension" : "1",
+          "peso" : 2.0
+        } ],
+        "checkInRealizado" : true,
+        "codigoPasajero" : "022BD268"
+      } ],
+      "asientos" : [ "A1", "A2", "A3", "A6" ]
+    },
+    "numeroAsiento" : "A3",
+    "pasajero" : {
+      "edad" : 1,
+      "dni" : "22222223",
+      "nombre" : "A",
+      "apellido" : "A",
+      "numeroAsiento" : "A3",
+      "valija" : [ {
+        "dimension" : "1",
+        "peso" : 2.0
+      } ],
+      "checkInRealizado" : true,
+      "codigoPasajero" : "022BD268"
+    },
+    "codigoCheckIn" : "F716E619"
+  } ]
+}

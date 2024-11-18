@@ -23,11 +23,10 @@ private AlmacenamientoAviones almacenamiento;
     }
 
     public void realizarReserva() throws CodigoVueloInexistenteException, AsientoNoDisponibleException, DniRegistradoException {
-
-        if (!Configs.isFirstRun()){
+        if (!Configs.isFirstRun()) {
             List<Vuelo> vuelos = GestionJSON.deserializarVuelos("Archivos JSON/vuelos.json");
+            System.out.println("Vuelos deserializados: " + vuelos.size()); // Verifica el tamaño
             SistemaVuelo.setVuelosGenerados(vuelos);
-
         }
 
         // Comprobar si el archivo de CheckIn existe antes de deserializar
@@ -90,6 +89,7 @@ private AlmacenamientoAviones almacenamiento;
             if (asientosDisponibles.isEmpty()) {
                 throw new AsientoNoDisponibleException("No hay asientos disponibles para este vuelo.");
             }
+            System.out.println(vueloSeleccionado.getAsientos());
 
             System.out.println("\n🛫 Asientos Disponibles ✨");
             System.out.println("==================================================");
@@ -101,24 +101,18 @@ private AlmacenamientoAviones almacenamiento;
             String asientoSeleccionado = "";
             boolean token = true;
             while (token) {
-                try {
-                    // Seleccionar asiento
-                    System.out.print("Seleccione un asiento disponible: ");
-                    asientoSeleccionado = scanner.nextLine().toUpperCase();
+                // Seleccionar asiento
+                System.out.print("Seleccione un asiento disponible: ");
+                asientoSeleccionado = scanner.nextLine().toUpperCase();
 
-                    // Comprobar si el asiento está disponible
-                    if (!asientosDisponibles.contains(asientoSeleccionado)) {
-                        throw new AsientoNoDisponibleException("❌ Error: El asiento seleccionado no existe o no está disponible.");
-                    }
-
-                    // Si el asiento es válido, salir del bucle
-                    token = false;
-
-                } catch (AsientoNoDisponibleException e) {
-                    // Informar al usuario y permitir un nuevo intento
-                    System.out.println(e.getMessage());
-                    System.out.println("Por favor, intente nuevamente.");
+                // Comprobar si el asiento está disponible
+                if (!asientosDisponibles.contains(asientoSeleccionado)) {
+                    System.out.println("❌ Error: El asiento seleccionado no existe o no está disponible.");
                 }
+
+                // Si el asiento es válido, salir del bucle
+                token = false;
+
             }
 
             // Crear el pasajero
@@ -131,6 +125,7 @@ private AlmacenamientoAviones almacenamiento;
                     vueloSeleccionado.setEstadoEmbarque(EstadoEmbarque.CERRADO);
 
                     // Crear un nuevo CheckIn
+
                     CheckIn nuevoCheckIn = new CheckIn(vueloSeleccionado, asientoSeleccionado, pasajero);
 
                     // Verificar si ya existe un Set para ese DNI en el mapa de reservas
@@ -177,7 +172,6 @@ private AlmacenamientoAviones almacenamiento;
 
 
 
-
     private Pasajero crearPasajero(String asientoSeleccionado) throws DniRegistradoException, DatosInvalidoValijaException {
         String eleccion;
         String nombre;
@@ -192,27 +186,52 @@ private AlmacenamientoAviones almacenamiento;
             System.out.println();
             System.out.println("=====================================");
             System.out.println("👤 Ingrese los datos del pasajero ✈️");
-            System.out.print("📝 Nombre: ");
-            nombre = scanner.nextLine();
-            System.out.print("📝 Apellido: ");
-            apellido = scanner.nextLine();
-            System.out.print("🎂 Edad: ");
-            edad = scanner.nextInt();
-            scanner.nextLine();
 
+            // Validar nombre
+            do {
+                System.out.print("📝 Nombre: ");
+                nombre = scanner.nextLine().trim();
+                if (nombre.isEmpty()) {
+                    System.out.println("❌ El nombre no puede estar vacío.");
+                }
+            } while (nombre.isEmpty());
+
+            // Validar apellido
+            do {
+                System.out.print("📝 Apellido: ");
+                apellido = scanner.nextLine().trim();
+                if (apellido.isEmpty()) {
+                    System.out.println("❌ El apellido no puede estar vacío.");
+                }
+            } while (apellido.isEmpty());
+
+            // Validar edad
+            do {
+                System.out.print("🎂 Edad: ");
+                try {
+                    edad = scanner.nextInt();
+                    scanner.nextLine(); // Limpiar el buffer
+                    if (edad < 0) {
+                        System.out.println("❌ La edad no puede ser negativa.");
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println("❌ Por favor, ingrese un número válido para la edad.");
+                    scanner.nextLine(); // Limpiar entrada no válida
+                    edad = -1; // Forzar la repetición del ciclo
+                }
+            } while (edad < 0);
+
+            // Validar DNI
             do {
                 System.out.print("🆔 DNI: ");
-                dni = scanner.nextLine();
+                dni = scanner.nextLine().trim();
 
                 if (dni.length() != 8) {
                     System.out.println("❌ El DNI debe tener exactamente 8 caracteres.");
+                } else if (mapaReservas.containsKey(dni)) {
+                    throw new DniRegistradoException("🚫 El DNI " + dni + " ya está asociado a una reserva");
                 }
             } while (dni.length() != 8);
-
-            // Verificar si el DNI ya está asociado a un check-in
-            if (mapaReservas.containsKey(dni)) {
-                throw new DniRegistradoException("🚫 El DNI " + dni + " ya está asociado a una reserva");
-            }
 
             System.out.print("📦 ¿Cuántas valijas llevará? ");
             int cantidadEquipaje = scanner.nextInt();
@@ -227,23 +246,37 @@ private AlmacenamientoAviones almacenamiento;
             // Recolectar detalles de cada valija
             for (int i = 1; i <= cantidadEquipaje; i++) {
                 System.out.println("🎒 Ingrese los datos de la valija " + i + ":");
-                System.out.print("📏 Dimensión: ");
-                String dimension = scanner.nextLine();
 
-                if (dimension.isEmpty()){
-                    throw new DatosInvalidoValijaException("❌ La dimensión de la valija no puede estar vacía.");
-                }
-                System.out.print("⚖️ Peso (en kg): ");
-                double peso = scanner.nextDouble();
-                scanner.nextLine();
+                // Validar dimensión de la valija
+                String dimension;
+                do {
+                    System.out.print("📏 Dimensión: ");
+                    dimension = scanner.nextLine().trim();
+                    if (dimension.isEmpty()) {
+                        System.out.println("❌ La dimensión de la valija no puede estar vacía.");
+                    }
+                } while (dimension.isEmpty());
 
-                // Cobro por peso extra
-                if (peso > 25) {
-                    tarifaExtra += (peso - 25) * 10; // Cobro extra por cada kg adicional
-                    System.out.println("💸 Se aplicará un cargo adicional de $" + (peso - 25) * 10 + " USD por peso extra en la valija " + i + ".");
-                } else if (peso <= 0) {
-                    throw new DatosInvalidoValijaException("❌ El peso de la valija debe ser mayor a 0.");
-                }
+                // Validar peso de la valija
+                double peso;
+                do {
+                    System.out.print("⚖️ Peso (en kg): ");
+                    try {
+                        peso = scanner.nextDouble();
+                        scanner.nextLine(); // Limpiar el buffer
+
+                        if (peso <= 0) {
+                            System.out.println("❌ El peso de la valija debe ser mayor a 0.");
+                        } else if (peso > 25) {
+                            tarifaExtra += (peso - 25) * 10; // Cobro extra por cada kg adicional
+                            System.out.println("💸 Se aplicará un cargo adicional de $" + (peso - 25) * 10 + " USD por peso extra en la valija " + i + ".");
+                        }
+                    } catch (InputMismatchException e) {
+                        System.out.println("❌ Por favor, ingrese un número válido para el peso.");
+                        scanner.nextLine(); // Limpiar entrada no válida
+                        peso = -1; // Forzar la repet ición del ciclo
+                    }
+                } while (peso <= 0);
 
                 valijas.add(new Valija(dimension, peso));
             }
@@ -260,8 +293,6 @@ private AlmacenamientoAviones almacenamiento;
 
         return new Pasajero(nombre, apellido, edad, dni, valijas, asientoSeleccionado);
     }
-
-
 
 
 

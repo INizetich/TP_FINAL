@@ -20,6 +20,7 @@ public class Pasajero extends Persona {
     private String codigoPasajero;
 
     // Constructor con parámetros
+
     public Pasajero(String nombre, String apellido, int edad, String dni, List<Valija> valija, String nroAsiento) {
         super(nombre, apellido, edad, dni);
         this.nroAsiento = nroAsiento;

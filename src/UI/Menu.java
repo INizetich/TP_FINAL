@@ -323,7 +323,7 @@ public class Menu {
                     Set<Empleado> empleados = admin.getListaEmpleados();
                     GestionJSON.serializarSet(empleados, "Archivos JSON/empleados.json");
                      ///SERIALIZO LA LISTA DE VUELOS
-                    List<Vuelo> vuelos = SistemaVuelo.getVuelos();
+                    List<Vuelo> vuelos = SistemaVuelo.getVuelosGenerados();
                     GestionJSON.serializarLista(vuelos, "Archivos JSON/vuelos.json");
                     ///SERIALIZO LA LISTA DE HANGARES
                     List<Hangar<Avion>> listaHangares = almacenamientoAviones.getListaHangares();

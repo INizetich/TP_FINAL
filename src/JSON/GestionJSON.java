@@ -49,7 +49,7 @@ public class GestionJSON {
     ///metodo para serializar un map de objetos a un archivo JSON
     public static <K, V> void serializarMapa(Map<K, V> mapa, String nombreArchivo) {
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-        objectMapper.registerModule(new JavaTimeModule());
+
         try {
             objectMapper.writeValue(new File(nombreArchivo), mapa);
 
@@ -117,14 +117,14 @@ public class GestionJSON {
 
 
 
-    public static Map<String, Set<CheckIn>> deserializarReservas(String nombreArchivo) {
+    /*public static Map<String, Set<CheckIn>> deserializarReservas(String nombreArchivo) {
         try {
             // Crear un mapa vacío
             Map<String, Set<CheckIn>> reservas = new HashMap<>();
 
             // Leer el archivo JSON para obtener el mapa completo
-            Map<String, List<CheckIn>> reservasTemp = objectMapper.readValue(new File(nombreArchivo),
-                    objectMapper.getTypeFactory().constructMapType(Map.class, String.class, List.class));
+            Map<String, List<CheckIn>> reservasTemp = objectMapper.getTypeFactory().constructMapType(Map.class, String.class,
+                    Class.toClass(objectMapper.getTypeFactory().constructCollectionType(List.class, CheckIn.class)));
 
             // Convertir las listas de CheckIn a sets
             for (Map.Entry<String, List<CheckIn>> entry : reservasTemp.entrySet()) {
@@ -138,6 +138,32 @@ public class GestionJSON {
             e.printStackTrace();
         }
 
+        return null;
+    }*/
+
+    public static Map<String, Set<CheckIn>> deserializarReservas(String nombreArchivo) {
+        try {
+            // Crear el ObjectMapper
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.registerModule(new JavaTimeModule());
+
+            // Deserializar directamente en un Map<String, List<CheckIn>>
+            Map<String, List<CheckIn>> reservasTemp = objectMapper.readValue(
+                    new File(nombreArchivo),
+                    new TypeReference<Map<String, List<CheckIn>>>() {}
+            );
+
+            // Convertir las listas en sets
+            Map<String, Set<CheckIn>> reservas = new HashMap<>();
+            for (Map.Entry<String, List<CheckIn>> entry : reservasTemp.entrySet()) {
+                reservas.put(entry.getKey(), new HashSet<>(entry.getValue()));
+            }
+
+            return reservas;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 

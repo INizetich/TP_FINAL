@@ -1,7 +1,7 @@
 package Personas;
 
 import Enums.TipoEmpleado;
-
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 import java.util.Random;
@@ -17,11 +17,14 @@ public class Empleado extends Persona {
         this.tipoEmpleado = null;
     }
 
-    public Empleado (String nombre, String apellido, int edad,String dni, TipoEmpleado tipoEmpleado) {
-        super(nombre, apellido, edad, dni);
+    public Empleado(@JsonProperty("nombre") String nombre
+            , @JsonProperty("apellido") String apellido
+            , @JsonProperty("edad") int edad
+            , @JsonProperty("dni") String dni
+            , @JsonProperty("tipoEmpleado") TipoEmpleado tipoEmpleado)
+    { super(nombre, apellido, edad, dni);
         this.tipoEmpleado = tipoEmpleado;
-        this.NroEmpleado = rand.nextInt(0,99999);
-    }
+        this.NroEmpleado = rand.nextInt(0, 99999); }
 
 
 

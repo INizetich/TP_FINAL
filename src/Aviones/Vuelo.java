@@ -3,13 +3,14 @@ package Aviones;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import Enums.EstadoEmbarque;
 import Enums.PuertaEmbarque;
 import Excepciones.CapacidadMaximaException;
 import Personas.Pasajero;
-import com.fasterxml.jackson.annotation.JsonCreator;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -28,9 +29,8 @@ public class Vuelo {
     @JsonProperty("puertaEmbarque")
     private PuertaEmbarque puertaEmbarque;
 
-    @JsonProperty("horario")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
-    private LocalDateTime horario;
+
+    private String  horario;
 
     @JsonProperty("avion")
     private Avion avion;
@@ -40,6 +40,7 @@ public class Vuelo {
     @JsonProperty("listaPasajeros")
     private Set<Pasajero> listaPasajeros;
 
+    @JsonProperty("asientos")
     private Set<String> asientos;
 
     public Vuelo(String idVuelo) {
@@ -54,24 +55,25 @@ public class Vuelo {
         this.asientos = new HashSet<>();
     }
 
-    @JsonCreator
-    public Vuelo(
-            @JsonProperty("id") String id,
-            @JsonProperty("origen") String origen,
-            @JsonProperty("destino") String destino,
-            @JsonProperty("horario") LocalDateTime horario,
-            @JsonProperty("estadoEmbarque") EstadoEmbarque estadoEmbarque,
-            @JsonProperty("avion") Avion avion
-    ) {
-        this.idVuelo = id;
+    // Constructor
+    public Vuelo(@JsonProperty("idVuelo") String idVuelo,
+                 @JsonProperty("origen") String origen,
+                 @JsonProperty("destino") String destino,
+                 @JsonProperty("horario") String horario,
+                 @JsonProperty("estadoEmbarque") String estadoEmbarque,
+                 @JsonProperty("avion") Avion avion,
+                 @JsonProperty("puertaEmbarque") String puertaEmbarque,
+                 @JsonProperty("listaPasajeros") List<Pasajero> listaPasajeros,
+                 @JsonProperty("asientos") List<String> asientos) {
+        this.idVuelo = idVuelo;
         this.origen = origen;
         this.destino = destino;
-        this.horario = horario;
-        this.estadoEmbarque = estadoEmbarque;
+       this.horario = horario;
+        this.estadoEmbarque = EstadoEmbarque.valueOf(estadoEmbarque);
         this.avion = avion;
-        this.puertaEmbarque = PuertaEmbarque.obtenerPuertaAleatoria();
-        this.listaPasajeros = new HashSet<>();
-        this.asientos = new HashSet<>();
+        this.puertaEmbarque = PuertaEmbarque.valueOf(puertaEmbarque);
+        this.listaPasajeros = new HashSet<>(listaPasajeros); // Cambiado aquí
+        this.asientos = new HashSet<>(asientos); // Cambiado aquí
     }
 
     // Métodos y validaciones de pasajeros y asientos
@@ -149,11 +151,11 @@ public class Vuelo {
         this.puertaEmbarque = puertaEmbarque;
     }
 
-    public LocalDateTime getHorario() {
+    public String getHorario() {
         return horario;
     }
 
-    public void setHorario(LocalDateTime horario) {
+    public void setHorario(String horario) {
         this.horario = horario;
     }
 

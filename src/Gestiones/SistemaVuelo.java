@@ -5,21 +5,16 @@ import Aviones.Avion;
 import Aviones.Vuelo;
 import Enums.EstadoEmbarque;
 import Enums.PuertaEmbarque;
+import Personas.Pasajero;
 
 import java.time.LocalDateTime;
 import java.util.*;
 public class SistemaVuelo{
-    private static List<Vuelo> vuelos = new ArrayList<>(); // Lista para almacenar los vuelos
+    // Lista para almacenar los vuelos
     private static List<Avion> aviones = new ArrayList<>(); // Lista para almacenar los aviones
     private static List<Vuelo> vuelosGenerados = new ArrayList<>();
 
-    public static List<Vuelo> getVuelos() {
-        return vuelos;
-    }
 
-    public static void setVuelos(List<Vuelo> vuelos) {
-        SistemaVuelo.vuelos = vuelos;
-    }
 
     public static List<Avion> getAviones() {
         return aviones;
@@ -165,9 +160,25 @@ public class SistemaVuelo{
         return avionesDisponibles.get(random.nextInt(avionesDisponibles.size()));
     }
 
-    // Método auxiliar para crear un vuelo
     private static Vuelo crearVuelo(String idVuelo, String aeropuertoOrigen, String aeropuertoDestino, List<Avion> avionesDisponibles, Random random) {
-        return new Vuelo(idVuelo, aeropuertoOrigen, aeropuertoDestino, LocalDateTime.now().plusMinutes(random.nextInt(60)), EstadoEmbarque.ABIERTO,obtenerAvionAleatorio(avionesDisponibles, random));
+        // Obtener un avión aleatorio de la lista de aviones disponibles
+        Avion avion = obtenerAvionAleatorio(avionesDisponibles, random);
+
+        // Generar una puerta de embarque aleatoria
+        String puertaEmbarque = String.valueOf(PuertaEmbarque.obtenerPuertaAleatoria());
+
+        // Inicializar lista de pasajeros y asientos vacíos
+        List<Pasajero> listaPasajeros = new ArrayList<>();
+        List<String> asientos = new ArrayList<>();
+
+        // Crear el vuelo usando el constructor completo
+        return new Vuelo(idVuelo, aeropuertoOrigen, aeropuertoDestino,
+                LocalDateTime.now().plusMinutes(random.nextInt(60)).toString(),
+                EstadoEmbarque.ABIERTO.name(),
+                avion,
+                puertaEmbarque,
+                listaPasajeros,
+                asientos);
     }
     /*
 

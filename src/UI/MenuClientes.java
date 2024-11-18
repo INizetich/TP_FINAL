@@ -26,8 +26,7 @@ public class MenuClientes {
 
         almacenamientoAviones.generarAviones(15, admin.getListaEmpleados());
 
-        // CREACIÓN DE VUELOS DE MANERA AUTOMÁTICA
-        SistemaVuelo.generarVuelosDesdeHangares(15, almacenamientoAviones);
+        SistemaVuelo.obtenerVuelosGenerados(almacenamientoAviones);
         aeropuerto.cargarHangaresAeropuerto(admin.getListaEmpleados());
         // Crear el sistema de check-in
         SistemaReserva sistemaReserva = new SistemaReserva();
@@ -182,7 +181,7 @@ public class MenuClientes {
 
                 case 4:
                     System.out.println("🚪 Gracias por utilizar nuestros servicios. ¡Hasta luego! 🚪");
-                    List<Vuelo> vuelos = SistemaVuelo.obtenerVuelosGenerados();
+                    List<Vuelo> vuelos = SistemaVuelo.getVuelosGenerados();
                     GestionJSON.serializarLista(vuelos,"Archivos JSON/vuelos.json");
                     break;
 

@@ -4,7 +4,9 @@ import Enums.TipoEmpleado;
 import Excepciones.NoEsPilotoException;
 import Interfaces.IAvion;
 import Personas.Empleado;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties(ignoreUnknown = true) // Ignora campos desconocidos durante la deserialización
 public class Avion implements IAvion {
 
     private String nombre;
@@ -20,6 +22,7 @@ public class Avion implements IAvion {
         this.motor = "";
         this.modelo = "";
         this.codigoAvion = "";
+
     }
 
     public Avion(String nombre, int capacidadAvion, String motor, String modelo, String codigoAvion) {
@@ -28,6 +31,7 @@ public class Avion implements IAvion {
         this.motor = motor;
         this.modelo = modelo;
         this.codigoAvion = codigoAvion;
+
     }
 
     // Getters y setters
@@ -72,11 +76,10 @@ public class Avion implements IAvion {
     }
 
     public void asignarPiloto(Empleado piloto) throws NoEsPilotoException {
-        this.empleado = piloto;
-
         if (piloto.getTipoEmpleado() != TipoEmpleado.PILOTO) {
             throw new NoEsPilotoException("La persona elegida no es piloto.");
         }
+        this.empleado = piloto;
     }
 
     public Empleado getPiloto() {
@@ -91,7 +94,7 @@ public class Avion implements IAvion {
                 ", motor='" + motor + '\'' +
                 ", modelo='" + modelo + '\'' +
                 ", codigoAvion='" + codigoAvion + '\'' +
-                ", Piloto=" + empleado +
+                ", Piloto=" + (empleado != null ? empleado : "No asignado") + // Muestra "No asignado" si no hay piloto
                 '}';
     }
 

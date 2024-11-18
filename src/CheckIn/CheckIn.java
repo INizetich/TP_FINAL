@@ -7,35 +7,48 @@ import Gestiones.SistemaReserva;
 import JSON.GestionJSON;
 import Personas.Pasajero;
 import Utilidades.Utilities;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import javazoom.jl.player.Player;
 
-import java.io.FileInputStream;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import org.json.JSONException;
+//import javazoom.jl.player.Player;
+
+
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeParseException;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
-
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+@JsonPropertyOrder ({"vuelo","numeroAsiento","pasajero","CodigoCheckIn"})
 public class CheckIn {
     private static final String Click = "src/Sonidos/Click.mp3";
+    @JsonProperty ("vuelo")
     private Vuelo vuelo;
+    @JsonProperty("numeroAsiento")
     private String numeroAsiento;
+    @JsonProperty("pasajero")
     private Pasajero pasajero;
+    @JsonProperty("CodigoCheckIn")
     private static String CodigoCheckIn;
 
 
     // Constructor con @JsonCreator y @JsonProperty
     @JsonCreator
-    public CheckIn(@JsonProperty("vuelo") Vuelo vuelo,
+    public CheckIn( @JsonProperty("vuelo") Vuelo vuelo,
                    @JsonProperty("numeroAsiento") String numeroAsiento,
                    @JsonProperty("pasajero") Pasajero pasajero) {
         this.vuelo = vuelo;
+        this.CodigoCheckIn = UUID.randomUUID().toString().substring(0, 8).toUpperCase();
         this.numeroAsiento = numeroAsiento;
         this.pasajero = pasajero;
-        // Generar Código de CheckIn automáticamente
-        this.CodigoCheckIn = UUID.randomUUID().toString().substring(0, 16);
     }
+
+
+
 
     public Vuelo getVuelo() {
         return vuelo;
@@ -62,7 +75,6 @@ public class CheckIn {
     }
 
 
-
     public String getCodigoCheckIn() {
         return CodigoCheckIn;
     }
@@ -75,67 +87,74 @@ public class CheckIn {
     public String toString() {
         return "CheckIn{" +
                 vuelo +
-                 pasajero +
+                pasajero +
                 '}';
     }
 
 
     public static void mostrarReserva(String dni, SistemaReserva sistemaReserva) throws dniNoEncontradoException {
-        boolean encontrado = false;
-
         try {
             // Deserializar el mapa de reservas desde el archivo JSON
             Map<String, Set<CheckIn>> mapaReservas = GestionJSON.deserializarReservas("Archivos JSON/Check-In.json");
+
+
 
             if (mapaReservas == null || mapaReservas.isEmpty()) {
                 System.out.println("No hay reservas disponibles en el sistema.");
                 return;
             }
 
-            // Recorrer el mapa de reservas
-            for (Set<CheckIn> checkIns : mapaReservas.values()) {
-                for (CheckIn checkIn : checkIns) {
-                    Pasajero pasajero = checkIn.getPasajero();
+            Set<CheckIn> checkIns = mapaReservas.get(dni);
 
-                    // Limpiar espacios y comparar el DNI
-                    if (pasajero.getDni().trim().equalsIgnoreCase(dni.trim())) {
-                        // Verificar si el check-in ha sido realizado
-                        if (pasajero.isCheckIn()) {
-                            System.out.println("============================");
-                            System.out.println("🎉 Reserva Confirmada 🎉");
-                            System.out.println("============================");
-                            System.out.println("👤 Pasajero: " + pasajero.getNombre() + " " + pasajero.getApellido());
-                            System.out.println("🆔 DNI: " + pasajero.getDni());
+            if (checkIns == null) {
+                throw new dniNoEncontradoException("El DNI no se encuentra dentro del sistema de reservas.");
+            }
 
-                            // Mostrar detalles del vuelo
-                            Vuelo vuelo = checkIn.getVuelo();
-                            System.out.println("✈️ Vuelo: " + vuelo.getOrigen() + " ➡️ " + vuelo.getDestino());
-                            System.out.println("📅 Fecha del Vuelo: " + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(vuelo.getHorario()));
+            for (CheckIn checkIn : checkIns) {
+                Pasajero pasajero = checkIn.getPasajero();
+
+                // Verificar si el check-in ha sido realizado
+                if (pasajero.isCheckIn()) {
+                    System.out.println("============================");
+                    System.out.println("🎉 Reserva Confirmada 🎉");
+                    System.out.println("============================");
+                    System.out.println("👤 Pasajero: " + pasajero.getNombre() + " " + pasajero.getApellido());
+                    System.out.println("🆔 DNI: " + pasajero.getDni());
+
+                    // Mostrar detalles del vuelo
+                    Vuelo vuelo = checkIn.getVuelo();
+
+                    if (vuelo != null) {
+                        System.out.println("✈️ Vuelo: " + vuelo.getOrigen() + " ➡️ " + vuelo.getDestino());
+
+                        // Convertir String a LocalDateTime usando el formato ISO
+                        String horarioString = vuelo.getHorario(); // Suponiendo que es un String
+                        DateTimeFormatter inputFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+
+                        try {
+                            LocalDateTime localDateTime = LocalDateTime.parse(horarioString, inputFormatter);
+
+                            // Formatear la fecha
+                            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+                            String formattedDate = localDateTime.format(outputFormatter);
+
+                            System.out.println("📅 Fecha del Vuelo: " + formattedDate);
                             System.out.println("💺 Número de Asiento: " + checkIn.getNumeroAsiento());
                             System.out.println("🗳️ Código de Check-In: " + checkIn.getCodigoCheckIn());
-
                             System.out.println("============================");
-                            ClickSonido();
-                        } else {
-                            System.out.println("========================================================================");
-                            System.out.println("❌ La reserva aún no ha sido realizada para " + pasajero.getNombre() + " " + pasajero.getApellido());
-                            ClickSonido();
-
+                        } catch (DateTimeParseException e) {
+                            System.out.println("Error al parsear la fecha y hora: " + e.getMessage());
                         }
-                        encontrado = true;
-                        break;
                     }
-                }
-                if (encontrado) {
-                    break;
+
+                    // ClickSonido();
+                } else {
+                    System.out.println("========================================================================");
+                    System.out.println("❌ La reserva aún no ha sido realizada para " + pasajero.getNombre() + " " + pasajero.getApellido());
+                    // ClickSonido();
                 }
             }
-
-            if (!encontrado) {
-                throw new dniNoEncontradoException("El DNI no se encuentra dentro del sistema de reservas.");
-
-            }
-        } catch (Exception e) {
+        } catch (JSONException e) {
             System.out.println("Error al mostrar la reserva: " + e.getMessage());
         }
     }
@@ -143,72 +162,98 @@ public class CheckIn {
 
 
 
+
+
+
     public static void generarBoleto(String dni, SistemaReserva sistemaReserva) throws ReservaInexistenteException {
-        Utilities.mostrarCargando();
+        try {
+            // Deserializar el mapa de reservas desde el archivo JSON
+            Map<String, Set<CheckIn>> mapaReservas = GestionJSON.deserializarReservas("Archivos JSON/Check-In.json");
 
-        // Variable para verificar si el DNI fue encontrado
-        boolean encontrado = false;
+            Utilities.mostrarCargando();
 
-        // Iterar sobre el mapa de reservas
-        for (Set<CheckIn> checkIns : sistemaReserva.getMapaReservas().values()) {
+            if (mapaReservas == null || mapaReservas.isEmpty()) {
+                System.out.println("No hay reservas disponibles en el sistema.");
+                return;
+            }
+
+            Set<CheckIn> checkIns = mapaReservas.get(dni);
+
+            if (checkIns == null) {
+                throw new ReservaInexistenteException("❌ el dni no se encuentra asociado a ninguna reserva");
+            }
+
+            // Iterar sobre el mapa de reservas
             for (CheckIn checkIn : checkIns) {
                 Pasajero pasajero = checkIn.getPasajero();
 
-                // Verificar si el DNI coincide
-                if (pasajero.getDni().trim().equalsIgnoreCase(dni.trim())) {
-                    encontrado = true; // Se ha encontrado el pasajero
-
-                    // Generación del boleto de avión
+                // Generación del boleto de avión
+                if (pasajero.isCheckIn()) {
                     Vuelo vuelo = checkIn.getVuelo();
-                    StringBuilder boleto = new StringBuilder();
-                    SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
-                    // Cabecera del boleto con emojis
-                    boleto.append("======================================================================\n");
-                    boleto.append("🌟                        BOLETO DE AVION                        🌟\n");
-                    boleto.append("======================================================================\n");
+                    if (vuelo != null) {
+                        StringBuilder boleto = new StringBuilder();
 
-                    // Información del pasajero y vuelo con emojis
-                    boleto.append("👤 Pasajero: ").append(pasajero.getNombre()).append(" ").append(pasajero.getApellido()).append("\n");
-                    boleto.append("🆔 DNI: ").append(pasajero.getDni()).append("\n");
-                    boleto.append("🌍 Origen: ").append(vuelo.getOrigen()).append("\n");
-                    boleto.append("✈️ Destino: ").append(vuelo.getDestino()).append("\n");
-                    boleto.append("📅 Fecha de vuelo: ").append(formatoFecha.format(vuelo.getHorario())).append("\n");
-                    boleto.append("🪑 Número de asiento: ").append(pasajero.getNroAsiento()).append("\n");
-                    boleto.append("🚪 Puerta de embarque: ").append(vuelo.getPuertaEmbarque()).append("\n");
+                        // Convertir String a LocalDateTime usando el formato ISO
+                        String horarioString = vuelo.getHorario(); // Suponiendo que es un String
+                        DateTimeFormatter inputFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
-                    // Pie de boleto con emojis
-                    boleto.append("======================================================================\n");
-                    boleto.append("🔑 Código único de identificación: ").append(checkIn.getCodigoCheckIn()).append("\n");
-                    boleto.append("======================================================================\n");
+                        try {
+                            LocalDateTime localDateTime = LocalDateTime.parse(horarioString, inputFormatter);
 
-                    // Despedida con emojis
-                    boleto.append("🎉 *¡Buen viaje! Gracias por volar con nosotros.* ✈️🌍\n");
-                    boleto.append("======================================================================");
+                            // Formatear la fecha para el boleto
+                            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+                            String formattedDate = localDateTime.format(outputFormatter);
 
-                    // Mostrar el boleto
-                    System.out.println(boleto.toString());
-                    ClickSonido();
-                    break; // Si se encuentra el boleto, terminamos el ciclo
+                            // Cabecera del boleto con emojis
+                            boleto.append("======================================================================\n");
+                            boleto.append("🌟                        BOLETO DE AVION                        🌟\n");
+                            boleto.append("======================================================================\n");
+
+                            // Información del pasajero y vuelo con emojis
+                            boleto.append("👤 Pasajero: ").append(pasajero.getNombre()).append(" ").append(pasajero.getApellido()).append("\n");
+                            boleto.append("🆔 DNI: ").append(pasajero.getDni()).append("\n");
+                            boleto.append("🌍 Origen: ").append(vuelo.getOrigen()).append("\n");
+                            boleto.append("✈️ Destino: ").append(vuelo.getDestino()).append("\n");
+                            boleto.append("📅 Fecha de vuelo: ").append(formattedDate).append("\n"); // Usa el formattedDate
+                            boleto.append("🪑 Número de asiento: ").append(pasajero.getNroAsiento()).append("\n");
+                            boleto.append("🚪 Puerta de embarque: ").append(vuelo.getPuertaEmbarque()).append("\n");
+
+                            // Pie de boleto con emojis
+                            boleto.append("======================================================================\n");
+                            boleto.append("🔑 Código único de identificación: ").append(checkIn.getCodigoCheckIn()).append("\n");
+                            boleto.append("======================================================================\n");
+
+                            // Despedida con emojis
+                            boleto.append("🎉 *¡Buen viaje! Gracias por volar con nosotros.* ✈️🌍\n");
+                            boleto.append("======================================================================");
+
+                            // Mostrar el boleto
+                            System.out.println(boleto.toString());
+                            // ClickSonido();
+                            break; // Si se encuentra el boleto, terminamos el ciclo
+                        } catch (DateTimeParseException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
+
             }
-            if (encontrado) {
-                break; // Si ya se encontró el DNI, terminamos el ciclo externo
-            }
+
+        }catch (JSONException e){
+            e.printStackTrace();
         }
 
-        // Si no se encuentra el DNI en ninguna reserva, lanzamos la excepción
-        if (!encontrado) {
-            throw new ReservaInexistenteException("El boleto de avión no tiene ningún DNI asociado que haya realizado una reserva.");
-
-        }  ClickSonido();
+    }
 
     }
 
 
-    /// //////////////////////////////////////////////////////////////////////////
-    /// /// METODOS PARA EL SONIDO
-    private static void ClickSonido() {
+
+
+                /// //////////////////////////////////////////////////////////////////////////
+                /// /// METODOS PARA EL SONIDO
+    /*private static void ClickSonido() {
         Thread audioThread = new Thread(() -> {
             try (FileInputStream fis = new FileInputStream(Click)) {
                 Player player = new Player(fis);
@@ -219,8 +264,6 @@ public class CheckIn {
         });
         audioThread.setDaemon(true); // El hilo se detendrá automáticamente cuando termine el programa
         audioThread.start();
-    }
+    }*/
 
 
-
-}

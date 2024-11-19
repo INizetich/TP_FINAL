@@ -181,9 +181,8 @@ public class MenuClientes {
                     // Implementar el caso 2 (Ingresar a tiendas)
                     printCentered("Usted ha elegido ingresar a tiendas. 🏬");
                     musicaMenu();
-                    int opcion;
+                    int opcion; limpiarPantalla();
                     do {
-                        limpiarPantalla();
                         printCentered("=== 🛒 Bienvenido al Mini Kiosko 🛒 ===");
                         printCentered("1. 🥤 Bebidas");
                         printCentered("2. 🍔 Comida");
@@ -283,6 +282,7 @@ public class MenuClientes {
             realizarCompra(precio, "bebida");
             reproducirClick();
         } else if (bebida != 0) {
+            limpiarPantalla();
             printCentered("❌ Opción inválida.");
             reproducirClick();
         }
@@ -290,6 +290,7 @@ public class MenuClientes {
 
     private static void mostrarComida(Scanner scanner) {
         reproducirClick();
+        limpiarPantalla();
         printCentered("====================================");
         printCentered("   🍔 COMIDA 🍔");
         printCentered("====================================");
@@ -320,12 +321,13 @@ public class MenuClientes {
     }
     private static void mostrarArticulosVarios(Scanner scanner) {
         reproducirClick();
+        limpiarPantalla();
         printCentered("====================================");
         printCentered("🛍️ ARTÍCULOS VARIOS 🛍️");
         printCentered("====================================");
-        printCentered("1. 📖 Revista        - $3.00");
+        printCentered("1. 📖 Revista        - $4.00");
         printCentered("2. 🍬 Chicle         - $0.50");
-        printCentered("3. 🔥 Encendedor     - $1.20");
+        printCentered("3. 🔥 Encendedor     - $1.00");
         printCentered("====================================");
         printCentered("Seleccione un artículo (0 para volver): ");
         int articulo = scanner.nextInt();

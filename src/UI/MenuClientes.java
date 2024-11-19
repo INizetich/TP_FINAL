@@ -1,4 +1,5 @@
 package UI;
+import PreEmbarque.PreEmbarque;
 import javazoom.jl.player.Player;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -65,6 +66,7 @@ public class MenuClientes {
                     printCentered("2️⃣ Mostrar una reserva asociada al pasajero 📋");
                     printCentered("3️⃣ Mostrar conexión del vuelo 🔗");
                     printCentered("4️⃣ Generar boleto de avión 🎟️");
+                    printCentered("4️⃣ Prembarque 🎟️");
                     printCentered("=====================================================");
                     int opcionReserva = scanner.nextInt();
                     reproducirClick();
@@ -160,6 +162,14 @@ public class MenuClientes {
                             if (mostrarMensajeFinal) {
                                 printCentered("Gracias por utilizar nuestro servicio. ¡Buen viaje! ✈️🌍");
                             }
+                            break;
+
+
+                        case 5:
+
+                            PreEmbarque.verificarSeguridad();
+
+
                             break;
                     }
 

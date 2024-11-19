@@ -575,7 +575,7 @@ boolean token = false;
 
                 // Asignar el avión al vuelo
                 vuelo.setAvion(avionDisponible);
-                vuelo.setEstadoEmbarque(EstadoEmbarque.ABIERTO);
+                vuelo.setEstadoEmbarque(EstadoEmbarque.EN_HORARIO);
                 System.out.println("✔️ Avión asignado automáticamente al vuelo.");
             } else {
                 System.out.println("🚫 No hay aviones disponibles para asignar al vuelo.");

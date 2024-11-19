@@ -63,7 +63,7 @@
       } ],
       "checkInRealizado" : true
     },
-    "codigoCheckIn" : "3FA96DA5"
+    "codigoCheckIn" : "B8566363"
   } ],
   "25317232" : [ {
     "vuelo" : {
@@ -117,7 +117,7 @@
       } ],
       "checkInRealizado" : true
     },
-    "codigoCheckIn" : "3FA96DA5"
+    "codigoCheckIn" : "B8566363"
   } ],
   "76543211" : [ {
     "vuelo" : {
@@ -171,7 +171,7 @@
       } ],
       "checkInRealizado" : true
     },
-    "codigoCheckIn" : "3FA96DA5"
+    "codigoCheckIn" : "B8566363"
   } ],
   "45462201" : [ {
     "vuelo" : {
@@ -225,6 +225,60 @@
       } ],
       "checkInRealizado" : true
     },
-    "codigoCheckIn" : "3FA96DA5"
+    "codigoCheckIn" : "B8566363"
+  } ],
+  "33333333" : [ {
+    "vuelo" : {
+      "idVuelo" : "C6103495",
+      "origen" : "Aeropuerto Internacional Ezeiza",
+      "destino" : "Miami International Airport",
+      "horario" : "2024-11-19T00:50:02.253711700",
+      "estadoEmbarque" : "CERRADO",
+      "avion" : {
+        "nombre" : "Boeing-760",
+        "capacidadAvion" : 139,
+        "motor" : "Motor turbofan",
+        "modelo" : "Modelo-A60",
+        "codigoAvion" : "A70C1A15",
+        "piloto" : {
+          "dni" : "46689104",
+          "nombre" : "rufino",
+          "apellido" : "figueroa",
+          "edad" : 22,
+          "tipoEmpleado" : "PILOTO",
+          "nroEmpleado" : 62694
+        }
+      },
+      "puertaEmbarque" : "A5",
+      "listaPasajeros" : [ {
+        "codigoPasajero" : "CAE9ACC6",
+        "numeroAsiento" : "A1",
+        "edad" : 20,
+        "dni" : "33333333",
+        "nombre" : "carolina",
+        "apellido" : "archuby",
+        "valija" : [ {
+          "dimension" : "15x12",
+          "peso" : 23.0
+        } ],
+        "checkInRealizado" : true
+      } ],
+      "asientos" : [ "A1" ]
+    },
+    "numeroAsiento" : "A1",
+    "pasajero" : {
+      "codigoPasajero" : "CAE9ACC6",
+      "numeroAsiento" : "A1",
+      "edad" : 20,
+      "dni" : "33333333",
+      "nombre" : "carolina",
+      "apellido" : "archuby",
+      "valija" : [ {
+        "dimension" : "15x12",
+        "peso" : 23.0
+      } ],
+      "checkInRealizado" : true
+    },
+    "codigoCheckIn" : "B8566363"
   } ]
 }

@@ -3,7 +3,7 @@
   "origen" : "Aeropuerto Internacional Ezeiza",
   "destino" : "Miami International Airport",
   "horario" : "2024-11-19T00:50:02.253711700",
-  "estadoEmbarque" : "ABIERTO",
+  "estadoEmbarque" : "CERRADO",
   "avion" : {
     "nombre" : "Boeing-760",
     "capacidadAvion" : 139,
@@ -20,8 +20,20 @@
     }
   },
   "puertaEmbarque" : "A5",
-  "listaPasajeros" : [ ],
-  "asientos" : [ ]
+  "listaPasajeros" : [ {
+    "codigoPasajero" : "CAE9ACC6",
+    "numeroAsiento" : "A1",
+    "edad" : 20,
+    "dni" : "33333333",
+    "nombre" : "carolina",
+    "apellido" : "archuby",
+    "valija" : [ {
+      "dimension" : "15x12",
+      "peso" : 23.0
+    } ],
+    "checkInRealizado" : true
+  } ],
+  "asientos" : [ "A1" ]
 }, {
   "idVuelo" : "B26A01FF",
   "origen" : "Frankfurter Flughafen",

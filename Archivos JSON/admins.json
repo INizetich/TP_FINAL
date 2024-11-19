@@ -1,21 +1,26 @@
 [ {
+  "dni" : "45576748",
   "nombre" : "arian",
   "apellido" : "shaffer",
-  "edad" : 20,
-  "dni" : "45576748"
+  "edad" : 20
 }, {
+  "dni" : "42569299",
   "nombre" : "lautaro",
   "apellido" : "arschak",
-  "edad" : 24,
-  "dni" : "42569299"
+  "edad" : 24
 }, {
+  "dni" : "45462201",
   "nombre" : "ignacio",
   "apellido" : "nizetich",
-  "edad" : 21,
-  "dni" : "45462201"
+  "edad" : 21
 }, {
+  "dni" : "12345678",
+  "nombre" : "carolina",
+  "apellido" : "archuby",
+  "edad" : 21
+}, {
+  "dni" : "44617380",
   "nombre" : "rufino",
   "apellido" : "figueroa",
-  "edad" : 21,
-  "dni" : "44617380"
+  "edad" : 21
 } ]

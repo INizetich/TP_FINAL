@@ -175,7 +175,7 @@ public class MenuAdministracion {
                                 Menu.Menu();
                                // Sale del ciclo y termina el caso
                             } else if (respuesta.equals("no") && respuesta.equals("no")) {
-                                MenuAdministracion.mostrarMenuAdministracion();
+                                System.exit(0);
                             }
                         }
 

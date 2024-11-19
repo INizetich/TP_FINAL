@@ -250,12 +250,17 @@ public class SistemaReserva {
             } while (edad <= 0 || edad >= 110);
 
             // Validar DNI
-            System.out.print("🆔 DNI: ");
-            dni = scanner.nextLine().trim();
+            do {
+                System.out.print("🆔 DNI (8 caracteres): ");
+                dni = scanner.nextLine().trim();
 
-            if (mapaReservas.containsKey(dni)) {
-                throw new DniRegistradoException("🚫 El DNI " + dni + " ya está asociado a una reserva");
-            }
+                // Verificar que el DNI tenga exactamente 8 caracteres
+                if (dni.length() != 8) {
+                    System.out.println("❌ El DNI debe tener exactamente 8 caracteres.");
+                } else if (mapaReservas.containsKey(dni)) {
+                    throw new DniRegistradoException("🚫 El DNI " + dni + " ya está asociado a una reserva");
+                }
+            } while (dni.length() != 8); // Repetir hasta que el DNI sea válido
 
             System.out.print("📦 ¿Cuántas valijas llevará? ");
             int cantidadEquipaje = scanner.nextInt();
@@ -305,7 +310,7 @@ public class SistemaReserva {
                 valijas.add(new Valija(dimension, peso));
             }
 
-            System.out.println("=====================================");
+            System.out.println("================================ =====");
             System.out.println("📝 ¿Desea editar su información? (s/n)");
             eleccion = scanner.nextLine().trim().toLowerCase();
             Utilities.limpiarPantalla();

@@ -5,7 +5,6 @@ import Aviones.Hangar;
 import Aviones.Vuelo;
 import CheckIn.CheckIn;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -18,27 +17,6 @@ import java.util.Map;
 public class GestionJSON {
     private static ObjectMapper objectMapper = new ObjectMapper();
 
-
-
-
-
-
-
-
-
-    /*public static <T> void serializarLista(List<T> lista, String archivoDestino) {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new JavaTimeModule()); // Registrar el módulo para soporte de fechas
-        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS); // Para serializar como ISO-8601
-
-        try {
-            mapper.writerWithDefaultPrettyPrinter().writeValue(new File(archivoDestino), lista);
-
-        } catch (Exception e) {
-            System.err.println("Error al serializar la lista: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }*/
 
     public static <T> void serializarLista(List<T> lista, String nombreArchivo) {
         ObjectMapper mapper = new ObjectMapper();

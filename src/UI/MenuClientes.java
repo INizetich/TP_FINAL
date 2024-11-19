@@ -21,8 +21,13 @@ public class MenuClientes {
     private static final String WHITE = "\u001B[37m";
     private static final String RESET = "\u001B[0m";
     private static double credito = 0.0; // Crédito disponible del cliente
-    private static final String Click = "src/Sonidos/click.mp3";
+    private static final String Click = "src/Sonidos/ClickSuave.mp3";
+    private static final String Click2 = "src/Sonidos/Click.mp3";
     private static final String Soundtrack = "src/Sonidos/SoundtrackTienda.mp3";
+    ///VARIABLE GLOBAL PARA CONTROLAR EL HILO DE LA MUSICA
+    private static final Thread audioThread = null;
+
+
 
     public static void mostrarMenuCliente() throws IOException, InterruptedException {
         ///VARIABLES IMPORTANTES
@@ -203,7 +208,10 @@ public class MenuClientes {
                             case 1 -> mostrarBebidas(scanner);
                             case 2 -> mostrarComida(scanner);
                             case 3 -> mostrarArticulosVarios(scanner);
-                            case 4 -> System.out.println("¡Gracias por visitar el kiosko! 🛒");
+                            case 4 -> {
+                                System.out.println("¡Gracias por visitar el kiosko! 🛒");
+                               System.exit(0);
+                            }
 
                             default -> System.out.println("❌ Opción inválida. Intente nuevamente.");
                         }
@@ -395,7 +403,7 @@ public class MenuClientes {
         }
     }
 
-    private static void musicaMenu() {
+    private static Thread musicaMenu() {
         Thread audioThread = new Thread(() -> {
             try (FileInputStream fis = new FileInputStream(Soundtrack)) {
                 Player player = new Player(fis);
@@ -406,7 +414,10 @@ public class MenuClientes {
         });
         audioThread.setDaemon(true); // El hilo se detendrá automáticamente cuando termine el programa
         audioThread.start();
+        return audioThread; // Retornar el hilo
     }
+
+
     private static void reproducirClick() {
         Thread audioThread = new Thread(() -> {
             try (FileInputStream fis = new FileInputStream(Click)) {

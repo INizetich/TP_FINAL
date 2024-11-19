@@ -16,26 +16,17 @@ public class Menu {
         ///VARIABLES PARA VALIDACIONES
         int opc;
         String opcionString;
-       
         boolean salir = false;
         Scanner scanner = new Scanner(System.in);
         ///INSTANCIA DE CLASES
         Admin admin = new Admin();
         Aeropuerto aeropuerto = new Aeropuerto();
-
+        // CREACIÓN DE AVIONES DE MANERA AUTOMÁTICA
         AlmacenamientoAviones almacenamientoAviones = new AlmacenamientoAviones();
         almacenamientoAviones.generarHangares(7);
-
-
         almacenamientoAviones.generarAviones(15,admin.getListaEmpleados());
-
-
-        // CREACIÓN DE VUELOS DE MANERA AUTOMÁTICA
-       // SistemaVuelo.generarVuelosDesdeHangares(15, almacenamientoAviones);
-       // almacenamientoAviones.mostrarHangares();
         aeropuerto.cargarHangaresAeropuerto(admin.getListaEmpleados());
         // Crear el sistema de check-in
-        SistemaReserva sistemaReserva = new SistemaReserva();
 
         // Crear el sistema de aeropuertos y registrar aeropuertos
         SistemaAeropuerto.cargarAeropuertos();

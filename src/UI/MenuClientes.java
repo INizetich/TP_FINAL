@@ -265,6 +265,7 @@ public class MenuClientes {
 
     private static void mostrarBebidas(Scanner scanner) {
         reproducirClick();
+        limpiarPantalla();
         printCentered("====================================");
         printCentered("    🥤 BEBIDAS 🥤");
         printCentered("====================================");
@@ -275,6 +276,7 @@ public class MenuClientes {
         printCentered("Seleccione su bebida (0 para volver): ");
         int bebida = scanner.nextInt();
         reproducirClick();
+
 
         if (bebida > 0 && bebida <= 3) {
             double precio = bebida == 1 ? 1.00 : bebida == 2 ? 1.50 : 2.00;
@@ -351,13 +353,16 @@ public class MenuClientes {
         printCentered("\n💸 Ingrese la cantidad de dinero a retirar: $");
         double monto = scanner.nextDouble();
         if (monto > 0 && monto <= credito) {
-            credito -= monto;
+            credito -= monto; limpiarPantalla();
             printCentered("✅ Retiro exitoso. Crédito restante: $" + String.format("%.2f", credito));
             reproducirClick();
+
         } else if (monto > credito) {
+            limpiarPantalla();
             printCentered("❌ Fondos insuficientes. Intente con un monto menor.");
             reproducirClick();
         } else {
+            limpiarPantalla();
             printCentered("❌ El monto debe ser mayor a $0.");
             reproducirClick();
         }
@@ -368,9 +373,11 @@ public class MenuClientes {
         double monto = scanner.nextDouble();
         if (monto > 0) {
             credito += monto;
+            limpiarPantalla();
             printCentered("✅ Crédito agregado exitosamente. Crédito actual: $" + String.format("%.2f", credito));
             reproducirClick();
         } else {
+            limpiarPantalla();
             printCentered("❌ El monto debe ser mayor a $0.");
             reproducirClick();
         }
@@ -379,9 +386,11 @@ public class MenuClientes {
     private static void realizarCompra(double precio, String tipo) {
         if (credito >= precio) {
             credito -= precio;
+            limpiarPantalla();
             printCentered("✅ Compra de " + tipo + " realizada con éxito. Crédito restante: $" + String.format("%.2f", credito));
             reproducirClick();
         } else {
+            limpiarPantalla();
             printCentered("❌ No tienes suficiente crédito para esta compra.");
             reproducirClick();
         }

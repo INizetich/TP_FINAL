@@ -428,6 +428,54 @@
       "peso" : 23.0
     } ],
     "checkInRealizado" : true
+  }, {
+    "codigoPasajero" : "03A851BA",
+    "numeroAsiento" : "B1",
+    "edad" : 21,
+    "dni" : "222222222",
+    "nombre" : "manuel",
+    "apellido" : "ruiz",
+    "valija" : [ {
+      "dimension" : "14",
+      "peso" : 23.0
+    } ],
+    "checkInRealizado" : true
+  } ],
+  "asientos" : [ "A1", "B1" ]
+}, {
+  "idVuelo" : "F8B5BFA2",
+  "origen" : "北京首都国际机场",
+  "destino" : "Aeropuerto Internacional El Dorado",
+  "horario" : "Tue Nov 19 07:15:15 ART 2024",
+  "estadoEmbarque" : "CERRADO",
+  "avion" : {
+    "nombre" : "Boeing-752",
+    "capacidadAvion" : 238,
+    "motor" : "Motor a reacción",
+    "modelo" : "Modelo-A14",
+    "codigoAvion" : "A70C1A7",
+    "piloto" : {
+      "dni" : "34581039",
+      "nombre" : "cristian",
+      "apellido" : "chiliguay",
+      "edad" : 49,
+      "tipoEmpleado" : "PILOTO",
+      "nroEmpleado" : 80500
+    }
+  },
+  "puertaEmbarque" : "B3",
+  "listaPasajeros" : [ {
+    "codigoPasajero" : "F21BFF02",
+    "numeroAsiento" : "A1",
+    "edad" : 1,
+    "dni" : "76543211",
+    "nombre" : "gaby",
+    "apellido" : "ruiz",
+    "valija" : [ {
+      "dimension" : "14",
+      "peso" : 23.0
+    } ],
+    "checkInRealizado" : true
   } ],
   "asientos" : [ "A1" ]
 } ]

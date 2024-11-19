@@ -13,6 +13,7 @@ import java.util.Scanner;
 public class MenuAdministracion {
 
     public static void mostrarMenuAdministracion() {
+
         ConfigAdmin.cargarConfiguracionAdmin();
         // INSTANCIA DE CLASES IMPORTANTES
         Admin admin = new Admin();

@@ -175,7 +175,7 @@ public class SistemaVuelo{
         // Crear el vuelo usando el constructor completo
         return new Vuelo(idVuelo, aeropuertoOrigen, aeropuertoDestino,
                 LocalDateTime.now().plusMinutes(random.nextInt(60)).toString(),
-                EstadoEmbarque.ABIERTO.name(),
+                EstadoEmbarque.getEstadoAleatorio().name(),
                 avion,
                 puertaEmbarque,
                 listaPasajeros,

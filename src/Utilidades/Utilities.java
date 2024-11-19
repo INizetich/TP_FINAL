@@ -80,4 +80,20 @@ public class Utilities {
     }
 
 
+    public static void printCentered(String text) {
+        int terminalWidth = 160; // Puedes ajustar este valor según el ancho de tu terminal
+        int padding = (terminalWidth - text.length()) / 2;
+        String paddedText = " ".repeat(padding) + text;
+        System.out.println(paddedText);
+    }
+
+    public static void limpiarPantalla() {
+        // Imprime 50 líneas vacías para simular la limpieza de pantalla
+        for (int i = 0; i < 15; i++) {
+            System.out.println();
+        }
+    }
+
+
+
 }

@@ -8,6 +8,7 @@ import CheckIn.CheckIn;
 import JSON.GestionJSON;
 import Personas.Pasajero;
 import Pertenencias.Valija;
+import Utilidades.Utilities;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,14 +32,12 @@ public class SistemaReserva {
             // Verificar si el archivo de vuelos existe antes de deserializar
             File vuelosFile = new File("Archivos JSON/vuelos.json");
             if (vuelosFile.exists()) {
-                List<Vuelo> vuelos = null;
+
                 try {
-                    vuelos = GestionJSON.deserializarVuelos(vuelosFile.getPath());
-                    System.out.println("Vuelos deserializados: " + vuelos.size()); // Verifica el tamaño
-                    if (vuelos.isEmpty()) {
+                    SistemaVuelo.setVuelosGenerados(GestionJSON.deserializarVuelos(vuelosFile.getPath()));
+
+                    if (SistemaVuelo.getVuelosGenerados().isEmpty()) {
                         System.out.println("🚫 No se encontraron vuelos deserializados.");
-                    } else {
-                        SistemaVuelo.setVuelosGenerados(vuelos);
                     }
                 } catch (Exception e) {
                     System.out.println("🚫 Error al deserializar los vuelos: " + e.getMessage());
@@ -93,115 +92,116 @@ public class SistemaReserva {
                     continue; // Permitir al usuario intentar nuevamente sin lanzar una excepción
                 }
 
-                // Mostrar los detalles del vuelo seleccionado
-                System.out.println("\n🛫 Seleccionaste el vuelo:");
-                System.out.println("🆔 ID de Vuelo: " + vueloSeleccionado.getIdVuelo() +
-                        " | 🌍 Origen: " + vueloSeleccionado.getOrigen() +
-                        " | ✈️ Destino: " + vueloSeleccionado.getDestino() +
-                        " | 🛩️ Avión: " + vueloSeleccionado.getAvion().getNombre() +
-                        " | 🛃 Estado de Embarque: " + vueloSeleccionado.getEstadoEmbarque());
-
-                // Preguntar si desea cambiar el vuelo seleccionado
-                System.out.print("\n¿Desea cambiar el vuelo seleccionado? (s/n): ");
-                String cambiarVuelo = scanner.nextLine().trim().toLowerCase();
-                limpiarPantalla();
-
-                if (cambiarVuelo.equals("s")) {
-                    System.out.println("==============================================");
-                    System.out.println("Por favor, ingrese el ID de otro vuelo.");
-                    continue;  // Continuar el ciclo para permitir al usuario seleccionar otro vuelo
-                }
-
-                // Si el usuario decide no cambiar el vuelo, salir del ciclo
-                vueloSeleccionadoCorrecto = true;
-
-                // Continuar con el proceso de reserva
-                List<String> asientosDisponibles = generarAsientosDisponibles(vueloSeleccionado);
-                if (asientosDisponibles.isEmpty()) {
-                    System.out.println("No hay asientos disponibles para este vuelo.");
-                    vueloSeleccionadoCorrecto = false; // Permitir al usuario seleccionar otro vuelo
-                    continue; // Regresar al inicio del bucle
-                }
-
-                // Mostrar asientos disponibles
-                limpiarPantalla();
-                System.out.println("\n🛫 Asientos Disponibles ✨");
-                System.out.println("==================================================");
-                System.out.println("🔍 Aquí están los asientos disponibles en el vuelo:");
-                System.out.println("==================================================");
-                System.out.println("🪑 " + String.join(" 🪑 ", asientosDisponibles));
-                System.out.println("==================================================");
-
-                String asientoSeleccionado = "";
-                boolean asientoValido = false;
-                while (!asientoValido) {
-                    // Seleccionar asiento
-                    System.out.print("Seleccione un asiento disponible: ");
-                    asientoSeleccionado = scanner.nextLine().toUpperCase();
-
-                    // Comprobar si el asiento está disponible
-                    if (!asientosDisponibles.contains(asientoSeleccionado)) {
-                        System.out.println("❌ Error: El asiento seleccionado no existe o no está disponible.");
-                    } else {
-                        asientoValido = true; // Salir del bucle si el asiento es válido
-                    }
-                }
-
-                // Crear el pasajero
-                Pasajero pasajero = crearPasajero(asientoSeleccionado);
-
                 try {
-                    // Agregar pasajero al vuelo
-                    if (vueloSeleccionado.agregarPasajero(pasajero)) {
-                        vueloSeleccionado.ocuparAsiento(asientoSeleccionado);
-                        vueloSeleccionado.setEstadoEmbarque(EstadoEmbarque.CERRADO);
-
-                        // Crear un nuevo CheckIn
-                        CheckIn nuevoCheckIn = new CheckIn(vueloSeleccionado, asientoSeleccionado, pasajero);
-
-                        // Verificar si ya existe un Set para ese DNI en el mapa de reservas
-                        Set<CheckIn> checkInsExistentes = mapaReservas.getOrDefault(pasajero.getDni(), new HashSet<>());
-
-                        // Agregar el nuevo CheckIn al Set de reservas
-                        checkInsExistentes.add(nuevoCheckIn);
-
-                        // Guardar el Set actualizado en el mapa de reservas
-                        mapaReservas.put(pasajero.getDni(), checkInsExistentes);
-
-                        // Registrar la conexión entre aeropuertos
-                        ConexionAeropuerto conexionAeropuerto = new ConexionAeropuerto();
-                        conexionAeropuerto.registrarConexion(vueloSeleccionado.getOrigen(), vueloSeleccionado.getDestino(), vueloSeleccionado.getIdVuelo());
-
-                        pasajero.setCheckIn(true);
-
-                        try {
-                            List<Vuelo> vuelos = SistemaVuelo.getVuelosGenerados();
-                            GestionJSON.serializarLista(vuelos,"Archivos JSON/vuelos.json");
-                            // Serializar y guardar las reservas y conexiones
-                            GestionJSON.serializarMapa(mapaReservas, "Archivos JSON/Check-In.json");
-                            GestionJSON.serializarMapa(ConexionAeropuerto.getConexiones(), "Archivos JSON/ConexionesAeropuertos.json");
-                            Configs.setFirstRunComplete();
-                        } catch (Exception e) {
-                            System.out.println("Error al guardar reservas o conexiones.");
-                            e.printStackTrace();
-                        }
-                        limpiarPantalla();
-                        System.out.println("============================================================================");
-                        System.out.println("Reserva realizada exitosamente para " + pasajero.getNombre() + " " + pasajero.getApellido());
+                    // Verificar si el estado de embarque está cerrado
+                    if (vueloSeleccionado.getEstadoEmbarque() == EstadoEmbarque.CERRADO) {
+                        throw new EstadoEmbarqueCerradoException("❌ El estado de embarque del vuelo es CERRADO. No se puede realizar la reserva.");
                     }
-                } catch (CapacidadMaximaException e) {
+
+                    // Si el vuelo está disponible, mostrar los detalles del vuelo
+                    System.out.println("\n🛫 Seleccionaste el vuelo:");
+                    System.out.println("🆔 ID de Vuelo: " + vueloSeleccionado.getIdVuelo() +
+                            " | 🌍 Origen: " + vueloSeleccionado.getOrigen() +
+                            " | ✈️ Destino: " + vueloSeleccionado.getDestino() +
+                            " | 🛩️ Avión: " + vueloSeleccionado.getAvion().getNombre() +
+                            " | 🛃 Estado de Embarque: " + vueloSeleccionado.getEstadoEmbarque());
+
+                    // Si el vuelo no está cerrado, continuar con la reserva
+                    vueloSeleccionadoCorrecto = true;
+
+                    // Continuar con el proceso de reserva
+                    List<String> asientosDisponibles = generarAsientosDisponibles(vueloSeleccionado);
+                    if (asientosDisponibles.isEmpty()) {
+                        System.out.println("No hay asientos disponibles para este vuelo.");
+                        vueloSeleccionadoCorrecto = false; // Permitir al usuario seleccionar otro vuelo
+                        continue; // Regresar al inicio del bucle
+                    }
+
+                    // Mostrar asientos disponibles
+                    Utilities.limpiarPantalla();
+                    System.out.println("\n🛫 Asientos Disponibles ✨");
+                    System.out.println("==================================================");
+                    System.out.println("🔍 Aquí están los asientos disponibles en el vuelo:");
+                    System.out.println("==================================================");
+                    System.out.println("🪑 " + String.join(" 🪑 ", asientosDisponibles));
+                    System.out.println("==================================================");
+
+                    String asientoSeleccionado = "";
+                    boolean asientoValido = false;
+                    while (!asientoValido) {
+                        // Seleccionar asiento
+                        System.out.print("Seleccione un asiento disponible: ");
+                        asientoSeleccionado = scanner.nextLine().toUpperCase();
+
+                        // Comprobar si el asiento está disponible
+                        if (!asientosDisponibles.contains(asientoSeleccionado)) {
+                            System.out.println("❌ Error: El asiento seleccionado no existe o no está disponible.");
+                        } else {
+                            asientoValido = true; // Salir del bucle si el asiento es válido
+                        }
+                    }
+
+                    // Crear el pasajero
+                    Pasajero pasajero = crearPasajero(asientoSeleccionado);
+
+                    try {
+                        // Agregar pasajero al vuelo
+                        if (vueloSeleccionado.agregarPasajero(pasajero)) {
+                            vueloSeleccionado.ocuparAsiento(asientoSeleccionado);
+                            vueloSeleccionado.setEstadoEmbarque(EstadoEmbarque.CERRADO);
+
+                            // Crear un nuevo CheckIn
+                            CheckIn nuevoCheckIn = new CheckIn(vueloSeleccionado, asientoSeleccionado, pasajero);
+
+                            // Verificar si ya existe un Set para ese DNI en el mapa de reservas
+                            Set<CheckIn> checkInsExistentes = mapaReservas.getOrDefault(pasajero.getDni(), new HashSet<>());
+
+                            // Agregar el nuevo CheckIn al Set de reservas
+                            checkInsExistentes.add(nuevoCheckIn);
+
+                            // Guardar el Set actualizado en el mapa de reservas
+                            mapaReservas.put(pasajero.getDni(), checkInsExistentes);
+
+                            // Registrar la conexión entre aeropuertos
+                            ConexionAeropuerto conexionAeropuerto = new ConexionAeropuerto();
+                            conexionAeropuerto.registrarConexion(vueloSeleccionado.getOrigen(), vueloSeleccionado.getDestino(), vueloSeleccionado.getIdVuelo());
+
+                            pasajero.setCheckIn(true);
+
+                            try {
+                                List<Vuelo> vuelos = SistemaVuelo.getVuelosGenerados();
+                                GestionJSON.serializarLista(vuelos,"Archivos JSON/vuelos.json");
+                                // Serializar y guardar las reservas y conexiones
+                                GestionJSON.serializarMapa(mapaReservas, "Archivos JSON/Check-In.json");
+                                GestionJSON.serializarMapa(ConexionAeropuerto.getConexiones(), "Archivos JSON/ConexionesAeropuertos.json");
+                                Configs.setFirstRunComplete();
+                            } catch (Exception e) {
+                                System.out.println("Error al guardar reservas o conexiones.");
+                                e.printStackTrace();
+                            }
+                            Utilities.limpiarPantalla();
+                            System.out.println("============================================================================");
+                            System.out.println("Reserva realizada exitosamente para " + pasajero.getNombre() + " " + pasajero.getApellido());
+                        }
+                    } catch (CapacidadMaximaException e) {
+                        System.out.println(e.getMessage());
+                    }
+                } catch (EstadoEmbarqueCerradoException e) {
                     System.out.println(e.getMessage());
+                    System.out.println("Por favor, ingrese otro ID de vuelo.\n");
+                    continue; // Volver a mostrar la lista de vuelos y permitir la selección de otro vuelo
                 }
             }
 
             // Una vez completado el ciclo de selección y reserva, preguntar al usuario si desea continuar
             System.out.println("==================================");
             System.out.println("➡️ ¿Desea hacer otra reserva? ✈️");
-            System.out.print("👉 (s: ✔️ / n: ❌): ");
-            String respuesta = scanner.nextLine().trim().toLowerCase();
-            continuarReservas = respuesta.equals("s");
+            System.out.print("👉 (s: sí, n: no): ");
+            String respuesta = scanner.nextLine();
+            continuarReservas = respuesta.equalsIgnoreCase("s");
         }
     }
+
 
 
 
@@ -308,7 +308,7 @@ public class SistemaReserva {
             System.out.println("=====================================");
             System.out.println("📝 ¿Desea editar su información? (s/n)");
             eleccion = scanner.nextLine().trim().toLowerCase();
-            limpiarPantalla();
+            Utilities.limpiarPantalla();
         } while (eleccion.equals("s"));
 
         // Mostrar tarifa total
@@ -352,19 +352,6 @@ public class SistemaReserva {
         return asientosDisponibles;
     }
 
-    public static void printCentered(String text) {
-        int terminalWidth = 160; // Puedes ajustar este valor según el ancho de tu terminal
-        int padding = (terminalWidth - text.length()) / 2;
-        String paddedText = " ".repeat(padding) + text;
-        System.out.println(paddedText);
-    }
-
-    public static void limpiarPantalla() {
-        // Imprime 50 líneas vacías para simular la limpieza de pantalla
-        for (int i = 0; i < 15; i++) {
-            System.out.println();
-        }
-    }
 
 
 

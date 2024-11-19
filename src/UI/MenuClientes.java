@@ -1,6 +1,7 @@
 package UI;
 import javazoom.jl.player.Player;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Scanner;
 import Aeropuerto.Aeropuerto;
 import Aviones.Vuelo;
@@ -21,6 +22,7 @@ public class MenuClientes {
     private static final String WHITE = "\u001B[37m";
     private static final String RESET = "\u001B[0m";
     public static void mostrarMenuCliente() {
+
         ///VARIABLES IMPORTANTES
         String opcionString = "";
         // INSTANCIA DE CLASES IMPORTANTES

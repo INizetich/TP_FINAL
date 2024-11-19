@@ -24,75 +24,7 @@ public class SistemaVuelo{
         SistemaVuelo.aviones = aviones;
     }
 
-   /* public static void generarVuelosDesdeHangares(int cantidadVuelos, AlmacenamientoAviones gestionHangares) {
-        // Asegurarse de que solo se generen los vuelos una vez
-        if (!vuelosGenerados.isEmpty()) {
-            System.out.println("Ya existen vuelos generados, se utilizarán los mismos.");
-            return; // Si ya se generaron vuelos, no se generan de nuevo
-        }
 
-        Set<Aeropuerto> aeropuertos = SistemaAeropuerto.agregarAeropuertos(); // Obtener lista de aeropuertos
-        if (aeropuertos.size() < 2) {
-            System.out.println("Se necesitan al menos dos aeropuertos para generar vuelos.");
-            return;
-        }
-
-        // Obtener la lista de aviones desde los hangares
-        List<Avion> avionesDisponibles = new ArrayList<>();
-        for (Hangar<Avion> hangar : gestionHangares.getListaHangares()) {
-            avionesDisponibles.addAll(hangar.ObtenerListaAviones());
-        }
-
-        if (avionesDisponibles.isEmpty()) {
-            System.out.println("No hay aviones disponibles en los hangares para asignar a vuelos.");
-            return;
-        }
-
-        List<Aeropuerto> listaAeropuertos = new ArrayList<>(aeropuertos);
-        Random random = new Random();
-
-        // Obtener los ID únicos predefinidos
-        List<Vuelo> vuelosConIDUnico = crearVuelosConIDUnico(); // Tu método de vuelos con ID.
-
-        // Generar vuelos solo si no existen previamente
-        for (int i = 0; i < cantidadVuelos && i < vuelosConIDUnico.size(); i++) {
-            if (avionesDisponibles.isEmpty()) {
-                System.out.println("No hay más aviones disponibles en los hangares para generar vuelos.");
-                break;
-            }
-
-            // Seleccionar un avión disponible y removerlo de la lista
-            Avion avion = avionesDisponibles.remove(0);
-
-            // Seleccionar un vuelo predefinido por su ID
-            Vuelo vuelo = vuelosConIDUnico.get(i);
-
-            // Generar origen y destino aleatorios
-            Aeropuerto origen = listaAeropuertos.get(random.nextInt(listaAeropuertos.size()));
-            Aeropuerto destino;
-            do {
-                destino = listaAeropuertos.get(random.nextInt(listaAeropuertos.size()));
-            } while (origen.equals(destino)); // Asegurarse de que origen y destino no sean iguales
-
-            // Asignar valores al vuelo
-            vuelo.setOrigen(origen.getNombre());
-            vuelo.setDestino(destino.getNombre());
-            vuelo.setAvion(avion);
-
-            // Generar una hora aleatoria para el vuelo
-            LocalTime horaInicio = LocalTime.of(6, 0); // Hora inicial: 6:00 AM
-            LocalTime horaFin = LocalTime.of(23, 59);  // Hora final: 11:59 PM
-            long segundosAleatorios = ThreadLocalRandom.current().nextLong(horaInicio.toSecondOfDay(), horaFin.toSecondOfDay());
-            LocalTime horaAleatoria = LocalTime.ofSecondOfDay(segundosAleatorios);
-
-            vuelo.setHorario(Timestamp.valueOf(LocalDateTime.of(LocalDate.now(), horaAleatoria)).toLocalDateTime());
-
-            vuelo.setEstadoEmbarque(EstadoEmbarque.ABIERTO);
-
-            // Registrar el vuelo en la lista estática
-            vuelosGenerados.add(vuelo); // Los vuelos se añaden una vez y no se modifican después
-        }
-    }*/
 
     public static void mostrarVuelos() {
         System.out.println("✈️  Lista de Vuelos Disponibles  ✈️");

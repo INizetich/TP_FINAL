@@ -1,162 +1,155 @@
 [ {
+  "dni" : "92105375",
   "nombre" : "crystal",
   "apellido" : "campodonico",
   "edad" : 22,
-  "dni" : "92105375",
   "tipoEmpleado" : "AZAFATA",
   "nroEmpleado" : 8770
 }, {
+  "dni" : "25317232",
   "nombre" : "lucila",
   "apellido" : "fernandez",
   "edad" : 47,
-  "dni" : "25317232",
   "tipoEmpleado" : "AZAFATA",
   "nroEmpleado" : 66352
 }, {
+  "dni" : "41716501",
   "nombre" : "nicolas",
   "apellido" : "roskoczy",
   "edad" : 25,
-  "dni" : "41716501",
   "tipoEmpleado" : "COPILOTO",
   "nroEmpleado" : 96563
 }, {
+  "dni" : "27105918",
   "nombre" : "gustavo",
   "apellido" : "roskoczy",
   "edad" : 51,
-  "dni" : "27105918",
   "tipoEmpleado" : "PILOTO",
   "nroEmpleado" : 58392
 }, {
+  "dni" : "47195019",
   "nombre" : "carmela",
   "apellido" : "garcia",
   "edad" : 18,
-  "dni" : "47195019",
   "tipoEmpleado" : "AZAFATA",
   "nroEmpleado" : 48071
 }, {
+  "dni" : "46689104",
   "nombre" : "rufino",
   "apellido" : "figueroa",
   "edad" : 22,
-  "dni" : "46689104",
   "tipoEmpleado" : "PILOTO",
   "nroEmpleado" : 51514
 }, {
+  "dni" : "46690655",
   "nombre" : "nahuel",
   "apellido" : "pacheco",
   "edad" : 25,
-  "dni" : "46690655",
   "tipoEmpleado" : "COPILOTO",
   "nroEmpleado" : 31260
 }, {
+  "dni" : "41958571",
   "nombre" : "valentina",
   "apellido" : "martinez",
   "edad" : 25,
-  "dni" : "41958571",
   "tipoEmpleado" : "AZAFATA",
   "nroEmpleado" : 63416
 }, {
+  "dni" : "21581057",
   "nombre" : "julieta",
   "apellido" : "canale",
   "edad" : 58,
-  "dni" : "21581057",
   "tipoEmpleado" : "PILOTO",
   "nroEmpleado" : 860
 }, {
-  "nombre" : "robertito",
-  "apellido" : "mascapito",
-  "edad" : 24,
-  "dni" : "12345678",
-  "tipoEmpleado" : "PILOTO",
-  "nroEmpleado" : 60483
-}, {
+  "dni" : "32105812",
   "nombre" : "santiago",
   "apellido" : "valero",
   "edad" : 38,
-  "dni" : "32105812",
   "tipoEmpleado" : "AZAFATA",
   "nroEmpleado" : 8235
 }, {
+  "dni" : "30195815",
   "nombre" : "jose",
   "apellido" : "calvo",
   "edad" : 35,
-  "dni" : "30195815",
   "tipoEmpleado" : "COPILOTO",
   "nroEmpleado" : 5271
 }, {
+  "dni" : "44591481",
   "nombre" : "sasha",
   "apellido" : "rodiguez",
   "edad" : 22,
-  "dni" : "44591481",
   "tipoEmpleado" : "AZAFATA",
   "nroEmpleado" : 51781
 }, {
+  "dni" : "35105918",
   "nombre" : "jeronimo",
   "apellido" : "benavidez",
   "edad" : 34,
-  "dni" : "35105918",
   "tipoEmpleado" : "PILOTO",
   "nroEmpleado" : 33552
 }, {
+  "dni" : "26104958",
   "nombre" : "gerardo",
   "apellido" : "rubio",
   "edad" : 51,
-  "dni" : "26104958",
   "tipoEmpleado" : "COPILOTO",
   "nroEmpleado" : 95358
 }, {
+  "dni" : "41019285",
   "nombre" : "martina",
   "apellido" : "suarez",
   "edad" : 26,
-  "dni" : "41019285",
   "tipoEmpleado" : "AZAFATA",
   "nroEmpleado" : 65687
 }, {
+  "dni" : "59104958",
   "nombre" : "rodolfo",
   "apellido" : "rodriguez",
   "edad" : 65,
-  "dni" : "59104958",
   "tipoEmpleado" : "PILOTO",
   "nroEmpleado" : 85785
 }, {
+  "dni" : "34581039",
   "nombre" : "cristian",
   "apellido" : "chiliguay",
   "edad" : 49,
-  "dni" : "34581039",
   "tipoEmpleado" : "PILOTO",
   "nroEmpleado" : 46202
 }, {
+  "dni" : "28454151",
   "nombre" : "gabriel",
   "apellido" : "ruiz",
   "edad" : 43,
-  "dni" : "28454151",
   "tipoEmpleado" : "PILOTO",
   "nroEmpleado" : 72037
 }, {
+  "dni" : "45462201",
   "nombre" : "ignacio",
   "apellido" : "nizetich",
   "edad" : 21,
-  "dni" : "45462201",
   "tipoEmpleado" : "COPILOTO",
   "nroEmpleado" : 14503
 }, {
+  "dni" : "25192182",
   "nombre" : "julian",
   "apellido" : "sanchez",
   "edad" : 45,
-  "dni" : "25192182",
   "tipoEmpleado" : "COPILOTO",
   "nroEmpleado" : 82003
 }, {
+  "dni" : "31571920",
   "nombre" : "micaela",
   "apellido" : "ibañez",
   "edad" : 35,
-  "dni" : "31571920",
   "tipoEmpleado" : "COPILOTO",
   "nroEmpleado" : 64049
 }, {
+  "dni" : "28102912",
   "nombre" : "martin",
   "apellido" : "ledesma",
   "edad" : 36,
-  "dni" : "28102912",
   "tipoEmpleado" : "PILOTO",
   "nroEmpleado" : 21497
 } ]

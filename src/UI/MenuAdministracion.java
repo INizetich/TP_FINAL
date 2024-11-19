@@ -84,6 +84,7 @@ public class MenuAdministracion {
                                 break;
                             case 3:
                                 try {
+                                    admin.mostrarListaEmpleados();
                                     admin.eliminarPersonalPorDNI();
                                 } catch (EmpleadoInexistenteException e) {
                                     System.out.println(e.getMessage());
@@ -198,29 +199,29 @@ public class MenuAdministracion {
 
                                             switch (opcionkiosco) {
                                                 case 1:
+                                                    printCentered("ingrese la categoria del producto");
+                                                    String categoriaProducto = scanner.nextLine();
                                                     printCentered("Ingrese el nombre del producto: ");
                                                     String producto = scanner.nextLine();
                                                     printCentered("Ingrese la cantidad a agregar: ");
                                                     int cantidadAgregar = scanner.nextInt();
-                                                    StockManager.agregarAStock(producto, cantidadAgregar);
+                                                    StockManager.agregarAStock(categoriaProducto,producto, cantidadAgregar);
                                                     printCentered("✅ Producto agregado exitosamente.");
                                                     break;
 
                                                 case 2:
+                                                    printCentered("ingrese la categoria del producto");
+                                                    String categoriaProductoEliminar = scanner.nextLine();
                                                     printCentered("Ingrese el nombre del producto: ");
                                                     producto = scanner.nextLine();
                                                     printCentered("Ingrese la cantidad a eliminar: ");
                                                     int cantidadEliminar = scanner.nextInt();
-                                                    if (StockManager.eliminarDeStock(producto, cantidadEliminar)) {
-                                                        printCentered("✅ Producto eliminado exitosamente.");
-                                                    } else {
-                                                        printCentered("❌ No hay suficiente stock o el producto no existe.");
-                                                    }
+                                                    StockManager.eliminarDeStock(categoriaProductoEliminar,producto,cantidadEliminar);
                                                     break;
 
                                                 case 3:
                                                     printCentered("===== Stock Actual =====");
-                                                    Map<String, Integer> stock = StockManager.obtenerStock();
+                                                    Map<String,Map<String,Integer>> stock = StockManager.obtenerStock();
                                                     if (stock.isEmpty()) {
                                                         printCentered("📦 El stock está vacío.");
                                                     } else {
@@ -232,6 +233,7 @@ public class MenuAdministracion {
 
                                                 case 4:
                                                     printCentered("👋 Saliendo del control de stock.");
+                                                    System.exit(0);
 
                                                     break;
 

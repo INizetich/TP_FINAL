@@ -66,7 +66,7 @@ public class MenuClientes {
                     printCentered("2️⃣ Mostrar una reserva asociada al pasajero 📋");
                     printCentered("3️⃣ Mostrar conexión del vuelo 🔗");
                     printCentered("4️⃣ Generar boleto de avión 🎟️");
-                    printCentered("4️⃣ Prembarque 🎟️");
+                    printCentered("5️⃣ Preembarque 🎟️");
                     printCentered("=====================================================");
                     int opcionReserva = scanner.nextInt();
                     reproducirClick();

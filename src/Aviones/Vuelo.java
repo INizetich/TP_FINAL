@@ -1,19 +1,13 @@
 package Aviones;
 
-import java.time.LocalDateTime;
 import java.util.*;
 
 import Enums.EstadoEmbarque;
 import Enums.PuertaEmbarque;
 import Excepciones.CapacidadMaximaException;
-import Gestiones.AlmacenamientoAviones;
-import Personas.Empleado;
 import Personas.Pasajero;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -22,6 +16,7 @@ import org.json.JSONObject;
 
 @JsonPropertyOrder({"idVuelo", "origen", "destino", "horario", "estadoEmbarque", "avion", "puertaEmbarque", "listaPasajeros", "asientos"})
 public class Vuelo {
+
     @JsonProperty("idVuelo")
     private String idVuelo;
 
@@ -51,6 +46,30 @@ public class Vuelo {
     private Set<String> asientos;
 
 
+    // Constructor
+    public Vuelo(@JsonProperty("idVuelo") String idVuelo,
+                 @JsonProperty("origen") String origen,
+                 @JsonProperty("destino") String destino,
+                 @JsonProperty("horario") String horario,
+                 @JsonProperty("estadoEmbarque") String estadoEmbarque,
+                 @JsonProperty("avion") Avion avion,
+                 @JsonProperty("puertaEmbarque") String puertaEmbarque,
+                 @JsonProperty("listaPasajeros") Set<Pasajero> listaPasajeros,
+                 @JsonProperty("asientos") List<String> asientos) {
+
+        this.idVuelo = idVuelo;
+        this.origen = origen;
+        this.destino = destino;
+        this.horario = horario;
+        this.estadoEmbarque = EstadoEmbarque.valueOf(estadoEmbarque);
+        this.avion = avion;
+        this.puertaEmbarque = PuertaEmbarque.valueOf(puertaEmbarque);
+        this.listaPasajeros =listaPasajeros; // Cambiado aquí
+        this.asientos = new HashSet<>(asientos); // Cambiado aquí
+    }
+
+
+
     public Vuelo(String origen,String destino){
         this.origen = origen;
         this.destino = destino;
@@ -74,27 +93,6 @@ public class Vuelo {
     }
 
 
-    // Constructor
-    public Vuelo(@JsonProperty("idVuelo") String idVuelo,
-                 @JsonProperty("origen") String origen,
-                 @JsonProperty("destino") String destino,
-                 @JsonProperty("horario") String horario,
-                 @JsonProperty("estadoEmbarque") String estadoEmbarque,
-                 @JsonProperty("avion") Avion avion,
-                 @JsonProperty("puertaEmbarque") String puertaEmbarque,
-                 @JsonProperty("listaPasajeros") Set<Pasajero> listaPasajeros,
-                 @JsonProperty("asientos") List<String> asientos) {
-
-        this.idVuelo = idVuelo;
-        this.origen = origen;
-        this.destino = destino;
-        this.horario = horario;
-        this.estadoEmbarque = EstadoEmbarque.valueOf(estadoEmbarque);
-        this.avion = avion;
-        this.puertaEmbarque = PuertaEmbarque.valueOf(puertaEmbarque);
-        this.listaPasajeros =listaPasajeros; // Cambiado aquí
-        this.asientos = new HashSet<>(asientos); // Cambiado aquí
-    }
 
     // Métodos y validaciones de pasajeros y asientos
     public boolean agregarPasajero(Pasajero pasajero) throws CapacidadMaximaException {

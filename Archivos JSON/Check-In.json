@@ -1,210 +1,36 @@
 {
-  "222222222" : [ {
-    "vuelo" : {
-      "idVuelo" : "BF3076CB",
-      "origen" : "Aeropuerto Internacional de la Ciudad de México",
-      "destino" : "北京首都国际机场",
-      "horario" : "Tue Nov 19 00:23:02 ART 2024",
-      "estadoEmbarque" : "CERRADO",
-      "avion" : {
-        "nombre" : "Boeing-753",
-        "capacidadAvion" : 186,
-        "motor" : "Motor turbofan",
-        "modelo" : "Modelo-A44",
-        "codigoAvion" : "A70C1A8",
-        "piloto" : {
-          "dni" : "28454151",
-          "nombre" : "gabriel",
-          "apellido" : "ruiz",
-          "edad" : 43,
-          "tipoEmpleado" : "PILOTO",
-          "nroEmpleado" : 61360
-        }
-      },
-      "puertaEmbarque" : "B1",
-      "listaPasajeros" : [ {
-        "codigoPasajero" : "C00E3135",
-        "numeroAsiento" : "A1",
-        "edad" : 47,
-        "dni" : "25317232",
-        "nombre" : "lucila",
-        "apellido" : "calvo",
-        "valija" : [ {
-          "dimension" : "14x14",
-          "peso" : 23.0
-        } ],
-        "checkInRealizado" : true
-      }, {
-        "codigoPasajero" : "03A851BA",
-        "numeroAsiento" : "B1",
-        "edad" : 21,
-        "dni" : "222222222",
-        "nombre" : "manuel",
-        "apellido" : "ruiz",
-        "valija" : [ {
-          "dimension" : "14",
-          "peso" : 23.0
-        } ],
-        "checkInRealizado" : true
-      } ],
-      "asientos" : [ "A1", "B1" ]
-    },
-    "numeroAsiento" : "B1",
-    "pasajero" : {
-      "codigoPasajero" : "03A851BA",
-      "numeroAsiento" : "B1",
-      "edad" : 21,
-      "dni" : "222222222",
-      "nombre" : "manuel",
-      "apellido" : "ruiz",
-      "valija" : [ {
-        "dimension" : "14",
-        "peso" : 23.0
-      } ],
-      "checkInRealizado" : true
-    },
-    "codigoCheckIn" : "B8566363"
-  } ],
-  "25317232" : [ {
-    "vuelo" : {
-      "idVuelo" : "BF3076CB",
-      "origen" : "Aeropuerto Internacional de la Ciudad de México",
-      "destino" : "北京首都国际机场",
-      "horario" : "Tue Nov 19 00:23:02 ART 2024",
-      "estadoEmbarque" : "CERRADO",
-      "avion" : {
-        "nombre" : "Boeing-753",
-        "capacidadAvion" : 186,
-        "motor" : "Motor turbofan",
-        "modelo" : "Modelo-A44",
-        "codigoAvion" : "A70C1A8",
-        "piloto" : {
-          "dni" : "28454151",
-          "nombre" : "gabriel",
-          "apellido" : "ruiz",
-          "edad" : 43,
-          "tipoEmpleado" : "PILOTO",
-          "nroEmpleado" : 61360
-        }
-      },
-      "puertaEmbarque" : "B1",
-      "listaPasajeros" : [ {
-        "codigoPasajero" : "C00E3135",
-        "numeroAsiento" : "A1",
-        "edad" : 47,
-        "dni" : "25317232",
-        "nombre" : "lucila",
-        "apellido" : "calvo",
-        "valija" : [ {
-          "dimension" : "14x14",
-          "peso" : 23.0
-        } ],
-        "checkInRealizado" : true
-      } ],
-      "asientos" : [ "A1" ]
-    },
-    "numeroAsiento" : "A1",
-    "pasajero" : {
-      "codigoPasajero" : "C00E3135",
-      "numeroAsiento" : "A1",
-      "edad" : 47,
-      "dni" : "25317232",
-      "nombre" : "lucila",
-      "apellido" : "calvo",
-      "valija" : [ {
-        "dimension" : "14x14",
-        "peso" : 23.0
-      } ],
-      "checkInRealizado" : true
-    },
-    "codigoCheckIn" : "B8566363"
-  } ],
-  "76543211" : [ {
-    "vuelo" : {
-      "idVuelo" : "F8B5BFA2",
-      "origen" : "北京首都国际机场",
-      "destino" : "Aeropuerto Internacional El Dorado",
-      "horario" : "Tue Nov 19 07:15:15 ART 2024",
-      "estadoEmbarque" : "CERRADO",
-      "avion" : {
-        "nombre" : "Boeing-752",
-        "capacidadAvion" : 238,
-        "motor" : "Motor a reacción",
-        "modelo" : "Modelo-A14",
-        "codigoAvion" : "A70C1A7",
-        "piloto" : {
-          "dni" : "34581039",
-          "nombre" : "cristian",
-          "apellido" : "chiliguay",
-          "edad" : 49,
-          "tipoEmpleado" : "PILOTO",
-          "nroEmpleado" : 80500
-        }
-      },
-      "puertaEmbarque" : "B3",
-      "listaPasajeros" : [ {
-        "codigoPasajero" : "F21BFF02",
-        "numeroAsiento" : "A1",
-        "edad" : 1,
-        "dni" : "76543211",
-        "nombre" : "gaby",
-        "apellido" : "ruiz",
-        "valija" : [ {
-          "dimension" : "14",
-          "peso" : 23.0
-        } ],
-        "checkInRealizado" : true
-      } ],
-      "asientos" : [ "A1" ]
-    },
-    "numeroAsiento" : "A1",
-    "pasajero" : {
-      "codigoPasajero" : "F21BFF02",
-      "numeroAsiento" : "A1",
-      "edad" : 1,
-      "dni" : "76543211",
-      "nombre" : "gaby",
-      "apellido" : "ruiz",
-      "valija" : [ {
-        "dimension" : "14",
-        "peso" : 23.0
-      } ],
-      "checkInRealizado" : true
-    },
-    "codigoCheckIn" : "B8566363"
-  } ],
   "45462201" : [ {
     "vuelo" : {
       "idVuelo" : "ZP140A49",
       "origen" : "John F. Kennedy International Airport",
       "destino" : "Miami International Airport",
-      "horario" : "2024-11-19T01:15:02.254712200",
+      "horario" : "2024-11-19T10:56:32.217583",
       "estadoEmbarque" : "CERRADO",
       "avion" : {
-        "nombre" : "Boeing-748",
-        "capacidadAvion" : 243,
+        "nombre" : "Boeing-759",
+        "capacidadAvion" : 240,
         "motor" : "Motor a reacción",
-        "modelo" : "Modelo-A73",
-        "codigoAvion" : "A70C1A3",
+        "modelo" : "Modelo-A7",
+        "codigoAvion" : "A70C1A14",
         "piloto" : {
-          "dni" : "35105918",
-          "nombre" : "jeronimo",
-          "apellido" : "benavidez",
-          "edad" : 34,
+          "dni" : "28454151",
+          "nombre" : "gabriel",
+          "apellido" : "ruiz",
+          "edad" : 43,
           "tipoEmpleado" : "PILOTO",
-          "nroEmpleado" : 15382
+          "nroEmpleado" : 4274
         }
       },
-      "puertaEmbarque" : "C3",
+      "puertaEmbarque" : "A3",
       "listaPasajeros" : [ {
-        "codigoPasajero" : "E3DAE4C2",
+        "codigoPasajero" : "5E6F3D53",
         "numeroAsiento" : "A1",
         "edad" : 21,
         "dni" : "45462201",
         "nombre" : "ignacio",
         "apellido" : "nizetich",
         "valija" : [ {
-          "dimension" : "14x14",
+          "dimension" : "15x15",
           "peso" : 23.0
         } ],
         "checkInRealizado" : true
@@ -213,72 +39,18 @@
     },
     "numeroAsiento" : "A1",
     "pasajero" : {
-      "codigoPasajero" : "E3DAE4C2",
+      "codigoPasajero" : "5E6F3D53",
       "numeroAsiento" : "A1",
       "edad" : 21,
       "dni" : "45462201",
       "nombre" : "ignacio",
       "apellido" : "nizetich",
       "valija" : [ {
-        "dimension" : "14x14",
+        "dimension" : "15x15",
         "peso" : 23.0
       } ],
       "checkInRealizado" : true
     },
-    "codigoCheckIn" : "B8566363"
-  } ],
-  "33333333" : [ {
-    "vuelo" : {
-      "idVuelo" : "C6103495",
-      "origen" : "Aeropuerto Internacional Ezeiza",
-      "destino" : "Miami International Airport",
-      "horario" : "2024-11-19T00:50:02.253711700",
-      "estadoEmbarque" : "CERRADO",
-      "avion" : {
-        "nombre" : "Boeing-760",
-        "capacidadAvion" : 139,
-        "motor" : "Motor turbofan",
-        "modelo" : "Modelo-A60",
-        "codigoAvion" : "A70C1A15",
-        "piloto" : {
-          "dni" : "46689104",
-          "nombre" : "rufino",
-          "apellido" : "figueroa",
-          "edad" : 22,
-          "tipoEmpleado" : "PILOTO",
-          "nroEmpleado" : 62694
-        }
-      },
-      "puertaEmbarque" : "A5",
-      "listaPasajeros" : [ {
-        "codigoPasajero" : "CAE9ACC6",
-        "numeroAsiento" : "A1",
-        "edad" : 20,
-        "dni" : "33333333",
-        "nombre" : "carolina",
-        "apellido" : "archuby",
-        "valija" : [ {
-          "dimension" : "15x12",
-          "peso" : 23.0
-        } ],
-        "checkInRealizado" : true
-      } ],
-      "asientos" : [ "A1" ]
-    },
-    "numeroAsiento" : "A1",
-    "pasajero" : {
-      "codigoPasajero" : "CAE9ACC6",
-      "numeroAsiento" : "A1",
-      "edad" : 20,
-      "dni" : "33333333",
-      "nombre" : "carolina",
-      "apellido" : "archuby",
-      "valija" : [ {
-        "dimension" : "15x12",
-        "peso" : 23.0
-      } ],
-      "checkInRealizado" : true
-    },
-    "codigoCheckIn" : "B8566363"
+    "codigoCheckIn" : "89A4BAB8"
   } ]
 }

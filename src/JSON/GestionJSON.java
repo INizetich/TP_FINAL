@@ -26,7 +26,7 @@ public class GestionJSON {
 
 
 
-    public static <T> void serializarLista(List<T> lista, String archivoDestino) {
+    /*public static <T> void serializarLista(List<T> lista, String archivoDestino) {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule()); // Registrar el módulo para soporte de fechas
         mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS); // Para serializar como ISO-8601
@@ -36,6 +36,18 @@ public class GestionJSON {
 
         } catch (Exception e) {
             System.err.println("Error al serializar la lista: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }*/
+
+    public static <T> void serializarLista(List<T> lista, String nombreArchivo) {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.enable(SerializationFeature.INDENT_OUTPUT); // Formato legible
+
+        try {
+            mapper.writeValue(new File(nombreArchivo), lista); // Sobrescribe el archivo
+        } catch (IOException e) {
+            System.err.println("Error al serializar lista: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -51,6 +63,9 @@ public class GestionJSON {
             e.printStackTrace();
         }
     }
+
+
+
 
 
 

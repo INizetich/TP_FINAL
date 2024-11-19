@@ -4,6 +4,7 @@ import Aeropuerto.Aeropuerto;
 import Aviones.Avion;
 import Aviones.Vuelo;
 import Config.ConfigAdmin;
+import Config.Configs;
 import Enums.EstadoEmbarque;
 import Enums.TipoEmpleado;
 import Excepciones.*;
@@ -405,10 +406,10 @@ boolean token = false;
         }
 
         // Cabecera
-        System.out.println("╔════════════════════════════════════════════════════════════════════╗");
-        System.out.println("║                       Lista de Empleados                          ║");
-        System.out.println("╠════════════════════╦════════════════════╦════════════════════╦════════════════════╗");
-        System.out.println("║      DNI           ║     Nombre         ║     Apellido       ║      Cargo          ║");
+        System.out.println("╔═══════════════════════════════════════════════════════════════════════════════════╗");
+        System.out.println("║                                 Lista de Empleados                                ║");
+        System.out.println("╠════════════════════╦════════════════════╦════════════════════╦════════════════════╣");
+        System.out.println("║        DNI         ║       Nombre       ║       Apellido     ║        Cargo       ║");
         System.out.println("╠════════════════════╬════════════════════╬════════════════════╬════════════════════╣");
 
         // Mostrar cada empleado
@@ -424,74 +425,77 @@ boolean token = false;
         System.out.println("╚════════════════════╩════════════════════╩════════════════════╩════════════════════╝");
     }
 
-public  void eliminarVueloPorID(String idVuelo) throws CodigoVueloInexistenteException {
-    if (ConfigAdmin.isFirstRunAdmin()) {
-        File eliminarVuelo = new File("Archivos JSON/vuelos.json");
+    public  void eliminarVueloPorID(String idVuelo) throws CodigoVueloInexistenteException {
+        if (ConfigAdmin.isFirstRunAdmin()) {
+            File eliminarVuelo = new File("Archivos JSON/vuelos.json");
 
-        // Verificar si el archivo existe y deserializar los administradores
-        if (eliminarVuelo.exists()) {
-            List<Vuelo> vuelosJSON = null;
-            try {
-                vuelosJSON = GestionJSON.deserializarLista(Vuelo.class, eliminarVuelo.getPath());
-                if (vuelosJSON.isEmpty()) {
-                    System.out.println("🚫 No se encontraron vuelos deserializados.");
-                } else {
-                    SistemaVuelo.setVuelosGenerados(vuelosJSON);
+            // Verificar si el archivo existe y deserializar los administradores
+            if (eliminarVuelo.exists()) {
+                try {
+                    SistemaVuelo.setVuelosGenerados(GestionJSON.deserializarVuelos(eliminarVuelo.getPath()));
+                    if (SistemaVuelo.getVuelosGenerados().isEmpty()) {
+                        System.out.println("🚫 No se encontraron vuelos deserializados.");
+                    } else {
+
+                    }
+                } catch (JSONException e) {
+                    System.out.println("🚫 Error al deserializar el archivo de vuelos.");
+                    e.printStackTrace();
                 }
+            } else {
+                // Si el archivo no existe, lo creamos vacío
+                System.out.println("🚫 El archivo de vuelos no existe. Creando archivo vacío...");
+                try {
+                    if (eliminarVuelo.createNewFile()) {
+                        System.out.println("✔️ Archivo de vuelos creado.");
+                    } else {
+                        System.out.println("🚫 No se pudo crear el archivo de vuelos.");
+                        return;
+                    }
+                } catch (IOException e) {
+                    System.out.println("🚫 Error al crear el archivo de vuelos.");
+                    e.printStackTrace();
+                    return; // Salir si no se puede crear el archivo
+                }
+            }
+
+            Vuelo vuelo = SistemaVuelo.getVuelosGenerados().stream()
+                    .filter(a -> a.getIdVuelo().equalsIgnoreCase(idVuelo))
+                    .findFirst()
+                    .orElse(null);
+
+            if (vuelo == null) {
+                throw new CodigoVueloInexistenteException("🚫 Error: no existe ningun vuelo con ese codigo.");
+            }
+
+            if(!vuelo.getListaPasajeros().isEmpty()) {
+                System.out.println("🚫 Error: no se puede eliminar el vuelo porque tiene reservas hechas");
+                return;
+            }
+
+            SistemaVuelo.getVuelosGenerados().remove(vuelo);
+            System.out.println("✅ Vuelo con ID " + idVuelo + " eliminado exitosamente.");
+
+
+            try {
+
+                GestionJSON.serializarLista(SistemaVuelo.getVuelosGenerados(), "Archivos JSON/vuelos.json");
+                System.out.println("✔️ Archivo de vuelos actualizado.");
             } catch (JSONException e) {
-                System.out.println("🚫 Error al deserializar el archivo de vuelos.");
+                System.out.println("🚫 Error al serializar el archivo de vuelos.");
                 e.printStackTrace();
             }
-        } else {
-            // Si el archivo no existe, lo creamos vacío
-            System.out.println("🚫 El archivo de vuelos no existe. Creando archivo vacío...");
-            try {
-                if (eliminarVuelo.createNewFile()) {
-                    System.out.println("✔️ Archivo de vuelos creado.");
-                } else {
-                    System.out.println("🚫 No se pudo crear el archivo de vuelos.");
-                    return;
-                }
-            } catch (IOException e) {
-                System.out.println("🚫 Error al crear el archivo de vuelos.");
-                e.printStackTrace();
-                return; // Salir si no se puede crear el archivo
-            }
+
+
+
+
         }
-
-        Vuelo vuelo = SistemaVuelo.getVuelosGenerados().stream()
-                .filter(a -> a.getIdVuelo().equalsIgnoreCase(idVuelo))
-                .findFirst()
-                .orElse(null);
-
-        if (vuelo == null) {
-            throw new CodigoVueloInexistenteException("🚫 Error: no existe ningun vuelo con ese codigo.");
-        }
-
-        if(!vuelo.getListaPasajeros().isEmpty()) {
-            System.out.println("🚫 Error: no se puede eliminar el vuelo porque tiene reservas hechas");
-            return;
-        }
-
-        SistemaVuelo.getVuelosGenerados().remove(vuelo);
-        System.out.println("✅ Vuelo con ID " + idVuelo + " eliminado exitosamente.");
-
-
-        try {
-            List<Vuelo> vuelosAserializar = SistemaVuelo.getVuelosGenerados();
-            GestionJSON.serializarLista(vuelosAserializar, "Archivos JSON/vuelos.json");
-            System.out.println("✔️ Archivo de vuelos actualizado.");
-        } catch (JSONException e) {
-            System.out.println("🚫 Error al serializar el archivo de vuelos.");
-            e.printStackTrace();
         }
 
 
 
 
-    }
 
-}
 
 
     public  void agregarVuelo(String origen, String destino, AlmacenamientoAviones almacenamientoAviones) throws AeropuertoNoEncontradoException {

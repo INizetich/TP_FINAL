@@ -3,6 +3,7 @@ import Aeropuerto.Aeropuerto;
 import Config.ConfigAdmin;
 import Excepciones.*;
 import Gestiones.*;
+import JSON.GestionJSON;
 import Utilidades.Utilities;
 
 import java.io.IOException;
@@ -95,6 +96,7 @@ public class MenuAdministracion {
                             case 5:
 
                                  try{
+                                     SistemaVuelo.setVuelosGenerados(GestionJSON.deserializarVuelos("Archivos JSON/vuelos.json"));
                                      SistemaVuelo.mostrarVuelos();
                                      System.out.println("Ingrese el ID de vuelo a eliminar");
                                      String idVuelo = scanner.nextLine();
@@ -130,12 +132,11 @@ public class MenuAdministracion {
                                 System.out.println("👉 Opción 1: Mostrar lista de empleados");
                                 System.out.println("❌ Opción 2: No mostrar lista de empleados");
                                 System.out.println("================================================\n");
+                                String listaEm = scanner.nextLine().trim();
 
-                                String listaEm = scanner.nextLine();
-
-                                if(listaEm.equalsIgnoreCase("s")){
+                                if(listaEm.equalsIgnoreCase("1")){
                                     admin.mostrarListaEmpleados();
-                                }else {
+                                }else if (listaEm.equalsIgnoreCase("2")) {
                                     return;
                                 }
                                 break;
@@ -147,8 +148,15 @@ public class MenuAdministracion {
                                 System.out.println("\u001B[32m✅ Opción 1: Ver la lista de administradores\u001B[0m");
                                 System.out.println("\u001B[31m❌ Opción 2: No ver la lista de administradores\u001B[0m");
                                 System.out.println("================================================\n");
+                                String verAdmins = scanner.nextLine();
 
-                                admin.mostrarCuentasAdmin();
+                                if(verAdmins.equalsIgnoreCase("1")){
+                                    admin.mostrarCuentasAdmin();
+                                }else if (verAdmins.equalsIgnoreCase("2")) {
+                                    return;
+                                }
+
+
                                 break;
 
 

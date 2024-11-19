@@ -27,7 +27,7 @@ public class SistemaReserva {
         boolean continuarReservas = true; // Variable para controlar si continuar con reservas
 
         // Si NO es la primera ejecución, deserializa los archivos correspondientes
-        if (!Configs.isFirstRun() || Configs.isFirstRun() ) {
+        if (!Configs.isFirstRun()) {
             // Verificar si el archivo de vuelos existe antes de deserializar
             File vuelosFile = new File("Archivos JSON/vuelos.json");
             if (vuelosFile.exists()) {

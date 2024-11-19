@@ -624,63 +624,76 @@ public  void eliminarVueloPorID(String idVuelo) throws CodigoVueloInexistenteExc
 
         // Validar nombre
         do {
-            System.out.println("Nombre: ");
+            System.out.println("🔑 Ingrese el nombre del administrador: ");
             nombre = scanner.nextLine();
             if (nombre.trim().isEmpty()) {
-                System.out.println("🚨 El nombre no puede estar vacío. Por favor, ingrésalo nuevamente.");
+                System.out.println("🚨 El nombre no puede estar vacío. Por favor, ingrésalo nuevamente. 📝");
             }
         } while (nombre.trim().isEmpty());
 
         // Validar apellido
         do {
-            System.out.println("Apellido: ");
+            System.out.println("📛 Ingrese el apellido del administrador: ");
             apellido = scanner.nextLine();
             if (apellido.trim().isEmpty()) {
-                System.out.println("🚨 El apellido no puede estar vacío. Por favor, ingrésalo nuevamente.");
+                System.out.println("🚨 El apellido no puede estar vacío. Por favor, ingrésalo nuevamente. 📝");
             }
         } while (apellido.trim().isEmpty());
 
         // Validar edad
         do {
-            System.out.println("Edad: ");
+            System.out.println("🎂 Ingrese la edad del administrador: ");
             edad = scanner.nextInt();
             scanner.nextLine(); // Limpiar buffer
             if (edad <= 0 || edad >= 110) {
-                System.out.println("🚨 La edad debe ser mayor que 0 y menor que 110. Intenta nuevamente.");
+                System.out.println("🚨 La edad debe ser mayor que 0 y menor que 110. Por favor, intente nuevamente. 🔢");
             }
         } while (edad <= 0 || edad >= 110);
 
         // Validar DNI
         do {
-            System.out.println("Dni (8 caracteres): ");
+            System.out.println("🆔 Ingrese el DNI del administrador (8 dígitos numéricos): ");
             dni = scanner.nextLine();
             if (dni.length() != 8) {
-                System.out.println("🚨 El DNI debe tener exactamente 8 caracteres. Intenta nuevamente.");
+                System.out.println("🚨 El DNI debe tener exactamente 8 caracteres. Intente nuevamente. 🔢");
             } else if (!dni.matches("\\d+")) { // Verifica que el DNI contenga solo números
-                System.out.println("🚨 El DNI debe contener solo números. Intenta nuevamente.");
+                System.out.println("🚨 El DNI debe contener solo números. Por favor, intente nuevamente. 🔢");
             }
         } while (dni.length() != 8 || !dni.matches("\\d+"));
 
         // Crear y retornar la cuenta admin
+        System.out.println("✔️ Cuenta de administrador creada con éxito. ¡Bienvenido al sistema! 🎉");
         return new Persona(nombre, apellido, edad, dni);
     }
 
 
     private Empleado crearEmpleado(){
-        System.out.println("Nombre: ");
+        // Solicitar nombre
+        System.out.println("🔑 Ingrese el nombre del empleado: ");
         String nombre = scanner.nextLine();
-        System.out.println("Apellido: ");
+
+        // Solicitar apellido
+        System.out.println("📛 Ingrese el apellido del empleado: ");
         String apellido = scanner.nextLine();
-        System.out.println("Edad: ");
+
+        // Solicitar edad
+        System.out.println("🎂 Ingrese la edad del empleado: ");
         int edad = scanner.nextInt();
-        scanner.nextLine();
-        System.out.println("Dni: ");
+        scanner.nextLine(); // Limpiar buffer
+
+        // Solicitar DNI
+        System.out.println("🆔 Ingrese el DNI del empleado (8 dígitos numéricos): ");
         String dni = scanner.nextLine();
-        System.out.println("Tipo de empleo");
+
+        // Solicitar tipo de empleo
+        System.out.println("💼 Ingrese el tipo de empleo del empleado (PILOTO,COPILOTO,AZAFATA): ");
         TipoEmpleado tipo = TipoEmpleado.valueOf(scanner.nextLine().toUpperCase());
 
-        return new Empleado(nombre,apellido,edad,dni,tipo);
+        // Crear y retornar el empleado
+        System.out.println("✔️ Empleado creado exitosamente. ¡Bienvenido al equipo! 🎉");
+        return new Empleado(nombre, apellido, edad, dni, tipo);
     }
+
 
 
 //String nombre, String apellido, int edad,String dni, TipoEmpleado tipoEmpleado
@@ -710,7 +723,7 @@ public  void eliminarVueloPorID(String idVuelo) throws CodigoVueloInexistenteExc
         personas.add(new Empleado("gerardo","rubio",51,"26104958",TipoEmpleado.COPILOTO));
         personas.add(new Empleado("carmela","garcia",18,"47195019",TipoEmpleado.AZAFATA));
         personas.add(new Empleado("rufino","figueroa",22,"46689104",TipoEmpleado.PILOTO));
-        personas.add(new Empleado("jeronimo","benavidez",34,"35105918",TipoEmpleado.PILOTO));
+        personas.add(new Empleado("lionel","messi",37,"35105918",TipoEmpleado.PILOTO));
 
 
         return personas;

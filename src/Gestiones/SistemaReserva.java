@@ -104,6 +104,7 @@ public class SistemaReserva {
                 // Preguntar si desea cambiar el vuelo seleccionado
                 System.out.print("\n¿Desea cambiar el vuelo seleccionado? (s/n): ");
                 String cambiarVuelo = scanner.nextLine().trim().toLowerCase();
+                limpiarPantalla();
 
                 if (cambiarVuelo.equals("s")) {
                     System.out.println("==============================================");
@@ -123,6 +124,7 @@ public class SistemaReserva {
                 }
 
                 // Mostrar asientos disponibles
+                limpiarPantalla();
                 System.out.println("\n🛫 Asientos Disponibles ✨");
                 System.out.println("==================================================");
                 System.out.println("🔍 Aquí están los asientos disponibles en el vuelo:");
@@ -183,7 +185,7 @@ public class SistemaReserva {
                             System.out.println("Error al guardar reservas o conexiones.");
                             e.printStackTrace();
                         }
-
+                        limpiarPantalla();
                         System.out.println("============================================================================");
                         System.out.println("Reserva realizada exitosamente para " + pasajero.getNombre() + " " + pasajero.getApellido());
                     }
@@ -272,7 +274,7 @@ public class SistemaReserva {
                 // Validar dimensión de la valija
                 String dimension;
                 do {
-                    System.out.print("📏 Dimensión: ");
+                    System.out.print("📏 Dimensión (en cm): ");
                     dimension = scanner.nextLine().trim();
                     if (dimension.isEmpty()) {
                         System.out.println("❌ La dimensión de la valija no puede estar vacía.");
@@ -306,6 +308,7 @@ public class SistemaReserva {
             System.out.println("=====================================");
             System.out.println("📝 ¿Desea editar su información? (s/n)");
             eleccion = scanner.nextLine().trim().toLowerCase();
+            limpiarPantalla();
         } while (eleccion.equals("s"));
 
         // Mostrar tarifa total
@@ -349,6 +352,19 @@ public class SistemaReserva {
         return asientosDisponibles;
     }
 
+    public static void printCentered(String text) {
+        int terminalWidth = 160; // Puedes ajustar este valor según el ancho de tu terminal
+        int padding = (terminalWidth - text.length()) / 2;
+        String paddedText = " ".repeat(padding) + text;
+        System.out.println(paddedText);
+    }
+
+    public static void limpiarPantalla() {
+        // Imprime 50 líneas vacías para simular la limpieza de pantalla
+        for (int i = 0; i < 15; i++) {
+            System.out.println();
+        }
+    }
 
 
 

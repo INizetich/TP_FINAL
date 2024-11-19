@@ -9,9 +9,6 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Menu {
-
-
-
     public static void Menu() throws InterruptedException, IOException {
         ///VARIABLES PARA VALIDACIONES
         int opc;

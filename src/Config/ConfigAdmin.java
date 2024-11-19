@@ -1,17 +1,13 @@
 package Config;
-
 import java.io.*;
 import java.util.Properties;
-
 public class ConfigAdmin {
     // Ruta del archivo de configuración para el menú admin
     private static final String CONFIG_FILE2 = "properties/config_admin.properties";
     private static Properties properties = new Properties();
-
     // Cargar el archivo de configuración para el menú admin
     public static void cargarConfiguracionAdmin() {
         File configFile = new File(CONFIG_FILE2);
-
         if (configFile.exists()) {
             try (FileInputStream fis = new FileInputStream(configFile)) {
                 properties.load(fis); // Cargar propiedades desde el archivo
@@ -24,7 +20,6 @@ public class ConfigAdmin {
             crearConfiguracionInicial(configFile);
         }
     }
-
     // Crear la configuración inicial si el archivo no existe
     private static void crearConfiguracionInicial(File configFile) {
         try (FileOutputStream output = new FileOutputStream(configFile)) {
@@ -36,18 +31,15 @@ public class ConfigAdmin {
             e.printStackTrace();
         }
     }
-
     // Leer el valor de "first_run" del archivo de configuración del menú admin
     public static boolean isFirstRunAdmin() {
         return Boolean.parseBoolean(properties.getProperty("first_run", "true"));
     }
-
     // Establecer el valor de "first_run" a false en el archivo de configuración del menú admin
     public static void setFirstRunFalseAdmin() {
         properties.setProperty("first_run", "false");
         actualizarConfiguracion();
     }
-
     // Actualizar el archivo de configuración con las propiedades actuales
     private static void actualizarConfiguracion() {
         try (FileOutputStream fos = new FileOutputStream(CONFIG_FILE2)) {
@@ -57,7 +49,6 @@ public class ConfigAdmin {
             e.printStackTrace();
         }
     }
-
     // Opcional: Método para ver las propiedades cargadas (útil para depuración)
     public static void mostrarConfiguracion() {
         properties.forEach((key, value) -> System.out.println(key + ": " + value));

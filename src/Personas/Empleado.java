@@ -2,6 +2,7 @@ package Personas;
 
 import Enums.TipoEmpleado;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.json.JSONObject;
 
 
 import java.util.Random;
@@ -50,6 +51,16 @@ public class Empleado extends Persona {
                 "tipoEmpleado=" + tipoEmpleado +
                 ", codigoEmpleado='" + NroEmpleado + '\'' +
                 '}';
+    }
+
+    public String toJson() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("dni", getDni());  // Supongo que Persona tiene un getter para dni
+        jsonObject.put("nombre", getNombre());
+        jsonObject.put("apellido", getApellido());
+        jsonObject.put("tipoEmpleado", tipoEmpleado != null ? tipoEmpleado.toString() : null);
+        jsonObject.put("NroEmpleado", NroEmpleado);
+        return jsonObject.toString();
     }
 
 

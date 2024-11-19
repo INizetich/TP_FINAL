@@ -6,12 +6,15 @@ import java.util.*;
 import Enums.EstadoEmbarque;
 import Enums.PuertaEmbarque;
 import Excepciones.CapacidadMaximaException;
+import Personas.Empleado;
 import Personas.Pasajero;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 @JsonPropertyOrder({"idVuelo", "origen", "destino", "horario", "estadoEmbarque", "avion", "puertaEmbarque", "listaPasajeros", "asientos"})
 public class Vuelo {
@@ -26,6 +29,7 @@ public class Vuelo {
 
     @JsonProperty("puertaEmbarque")
     private PuertaEmbarque puertaEmbarque;
+
 
 
     private String  horario;
@@ -190,5 +194,27 @@ public class Vuelo {
 
     public void setAsientos(Set<String> asientos) {
         this.asientos = asientos;
+    }
+
+    public String toJson() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("idVuelo", idVuelo);
+        jsonObject.put("origen", origen);
+        jsonObject.put("destino", destino);
+        jsonObject.put("puertaEmbarque", puertaEmbarque != null ? puertaEmbarque.toJson() : null); // Asumiendo que PuertaEmbarque tiene toJson
+        jsonObject.put("horario", horario);
+        jsonObject.put("avion", avion != null ? avion.toJson() : null);
+        jsonObject.put("estadoEmbarque", estadoEmbarque != null ? estadoEmbarque.toString() : null);
+
+        JSONArray pasajerosArray = new JSONArray();
+        for (Pasajero pasajero : listaPasajeros) {
+            pasajerosArray.put(pasajero.toJson());
+        }
+        jsonObject.put("listaPasajeros", pasajerosArray);
+
+        JSONArray asientosArray = new JSONArray(asientos);
+        jsonObject.put("asientos", asientosArray);
+
+        return jsonObject.toString();
     }
 }

@@ -1,21 +1,12 @@
 package UI;
 
 import Aeropuerto.Aeropuerto;
-import Aviones.Avion;
-import Aviones.Hangar;
-import Aviones.Vuelo;
-import CheckIn.CheckIn;
-import Excepciones.*;
 import Gestiones.*;
-import JSON.GestionJSON;
-import Personas.Empleado;
 import Utilidades.Utilities;
 
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Scanner;
-import java.util.Set;
 
 public class Menu {
 
@@ -31,7 +22,7 @@ public class Menu {
         ///INSTANCIA DE CLASES
         Admin admin = new Admin();
         Aeropuerto aeropuerto = new Aeropuerto();
-        admin.cargarListaEmpleados();
+
         AlmacenamientoAviones almacenamientoAviones = new AlmacenamientoAviones();
         almacenamientoAviones.generarHangares(7);
 
@@ -73,6 +64,7 @@ public class Menu {
                 case 3:
                     Utilities.mostrarCerrando();
                     System.exit(0);
+
 
                     break;
 

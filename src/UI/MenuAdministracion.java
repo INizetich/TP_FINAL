@@ -6,13 +6,10 @@ import Excepciones.CodigoVueloInexistenteException;
 import Excepciones.EmpleadoInexistenteException;
 import Excepciones.dniNoEncontradoException;
 import Gestiones.*;
-import JSON.GestionJSON;
-import Personas.Persona;
+import Utilidades.Utilities;
 
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Scanner;
-import java.util.Set;
 
 public class MenuAdministracion {
 
@@ -21,7 +18,6 @@ public class MenuAdministracion {
         // INSTANCIA DE CLASES IMPORTANTES
         Admin admin = new Admin();
         Aeropuerto aeropuerto = new Aeropuerto();
-        admin.cargarListaEmpleados();
         AlmacenamientoAviones almacenamientoAviones = new AlmacenamientoAviones();
         almacenamientoAviones.generarHangares(7);
         // Crear el sistema de aeropuertos y registrar aeropuertos
@@ -85,9 +81,12 @@ public class MenuAdministracion {
                                 break;
                             case 4:
                                 try{
+                                    // Mostramos la lista de empleados después de deserializar
+                                    System.out.println("💼 Lista de administradores actualizada:");
+                                   admin.mostrarCuentasAdmin();
                                     System.out.print("\u001B[32m > \u001B[0m");
-                                    System.out.println("ingrese el dni de la persona a eliminar de la lista de administradores");
-                                    String dniAdmin = scanner.nextLine().trim();
+                                    System.out.print("🔑 Ingresa el DNI del administrador a eliminar: ");
+                                    String dniAdmin = scanner.nextLine();
                                     admin.eliminarAdministradorDNI(dniAdmin);
                                 }catch (dniNoEncontradoException e){
                                     e.printStackTrace();
@@ -95,26 +94,48 @@ public class MenuAdministracion {
 
                                 break;
                             case 5:
-                                try{
-                                    System.out.print("\u001B[32m > \u001B[0m");
-                                    almacenamientoAviones.mostrarHangares();
-                                    System.out.println("Ingrese el codigo de avion que desea asignarle un piloto");
-                                    admin.asignarPilotoAvionPorID(scanner.nextLine(),almacenamientoAviones);
-                                }catch (CodigoVueloInexistenteException e){
-                                    e.printStackTrace();
-                                }
+
+                                 try{
+                                     SistemaVuelo.mostrarVuelos();
+                                     System.out.println("Ingrese el ID de vuelo a eliminar");
+                                     String idVuelo = scanner.nextLine();
+                                     admin.eliminarVueloPorID(idVuelo);
+                                 }catch (CodigoVueloInexistenteException e){
+                                     e.printStackTrace();
+                                 }
 
                                 break;
                             case 6:
-                                admin.mostrarListaEmpleados();
+                                System.out.print("\u001B[32m > \u001B[0m");
+                                System.out.println("\n================================================");
+                                System.out.println("✨✨ ¿Desea mostrar la lista de empleados? ✨✨");
+                                System.out.println("================================================");
+                                System.out.println("👉 Opción 1: Mostrar lista de empleados");
+                                System.out.println("❌ Opción 2: No mostrar lista de empleados");
+                                System.out.println("================================================\n");
+
+                                String listaEm = scanner.nextLine();
+
+                                if(listaEm.equalsIgnoreCase("s")){
+                                    admin.mostrarListaEmpleados();
+                                }else {
+                                    return;
+                                }
+
                                 break;
                             case 7:
+                                System.out.print("\u001B[32m > \u001B[0m");
+                                System.out.println("\n================================================");
+                                System.out.println("📋 ¿Te gustaría ver la lista de administradores? 📋");
+                                System.out.println("================================================");
+                                System.out.println("\u001B[32m✅ Opción 1: Ver la lista de administradores\u001B[0m");
+                                System.out.println("\u001B[31m❌ Opción 2: No ver la lista de administradores\u001B[0m");
+                                System.out.println("================================================\n");
+
                                 admin.mostrarCuentasAdmin();
                                 break;
                             case 8:
-                                System.out.println("\u001B[31mCerrando sesión...\u001B[0m");
-                                //Set<Persona> listaAdmins = admin.getListaAdministradores();
-                                //GestionJSON.serializarSet(listaAdmins,"Archivos JSON/admins.json");
+                                Utilities.mostrarCerrandoAdmin();
                                 break;
                         }
 

@@ -122,6 +122,7 @@ public class SistemaVuelo{
     }
 
     private static List<Vuelo> crearVuelosConIDUnico(AlmacenamientoAviones gestionHangares) {
+
         List<Vuelo> vuelos = new ArrayList<>();
 
         // Obtener la lista de aviones disponibles
@@ -180,9 +181,6 @@ public class SistemaVuelo{
                 listaPasajeros,
                 asientos);
     }
-
-
-
 
 
 }

@@ -1,6 +1,7 @@
 package Pertenencias;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.json.JSONObject;
 
 public class Valija {
     @JsonProperty("dimension")
@@ -43,5 +44,12 @@ public class Valija {
                 "dimension='" + dimension + '\'' +
                 ", peso=" + peso +
                 '}';
+    }
+
+    public String toJson(){
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("dimension", dimension);
+        jsonObject.put("peso", peso);
+        return jsonObject.toString();
     }
 }

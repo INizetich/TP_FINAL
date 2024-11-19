@@ -154,7 +154,7 @@ public class AlmacenamientoAviones {
             int capacidad = random.nextInt(300) + 50; // Capacidad entre 50 y 350
             String motor = random.nextBoolean() ? "Motor a reacción" : "Motor turbofan";
             String modelo = "Modelo-" + "A" + random.nextInt(100);
-            String codigoAvion = UUID.randomUUID().toString().substring(0, 8).toUpperCase();
+            String codigoAvion = "A70C1A" + i;
 
             Avion avion = new Avion(nombre, capacidad, motor, modelo, codigoAvion);
 

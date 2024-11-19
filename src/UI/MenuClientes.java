@@ -5,15 +5,13 @@ import javazoom.jl.player.Player;
 import java.io.FileInputStream;
 import java.util.Scanner;
 import Aeropuerto.Aeropuerto;
-import Aviones.Vuelo;
 import CheckIn.CheckIn;
 import Config.Configs;
 import Excepciones.*;
 import Gestiones.*;
-import JSON.GestionJSON;
+import org.json.GestionJSON;
 
 import java.util.List;
-import java.util.Scanner;
 
 public class MenuClientes {
     private static final String GREEN = "\u001B[32m";
@@ -29,12 +27,11 @@ public class MenuClientes {
         // INSTANCIA DE CLASES IMPORTANTES
         Admin admin = new Admin();
         Aeropuerto aeropuerto = new Aeropuerto();
-        admin.cargarListaEmpleados();
         AlmacenamientoAviones almacenamientoAviones = new AlmacenamientoAviones();
         almacenamientoAviones.generarHangares(7);
         // Crear el sistema de aeropuertos y registrar aeropuertos
         SistemaAeropuerto.cargarAeropuertos();
-
+Configs.cargarConfiguracionCliente();
         almacenamientoAviones.generarAviones(15, admin.getListaEmpleados());
 
         SistemaVuelo.obtenerVuelosGenerados(almacenamientoAviones);

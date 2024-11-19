@@ -1,16 +1,23 @@
 package Aviones;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
+@JsonPropertyOrder({"numeroHangar", "capacidadMaxima","listaAviones"})
 public class Hangar <T extends Avion> implements Serializable {
 
+    @JsonProperty("numeroHangar")
     private int numeroHangar;
 
+    @JsonProperty("listaAviones")
     private List<Avion> listaAviones;
-
+@JsonProperty("capacidadMaxima")
 private  final int capacidadMaxima = 7;
 
     public Hangar() {
@@ -69,6 +76,21 @@ private  final int capacidadMaxima = 7;
 
     public List<Avion> ObtenerListaAviones() {
         return this.listaAviones;
+    }
+
+
+    public String toJson() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("numeroHangar", numeroHangar);
+        jsonObject.put("capacidadMaxima", capacidadMaxima);
+
+        JSONArray avionesArray = new JSONArray();
+        for (Avion avion : listaAviones) {
+            avionesArray.put(avion.toJson());
+        }
+        jsonObject.put("listaAviones", avionesArray);
+
+        return jsonObject.toString();
     }
 
 }

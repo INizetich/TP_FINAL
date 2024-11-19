@@ -4,12 +4,16 @@ package Personas;
 
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.lang.Comparable;
 import java.util.Objects;
-
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({"dni", "nombre", "apellido", "edad"})
 public class Persona implements Comparable<Persona>, Serializable {
 
     @JsonProperty("dni")
@@ -113,5 +117,14 @@ public class Persona implements Comparable<Persona>, Serializable {
         }else {
             return dni;
         }
+    }
+
+    public String toJson() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("dni", dni);
+        jsonObject.put("nombre", nombre);
+        jsonObject.put("apellido", apellido);
+        jsonObject.put("edad", edad);
+        return jsonObject.toString();
     }
 }

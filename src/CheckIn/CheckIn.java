@@ -4,7 +4,7 @@ import Aviones.Vuelo;
 import Excepciones.ReservaInexistenteException;
 import Excepciones.dniNoEncontradoException;
 import Gestiones.SistemaReserva;
-import JSON.GestionJSON;
+import org.json.GestionJSON;
 import Personas.Pasajero;
 import Utilidades.Utilities;
 
@@ -12,17 +12,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import org.json.JSONException;
+import org.json.JSONObject;
 //import javazoom.jl.player.Player;
 
 
-import java.text.SimpleDateFormat;
 import java.time.format.DateTimeParseException;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
+
 @JsonPropertyOrder ({"vuelo","numeroAsiento","pasajero","CodigoCheckIn"})
 public class CheckIn {
     private static final String Click = "src/Sonidos/Click.mp3";
@@ -246,24 +246,22 @@ public class CheckIn {
 
     }
 
+
+    // Método toJson para la clase CheckIn usando org.json
+    public String toJson() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("vuelo", vuelo != null ? vuelo.toJson() : null);
+        jsonObject.put("numeroAsiento", numeroAsiento);
+        jsonObject.put("pasajero", pasajero != null ? pasajero.toJson() : null);
+        jsonObject.put("CodigoCheckIn", CodigoCheckIn);
+        return jsonObject.toString();
+    }
+
     }
 
 
 
 
-                /// //////////////////////////////////////////////////////////////////////////
-                /// /// METODOS PARA EL SONIDO
-    /*private static void ClickSonido() {
-        Thread audioThread = new Thread(() -> {
-            try (FileInputStream fis = new FileInputStream(Click)) {
-                Player player = new Player(fis);
-                player.play();
-            } catch (Exception e) {
-                System.out.println("Error al reproducir el archivo: " + e.getMessage());
-            }
-        });
-        audioThread.setDaemon(true); // El hilo se detendrá automáticamente cuando termine el programa
-        audioThread.start();
-    }*/
+
 
 

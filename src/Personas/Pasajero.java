@@ -1,12 +1,17 @@
 package Personas;
 
 import Pertenencias.Valija;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({"codigoPasajero","nroAsiento","CheckIn","Valija"})
 public class Pasajero extends Persona {
 
     @JsonProperty("numeroAsiento")
@@ -85,5 +90,24 @@ public class Pasajero extends Persona {
 
     public void setCodigoPasajero(String codigoPasajero) {
         this.codigoPasajero = codigoPasajero;
+    }
+
+
+    public String toJson() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("dni", getDni()); // Supongo que Persona tiene un getter para dni
+        jsonObject.put("nombre", getNombre());
+        jsonObject.put("apellido", getApellido());
+        jsonObject.put("nroAsiento", nroAsiento);
+        jsonObject.put("checkInRealizado", checkIn);
+        jsonObject.put("codigoPasajero", codigoPasajero);
+
+        JSONArray valijaArray = new JSONArray();
+        for (Valija v : valija) {
+            valijaArray.put(v.toJson()); // Asumiendo que Valija tiene un método toJson
+        }
+        jsonObject.put("valija", valijaArray);
+
+        return jsonObject.toString();
     }
 }

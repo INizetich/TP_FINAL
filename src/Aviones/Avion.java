@@ -4,18 +4,28 @@ import Enums.TipoEmpleado;
 import Excepciones.NoEsPilotoException;
 import Interfaces.IAvion;
 import Personas.Empleado;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
+import org.json.JSONObject;
+
+import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true) // Ignora campos desconocidos durante la deserialización
+//@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({ "nombre", "capacidadAvion", "motor", "modelo", "codigoAvion", "piloto" })
 public class Avion implements IAvion {
-
+@JsonProperty("nombre")
     private String nombre;
+@JsonProperty("capacidadAvion")
     private int capacidadAvion;
+@JsonProperty("motor")
     private String motor;
+@JsonProperty("modelo")
     private String modelo;
+@JsonProperty("codigoAvion")
     private String codigoAvion;
+
     private Empleado empleado;
+
 
     public Avion() {
         this.nombre = "";
@@ -34,6 +44,8 @@ public class Avion implements IAvion {
         this.codigoAvion = codigoAvion;
 
     }
+
+
 
     // Getters y setters
     public String getCodigoAvion() {
@@ -120,4 +132,31 @@ public class Avion implements IAvion {
     public String asignarRuta() {
         return "Ruta asignada al avión: " + codigoAvion + ". Ruta libre para ir al destino.";
     }
+
+
+    // Método toJson para la clase Avion usando org.json
+    public String toJson() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("nombre", nombre);
+        jsonObject.put("capacidadAvion", capacidadAvion);
+        jsonObject.put("motor", motor);
+        jsonObject.put("modelo", modelo);
+        jsonObject.put("codigoAvion", codigoAvion);
+        jsonObject.put("empleado", empleado != null ? empleado.toJson() : null); // Asumiendo que Empleado también tiene un método toJson
+        return jsonObject.toString();
+    }
+
+
+    /*@JsonProperty("nombre")
+    private String nombre;
+@JsonProperty("capacidadAvion")
+    private int capacidadAvion;
+@JsonProperty("motor")
+    private String motor;
+@JsonProperty("modelo")
+    private String modelo;
+@JsonProperty("codigoAvion")
+    private String codigoAvion;
+
+    private Empleado empleado;*/
 }

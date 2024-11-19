@@ -1,13 +1,10 @@
 package Gestiones;
 
-import Aviones.Avion;
-import Aviones.Hangar;
-
+import Aviones.Vuelo;
 import Config.ConfigAdmin;
-import Config.Configs;
 import Enums.TipoEmpleado;
 import Excepciones.*;
-import JSON.GestionJSON;
+import org.json.GestionJSON;
 import Personas.Empleado;
 import Personas.Persona;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -26,8 +23,8 @@ public class Admin {
 
 
     public Admin() {
-        this.listaAdministradores = agregarAdministradores();
-        this.listaEmpleados = new HashSet<>();
+        this.listaAdministradores = agregarAdministradoresStandard();
+        this.listaEmpleados = agregarPersonas();
 
     }
 
@@ -227,10 +224,6 @@ boolean token = false;
 
 
 
-
-
-
-
     public void eliminarPersonalPorDNI() throws EmpleadoInexistenteException {
         if (ConfigAdmin.isFirstRunAdmin()) {
             File personalEliminado = new File("Archivos JSON/empleados.json");
@@ -301,6 +294,7 @@ boolean token = false;
             } catch (Exception e) {
                 System.out.println("🚫 Error al serializar el archivo de empleados.");
                 e.printStackTrace();
+                return;
             }
         }
     }
@@ -313,37 +307,92 @@ boolean token = false;
 
 
     public void eliminarAdministradorDNI(String dni) throws dniNoEncontradoException {
-        if (listaAdministradores.isEmpty()){
-            System.out.println("no hay administradores en la lista de administradores");
-        }else if (!listaAdministradores.isEmpty()) {
+        if (ConfigAdmin.isFirstRunAdmin()) {
+            File eliminarAdmin = new File("Archivos JSON/admins.json");
 
-            Persona persona = listaAdministradores.stream()
-                    .filter(a-> a.getDni().equalsIgnoreCase(dni))
-                    .findFirst()
-                    .orElse(null);
-
-            if (persona == null){
-              throw new  dniNoEncontradoException("El dni no se encuentra registrado en ninguna cuenta admin.");
-            }else {
-                listaAdministradores.remove(persona);
-                System.out.println("persona eliminado correctamente de la lista de administradores");
+            // Verificar si el archivo existe y deserializar los administradores
+            if (eliminarAdmin.exists()) {
+                Set<Persona> adminAeliminar = null;
+                try {
+                    adminAeliminar = GestionJSON.deserializarSet(Persona.class, eliminarAdmin.getPath());
+                    if (adminAeliminar.isEmpty()) {
+                        System.out.println("🚫 No se encontraron administradores deserializados.");
+                    } else {
+                        setListaAdministradores(adminAeliminar);
+                    }
+                } catch (JSONException e) {
+                    System.out.println("🚫 Error al deserializar el archivo de administradores.");
+                    e.printStackTrace();
+                }
+            } else {
+                // Si el archivo no existe, lo creamos vacío
+                System.out.println("🚫 El archivo de administradores no existe. Creando archivo vacío...");
+                try {
+                    if (eliminarAdmin.createNewFile()) {
+                        System.out.println("✔️ Archivo de administradores creado.");
+                    } else {
+                        System.out.println("🚫 No se pudo crear el archivo de administradores.");
+                        return;
+                    }
+                } catch (IOException e) {
+                    System.out.println("🚫 Error al crear el archivo de administradores.");
+                    e.printStackTrace();
+                    return; // Salir si no se puede crear el archivo
+                }
             }
 
+            // Verificar si la lista de administradores no está vacía
+            if (listaAdministradores.isEmpty()) {
+                System.out.println("🚫 No hay administradores en la lista de administradores.");
+            } else {
+                // Buscar el administrador por DNI y eliminarlo
+                Persona persona = listaAdministradores.stream()
+                        .filter(a -> a.getDni().equalsIgnoreCase(dni))
+                        .findFirst()
+                        .orElse(null);
+
+                if (persona == null) {
+                    throw new dniNoEncontradoException("\uD83D\uDEAB" + " Error: El administrador con DNI \"" + dni + "\" no existe.");
+                } else {
+                    listaAdministradores.remove(persona);
+                    System.out.println("✔️ Administrador eliminado correctamente de la lista.");
+                }
+            }
+
+            // Serializar de nuevo la lista de administradores al archivo JSON
+            try {
+                GestionJSON.serializarSet(listaAdministradores, "Archivos JSON/admins.json");
+                System.out.println("✔️ Archivo de administradores actualizado.");
+            } catch (JSONException e) {
+                System.out.println("🚫 Error al serializar el archivo de administradores.");
+                e.printStackTrace();
+            }
         }
     }
 
-    public void mostrarCuentasAdmin(){
 
-        if (listaAdministradores.isEmpty()){
-            System.out.println("la lista esta vacia");
+
+
+    public void mostrarCuentasAdmin() {
+        if (listaAdministradores.isEmpty()) {
+            System.out.println("🚨 La lista de administradores está vacía.");
             return;
-        }else if (!listaAdministradores.isEmpty()) {
-            for (Persona persona : listaAdministradores){
-                System.out.println(persona);
-            }
         }
 
+        System.out.println("======== Lista de Administradores ========");
+        System.out.printf("%-15s %-20s %-20s %-10s%n", "DNI", "Nombre", "Apellido", "Edad"); // Encabezados de columnas
+        System.out.println("==========================================="); // Separador visual
+
+        // Imprimir cada persona de la lista con un formato bonito
+        for (Persona persona : listaAdministradores) {
+            System.out.printf("%-15s %-20s %-20s %-10d%n",
+                    persona.getDni(),            // Mostrar el DNI
+                    persona.getNombre(),         // Nombre
+                    persona.getApellido(),       // Apellido
+                    persona.getEdad());          // Edad
+        }
     }
+
 
     public void mostrarListaEmpleados() {
         if (listaEmpleados.isEmpty()) {
@@ -371,84 +420,82 @@ boolean token = false;
         System.out.println("╚════════════════════╩════════════════════╩════════════════════╩════════════════════╝");
     }
 
+public  void eliminarVueloPorID(String idVuelo) throws CodigoVueloInexistenteException {
+    if (ConfigAdmin.isFirstRunAdmin()) {
+        File eliminarVuelo = new File("Archivos JSON/vuelos.json");
 
-    public void cargarListaEmpleados(){
-        this.listaEmpleados = agregarPersonas();
-    }
-
-
-    public void asignarPilotoAvionPorID(String codigoAvion,AlmacenamientoAviones almacenamientoAviones) throws CodigoVueloInexistenteException {
-        // Buscar avión por código dentro de los hangares
-        Avion avionSeleccionado = null;
-        for (Hangar<Avion> hangar : almacenamientoAviones.getListaHangares()) {
-            avionSeleccionado = hangar.ObtenerListaAviones().stream()
-                    .filter(avion -> avion.getCodigoAvion().equalsIgnoreCase(codigoAvion))
-                    .findFirst()
-                    .orElse(null);
-
-            if (avionSeleccionado != null) {
-                break; // Salir del ciclo una vez que el avión ha sido encontrado
+        // Verificar si el archivo existe y deserializar los administradores
+        if (eliminarVuelo.exists()) {
+            List<Vuelo> vuelosJSON = null;
+            try {
+                vuelosJSON = GestionJSON.deserializarLista(Vuelo.class, eliminarVuelo.getPath());
+                if (vuelosJSON.isEmpty()) {
+                    System.out.println("🚫 No se encontraron vuelos deserializados.");
+                } else {
+                    SistemaVuelo.setVuelosGenerados(vuelosJSON);
+                }
+            } catch (JSONException e) {
+                System.out.println("🚫 Error al deserializar el archivo de vuelos.");
+                e.printStackTrace();
+            }
+        } else {
+            // Si el archivo no existe, lo creamos vacío
+            System.out.println("🚫 El archivo de vuelos no existe. Creando archivo vacío...");
+            try {
+                if (eliminarVuelo.createNewFile()) {
+                    System.out.println("✔️ Archivo de vuelos creado.");
+                } else {
+                    System.out.println("🚫 No se pudo crear el archivo de vuelos.");
+                    return;
+                }
+            } catch (IOException e) {
+                System.out.println("🚫 Error al crear el archivo de vuelos.");
+                e.printStackTrace();
+                return; // Salir si no se puede crear el archivo
             }
         }
 
-        if (avionSeleccionado == null) {
-            throw new CodigoVueloInexistenteException("Error, no existe un avión con ese código.");
+        Vuelo vuelo = SistemaVuelo.getVuelosGenerados().stream()
+                .filter(a -> a.getIdVuelo().equalsIgnoreCase(idVuelo))
+                .findFirst()
+                .orElse(null);
+
+        if (vuelo == null) {
+            throw new CodigoVueloInexistenteException("🚫 Error: no existe ningun vuelo con ese codigo.");
         }
 
-        // Filtrar pilotos disponibles
-        List<Empleado> pilotosDisponibles = new ArrayList<>();
-        for (Empleado empleado : listaEmpleados) {
-            if (empleado.getTipoEmpleado() == TipoEmpleado.PILOTO) {
-                pilotosDisponibles.add(empleado);
-            }
-        }
-
-        if (pilotosDisponibles.isEmpty()) {
-            System.out.println("No hay pilotos disponibles.");
+        if(!vuelo.getListaPasajeros().isEmpty()) {
+            System.out.println("🚫 Error: no se puede eliminar el vuelo porque tiene reservas hechas");
             return;
         }
 
-        // Mostrar pilotos disponibles
-        System.out.println("Pilotos disponibles:");
-        for (Empleado piloto : pilotosDisponibles) {
-            System.out.println(piloto);
+        SistemaVuelo.getVuelosGenerados().remove(vuelo);
+        System.out.println("✅ Vuelo con ID " + idVuelo + " eliminado exitosamente.");
+
+
+        try {
+            List<Vuelo> vuelosAserializar = SistemaVuelo.getVuelosGenerados();
+            GestionJSON.serializarLista(vuelosAserializar, "Archivos JSON/vuelos.json");
+            System.out.println("✔️ Archivo de vuelos actualizado.");
+        } catch (JSONException e) {
+            System.out.println("🚫 Error al serializar el archivo de vuelos.");
+            e.printStackTrace();
         }
 
-        // Solicitar código de piloto
-        System.out.print("Ingrese el código del piloto: ");
-        if (scanner.hasNextInt()) { // Validar entrada del usuario
-            int codigoPiloto = scanner.nextInt();
-            scanner.nextLine(); // Consumir el salto de línea
 
-            // Buscar piloto por código
-            Empleado pilotoSeleccionado = pilotosDisponibles.stream()
-                    .filter(piloto -> piloto.getNroEmpleado() == codigoPiloto)
-                    .findFirst()
-                    .orElse(null);
 
-            if (pilotoSeleccionado != null) {
-                try {
-                    avionSeleccionado.asignarPiloto(pilotoSeleccionado);
-                    System.out.println("Piloto asignado exitosamente al avión.");
-                } catch (NoEsPilotoException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                System.out.println("No se encontró un piloto con el código proporcionado.");
-            }
-        } else {
-            System.out.println("Por favor, ingrese un código numérico válido.");
-            scanner.nextLine(); // Consumir entrada inválida
-        }
+
     }
 
+}
 
 
 
 
 
-    ///-----------------------------------------METODOS PRIVATE-----------------------------------------
-    private static Set<Persona> agregarAdministradores(){
+
+    ///-----------------------------------------METODOS PRIVATE-----------------------------------------///
+    private static Set<Persona> agregarAdministradoresStandard(){
         Set<Persona> administradores = new HashSet<>();
         administradores.add(new Persona("ignacio","nizetich",21,"45462201"));
         administradores.add(new Persona("lautaro","arschak",24,"42569299"));
@@ -460,20 +507,53 @@ boolean token = false;
 
 
 
-    private  Persona crearCuentaAdmin(){
+    private Persona crearCuentaAdmin() {
+        String nombre, apellido, dni;
+        int edad;
 
-        System.out.println("Nombre: ");
-        String nombre = scanner.nextLine();
-        System.out.println("Apellido: ");
-        String apellido = scanner.nextLine();
-        System.out.println("Edad: ");
-        int edad = scanner.nextInt();
-        scanner.nextLine();
-        System.out.println("Dni: ");
-        String dni = scanner.nextLine();
+        // Validar nombre
+        do {
+            System.out.println("Nombre: ");
+            nombre = scanner.nextLine();
+            if (nombre.trim().isEmpty()) {
+                System.out.println("🚨 El nombre no puede estar vacío. Por favor, ingrésalo nuevamente.");
+            }
+        } while (nombre.trim().isEmpty());
 
+        // Validar apellido
+        do {
+            System.out.println("Apellido: ");
+            apellido = scanner.nextLine();
+            if (apellido.trim().isEmpty()) {
+                System.out.println("🚨 El apellido no puede estar vacío. Por favor, ingrésalo nuevamente.");
+            }
+        } while (apellido.trim().isEmpty());
+
+        // Validar edad
+        do {
+            System.out.println("Edad: ");
+            edad = scanner.nextInt();
+            scanner.nextLine(); // Limpiar buffer
+            if (edad <= 0 || edad >= 110) {
+                System.out.println("🚨 La edad debe ser mayor que 0 y menor que 110. Intenta nuevamente.");
+            }
+        } while (edad <= 0 || edad >= 110);
+
+        // Validar DNI
+        do {
+            System.out.println("Dni (8 caracteres): ");
+            dni = scanner.nextLine();
+            if (dni.length() != 8) {
+                System.out.println("🚨 El DNI debe tener exactamente 8 caracteres. Intenta nuevamente.");
+            } else if (!dni.matches("\\d+")) { // Verifica que el DNI contenga solo números
+                System.out.println("🚨 El DNI debe contener solo números. Intenta nuevamente.");
+            }
+        } while (dni.length() != 8 || !dni.matches("\\d+"));
+
+        // Crear y retornar la cuenta admin
         return new Persona(nombre, apellido, edad, dni);
     }
+
 
     private Empleado crearEmpleado(){
         System.out.println("Nombre: ");

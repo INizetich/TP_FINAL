@@ -5,7 +5,7 @@ import Excepciones.*;
 import Enums.EstadoEmbarque;
 import Aviones.Vuelo;
 import CheckIn.CheckIn;
-import JSON.GestionJSON;
+import org.json.GestionJSON;
 import Personas.Pasajero;
 import Pertenencias.Valija;
 
@@ -27,7 +27,7 @@ public class SistemaReserva {
         boolean continuarReservas = true; // Variable para controlar si continuar con reservas
 
         // Si NO es la primera ejecución, deserializa los archivos correspondientes
-        if (!Configs.isFirstRun()) {
+        if (Configs.isFirstRun()) {
             // Verificar si el archivo de vuelos existe antes de deserializar
             File vuelosFile = new File("Archivos JSON/vuelos.json");
             if (vuelosFile.exists()) {
@@ -224,22 +224,12 @@ public class SistemaReserva {
             System.out.println("👤 Ingrese los datos del pasajero ✈️");
 
             // Validar nombre
-            do {
-                System.out.print("📝 Nombre: ");
-                nombre = scanner.nextLine().trim();
-                if (nombre.isEmpty()) {
-                    System.out.println("❌ El nombre no puede estar vacío.");
-                }
-            } while (nombre.isEmpty());
+            System.out.print("📝 Nombre: ");
+            nombre = scanner.nextLine().trim();
 
             // Validar apellido
-            do {
-                System.out.print("📝 Apellido: ");
-                apellido = scanner.nextLine().trim();
-                if (apellido.isEmpty()) {
-                    System.out.println("❌ El apellido no puede estar vacío.");
-                }
-            } while (apellido.isEmpty());
+            System.out.print("📝 Apellido: ");
+            apellido = scanner.nextLine().trim();
 
             // Validar edad
             do {
@@ -247,27 +237,23 @@ public class SistemaReserva {
                 try {
                     edad = scanner.nextInt();
                     scanner.nextLine(); // Limpiar el buffer
-                    if (edad < 0) {
-                        System.out.println("❌ La edad no puede ser negativa.");
+                    if (edad <= 0 || edad >= 110) {
+                        System.out.println("❌ La edad debe ser mayor a 0 y menor que 110.");
                     }
                 } catch (InputMismatchException e) {
                     System.out.println("❌ Por favor, ingrese un número válido para la edad.");
                     scanner.nextLine(); // Limpiar entrada no válida
                     edad = -1; // Forzar la repetición del ciclo
                 }
-            } while (edad < 0);
+            } while (edad <= 0 || edad >= 110);
 
             // Validar DNI
-            do {
-                System.out.print("🆔 DNI: ");
-                dni = scanner.nextLine().trim();
+            System.out.print("🆔 DNI: ");
+            dni = scanner.nextLine().trim();
 
-                if (dni.length() != 8) {
-                    System.out.println("❌ El DNI debe tener exactamente 8 caracteres.");
-                } else if (mapaReservas.containsKey(dni)) {
-                    throw new DniRegistradoException("🚫 El DNI " + dni + " ya está asociado a una reserva");
-                }
-            } while (dni.length() != 8);
+            if (mapaReservas.containsKey(dni)) {
+                throw new DniRegistradoException("🚫 El DNI " + dni + " ya está asociado a una reserva");
+            }
 
             System.out.print("📦 ¿Cuántas valijas llevará? ");
             int cantidadEquipaje = scanner.nextInt();
@@ -310,7 +296,7 @@ public class SistemaReserva {
                     } catch (InputMismatchException e) {
                         System.out.println("❌ Por favor, ingrese un número válido para el peso.");
                         scanner.nextLine(); // Limpiar entrada no válida
-                        peso = -1; // Forzar la repet ición del ciclo
+                        peso = -1; // Forzar la repetición del ciclo
                     }
                 } while (peso <= 0);
 
@@ -329,6 +315,7 @@ public class SistemaReserva {
 
         return new Pasajero(nombre, apellido, edad, dni, valijas, asientoSeleccionado);
     }
+
 
 
 

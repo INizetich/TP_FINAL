@@ -1,5 +1,7 @@
 package JSON;
 
+import Aviones.Avion;
+import Aviones.Hangar;
 import Aviones.Vuelo;
 import CheckIn.CheckIn;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -15,6 +17,13 @@ import java.util.Map;
 
 public class GestionJSON {
     private static ObjectMapper objectMapper = new ObjectMapper();
+
+
+
+
+
+
+
 
 
     public static <T> void serializarLista(List<T> lista, String archivoDestino) {
@@ -153,6 +162,25 @@ public class GestionJSON {
                 new File(filePath),
                 new TypeReference<Map<String, Map<String, Set<String>>>>() {}
         );
+    }
+
+
+
+
+
+    public static List<Hangar<Avion>> deserializarHangares(String archivoJson) {
+        ObjectMapper mapper = new ObjectMapper();
+
+        try {
+            // Deserializar el archivo JSON en una List<Hangar<Avion>>
+            List<Hangar<Avion>> hangares = mapper.readValue(new File(archivoJson), new TypeReference<List<Hangar<Avion>>>(){});
+            System.out.println("Deserialización exitosa.");
+            return hangares;
+        } catch (IOException e) {
+            System.err.println("Error al deserializar los hangares: " + e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
     }
 
 

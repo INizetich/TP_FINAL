@@ -4,7 +4,8 @@ import Aviones.Vuelo;
 import Excepciones.ReservaInexistenteException;
 import Excepciones.dniNoEncontradoException;
 import Gestiones.SistemaReserva;
-import org.json.GestionJSON;
+
+import JSON.GestionJSON;
 import Personas.Pasajero;
 import Utilidades.Utilities;
 

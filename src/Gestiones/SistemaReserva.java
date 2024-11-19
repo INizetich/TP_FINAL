@@ -5,7 +5,7 @@ import Excepciones.*;
 import Enums.EstadoEmbarque;
 import Aviones.Vuelo;
 import CheckIn.CheckIn;
-import org.json.GestionJSON;
+import JSON.GestionJSON;
 import Personas.Pasajero;
 import Pertenencias.Valija;
 

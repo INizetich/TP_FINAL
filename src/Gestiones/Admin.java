@@ -4,7 +4,8 @@ import Aviones.Vuelo;
 import Config.ConfigAdmin;
 import Enums.TipoEmpleado;
 import Excepciones.*;
-import org.json.GestionJSON;
+
+import JSON.GestionJSON;
 import Personas.Empleado;
 import Personas.Persona;
 import com.fasterxml.jackson.annotation.JsonProperty;

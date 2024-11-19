@@ -1,5 +1,8 @@
 {
   "John F. Kennedy International Airport" : {
     "Miami International Airport" : [ "ZP140A49" ]
+  },
+  "Aeropuerto Internacional de la Ciudad de México" : {
+    "北京首都国际机场" : [ "BF3076CB" ]
   }
 }

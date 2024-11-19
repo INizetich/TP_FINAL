@@ -33,7 +33,7 @@ public class GestionJSON {
 
         try {
             mapper.writerWithDefaultPrettyPrinter().writeValue(new File(archivoDestino), lista);
-            System.out.println("Serialización exitosa en el archivo: " + archivoDestino);
+
         } catch (Exception e) {
             System.err.println("Error al serializar la lista: " + e.getMessage());
             e.printStackTrace();

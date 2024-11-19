@@ -248,15 +248,6 @@ public class CheckIn {
     }
 
 
-    // Método toJson para la clase CheckIn usando org.json
-    public String toJson() {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("vuelo", vuelo != null ? vuelo.toJson() : null);
-        jsonObject.put("numeroAsiento", numeroAsiento);
-        jsonObject.put("pasajero", pasajero != null ? pasajero.toJson() : null);
-        jsonObject.put("CodigoCheckIn", CodigoCheckIn);
-        return jsonObject.toString();
-    }
 
     }
 

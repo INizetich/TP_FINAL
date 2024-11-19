@@ -1,7 +1,10 @@
 package Gestiones;
 
+import Aeropuerto.Aeropuerto;
+import Aviones.Avion;
 import Aviones.Vuelo;
 import Config.ConfigAdmin;
+import Enums.EstadoEmbarque;
 import Enums.TipoEmpleado;
 import Excepciones.*;
 
@@ -489,6 +492,113 @@ public  void eliminarVueloPorID(String idVuelo) throws CodigoVueloInexistenteExc
     }
 
 }
+
+
+    public  void agregarVuelo(String origen, String destino, AlmacenamientoAviones almacenamientoAviones) throws AeropuertoNoEncontradoException {
+        if (ConfigAdmin.isFirstRunAdmin()) {
+            File vuelos = new File("Archivos JSON/vuelos.json");
+            File aeropuertos = new File("Archivos JSON/aeropuertos.json");
+
+            // Verificar si los archivos existen y deserializar
+            if (vuelos.exists() && aeropuertos.exists()) {
+                List<Vuelo> vuelosJSON = null;
+                Set<Aeropuerto> aeropuertosJSON = null;
+                try {
+                    vuelosJSON = GestionJSON.deserializarLista(Vuelo.class, vuelos.getPath());
+                    aeropuertosJSON = GestionJSON.deserializarSet(Aeropuerto.class, aeropuertos.getPath());
+                    if (vuelosJSON.isEmpty() || aeropuertosJSON.isEmpty()) {
+                        System.out.println("🚫 No se encontraron vuelos deserializados o aeropuertos deserializados.");
+                    } else {
+                        SistemaVuelo.setVuelosGenerados(vuelosJSON);
+                        SistemaAeropuerto.setListaAeropuertos(aeropuertosJSON);
+                    }
+                } catch (JSONException e) {
+                    System.out.println("🚫 Error al deserializar el archivo de vuelos o aeropuertos.");
+                    e.printStackTrace();
+                }
+            } else {
+                // Si los archivos no existen, los creamos vacíos
+                System.out.println("🚫 Los archivos de vuelos o aeropuertos no existen. Creando archivos vacíos...");
+                try {
+                    if (vuelos.createNewFile()) {
+                        System.out.println("✔️ Archivo de vuelos creado.");
+                    } else {
+                        System.out.println("🚫 No se pudo crear el archivo de vuelos.");
+                        return;
+                    }
+
+                    if (aeropuertos.createNewFile()) {
+                        System.out.println("✔️ Archivo de aeropuertos creado.");
+                    } else {
+                        System.out.println("🚫 No se pudo crear el archivo de aeropuertos.");
+                    }
+                } catch (IOException e) {
+                    System.out.println("🚫 Error al crear el archivo de aeropuertos.");
+                    e.printStackTrace();
+                    return; // Salir si no se puede crear el archivo
+                }
+            }
+
+            // Verificar si el aeropuerto de origen existe
+            Aeropuerto origenAeropuerto = SistemaAeropuerto.getListaAeropuertos().stream()
+                    .filter(a -> a.getNombre().equalsIgnoreCase(origen))
+                    .findFirst()
+                    .orElse(null);
+
+            if (origenAeropuerto == null) {
+                throw new AeropuertoNoEncontradoException("El origen no se encuentra en la lista de aeropuertos disponibles");
+            }
+
+            // Verificar si el aeropuerto de destino existe
+            Aeropuerto destinoAeropuerto = SistemaAeropuerto.getListaAeropuertos().stream()
+                    .filter(a -> a.getNombre().equalsIgnoreCase(destino))
+                    .findFirst()
+                    .orElse(null);
+
+            if (destinoAeropuerto == null) {
+                throw new AeropuertoNoEncontradoException("El destino no se encuentra en la lista de aeropuertos");
+            }
+
+            // Crear el vuelo
+            Vuelo vuelo = new Vuelo(origen, destino);
+               vuelo.setIdVuelo(UUID.randomUUID().toString().substring(0, 8).toUpperCase());
+            // Obtener todos los aviones disponibles de los hangares
+            List<Avion> avionesDisponibles = almacenamientoAviones.obtenerAvionesDeTodosLosHangares();
+
+            if (!avionesDisponibles.isEmpty()) {
+                // Seleccionar el primer avión disponible (aquí puedes agregar lógica más avanzada si es necesario)
+                Avion avionDisponible = avionesDisponibles.get(0); // Modificar si es necesario un criterio más específico
+
+                // Asignar el avión al vuelo
+                vuelo.setAvion(avionDisponible);
+                vuelo.setEstadoEmbarque(EstadoEmbarque.ABIERTO);
+                System.out.println("✔️ Avión asignado automáticamente al vuelo.");
+            } else {
+                System.out.println("🚫 No hay aviones disponibles para asignar al vuelo.");
+            }
+
+            // Agregar el vuelo a la lista de vuelos generados
+            SistemaVuelo.getVuelosGenerados().add(vuelo);
+            System.out.println("✔️ Vuelo creado correctamente.");
+
+            // Serializar vuelos y aeropuertos actualizados
+            try {
+                List<Vuelo> vuelosSerializar = SistemaVuelo.getVuelosGenerados();
+                GestionJSON.serializarLista(vuelosSerializar, "Archivos JSON/vuelos.json");
+
+                Set<Aeropuerto> aeropuertoSerializar = SistemaAeropuerto.getListaAeropuertos();
+                GestionJSON.serializarSet(aeropuertoSerializar, "Archivos JSON/aeropuertos.json");
+
+                System.out.println("✔️ Archivo de vuelos actualizado.");
+                System.out.println("✔️ Archivo de aeropuertos actualizado.");
+            } catch (JSONException e) {
+                System.out.println("🚫 Error al serializar el archivo de vuelos o aeropuertos.");
+                e.printStackTrace();
+            }
+        }
+    }
+
+
 
 
 

@@ -6,6 +6,7 @@ import java.util.*;
 import Enums.EstadoEmbarque;
 import Enums.PuertaEmbarque;
 import Excepciones.CapacidadMaximaException;
+import Gestiones.AlmacenamientoAviones;
 import Personas.Empleado;
 import Personas.Pasajero;
 
@@ -15,6 +16,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+
+
 
 @JsonPropertyOrder({"idVuelo", "origen", "destino", "horario", "estadoEmbarque", "avion", "puertaEmbarque", "listaPasajeros", "asientos"})
 public class Vuelo {
@@ -45,6 +49,17 @@ public class Vuelo {
 
     @JsonProperty("asientos")
     private Set<String> asientos;
+
+
+    public Vuelo(String origen,String destino){
+        this.origen = origen;
+        this.destino = destino;
+        this.horario = String.valueOf(new Date());
+        this.puertaEmbarque = PuertaEmbarque.obtenerPuertaAleatoria();
+        this.listaPasajeros = new HashSet<>();
+        this.asientos = new HashSet<>();
+        this.avion = null;
+    }
 
     public Vuelo(String idVuelo) {
         this.idVuelo = idVuelo;

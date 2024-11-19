@@ -11,7 +11,10 @@ import java.util.*;
 public class SistemaAeropuerto {
     private static  Set<Aeropuerto> listaAeropuertos;
 
-    
+
+    public static void setListaAeropuertos(Set<Aeropuerto> listaAeropuertos) {
+        SistemaAeropuerto.listaAeropuertos = listaAeropuertos;
+    }
 
     public static  Set<Aeropuerto> getListaAeropuertos() {
         return listaAeropuertos;
@@ -24,7 +27,7 @@ public class SistemaAeropuerto {
                 .orElse(null);
     }
 
-    public  void mostrarAeropuertos() {
+    public static   void mostrarAeropuertos() {
         System.out.println("Aeropuertos disponibles:");
         for (Aeropuerto aeropuerto : listaAeropuertos) {
             System.out.println("Código: " + aeropuerto.getCodigo() + " - " + aeropuerto.getNombre()+ " - "+aeropuerto.getDireccion());

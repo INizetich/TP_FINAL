@@ -1,0 +1,110 @@
+{
+  "45462201" : [ {
+    "vuelo" : {
+      "idVuelo" : "ZP140A49",
+      "origen" : "John F. Kennedy International Airport",
+      "destino" : "Miami International Airport",
+      "horario" : "2024-11-19T01:15:02.254712200",
+      "estadoEmbarque" : "CERRADO",
+      "avion" : {
+        "nombre" : "Boeing-748",
+        "capacidadAvion" : 243,
+        "motor" : "Motor a reacción",
+        "modelo" : "Modelo-A73",
+        "codigoAvion" : "A70C1A3",
+        "piloto" : {
+          "dni" : "35105918",
+          "nombre" : "jeronimo",
+          "apellido" : "benavidez",
+          "edad" : 34,
+          "tipoEmpleado" : "PILOTO",
+          "nroEmpleado" : 15382
+        }
+      },
+      "puertaEmbarque" : "C3",
+      "listaPasajeros" : [ {
+        "codigoPasajero" : "E3DAE4C2",
+        "numeroAsiento" : "A1",
+        "edad" : 21,
+        "dni" : "45462201",
+        "nombre" : "ignacio",
+        "apellido" : "nizetich",
+        "valija" : [ {
+          "dimension" : "14x14",
+          "peso" : 23.0
+        } ],
+        "checkInRealizado" : true
+      } ],
+      "asientos" : [ "A1" ]
+    },
+    "numeroAsiento" : "A1",
+    "pasajero" : {
+      "codigoPasajero" : "E3DAE4C2",
+      "numeroAsiento" : "A1",
+      "edad" : 21,
+      "dni" : "45462201",
+      "nombre" : "ignacio",
+      "apellido" : "nizetich",
+      "valija" : [ {
+        "dimension" : "14x14",
+        "peso" : 23.0
+      } ],
+      "checkInRealizado" : true
+    },
+    "codigoCheckIn" : "EEFF2ED8"
+  } ],
+  "25317232" : [ {
+    "vuelo" : {
+      "idVuelo" : "BF3076CB",
+      "origen" : "Aeropuerto Internacional de la Ciudad de México",
+      "destino" : "北京首都国际机场",
+      "horario" : "Tue Nov 19 00:23:02 ART 2024",
+      "estadoEmbarque" : "CERRADO",
+      "avion" : {
+        "nombre" : "Boeing-753",
+        "capacidadAvion" : 186,
+        "motor" : "Motor turbofan",
+        "modelo" : "Modelo-A44",
+        "codigoAvion" : "A70C1A8",
+        "piloto" : {
+          "dni" : "28454151",
+          "nombre" : "gabriel",
+          "apellido" : "ruiz",
+          "edad" : 43,
+          "tipoEmpleado" : "PILOTO",
+          "nroEmpleado" : 61360
+        }
+      },
+      "puertaEmbarque" : "B1",
+      "listaPasajeros" : [ {
+        "codigoPasajero" : "C00E3135",
+        "numeroAsiento" : "A1",
+        "edad" : 47,
+        "dni" : "25317232",
+        "nombre" : "lucila",
+        "apellido" : "calvo",
+        "valija" : [ {
+          "dimension" : "14x14",
+          "peso" : 23.0
+        } ],
+        "checkInRealizado" : true
+      } ],
+      "asientos" : [ "A1" ]
+    },
+    "numeroAsiento" : "A1",
+    "pasajero" : {
+      "codigoPasajero" : "C00E3135",
+      "numeroAsiento" : "A1",
+      "edad" : 47,
+      "dni" : "25317232",
+      "nombre" : "lucila",
+      "apellido" : "calvo",
+      "valija" : [ {
+        "dimension" : "14x14",
+        "peso" : 23.0
+      } ],
+      "checkInRealizado" : true
+    },
+    "codigoCheckIn" : "EEFF2ED8"
+  } ]
+}

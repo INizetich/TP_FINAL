@@ -2,8 +2,10 @@ package UI;
 import Aviones.Avion;
 import Aviones.Hangar;
 import JSON.GestionJSON;
+import Utilidades.Utilities;
 import javazoom.jl.player.Player;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Scanner;
 import Aeropuerto.Aeropuerto;
 import CheckIn.CheckIn;
@@ -22,7 +24,7 @@ public class MenuClientes {
     private static final String Click = "src/Sonidos/click.mp3";
     private static final String Soundtrack = "src/Sonidos/SoundtrackTienda.mp3";
 
-    public static void mostrarMenuCliente() {
+    public static void mostrarMenuCliente() throws IOException, InterruptedException {
         ///VARIABLES IMPORTANTES
         String opcionString = "";
         // INSTANCIA DE CLASES IMPORTANTES
@@ -32,7 +34,7 @@ public class MenuClientes {
         almacenamientoAviones.generarHangares(7);
         // Crear el sistema de aeropuertos y registrar aeropuertos
         SistemaAeropuerto.cargarAeropuertos();
-Configs.cargarConfiguracionCliente();
+         Configs.cargarConfiguracionCliente();
         almacenamientoAviones.generarAviones(15, admin.getListaEmpleados());
 
         SistemaVuelo.obtenerVuelosGenerados(almacenamientoAviones);
@@ -151,7 +153,7 @@ Configs.cargarConfiguracionCliente();
                                     reproducirClick();
                                 } catch (ReservaInexistenteException e) {
                                     // Mostrar animación de carga
-                                    Utilidades.Utilities.mostrarCargando();
+
 
                                     // Mensaje si no se encuentra la reserva
                                     System.out.println("❌ No se encontró una reserva asociada al DNI ingresado. ❌");
@@ -252,10 +254,11 @@ Configs.cargarConfiguracionCliente();
 
                 case 4:
                     System.out.println("🚪 Gracias por utilizar nuestros servicios. ¡Hasta luego! 🚪");
-
+                    Utilities.mostrarCargandoMenuPrincipal();
                     ///SERIALIZO LA LISTA DE HANGARES
                     List<Hangar<Avion>> listaHangares = almacenamientoAviones.getListaHangares();
                     GestionJSON.serializarLista(listaHangares, "Archivos JSON/listaHangares.json");
+                    Menu.Menu();
 
 
                     break;

@@ -23,7 +23,7 @@ public class Avion implements IAvion {
     private String modelo;
 @JsonProperty("codigoAvion")
     private String codigoAvion;
-
+@JsonProperty("piloto")
     private Empleado empleado;
 
 

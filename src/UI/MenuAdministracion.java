@@ -1,13 +1,11 @@
 package UI;
 import Aeropuerto.Aeropuerto;
 import Config.ConfigAdmin;
-import Excepciones.AccesoDenegadoException;
-import Excepciones.CodigoVueloInexistenteException;
-import Excepciones.EmpleadoInexistenteException;
-import Excepciones.dniNoEncontradoException;
+import Excepciones.*;
 import Gestiones.*;
 import Utilidades.Utilities;
 
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -45,10 +43,11 @@ public class MenuAdministracion {
                         System.out.println("\u001B[31m2.\u001B[0m Agregar una persona a la lista de personal");
                         System.out.println("\u001B[31m3.\u001B[0m Eliminar una persona de la lista de personal por DNI");
                         System.out.println("\u001B[31m4.\u001B[0m Eliminar una persona de los privilegios de administrador por DNI");
-                        System.out.println("\u001B[31m5.\u001B[0m Asignar piloto a un avion");
-                        System.out.println("\u001B[31m6.\u001B[0m Mostrar la lista de administradores");
+                        System.out.println("\u001B[31m5.\u001B[0m Eliminar un vuelo registrado");
+                        System.out.println("\u001B[31m6.\u001B[0m Agregar un vuelo a la lista");
                         System.out.println("\u001B[31m7.\u001B[0m Mostrar la lista de empleados");
-                        System.out.println("\u001B[31m8.\u001B[0m Cerrar sesión");
+                        System.out.println("\u001B[31m8.\u001B[0m Mostrar la lista de administradores");
+                        System.out.println("\u001B[31m9.\u001B[0m Cerrar sesión");
                         System.out.print("\u001B[32m > \u001B[0m");
                         opcionAdmin = scanner.nextInt();
                         scanner.nextLine();
@@ -106,6 +105,24 @@ public class MenuAdministracion {
 
                                 break;
                             case 6:
+                                try{
+
+                                    SistemaAeropuerto.mostrarAeropuertos();
+                                    System.out.println("ingrese el origen del vuelo");
+                                    String origen = scanner.nextLine();
+                                    System.out.println("Ingrese el destino del vuelo");
+                                    String destino = scanner.nextLine();
+                                    admin.agregarVuelo(origen,destino,almacenamientoAviones);
+                                }catch (AeropuertoNoEncontradoException e){
+                                    e.printStackTrace();
+                                }
+
+
+
+
+
+                                break;
+                            case 7:
                                 System.out.print("\u001B[32m > \u001B[0m");
                                 System.out.println("\n================================================");
                                 System.out.println("✨✨ ¿Desea mostrar la lista de empleados? ✨✨");
@@ -121,9 +138,8 @@ public class MenuAdministracion {
                                 }else {
                                     return;
                                 }
-
                                 break;
-                            case 7:
+                            case 8:
                                 System.out.print("\u001B[32m > \u001B[0m");
                                 System.out.println("\n================================================");
                                 System.out.println("📋 ¿Te gustaría ver la lista de administradores? 📋");
@@ -134,17 +150,23 @@ public class MenuAdministracion {
 
                                 admin.mostrarCuentasAdmin();
                                 break;
-                            case 8:
+
+
+                            case 9:
                                 Utilities.mostrarCerrandoAdmin();
                                 break;
                         }
 
                         // Preguntar si desea volver al menú principal de administrador
-                        if (opcionAdmin != 8) { // Si no seleccionó la opción 8 para cerrar sesión
+                        if (opcionAdmin != 10) { // Si no seleccionó la opción 8 para cerrar sesión
                             System.out.print("\u001B[31m¿Desea volver al menú principal? (sí/no): \u001B[0m");
                             String respuesta = scanner.nextLine().trim().toLowerCase();
                             if (!respuesta.equals("sí") && !respuesta.equals("si")) {
-                                break; // Sale del ciclo y termina el caso
+                                Utilities.mostrarCargandoMenuPrincipal();
+                                Menu.Menu();
+                               // Sale del ciclo y termina el caso
+                            } else if (respuesta.equals("no") && respuesta.equals("no")) {
+                                MenuAdministracion.mostrarMenuAdministracion();
                             }
                         }
 
@@ -154,6 +176,8 @@ public class MenuAdministracion {
                 e.printStackTrace();
                 break;
             } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
                 throw new RuntimeException(e);
             }
             break;

@@ -195,8 +195,7 @@ public class MenuAdministracion {
                                     limpiarPantalla();
                                     printCentered("===== Menú de Stock Kiosco =====");
                                     printCentered("1️⃣ Control de Stock 📦");
-                                    printCentered("2️⃣ Otras opciones de administrador...");
-                                    printCentered("3️⃣ Salir");
+                                    printCentered("2️⃣  Salir");
                                     printCentered("=================================");
                                     opcionkiosco = scanner.nextInt();
                                     scanner.nextLine(); // Limpiar buffer
@@ -219,46 +218,91 @@ public class MenuAdministracion {
 
                                                 switch (opcionStock) {
                                                     case 1:
-                                                        Map<String,Map<String,Integer>> mapaJSON = GestionJSON.deserializarStock("Archivos JSON/Stock.json");
+                                                        // Deserializar el stock del archivo JSON
+                                                        Map<String, Map<String, Integer>> mapaJSON = GestionJSON.deserializarStock("Archivos JSON/Stock.json");
                                                         StockManager.setStock(mapaJSON);
                                                         StockManager.recorrerCategorias(StockManager.getStock());
+
+                                                        // Solicitar la categoría del producto
+
                                                         printCentered("Ingrese la categoría del producto:");
                                                         String categoriaProducto = scanner.nextLine();
                                                         reproducirClick();
+
+                                                        // Verificar si la categoría existe
+                                                        if (!StockManager.getStock().containsKey(categoriaProducto)) {
+                                                            printCentered("❌ La categoría '" + categoriaProducto + "' no existe. Intente nuevamente.");
+                                                            break;  // Termina el caso si la categoría no existe
+                                                        }
+
                                                         StockManager.recorrerProductos(StockManager.getStock());
+
+                                                        // Solicitar el nombre del producto
                                                         printCentered("Ingrese el nombre del producto:");
                                                         String producto = scanner.nextLine();
                                                         reproducirClick();
+
+                                                        // Solicitar la cantidad a agregar
                                                         printCentered("Ingrese la cantidad a agregar:");
                                                         int cantidadAgregar = scanner.nextInt();
                                                         reproducirClick();
-                                                        StockManager.agregarAStock(categoriaProducto, producto, cantidadAgregar);
-                                                        printCentered("✅ Producto agregado exitosamente.");
+
+                                                        // Intentar agregar el producto al stock, manejar excepciones
+
+                                                            StockManager.agregarAStock(categoriaProducto, producto, cantidadAgregar);
+                                                            printCentered("✅ Producto agregado exitosamente.");
+
                                                         reproducirClick();
                                                         break;
 
                                                     case 2:
+                                                        // Deserializar el stock del archivo JSON
+                                                        Map<String, Map<String, Integer>> stockJSON = GestionJSON.deserializarStock("Archivos JSON/Stock.json");
+                                                        StockManager.setStock(stockJSON);
+                                                        // Solicitar la categoría del producto
+                                                        StockManager.recorrerCategorias(StockManager.getStock());
                                                         printCentered("Ingrese la categoría del producto:");
                                                         String categoriaProductoEliminar = scanner.nextLine();
                                                         reproducirClick();
+
+                                                        // Verificar si la categoría existe
+                                                        if (!StockManager.getStock().containsKey(categoriaProductoEliminar)) {
+                                                            printCentered("❌ La categoría '" + categoriaProductoEliminar + "' no existe. Intente nuevamente.");
+                                                            break;  // Termina el caso si la categoría no existe
+                                                        }
+
+                                                        // Solicitar el nombre del producto
                                                         printCentered("Ingrese el nombre del producto:");
-                                                        producto = scanner.nextLine();
+                                                        String productoeliminar = scanner.nextLine();
                                                         reproducirClick();
+
+                                                        // Solicitar la cantidad a eliminar
                                                         printCentered("Ingrese la cantidad a eliminar:");
                                                         int cantidadEliminar = scanner.nextInt();
                                                         reproducirClick();
-                                                        StockManager.eliminarDeStock(categoriaProductoEliminar, producto, cantidadEliminar);
+
+                                                        // Intentar eliminar el producto del stock, manejar otras excepciones si es necesario
+                                                        try {
+                                                            StockManager.eliminarDeStock(categoriaProductoEliminar, productoeliminar, cantidadEliminar);
+                                                            printCentered("✅ Producto eliminado exitosamente.");
+                                                        } catch (Exception e) {
+                                                            printCentered("❌ Ocurrió un error al eliminar el producto: " + e.getMessage());
+                                                        }
+                                                        reproducirClick();
                                                         break;
+
+
 
                                                     case 3:
                                                         printCentered("===== Stock Actual =====");
 
 
-                                                        Map<String, Map<String, Integer>> stock = StockManager.getStock();
-                                                        if (stock.isEmpty()) {
+                                                        Map<String, Map<String, Integer>> stockdeserializado = GestionJSON.deserializarStock("Archivos JSON/Stock.json");
+                                                        StockManager.setStock(stockdeserializado);
+                                                        if (StockManager.getStock().isEmpty()) {
                                                             printCentered("📦 El stock está vacío.");
                                                         } else {
-                                                              //  mostrarCuadroStock();
+                                                              StockManager.recorrerProductos(StockManager.getStock());
                                                         }
                                                         break;
 
@@ -295,7 +339,7 @@ public class MenuAdministracion {
                                 Utilities.mostrarCerrandoAdmin();
                                 break;
                             }
-}while (opcionAdmin < 11);
+}while (opcionAdmin < 10);
                             // Preguntar si desea volver al menú principal de administrador
                             if (opcionAdmin != 11) {
                                 System.out.print("\u001B[31m¿Desea volver al menú principal? (sí/no): \u001B[0m");
@@ -356,7 +400,6 @@ public static void printCentered(String text) {
 }
 
 public static void limpiarPantalla() {
-    // Imprime 50 líneas vacías para simular la limpieza de pantalla
     for (int i = 0; i < 40; i++) {
         System.out.println();
     }

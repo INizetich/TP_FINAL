@@ -1,8 +1,5 @@
 {
-  "John F. Kennedy International Airport" : {
-    "Miami International Airport" : [ "ZP140A49" ]
-  },
-  "Aeropuerto Internacional Ezeiza" : {
-    "Miami International Airport" : [ "C6103495" ]
+  "Dubai International Airport" : {
+    "Los Angeles International Airport" : [ "E08C0EC8" ]
   }
 }

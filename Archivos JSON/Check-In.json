@@ -1,110 +1,56 @@
 {
-  "45576748" : [ {
+  "11223344" : [ {
     "vuelo" : {
-      "idVuelo" : "C6103495",
-      "origen" : "Aeropuerto Internacional Ezeiza",
-      "destino" : "Miami International Airport",
-      "horario" : "2024-11-19T15:29:19.982197200",
-      "estadoEmbarque" : "CERRADO",
+      "idVuelo" : "E08C0EC8",
+      "origen" : "Dubai International Airport",
+      "destino" : "Los Angeles International Airport",
+      "horario" : "2024-11-20T01:39:42.154319400",
+      "estadoEmbarque" : "ATRASADO",
       "avion" : {
-        "nombre" : "Boeing-750",
-        "capacidadAvion" : 132,
+        "nombre" : "Boeing-754",
+        "capacidadAvion" : 223,
         "motor" : "Motor a reacción",
-        "modelo" : "Modelo-A11",
-        "codigoAvion" : "A70C1A5",
+        "modelo" : "Modelo-A48",
+        "codigoAvion" : "A70C1A9",
         "piloto" : {
-          "dni" : "34581039",
-          "nombre" : "cristian",
-          "apellido" : "chiliguay",
-          "edad" : 49,
+          "dni" : "27105918",
+          "nombre" : "gustavo",
+          "apellido" : "roskoczy",
+          "edad" : 51,
           "tipoEmpleado" : "PILOTO",
-          "nroEmpleado" : 62504
-        }
-      },
-      "puertaEmbarque" : "B4",
-      "listaPasajeros" : [ {
-        "codigoPasajero" : "2281D63F",
-        "numeroAsiento" : "A1",
-        "edad" : 20,
-        "dni" : "45576748",
-        "nombre" : "chancho",
-        "apellido" : "arian",
-        "valija" : [ {
-          "dimension" : "152x152x142",
-          "peso" : 23.0
-        } ],
-        "checkInRealizado" : true
-      } ],
-      "asientos" : [ "A1" ]
-    },
-    "numeroAsiento" : "A1",
-    "pasajero" : {
-      "codigoPasajero" : "2281D63F",
-      "numeroAsiento" : "A1",
-      "edad" : 20,
-      "dni" : "45576748",
-      "nombre" : "chancho",
-      "apellido" : "arian",
-      "valija" : [ {
-        "dimension" : "152x152x142",
-        "peso" : 23.0
-      } ],
-      "checkInRealizado" : true
-    },
-    "codigoCheckIn" : "5657B647"
-  } ],
-  "45462201" : [ {
-    "vuelo" : {
-      "idVuelo" : "ZP140A49",
-      "origen" : "John F. Kennedy International Airport",
-      "destino" : "Miami International Airport",
-      "horario" : "2024-11-19T16:05:19.983269100",
-      "estadoEmbarque" : "CERRADO",
-      "avion" : {
-        "nombre" : "Boeing-753",
-        "capacidadAvion" : 113,
-        "motor" : "Motor turbofan",
-        "modelo" : "Modelo-A52",
-        "codigoAvion" : "A70C1A8",
-        "piloto" : {
-          "dni" : "35105918",
-          "nombre" : "lionel",
-          "apellido" : "messi",
-          "edad" : 37,
-          "tipoEmpleado" : "PILOTO",
-          "nroEmpleado" : 86682
+          "nroEmpleado" : 54427
         }
       },
       "puertaEmbarque" : "C1",
       "listaPasajeros" : [ {
-        "codigoPasajero" : "0FE0860F",
-        "numeroAsiento" : "A1",
-        "edad" : 21,
-        "dni" : "45462201",
-        "nombre" : "ignacio",
-        "apellido" : "nizetich",
+        "codigoPasajero" : "2921C852",
+        "numeroAsiento" : "A4",
+        "edad" : 22,
+        "dni" : "11223344",
+        "nombre" : "Lala",
+        "apellido" : "lolo",
         "valija" : [ {
-          "dimension" : "150x254",
-          "peso" : 23.0
+          "dimension" : "11",
+          "peso" : 5.0
         } ],
         "checkInRealizado" : true
       } ],
-      "asientos" : [ "A1" ]
+      "asientos" : [ "A4" ]
     },
-    "numeroAsiento" : "A1",
+    "numeroAsiento" : "A4",
     "pasajero" : {
-      "codigoPasajero" : "0FE0860F",
-      "numeroAsiento" : "A1",
-      "edad" : 21,
-      "dni" : "45462201",
-      "nombre" : "ignacio",
-      "apellido" : "nizetich",
+      "codigoPasajero" : "2921C852",
+      "numeroAsiento" : "A4",
+      "edad" : 22,
+      "dni" : "11223344",
+      "nombre" : "Lala",
+      "apellido" : "lolo",
       "valija" : [ {
-        "dimension" : "150x254",
-        "peso" : 23.0
+        "dimension" : "11",
+        "peso" : 5.0
       } ],
       "checkInRealizado" : true
     },
-    "codigoCheckIn" : "5657B647"
+    "codigoCheckIn" : "F12F5BB5"
   } ]
 }

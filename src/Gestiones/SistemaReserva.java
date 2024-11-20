@@ -158,7 +158,7 @@ public class SistemaReserva {
 
                             // Cambiar el estado del embarque con una probabilidad del 20%
                             if (cambiarEstadoConProbabilidad(vueloSeleccionado)) {
-                                printCentered("❗ El vuelo ha cambiado su estado de embarque a CERRADO debido a probabilidades.");
+                                printCentered("❗ El vuelo ha cambiado su estado de embarque a CERRADO.");
                             }
 
                             // Crear un nuevo CheckIn
@@ -323,7 +323,7 @@ public class SistemaReserva {
                 valijas.add(new Valija(dimension, peso));
             }
 
-            printCentered("================================ =====");
+            printCentered("=====================================");
             printCentered("📝 ¿Desea editar su información? (s/n)");
             eleccion = scanner.nextLine().trim().toLowerCase();
             Utilities.limpiarPantalla();
@@ -399,7 +399,8 @@ public class SistemaReserva {
 
     public static void printCentered(String text) {
         int terminalWidth = 150; // Puedes ajustar este valor según el ancho de tu terminal
-        int padding = (terminalWidth - text.length()) / 2;
+        int padding = Math.max((terminalWidth - text.length()) / 2, 0); // Evitar valores negativos
+
         String paddedText = " ".repeat(padding) + text;
         System.out.println(paddedText);
     }

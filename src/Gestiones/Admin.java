@@ -673,35 +673,93 @@ boolean token = false;
 
 
     private Empleado crearEmpleado(){
+        String modificacionEmpleado = "";
+        String nombre = "";
+        String apellido = "";
+        String dni = "";
+        int edad = 0;
+        TipoEmpleado tipo = null;
+
         // Solicitar nombre
-        printCentered("🔑 Ingrese el nombre del empleado: ");
-        String nombre = scanner.nextLine();
+        do {
+            printCentered("🔑 Ingrese el nombre del empleado: ");
+            nombre = scanner.nextLine();
+
+            // Validación de nombre
+            if (nombre.trim().isEmpty()) {
+                printCentered("❌ El nombre no puede estar vacío. Intente nuevamente.");
+            }
+        } while (nombre.trim().isEmpty());
 
         // Solicitar apellido
-        printCentered("📛 Ingrese el apellido del empleado: ");
-        String apellido = scanner.nextLine();
+        do {
+            printCentered("📛 Ingrese el apellido del empleado: ");
+            apellido = scanner.nextLine();
+
+            // Validación de apellido
+            if (apellido.trim().isEmpty()) {
+                printCentered("❌ El apellido no puede estar vacío. Intente nuevamente.");
+            }
+        } while (apellido.trim().isEmpty());
 
         // Solicitar edad
-        printCentered("🎂 Ingrese la edad del empleado: ");
-        int edad = scanner.nextInt();
-        scanner.nextLine(); // Limpiar buffer
+        do {
+            printCentered("🎂 Ingrese la edad del empleado: ");
+            while (!scanner.hasNextInt()) {
+                printCentered("❌ Por favor ingrese un número válido para la edad.");
+                scanner.next(); // Limpiar buffer
+            }
+            edad = scanner.nextInt();
+            scanner.nextLine(); // Limpiar buffer
+
+            // Validación de edad (por ejemplo, mayor o igual a 18)
+            if (edad < 18) {
+                printCentered("❌ La edad debe ser mayor o igual a 18 años.");
+            }
+        } while (edad < 18);
 
         // Solicitar DNI
-        printCentered("🆔 Ingrese el DNI del empleado (8 dígitos numéricos): ");
-        String dni = scanner.nextLine();
+        do {
+            printCentered("🆔 Ingrese el DNI del empleado (8 dígitos numéricos): ");
+            dni = scanner.nextLine();
+
+            // Validación de DNI (debe tener 8 dígitos numéricos)
+            if (!dni.matches("\\d{8}")) {
+                printCentered("❌ El DNI debe contener exactamente 8 dígitos numéricos.");
+            }
+        } while (!dni.matches("\\d{8}"));
 
         // Solicitar tipo de empleo
-        printCentered("💼 Ingrese el tipo de empleo del empleado (PILOTO,COPILOTO,AZAFATA): ");
-        TipoEmpleado tipo = TipoEmpleado.valueOf(scanner.nextLine().toUpperCase());
+        do {
+            printCentered("💼 Ingrese el tipo de empleo del empleado (PILOTO, COPILOTO, AZAFATA): ");
+            String tipoInput = scanner.nextLine().toUpperCase();
 
-        // Crear y retornar el empleado
-        printCentered("✔️ Empleado creado exitosamente. ¡Bienvenido al equipo! 🎉");
+            // Validación de tipo de empleo
+            try {
+                tipo = TipoEmpleado.valueOf(tipoInput);
+            } catch (IllegalArgumentException e) {
+                printCentered("❌ El tipo de empleo no es válido. Ingrese uno de los siguientes: PILOTO, COPILOTO, AZAFATA.");
+            }
+        } while (tipo == null);
+
+        // Preguntar si desea modificar la información
+        do {
+            printCentered("¿Desea modificar su información? (S/N): ");
+            modificacionEmpleado = scanner.nextLine();
+
+            // Si desea modificar, repetir la recolección de datos
+            if (modificacionEmpleado.equalsIgnoreCase("s")) {
+                return crearEmpleado(); // Volver a ejecutar el proceso de creación
+            }
+        } while (!modificacionEmpleado.equalsIgnoreCase("s") && !modificacionEmpleado.equalsIgnoreCase("n"));
+
+        // Crear el empleado con la información validada
         return new Empleado(nombre, apellido, edad, dni, tipo);
     }
 
 
 
-//String nombre, String apellido, int edad,String dni, TipoEmpleado tipoEmpleado
+
 
 
     private static Set<Empleado> agregarPersonas(){

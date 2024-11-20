@@ -2,19 +2,17 @@ package Gestiones;
 
 import Config.ConfigAdmin;
 import JSON.GestionJSON;
-import org.json.JSONException;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 public class StockManager {
     // Estructura de stock: Categoría -> (Ítem -> Cantidad)
     private static Map<String, Map<String, Integer>> stock = new HashMap<>();
 
-    public static void agregarAStock(String categoria, String item, int cantidad) {
+    public static void agregarAStock(String categoria, String item, int cantidad){
         // Verificar si es la primera ejecución del administrador
         if (!ConfigAdmin.isFirstRunAdmin()) return;
 
@@ -152,8 +150,8 @@ public class StockManager {
                 return;
             }
         } else {
-            System.err.println("🚫 La categoría especificada no existe.");
-            return;
+            System.out.println("🚫 La categoría especificada no existe.");
+
         }
 
 

@@ -1,5 +1,6 @@
 package UI;
 import PreEmbarque.PreEmbarque;
+import Utilidades.Utilities;
 import javazoom.jl.player.Player;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -23,7 +24,9 @@ public class MenuClientes {
     private static final String GREEN = "\u001B[32m";
     private static final String WHITE = "\u001B[37m";
     private static final String RESET = "\u001B[0m";
-    public static void mostrarMenuCliente() {
+    private static volatile boolean stopMusic = false;
+    private static Thread audioThread;
+    public static void mostrarMenuCliente() throws IOException, InterruptedException {
 
         ///VARIABLES IMPORTANTES
         String opcionString = "";
@@ -47,21 +50,23 @@ public class MenuClientes {
         int opcionCliente;
 
         do {
-            limpiarPantalla();
-            printCentered("======== Menú de Clientes ========");
-            printCentered("1️⃣ Hacer una reserva 🛫");
-            printCentered("2️⃣ Ingresar a tiendas 🏬");
-            printCentered("3️⃣ ATM 💰");
-            printCentered("4️⃣ Salir 👋");
+            Utilities.limpiarPantalla();
+            Utilities.printCentered("======== Menú de Clientes ========");
+          Utilities.printCentered("1️⃣ Hacer una reserva 🛫");
+            Utilities.printCentered("2️⃣ Ingresar a tiendas 🏬");
+            Utilities.printCentered("3️⃣ ATM 💰");
+            Utilities.printCentered("4️⃣ Salir 👋");
             opcionCliente = scanner.nextInt();
+
             scanner.nextLine(); //
             reproducirClick();
 
             switch (opcionCliente) {
                 case 1:
-                    limpiarPantalla();
-                    printCentered("🎉 ¡BIENVENIDO AL SISTEMA DE RESERVAS DE VUELOS! ✈️");
-                    printCentered("=====================================================");
+                    Utilities.limpiarPantalla();
+                    Utilities.printCentered("4️⃣ Salir 👋");
+                    Utilities.printCentered("🎉 ¡BIENVENIDO AL SISTEMA DE RESERVAS DE VUELOS! ✈️");
+                   Utilities.printCentered("=====================================================");
                     printCentered("Por favor, elija una opción:");
                     printCentered("1️⃣ Realizar una reserva en un vuelo 🛫");
                     printCentered("2️⃣ Mostrar una reserva asociada al pasajero 📋");
@@ -72,7 +77,7 @@ public class MenuClientes {
                     int opcionReserva = scanner.nextInt();
                     reproducirClick();
                     scanner.nextLine(); // Limpiar el buffer de entrada
-                    limpiarPantalla();
+                   Utilities.limpiarPantalla();
                     switch (opcionReserva) {
                         case 1:
                             do {
@@ -95,7 +100,7 @@ public class MenuClientes {
                             String dni = "";
                             do {
                                 try {
-                                    limpiarPantalla();
+                                    Utilities.limpiarPantalla();
                                     printCentered("==================================");
                                     printCentered("🆔 Ingrese su DNI para mostrar su información de reserva: 📑");
                                     printCentered("==================================");
@@ -179,10 +184,10 @@ public class MenuClientes {
                     break;
 
                 case 2:
-                    // Implementar el caso 2 (Ingresar a tiendas)
                     printCentered("Usted ha elegido ingresar a tiendas. 🏬");
                     musicaMenu();
-                    int opcion; limpiarPantalla();
+                    int opcion;
+                    Utilities.limpiarPantalla();
                     do {
                         printCentered("=== 🛒 Bienvenido al Mini Kiosko 🛒 ===");
                         printCentered("1. 🥤 Bebidas");
@@ -201,9 +206,9 @@ public class MenuClientes {
                             case 4 -> printCentered("¡Gracias por visitar el kiosko! 🛒");
                             default -> printCentered("❌ Opción inválida. Intente nuevamente.");
                         }
-                    } while (opcion != 5);
+                    } while (opcion != 4);
 
-                    scanner.close();
+
 
                     printCentered("🔄Presione Enter para volver al menú principal...🔄");
                     scanner.nextLine();
@@ -211,12 +216,12 @@ public class MenuClientes {
 
                 case 3:
                     printCentered(GREEN + "===============================" + RESET);
-                    printCentered(GREEN + "         █████╗ ████████╗███╗   ███╗" + RESET);
-                    printCentered(GREEN + "        ██╔══██╗╚══██╔══╝████╗ ████║" + RESET);
-                    printCentered(GREEN + "        ███████║   ██║   ██╔████╔██║" + RESET);
-                    printCentered(GREEN + "        ██╔══██║   ██║   ██║╚██╔╝██║" + RESET);
-                    printCentered(GREEN + "        ██║  ██║   ██║   ██║ ╚═╝ ██║" + RESET);
-                    printCentered(GREEN + "        ╚═╝  ╚═╝   ╚═╝   ╚═╝     ╚═╝" + RESET);
+                    printCentered(GREEN + "      █████╗ ████████╗███╗   ███╗" + RESET);
+                    printCentered(GREEN + "     ██╔══██╗╚══██╔══╝████╗ ████║" + RESET);
+                    printCentered(GREEN + "     ███████║   ██║   ██╔████╔██║" + RESET);
+                    printCentered(GREEN + "     ██╔══██║   ██║   ██║╚██╔╝██║" + RESET);
+                    printCentered(GREEN + "     ██║  ██║   ██║   ██║ ╚═╝ ██║" + RESET);
+                    printCentered(GREEN + "     ╚═╝  ╚═╝   ╚═╝   ╚═╝     ╚═╝" + RESET);
                     printCentered(GREEN + "===============================" + RESET);
 
                     printCentered(WHITE + "🏦 Opciones disponibles:" + RESET);
@@ -254,6 +259,16 @@ public class MenuClientes {
                     List<Vuelo> vuelos = SistemaVuelo.getVuelosGenerados();
                     GestionJSON.serializarLista(vuelos, "Archivos JSON/vuelos.json");
                     Configs.setFirstRunComplete();
+                    detenerMusica();
+                    printCentered("¿Desea volver al menú principal? (sí/no): ");
+                    String respuesta = scanner.nextLine().trim().toLowerCase();
+                    if (!respuesta.equals("sí") && !respuesta.equals("si")) {
+                        Utilities.mostrarCargandoMenuPrincipal();
+                        Menu.Menu();
+                        // Sale del ciclo y termina el caso
+                    } else if (respuesta.equals("no") && respuesta.equals("no")) {
+                        System.exit(0);
+                    }
                     break;
 
                 default:
@@ -261,11 +276,14 @@ public class MenuClientes {
                     break;
             }
         } while (opcionCliente != 4);
-    }
 
+    if (opcionCliente != 4) {
+
+    } }
     private static void mostrarBebidas(Scanner scanner) {
+        int cantidad = 0;
         reproducirClick();
-        limpiarPantalla();
+        Utilities.limpiarPantalla();
         printCentered("====================================");
         printCentered("    🥤 BEBIDAS 🥤");
         printCentered("====================================");
@@ -273,11 +291,17 @@ public class MenuClientes {
         printCentered("2. 🥤 Gaseosa        - $1.50");
         printCentered("3. 🍹 Jugo natural   - $2.00");
         printCentered("====================================");
-        printCentered("Seleccione su bebida (0 para volver): ");
+        printCentered("Seleccione su bebida : ");
         int bebida = scanner.nextInt();
         scanner.nextLine();
         printCentered("ingrese la cantidad a comprar");
-        int cantidad = scanner.nextInt();
+        if(cantidad==0) {
+            try {
+            } catch (CantidadIncorrectaException e) {
+                System.out.println(e.toString());
+            }
+        }
+        cantidad = scanner.nextInt();
         scanner.nextLine();
         reproducirClick();
 
@@ -304,7 +328,7 @@ public class MenuClientes {
                 printCentered("❌ No hay suficiente stock de " + item + ".");
             }
         } else if (bebida != 0) {
-            limpiarPantalla();
+            Utilities.limpiarPantalla();
             printCentered("❌ Opción inválida.");
             reproducirClick();
         }
@@ -312,7 +336,7 @@ public class MenuClientes {
 
     private static void mostrarComida(Scanner scanner) {
         reproducirClick();
-        limpiarPantalla();
+        Utilities.limpiarPantalla();
         printCentered("====================================");
         printCentered("   🍔 COMIDA 🍔");
         printCentered("====================================");
@@ -374,7 +398,7 @@ public class MenuClientes {
 
     private static void mostrarArticulosVarios(Scanner scanner) {
         reproducirClick();
-        limpiarPantalla();
+        Utilities.limpiarPantalla();
         printCentered("====================================");
         printCentered("🛍️ ARTÍCULOS VARIOS 🛍️");
         printCentered("====================================");
@@ -443,16 +467,17 @@ public class MenuClientes {
         printCentered("\n💸 Ingrese la cantidad de dinero a retirar: $");
         double monto = scanner.nextDouble();
         if (monto > 0 && monto <= credito) {
-            credito -= monto; limpiarPantalla();
+            credito -= monto;
+            Utilities.limpiarPantalla();
             printCentered("✅ Retiro exitoso. Crédito restante: $" + String.format("%.2f", credito));
             reproducirClick();
 
         } else if (monto > credito) {
-            limpiarPantalla();
+            Utilities.limpiarPantalla();
             printCentered("❌ Fondos insuficientes. Intente con un monto menor.");
             reproducirClick();
         } else {
-            limpiarPantalla();
+            Utilities.limpiarPantalla();
             printCentered("❌ El monto debe ser mayor a $0.");
             reproducirClick();
         }
@@ -463,11 +488,10 @@ public class MenuClientes {
         double monto = scanner.nextDouble();
         if (monto > 0) {
             credito += monto;
-            limpiarPantalla();
+
             printCentered("✅ Crédito agregado exitosamente. Crédito actual: $" + String.format("%.2f", credito));
             reproducirClick();
         } else {
-            limpiarPantalla();
             printCentered("❌ El monto debe ser mayor a $0.");
             reproducirClick();
         }
@@ -476,17 +500,18 @@ public class MenuClientes {
     private static void realizarCompra(double precio, String tipo) {
         if (credito >= precio) {
             credito -= precio;
-            limpiarPantalla();
+            Utilities.limpiarPantalla();
             printCentered("✅ Compra de " + tipo + " realizada con éxito. Crédito restante: $" + String.format("%.2f", credito));
             reproducirClick();
         } else {
-            limpiarPantalla();
+            Utilities.limpiarPantalla();
             printCentered("❌ No tienes suficiente crédito para esta compra.");
             reproducirClick();
         }
     }
 
     private static void musicaMenu() {
+        stopMusic = false;
         Thread audioThread = new Thread(() -> {
             try (FileInputStream fis = new FileInputStream(Soundtrack)) {
                 Player player = new Player(fis);
@@ -498,6 +523,14 @@ public class MenuClientes {
         audioThread.setDaemon(true); // El hilo se detendrá automáticamente cuando termine el programa
         audioThread.start();
     }
+
+    public static void detenerMusica() {
+        stopMusic = true; // Cambiar la bandera para detener la música
+        if (audioThread != null && audioThread.isAlive()) {
+            audioThread.interrupt(); // Interrumpir el hilo
+        }
+    }
+
     private static void reproducirClick() {
         Thread audioThread = new Thread(() -> {
             try (FileInputStream fis = new FileInputStream(Click)) {
@@ -512,19 +545,9 @@ public class MenuClientes {
     }
 
 
-    public static void printCentered(String text) {
-        int terminalWidth = 150; // Puedes ajustar este valor según el ancho de tu terminal
-        int padding = (terminalWidth - text.length()) / 2;
-        String paddedText = " ".repeat(padding) + text;
-        System.out.println(paddedText);
-    }
 
-    public static void limpiarPantalla() {
-        // Imprime 50 líneas vacías para simular la limpieza de pantalla
-        for (int i = 0; i < 40; i++) {
-            System.out.println();
-        }
-    }
+
+
 
 }
 

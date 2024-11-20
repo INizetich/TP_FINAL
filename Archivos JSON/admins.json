@@ -9,6 +9,11 @@
   "apellido" : "arschak",
   "edad" : 24
 }, {
+  "dni" : "11223344",
+  "nombre" : "pepito",
+  "apellido" : "gomez",
+  "edad" : 23
+}, {
   "dni" : "45462201",
   "nombre" : "ignacio",
   "apellido" : "nizetich",

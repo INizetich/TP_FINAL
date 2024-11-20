@@ -87,6 +87,7 @@ public class MenuAdministracion {
                         switch (opcionAdmin) {
                             case 1:
                                 try {
+                                    Utilities.limpiarPantalla();
                                     admin.agregarAdministradorManual();
                                     reproducirClick();
                                 } catch (InputMismatchException e) {
@@ -96,6 +97,7 @@ public class MenuAdministracion {
 
                             case 2:
                                 try {
+                                    Utilities.limpiarPantalla();
                                     admin.agregarPersonal();
                                     reproducirClick();
                                 } catch (InputMismatchException e) {
@@ -105,6 +107,7 @@ public class MenuAdministracion {
 
                             case 3:
                                 try {
+                                    Utilities.limpiarPantalla();
                                     admin.mostrarListaEmpleados();
                                     admin.eliminarPersonalPorDNI();
                                     reproducirClick();
@@ -117,6 +120,7 @@ public class MenuAdministracion {
 
                             case 4:
                                 try {
+                                    Utilities.limpiarPantalla();
                                     printCentered("💼 Lista de administradores actualizada:");
                                     admin.mostrarCuentasAdmin();
                                     printCentered("🔑 Ingresa el DNI del administrador a eliminar:");
@@ -130,6 +134,7 @@ public class MenuAdministracion {
 
                             case 5:
                                 try {
+                                    Utilities.limpiarPantalla();
                                     SistemaVuelo.setVuelosGenerados(GestionJSON.deserializarVuelos("Archivos JSON/vuelos.json"));
                                     SistemaVuelo.mostrarVuelos();
                                     printCentered("Ingrese el ID de vuelo a eliminar:");
@@ -142,6 +147,7 @@ public class MenuAdministracion {
 
                             case 6:
                                 try {
+                                    Utilities.limpiarPantalla();
                                     SistemaAeropuerto.mostrarAeropuertos();
                                     printCentered("Ingrese el origen del vuelo:");
                                     String origen = scanner.nextLine();
@@ -156,6 +162,7 @@ public class MenuAdministracion {
                                 break;
 
                             case 7:
+                                Utilities.limpiarPantalla();
                                 printCentered("\n================================================");
                                 printCentered("✨✨ ¿Desea mostrar la lista de empleados? ✨✨");
                                 printCentered("================================================");
@@ -173,6 +180,7 @@ public class MenuAdministracion {
                                 break;
 
                             case 8:
+                                Utilities.limpiarPantalla();
                                 printCentered("\n================================================");
                                 printCentered("📋 ¿Te gustaría ver la lista de administradores? 📋");
                                 printCentered("================================================");

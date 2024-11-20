@@ -47,21 +47,23 @@ public class MenuAdministracion {
         do {
             try {
                 if (admin.comprobarLogin(loguin)) {
-                    System.out.println("\u001B[32mACCESSO GARANTIZADO\u001B[0m");
+                    printCentered("\u001B[32mACCESSO GARANTIZADO\u001B[0m");
                     Thread.sleep(250);
-                    System.out.println("\u001B[31m----------------------BIENVENIDO AL SISTEMA DE ADMINISTRADOR----------------------\u001B[0m");
+                    printCentered("\u001B[31m----------------------BIENVENIDO AL SISTEMA DE ADMINISTRADOR----------------------\u001B[0m");
+
                     do {
-                        System.out.println("\u001B[31m1.\u001B[0m Dar privilegios de administrador a una persona");
-                        System.out.println("\u001B[31m2.\u001B[0m Agregar una persona a la lista de personal");
-                        System.out.println("\u001B[31m3.\u001B[0m Eliminar una persona de la lista de personal por DNI");
-                        System.out.println("\u001B[31m4.\u001B[0m Eliminar una persona de los privilegios de administrador por DNI");
-                        System.out.println("\u001B[31m5.\u001B[0m Eliminar un vuelo registrado");
-                        System.out.println("\u001B[31m6.\u001B[0m Agregar un vuelo a la lista");
-                        System.out.println("\u001B[31m7.\u001B[0m Mostrar la lista de empleados");
-                        System.out.println("\u001B[31m8.\u001B[0m Mostrar la lista de administradores");
-                        System.out.println("\u001B[31m8.\u001B[0m Menu Stock ");
-                        System.out.println("\u001B[31m9.\u001B[0m Cerrar sesión");
-                        System.out.print("\u001B[32m > \u001B[0m");
+                        printCentered("\u001B[31m1.\u001B[0m Dar privilegios de administrador a una persona");
+                        printCentered("\u001B[31m2.\u001B[0m Agregar una persona a la lista de personal");
+                        printCentered("\u001B[31m3.\u001B[0m Eliminar una persona de la lista de personal por DNI");
+                        printCentered("\u001B[31m4.\u001B[0m Eliminar una persona de los privilegios de administrador por DNI");
+                        printCentered("\u001B[31m5.\u001B[0m Eliminar un vuelo registrado");
+                        printCentered("\u001B[31m6.\u001B[0m Agregar un vuelo a la lista");
+                        printCentered("\u001B[31m7.\u001B[0m Mostrar la lista de empleados");
+                        printCentered("\u001B[31m8.\u001B[0m Mostrar la lista de administradores");
+                        printCentered("\u001B[31m8.\u001B[0m Menu Stock");
+                        printCentered("\u001B[31m9.\u001B[0m Cerrar sesión");
+                        printCentered("\u001B[32m > \u001B[0m");
+
                         opcionAdmin = scanner.nextInt();
                         scanner.nextLine();
 
@@ -72,75 +74,70 @@ public class MenuAdministracion {
                                 } catch (InputMismatchException e) {
                                     e.printStackTrace();
                                 }
-
                                 break;
+
                             case 2:
                                 try {
                                     admin.agregarPersonal();
                                 } catch (InputMismatchException e) {
                                     e.printStackTrace();
                                 }
-
                                 break;
+
                             case 3:
                                 try {
                                     admin.eliminarPersonalPorDNI();
                                 } catch (EmpleadoInexistenteException e) {
-                                    System.out.println(e.getMessage());
+                                    printCentered(e.getMessage());
                                     e.printStackTrace();
                                     break;
                                 }
                                 break;
+
                             case 4:
                                 try {
-                                    // Mostramos la lista de empleados después de deserializar
-                                    System.out.println("💼 Lista de administradores actualizada:");
+                                    printCentered("💼 Lista de administradores actualizada:");
                                     admin.mostrarCuentasAdmin();
-                                    System.out.print("\u001B[32m > \u001B[0m");
-                                    System.out.print("🔑 Ingresa el DNI del administrador a eliminar: ");
+                                    printCentered("🔑 Ingresa el DNI del administrador a eliminar:");
                                     String dniAdmin = scanner.nextLine();
                                     admin.eliminarAdministradorDNI(dniAdmin);
                                 } catch (dniNoEncontradoException e) {
                                     e.printStackTrace();
                                 }
-
                                 break;
-                            case 5:
 
+                            case 5:
                                 try {
                                     SistemaVuelo.setVuelosGenerados(GestionJSON.deserializarVuelos("Archivos JSON/vuelos.json"));
                                     SistemaVuelo.mostrarVuelos();
-                                    System.out.println("Ingrese el ID de vuelo a eliminar");
+                                    printCentered("Ingrese el ID de vuelo a eliminar:");
                                     String idVuelo = scanner.nextLine();
                                     admin.eliminarVueloPorID(idVuelo);
                                 } catch (CodigoVueloInexistenteException e) {
                                     e.printStackTrace();
                                 }
-
                                 break;
+
                             case 6:
                                 try {
-
                                     SistemaAeropuerto.mostrarAeropuertos();
-                                    System.out.println("ingrese el origen del vuelo");
+                                    printCentered("Ingrese el origen del vuelo:");
                                     String origen = scanner.nextLine();
-                                    System.out.println("Ingrese el destino del vuelo");
+                                    printCentered("Ingrese el destino del vuelo:");
                                     String destino = scanner.nextLine();
                                     admin.agregarVuelo(origen, destino, almacenamientoAviones);
                                 } catch (AeropuertoNoEncontradoException e) {
                                     e.printStackTrace();
                                 }
-
-
                                 break;
+
                             case 7:
-                                System.out.print("\u001B[32m > \u001B[0m");
-                                System.out.println("\n================================================");
-                                System.out.println("✨✨ ¿Desea mostrar la lista de empleados? ✨✨");
-                                System.out.println("================================================");
-                                System.out.println("👉 Opción 1: Mostrar lista de empleados");
-                                System.out.println("❌ Opción 2: No mostrar lista de empleados");
-                                System.out.println("================================================\n");
+                                printCentered("\n================================================");
+                                printCentered("✨✨ ¿Desea mostrar la lista de empleados? ✨✨");
+                                printCentered("================================================");
+                                printCentered("👉 Opción 1: Mostrar lista de empleados");
+                                printCentered("❌ Opción 2: No mostrar lista de empleados");
+                                printCentered("================================================\n");
                                 String listaEm = scanner.nextLine().trim();
 
                                 if (listaEm.equalsIgnoreCase("1")) {
@@ -149,14 +146,14 @@ public class MenuAdministracion {
                                     return;
                                 }
                                 break;
+
                             case 8:
-                                System.out.print("\u001B[32m > \u001B[0m");
-                                System.out.println("\n================================================");
-                                System.out.println("📋 ¿Te gustaría ver la lista de administradores? 📋");
-                                System.out.println("================================================");
-                                System.out.println("\u001B[32m✅ Opción 1: Ver la lista de administradores\u001B[0m");
-                                System.out.println("\u001B[31m❌ Opción 2: No ver la lista de administradores\u001B[0m");
-                                System.out.println("================================================\n");
+                                printCentered("\n================================================");
+                                printCentered("📋 ¿Te gustaría ver la lista de administradores? 📋");
+                                printCentered("================================================");
+                                printCentered("\u001B[32m✅ Opción 1: Ver la lista de administradores\u001B[0m");
+                                printCentered("\u001B[31m❌ Opción 2: No ver la lista de administradores\u001B[0m");
+                                printCentered("================================================\n");
                                 String verAdmins = scanner.nextLine();
 
                                 if (verAdmins.equalsIgnoreCase("1")) {
@@ -164,10 +161,7 @@ public class MenuAdministracion {
                                 } else if (verAdmins.equalsIgnoreCase("2")) {
                                     return;
                                 }
-
-
                                 break;
-
                             case 9:
                                 int opcionkiosco = 0;
                                 do {

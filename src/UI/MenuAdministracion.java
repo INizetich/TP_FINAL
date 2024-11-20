@@ -16,10 +16,12 @@ import java.util.Scanner;
 public class MenuAdministracion {
 
     private static final String Click = "src/Sonidos/click.mp3";
+    private static final String ClickAdmin = "src/Sonidos/ClickAdmin.mp3";
     private static final String Soundtrack = "src/Sonidos/SoundtrackTienda.mp3";
     private static final String GREEN = "\u001B[32m";
     private static final String WHITE = "\u001B[37m";
     private static final String RESET = "\u001B[0m";
+    private static final String MusicaAdmin = "src/Sonidos/MusicaAdmin.mp3";
 
 
     public static void mostrarMenuAdministracion() {
@@ -40,7 +42,7 @@ public class MenuAdministracion {
         // Crear el sistema de check-in
         SistemaReserva sistemaReserva = new SistemaReserva();
         Scanner scanner = new Scanner(System.in);
-
+        musicaMenu();
         int opcionAdmin = 0;
         System.out.println("\u001B[32mIngrese su dni para loguearte\u001B[0m");
         String loguin = scanner.nextLine().trim();
@@ -60,17 +62,18 @@ public class MenuAdministracion {
                         printCentered("\u001B[31m6.\u001B[0m Agregar un vuelo a la lista");
                         printCentered("\u001B[31m7.\u001B[0m Mostrar la lista de empleados");
                         printCentered("\u001B[31m8.\u001B[0m Mostrar la lista de administradores");
-                        printCentered("\u001B[31m8.\u001B[0m Menu Stock");
-                        printCentered("\u001B[31m9.\u001B[0m Cerrar sesión");
+                        printCentered("\u001B[31m9.\u001B[0m Menu Stock");
+                        printCentered("\u001B[31m10.\u001B[0m Cerrar sesión");
                         printCentered("\u001B[32m > \u001B[0m");
 
                         opcionAdmin = scanner.nextInt();
                         scanner.nextLine();
-
+                        reproducirClick();
                         switch (opcionAdmin) {
                             case 1:
                                 try {
                                     admin.agregarAdministradorManual();
+                                    reproducirClick();
                                 } catch (InputMismatchException e) {
                                     e.printStackTrace();
                                 }
@@ -79,6 +82,7 @@ public class MenuAdministracion {
                             case 2:
                                 try {
                                     admin.agregarPersonal();
+                                    reproducirClick();
                                 } catch (InputMismatchException e) {
                                     e.printStackTrace();
                                 }
@@ -88,6 +92,7 @@ public class MenuAdministracion {
                                 try {
                                     admin.mostrarListaEmpleados();
                                     admin.eliminarPersonalPorDNI();
+                                    reproducirClick();
                                 } catch (EmpleadoInexistenteException e) {
                                     printCentered(e.getMessage());
                                     e.printStackTrace();
@@ -101,6 +106,7 @@ public class MenuAdministracion {
                                     admin.mostrarCuentasAdmin();
                                     printCentered("🔑 Ingresa el DNI del administrador a eliminar:");
                                     String dniAdmin = scanner.nextLine();
+                                    reproducirClick();
                                     admin.eliminarAdministradorDNI(dniAdmin);
                                 } catch (dniNoEncontradoException e) {
                                     e.printStackTrace();
@@ -113,7 +119,7 @@ public class MenuAdministracion {
                                     SistemaVuelo.mostrarVuelos();
                                     printCentered("Ingrese el ID de vuelo a eliminar:");
                                     String idVuelo = scanner.nextLine();
-                                    admin.eliminarVueloPorID(idVuelo);
+                                    admin.eliminarVueloPorID(idVuelo); reproducirClick();
                                 } catch (CodigoVueloInexistenteException e) {
                                     e.printStackTrace();
                                 }
@@ -124,8 +130,10 @@ public class MenuAdministracion {
                                     SistemaAeropuerto.mostrarAeropuertos();
                                     printCentered("Ingrese el origen del vuelo:");
                                     String origen = scanner.nextLine();
+                                    reproducirClick();
                                     printCentered("Ingrese el destino del vuelo:");
                                     String destino = scanner.nextLine();
+                                    reproducirClick();
                                     admin.agregarVuelo(origen, destino, almacenamientoAviones);
                                 } catch (AeropuertoNoEncontradoException e) {
                                     e.printStackTrace();
@@ -140,6 +148,7 @@ public class MenuAdministracion {
                                 printCentered("❌ Opción 2: No mostrar lista de empleados");
                                 printCentered("================================================\n");
                                 String listaEm = scanner.nextLine().trim();
+                                reproducirClick();
 
                                 if (listaEm.equalsIgnoreCase("1")) {
                                     admin.mostrarListaEmpleados();
@@ -156,6 +165,7 @@ public class MenuAdministracion {
                                 printCentered("\u001B[31m❌ Opción 2: No ver la lista de administradores\u001B[0m");
                                 printCentered("================================================\n");
                                 String verAdmins = scanner.nextLine();
+                                reproducirClick();
 
                                 if (verAdmins.equalsIgnoreCase("1")) {
                                     admin.mostrarCuentasAdmin();
@@ -167,7 +177,7 @@ public class MenuAdministracion {
                                 int opcionkiosco = 0;
                                 do {
                                     limpiarPantalla();
-                                    printCentered("===== Menú de Kiosco =====");
+                                    printCentered("===== Menú de Stock Kiosco =====");
                                     printCentered("1️⃣ Control de Stock 📦");
                                     printCentered("2️⃣ Otras opciones de administrador...");
                                     printCentered("3️⃣ Salir");
@@ -206,10 +216,13 @@ public class MenuAdministracion {
                                                 case 2:
                                                     printCentered("ingrese la categoria del producto");
                                                     String categoriaProductoEliminar = scanner.nextLine();
+                                                    reproducirClick();
                                                     printCentered("Ingrese el nombre del producto: ");
                                                     producto = scanner.nextLine();
+                                                    reproducirClick();
                                                     printCentered("Ingrese la cantidad a eliminar: ");
                                                     int cantidadEliminar = scanner.nextInt();
+                                                    reproducirClick();
                                                     StockManager.eliminarDeStock(categoriaProductoEliminar,producto,cantidadEliminar);
                                                     break;
 
@@ -227,12 +240,14 @@ public class MenuAdministracion {
 
                                                 case 4:
                                                     printCentered("👋 Saliendo del control de stock.");
+                                                    reproducirClick();
                                                     System.exit(0);
 
                                                     break;
 
                                                 default:
                                                     printCentered("❌ Opción inválida. Intente nuevamente.");
+                                                    reproducirClick();
                                                     break;
                                             }
                                             printCentered("🔄 Presione Enter para continuar...");
@@ -287,7 +302,7 @@ public class MenuAdministracion {
 
         private static void musicaMenu() {
             Thread audioThread = new Thread(() -> {
-                try (FileInputStream fis = new FileInputStream(Soundtrack)) {
+                try (FileInputStream fis = new FileInputStream(MusicaAdmin)) {
                     Player player = new Player(fis);
                     player.play();
                 } catch (Exception e) {
@@ -299,7 +314,7 @@ public class MenuAdministracion {
         }
         private static void reproducirClick() {
             Thread audioThread = new Thread(() -> {
-                try (FileInputStream fis = new FileInputStream(Click)) {
+                try (FileInputStream fis = new FileInputStream(ClickAdmin)) {
                     Player player = new Player(fis);
                     player.play();
                 } catch (Exception e) {

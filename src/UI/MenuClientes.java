@@ -3,6 +3,7 @@ import PreEmbarque.PreEmbarque;
 import javazoom.jl.player.Player;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Map;
 import java.util.Scanner;
 import Aeropuerto.Aeropuerto;
 import Aviones.Vuelo;
@@ -38,7 +39,7 @@ public class MenuClientes {
         almacenamientoAviones.generarAviones(15, admin.getListaEmpleados());
 
         SistemaVuelo.obtenerVuelosGenerados(almacenamientoAviones);
-        aeropuerto.cargarHangaresAeropuerto(admin.getListaEmpleados());
+
         // Crear el sistema de check-in
         SistemaReserva sistemaReserva = new SistemaReserva();
 
@@ -274,13 +275,34 @@ public class MenuClientes {
         printCentered("====================================");
         printCentered("Seleccione su bebida (0 para volver): ");
         int bebida = scanner.nextInt();
+        scanner.nextLine();
+        printCentered("ingrese la cantidad a comprar");
+        int cantidad = scanner.nextInt();
+        scanner.nextLine();
         reproducirClick();
 
-
         if (bebida > 0 && bebida <= 3) {
-            double precio = bebida == 1 ? 1.00 : bebida == 2 ? 1.50 : 2.00;
-            realizarCompra(precio, "bebida");
-            reproducirClick();
+            String item = switch (bebida) {
+                case 1 -> "Agua mineral";
+                case 2 -> "Gaseosa";
+                case 3 -> "Jugo natural";
+                default -> "";
+            };
+
+            Map<String,Map<String,Integer>> stock = GestionJSON.deserializarStock("Archivos JSON/Stock.json");
+            StockManager.setStock(stock);
+            // Verificar stock antes de permitir la compra
+            int stockDisponible = StockManager.consultarStock("Bebidas", item);
+            GestionJSON.serializarMapa(StockManager.getStock(),"Archivos JSON/Stock.json");
+            if (stockDisponible > 0) {
+                double precio = bebida == 1 ? 1.00 : bebida == 2 ? 1.50 : 2.00;
+                realizarCompra(precio, "bebida");
+                // Reducir stock
+                StockManager.eliminarDeStock("Bebidas", item, cantidad);
+                reproducirClick();
+            } else {
+                printCentered("❌ No hay suficiente stock de " + item + ".");
+            }
         } else if (bebida != 0) {
             limpiarPantalla();
             printCentered("❌ Opción inválida.");
@@ -298,27 +320,58 @@ public class MenuClientes {
         printCentered("2. 🥪 Sandwich       - $2.50");
         printCentered("3. 🍟 Papas fritas   - $1.75");
         printCentered("4. 🌭 Hot Dog        - $2.00");
-        printCentered("5. 🍕 Porción pizza  - $3.00");
+        printCentered("5. 🍕 Porcion pizza  - $3.00");
         printCentered("====================================");
         printCentered("Seleccione su comida (0 para volver): ");
         int comida = scanner.nextInt();
         reproducirClick();
+        printCentered("Ingrese la cantidad a comprar: ");
+        int cantidad = scanner.nextInt();
+        reproducirClick();
 
         if (comida > 0 && comida <= 5) {
-            double precio = switch (comida) {
-                case 1 -> 1.50;
-                case 2 -> 2.50;
-                case 3 -> 1.75;
-                case 4 -> 2.00;
-                case 5 -> 3.00;
-                default -> 0.0;
+            String item = switch (comida) {
+                case 1 -> "Empanada";
+                case 2 -> "Sandwich";
+                case 3 -> "Papas Fritas";
+                case 4 -> "Hot Dog";
+                case 5 -> "Porcion pizza";
+                default -> null;
             };
-            realizarCompra(precio, "comida");
+
+            // Deserializar stock y establecerlo en StockManager
+            Map<String, Map<String, Integer>> stock = GestionJSON.deserializarStock("Archivos JSON/Stock.json");
+            StockManager.setStock(stock);
+
+            // Verificar stock antes de permitir la compra
+            int stockDisponible = StockManager.consultarStock("Comida", item);  // Cambiar a "Comida" en lugar de "Bebidas"
+            GestionJSON.serializarMapa(StockManager.getStock(), "Archivos JSON/Stock.json");
+
+            if (stockDisponible > 0) {
+                // Definir el precio según el item seleccionado
+                double precioComida = switch (comida) {
+                    case 1 -> 1.50;
+                    case 2 -> 2.50;
+                    case 3 -> 1.75;
+                    case 4 -> 2.00;
+                    case 5 -> 3.00;
+                    default -> 0.00;  // Aunque no debería llegar a este caso
+                };
+
+                realizarCompra(precioComida, "Comida");
+
+                // Reducir el stock
+                StockManager.eliminarDeStock("Comida", item, cantidad);  // Cambiar a "Comida" en lugar de "Bebidas"
+                reproducirClick();
+            } else {
+                printCentered("❌ No hay suficiente stock de " + item + ".");
+            }
         } else if (comida != 0) {
             printCentered("❌ Opción inválida.");
             reproducirClick();
         }
     }
+
     private static void mostrarArticulosVarios(Scanner scanner) {
         reproducirClick();
         limpiarPantalla();
@@ -331,19 +384,54 @@ public class MenuClientes {
         printCentered("====================================");
         printCentered("Seleccione un artículo (0 para volver): ");
         int articulo = scanner.nextInt();
+        reproducirClick();
+        printCentered("Ingrese la cantidad a comprar: ");
+        int cantidad = scanner.nextInt();
+        reproducirClick();
 
         if (articulo > 0 && articulo <= 3) {
-            double precio = switch (articulo) {
-                case 1 -> 3.00;
-                case 2 -> 0.50;
-                case 3 -> 1.20;
-                default -> 0.0;
+            String item = switch (articulo) {
+                case 1 -> "Revista";
+                case 2 -> "Chicle";
+                case 3 -> "Encendedor";
+                default -> null;
             };
-            realizarCompra(precio, "artículo");
+
+            // Deserializar stock y establecerlo en StockManager
+            Map<String, Map<String, Integer>> stock = GestionJSON.deserializarStock("Archivos JSON/Stock.json");
+            StockManager.setStock(stock);
+
+            // Imprimir el stock para depurar
+            System.out.println("Stock cargado: " + stock);
+
+            // Verificar stock antes de permitir la compra
+            int stockDisponible = StockManager.consultarStock("Articulos varios", item);  // Usar "Articulos varios"
+            GestionJSON.serializarMapa(StockManager.getStock(), "Archivos JSON/Stock.json");
+
+            if (stockDisponible > 0) {
+                // Definir el precio según el artículo seleccionado
+                double precioArticulo = switch (articulo) {
+                    case 1 -> 4.00;
+                    case 2 -> 0.50;
+                    case 3 -> 1.00;
+                    default -> 0.00;  // Aunque no debería llegar a este caso
+                };
+
+                realizarCompra(precioArticulo, "artículo");
+
+                // Reducir el stock
+                StockManager.eliminarDeStock("Articulos varios", item, cantidad);  // Usar "Articulos varios"
+                reproducirClick();
+            } else {
+                printCentered("❌ No hay suficiente stock de " + item + ".");
+            }
         } else if (articulo != 0) {
             printCentered("❌ Opción inválida.");
+            reproducirClick();
         }
     }
+
+
 
     private static void consultarSaldo() {
         printCentered("\n💳 Saldo actual en su cuenta: $" + String.format("%.2f", credito));

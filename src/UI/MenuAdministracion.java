@@ -30,19 +30,30 @@ public class MenuAdministracion {
 
         ConfigAdmin.cargarConfiguracionAdmin();
         // INSTANCIA DE CLASES IMPORTANTES
+
+        /// INSTANCIA CLASE ADMIN
         Admin admin = new Admin();
+        ///INSTANCIA CLASE AEROPUERTO
         Aeropuerto aeropuerto = new Aeropuerto();
-        AlmacenamientoAviones almacenamientoAviones = new AlmacenamientoAviones();
-        almacenamientoAviones.generarHangares(7);
         // Crear el sistema de aeropuertos y registrar aeropuertos
         SistemaAeropuerto.cargarAeropuertos();
 
-        almacenamientoAviones.generarAviones(15, admin.getListaEmpleados());
+        /// INSTANCIA DE CLASE ALMACENAMINTO AVIONES
+        AlmacenamientoAviones almacenamientoAviones = new AlmacenamientoAviones();
+        almacenamientoAviones.generarHangares(7);
 
+
+        almacenamientoAviones.generarAviones(15, admin.getListaEmpleados());
         SistemaVuelo.obtenerVuelosGenerados(almacenamientoAviones);
-        aeropuerto.cargarHangaresAeropuerto(admin.getListaEmpleados());
+
+
+
         // Crear el sistema de check-in
         SistemaReserva sistemaReserva = new SistemaReserva();
+
+
+        /// CREO LOS PRODUCTOS HARDCODEADOS
+        StockManager.agregarProductos();
         Scanner scanner = new Scanner(System.in);
         musicaMenu();
         int opcionAdmin = 0;

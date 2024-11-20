@@ -32,10 +32,8 @@ public class SistemaReserva {
             // Verificar si el archivo de vuelos existe antes de deserializar
             File vuelosFile = new File("Archivos JSON/vuelos.json");
             if (vuelosFile.exists()) {
-
                 try {
                     SistemaVuelo.setVuelosGenerados(GestionJSON.deserializarVuelos(vuelosFile.getPath()));
-
                     if (SistemaVuelo.getVuelosGenerados().isEmpty()) {
                         printCentered("🚫 No se encontraron vuelos deserializados.");
                     }
@@ -106,7 +104,16 @@ public class SistemaReserva {
                             " | 🛩️ Avión: " + vueloSeleccionado.getAvion().getNombre() +
                             " | 🛃 Estado de Embarque: " + vueloSeleccionado.getEstadoEmbarque());
 
-                    // Si el vuelo no está cerrado, continuar con la reserva
+                    // Preguntar si desea cambiar el vuelo seleccionado
+                    printCentered("¿Deseas cambiar el vuelo seleccionado? (s: sí, n: no): ");
+                    String respuesta = scanner.nextLine();
+
+                    if (respuesta.equalsIgnoreCase("s")) {
+                        printCentered("🔄 Cambiando vuelo seleccionado...\n");
+                        continue; // Permitir al usuario seleccionar otro vuelo
+                    }
+
+                    // Si no desea cambiar el vuelo, continuar con el proceso
                     vueloSeleccionadoCorrecto = true;
 
                     // Continuar con el proceso de reserva
@@ -148,7 +155,11 @@ public class SistemaReserva {
                         // Agregar pasajero al vuelo
                         if (vueloSeleccionado.agregarPasajero(pasajero)) {
                             vueloSeleccionado.ocuparAsiento(asientoSeleccionado);
-                            vueloSeleccionado.setEstadoEmbarque(EstadoEmbarque.CERRADO);
+
+                            // Cambiar el estado del embarque con una probabilidad del 20%
+                            if (cambiarEstadoConProbabilidad(vueloSeleccionado)) {
+                                printCentered("❗ El vuelo ha cambiado su estado de embarque a CERRADO debido a probabilidades.");
+                            }
 
                             // Crear un nuevo CheckIn
                             CheckIn nuevoCheckIn = new CheckIn(vueloSeleccionado, asientoSeleccionado, pasajero);
@@ -170,7 +181,7 @@ public class SistemaReserva {
 
                             try {
                                 List<Vuelo> vuelos = SistemaVuelo.getVuelosGenerados();
-                                GestionJSON.serializarLista(vuelos,"Archivos JSON/vuelos.json");
+                                GestionJSON.serializarLista(vuelos, "Archivos JSON/vuelos.json");
                                 // Serializar y guardar las reservas y conexiones
                                 GestionJSON.serializarMapa(mapaReservas, "Archivos JSON/Check-In.json");
                                 GestionJSON.serializarMapa(ConexionAeropuerto.getConexiones(), "Archivos JSON/ConexionesAeropuertos.json");
@@ -194,11 +205,13 @@ public class SistemaReserva {
             }
 
             // Una vez completado el ciclo de selección y reserva, preguntar al usuario si desea continuar
-            System.out.println("==================================");
-            System.out.println("➡️ ¿Desea hacer otra reserva? ✈️");
-            System.out.print("👉 (s: sí, n: no): ");
-            String respuesta = scanner.nextLine();
-            continuarReservas = respuesta.equalsIgnoreCase("s");
+            printCentered("==================================");
+            printCentered("➡️ ¿Desea hacer otra reserva? ✈️");
+            printCentered("👉 (s: sí, n: no): ");
+            String continuar = scanner.nextLine();
+            if (!continuar.equalsIgnoreCase("s")) {
+                continuarReservas = false; // Salir del bucle principal
+            }
         }
     }
 
@@ -369,4 +382,33 @@ public class SistemaReserva {
     public Map<String, Set<CheckIn>> getMapaReservas() {
         return mapaReservas;
     }
-}
+
+
+    /// -----------------------------METODOS PRIVATE--------------------------------///
+    // Método para cambiar el estado del embarque con probabilidad del 20%
+    private boolean cambiarEstadoConProbabilidad(Vuelo vuelo) {
+        Random random = new Random();
+        int probabilidad = random.nextInt(100); // Genera un número entre 0 y 99
+        if (probabilidad < 20) { // Cambiar a CERRADO si la probabilidad es menor a 20
+            vuelo.setEstadoEmbarque(EstadoEmbarque.CERRADO);
+            return true; // Indica que el estado se cambió
+        }
+        return false; // El estado no cambió
+    }
+
+
+    public static void printCentered(String text) {
+        int terminalWidth = 150; // Puedes ajustar este valor según el ancho de tu terminal
+        int padding = (terminalWidth - text.length()) / 2;
+        String paddedText = " ".repeat(padding) + text;
+        System.out.println(paddedText);
+    }
+
+    public static void limpiarPantalla() {
+        // Imprime 50 líneas vacías para simular la limpieza de pantalla
+        for (int i = 0; i < 40; i++) {
+            System.out.println();
+        }
+    }}
+
+

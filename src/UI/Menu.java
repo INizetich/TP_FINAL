@@ -22,7 +22,7 @@ public class Menu {
         AlmacenamientoAviones almacenamientoAviones = new AlmacenamientoAviones();
         almacenamientoAviones.generarHangares(7);
         almacenamientoAviones.generarAviones(15,admin.getListaEmpleados());
-        aeropuerto.cargarHangaresAeropuerto(admin.getListaEmpleados());
+
         // Crear el sistema de check-in
 
         // Crear el sistema de aeropuertos y registrar aeropuertos

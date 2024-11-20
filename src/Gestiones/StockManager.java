@@ -94,13 +94,11 @@ public class StockManager {
 
 
     public static void eliminarDeStock(String categoria, String item, int cantidad) {
-        // Verificar si es la primera ejecución del administrador
         if (!ConfigAdmin.isFirstRunAdmin()) return;
 
         File archivoStock = new File("Archivos JSON/Stock.json");
         Map<String, Map<String, Integer>> stock = new HashMap<>();
 
-        // Deserializar o inicializar el archivo de stock
         if (archivoStock.exists()) {
             try {
                 stock = GestionJSON.deserializarStock("Archivos JSON/Stock.json");
@@ -114,8 +112,7 @@ public class StockManager {
                 return;
             }
         } else {
-            // Crear un archivo vacío si no existe
-            System.out.println("🚫 El archivo de productos no existe. Creando archivo vacío...");
+            printCentered("🚫 El archivo de productos no existe. Creando archivo vacío...");
             try {
                 if (archivoStock.createNewFile()) {
                     printCentered("✔️ Archivo de productos creado.");
@@ -130,7 +127,6 @@ public class StockManager {
             }
         }
 
-        // Verificar existencia de categoría e ítem
         if (stock.containsKey(categoria)) {
             Map<String, Integer> items = stock.get(categoria);
             if (items.containsKey(item)) {
@@ -138,18 +134,15 @@ public class StockManager {
                 if (stockActual >= cantidad) {
                     items.put(item, stockActual - cantidad);
 
-                    // Eliminar ítem si la cantidad es 0
                     if (items.get(item) == 0) {
                         items.remove(item);
                         printCentered("✔️ Producto eliminado del stock.");
                     }
 
-                    // Eliminar categoría si queda vacía
                     if (items.isEmpty()) {
                         stock.remove(categoria);
                         printCentered("✔️ Categoría eliminada por quedar vacía.");
                     }
-
                 } else {
                     System.err.println("🚫 No hay suficiente stock para eliminar.");
                     return;
@@ -163,9 +156,16 @@ public class StockManager {
             return;
         }
 
+
+
         // Serializar el stock actualizado
-        GestionJSON.serializarMapa(stock, "Archivos JSON/Stock.json");
-        System.out.println("✔️ Archivo de productos actualizado correctamente.");
+        try {
+            GestionJSON.serializarMapa(stock, "Archivos JSON/Stock.json");
+            printCentered("✔️ Archivo de productos actualizado correctamente.");
+        } catch (Exception e) {
+            System.err.println("🚫 Error al serializar el archivo de productos.");
+            e.printStackTrace();
+        }
     }
 
 

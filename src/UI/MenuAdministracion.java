@@ -4,6 +4,7 @@ import Config.ConfigAdmin;
 import Excepciones.*;
 import Gestiones.*;
 import JSON.GestionJSON;
+import Personas.Empleado;
 import Utilidades.Utilities;
 import javazoom.jl.player.Player;
 import Gestiones.StockManager;
@@ -12,7 +13,7 @@ import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Map;
 import java.util.Scanner;
-
+import java.util.Set;
 
 
 public class MenuAdministracion {
@@ -105,6 +106,8 @@ public class MenuAdministracion {
 
                             case 3:
                                 try {
+                                    Set<Empleado> listaEmpleados = GestionJSON.deserializarSetEmpleados(Empleado.class,"Archivos JSON/empleados.json");
+                                    admin.setListaEmpleados(listaEmpleados);
                                     admin.mostrarListaEmpleados();
                                     admin.eliminarPersonalPorDNI();
                                     reproducirClick();
@@ -270,7 +273,7 @@ public class MenuAdministracion {
                                                             printCentered("❌ La categoría '" + categoriaProductoEliminar + "' no existe. Intente nuevamente.");
                                                             break;  // Termina el caso si la categoría no existe
                                                         }
-
+                                                           StockManager.recorrerProductos(StockManager.getStock());
                                                         // Solicitar el nombre del producto
                                                         printCentered("Ingrese el nombre del producto:");
                                                         String productoeliminar = scanner.nextLine();
@@ -291,11 +294,8 @@ public class MenuAdministracion {
                                                         reproducirClick();
                                                         break;
 
-
-
                                                     case 3:
                                                         printCentered("===== Stock Actual =====");
-
 
                                                         Map<String, Map<String, Integer>> stockdeserializado = GestionJSON.deserializarStock("Archivos JSON/Stock.json");
                                                         StockManager.setStock(stockdeserializado);
@@ -321,12 +321,8 @@ public class MenuAdministracion {
                                             break;
 
                                         case 2:
-                                            printCentered("⚙️ Opciones de administrador aún no implementadas.");
-                                            break;
-
-                                        case 3:
-                                            printCentered("👋 Saliendo del Menú Stock.");
-                                            salirDelStock = true; // Rompe el bucle principal del menú de stock
+                                            Utilities.printCentered("👋 Saliendo del Menú Stock.");
+                                            salirDelStock = true;
                                             break;
 
                                         default:
@@ -337,6 +333,7 @@ public class MenuAdministracion {
                                 break;
                             case 10:
                                 Utilities.mostrarCerrandoAdmin();
+
                                 break;
                             }
 }while (opcionAdmin < 10);
@@ -344,12 +341,14 @@ public class MenuAdministracion {
                             if (opcionAdmin != 11) {
                                 System.out.print("\u001B[31m¿Desea volver al menú principal? (sí/no): \u001B[0m");
                                 String respuesta = scanner.nextLine().trim().toLowerCase();
-                                if (!respuesta.equals("sí") && !respuesta.equals("si")) {
+                                if (respuesta.equalsIgnoreCase("si") || respuesta.equalsIgnoreCase("s")) {
                                     Utilities.mostrarCargandoMenuPrincipal();
                                     Menu.Menu();
+
+
                                     // Sale del ciclo y termina el caso
-                                } else if (respuesta.equals("no") && respuesta.equals("no")) {
-                                    System.exit(0);
+                                } else if (respuesta.equalsIgnoreCase("no") || respuesta.equalsIgnoreCase("n")) {
+                                    MenuAdministracion.mostrarMenuAdministracion();
                                 }
                             }
 

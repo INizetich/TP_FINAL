@@ -101,7 +101,7 @@ public class CheckIn {
 
 
             if (mapaReservas == null || mapaReservas.isEmpty()) {
-                printCentered("No hay reservas disponibles en el sistema.");
+                Utilities.printCentered("No hay reservas disponibles en el sistema.");
                 return;
             }
 
@@ -116,17 +116,17 @@ public class CheckIn {
 
                 // Verificar si el check-in ha sido realizado
                 if (pasajero.isCheckIn()) {
-                    printCentered("============================");
-                    printCentered("🎉 Reserva Confirmada 🎉");
-                    printCentered("============================");
-                    printCentered("👤 Pasajero: " + pasajero.getNombre() + " " + pasajero.getApellido());
-                    printCentered("🆔 DNI: " + pasajero.getDni());
+                    Utilities.printCentered("============================");
+                    Utilities.printCentered("🎉 Reserva Confirmada 🎉");
+                    Utilities.printCentered("============================");
+                    Utilities.printCentered("👤 Pasajero: " + pasajero.getNombre() + " " + pasajero.getApellido());
+                    Utilities.printCentered("🆔 DNI: " + pasajero.getDni());
 
                     // Mostrar detalles del vuelo
                     Vuelo vuelo = checkIn.getVuelo();
 
                     if (vuelo != null) {
-                        printCentered("✈️ Vuelo: " + vuelo.getOrigen() + " ➡️ " + vuelo.getDestino());
+                        Utilities.printCentered("✈️ Vuelo: " + vuelo.getOrigen() + " ➡️ " + vuelo.getDestino());
 
                         // Convertir String a LocalDateTime usando el formato ISO
                         String horarioString = vuelo.getHorario(); // Suponiendo que es un String
@@ -139,24 +139,24 @@ public class CheckIn {
                             DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
                             String formattedDate = localDateTime.format(outputFormatter);
 
-                            printCentered("📅 Fecha del Vuelo: " + formattedDate);
-                            printCentered("💺 Número de Asiento: " + checkIn.getNumeroAsiento());
-                            printCentered("🗳️ Código de Check-In: " + checkIn.getCodigoCheckIn());
-                            printCentered("============================");
+                            Utilities.printCentered("📅 Fecha del Vuelo: " + formattedDate);
+                            Utilities.printCentered("💺 Número de Asiento: " + checkIn.getNumeroAsiento());
+                            Utilities.printCentered("🗳️ Código de Check-In: " + checkIn.getCodigoCheckIn());
+                            Utilities.printCentered("============================");
                         } catch (DateTimeParseException e) {
-                            printCentered("Error al parsear la fecha y hora: " + e.getMessage());
+                            Utilities.printCentered("Error al parsear la fecha y hora: " + e.getMessage());
                         }
                     }
 
                     // ClickSonido();
                 } else {
-                    printCentered("========================================================================");
-                    printCentered("❌ La reserva aún no ha sido realizada para " + pasajero.getNombre() + " " + pasajero.getApellido());
+                    Utilities.printCentered("========================================================================");
+                    Utilities.printCentered("❌ La reserva aún no ha sido realizada para " + pasajero.getNombre() + " " + pasajero.getApellido());
                     // ClickSonido();
                 }
             }
         } catch (JSONException e) {
-            printCentered("Error al mostrar la reserva: " + e.getMessage());
+            Utilities.printCentered("Error al mostrar la reserva: " + e.getMessage());
         }
     }
 
@@ -174,7 +174,7 @@ public class CheckIn {
             Utilities.mostrarCargando();
 
             if (mapaReservas == null || mapaReservas.isEmpty()) {
-                printCentered("No hay reservas disponibles en el sistema.");
+                Utilities.printCentered("No hay reservas disponibles en el sistema.");
                 return;
             }
 
@@ -230,7 +230,7 @@ public class CheckIn {
                             boleto.append("======================================================================");
 
                             // Mostrar el boleto
-                            printCentered(boleto.toString());
+                            Utilities.printCentered(boleto.toString());
                             // ClickSonido();
                             break; // Si se encuentra el boleto, terminamos el ciclo
                         } catch (DateTimeParseException e) {
@@ -247,19 +247,7 @@ public class CheckIn {
 
     }
 
-    public static void printCentered(String text) {
-        int terminalWidth = 150; // Puedes ajustar este valor según el ancho de tu terminal
-        int padding = (terminalWidth - text.length()) / 2;
-        String paddedText = " ".repeat(padding) + text;
-        System.out.println(paddedText);
-    }
-
-    public static void limpiarPantalla() {
-        // Imprime 50 líneas vacías para simular la limpieza de pantalla
-        for (int i = 0; i < 40; i++) {
-            System.out.println();
-        }
-    }}
+  }
 
 
 

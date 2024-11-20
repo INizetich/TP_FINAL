@@ -17,6 +17,8 @@ import JSON.GestionJSON;
 import java.util.List;
 import java.util.Scanner;
 
+import static Utilidades.Utilities.printCentered;
+
 public class MenuClientes {
     private static double credito = 0.0; // Crédito disponible del cliente
     private static final String Click = "src/Sonidos/click.mp3";
@@ -51,11 +53,11 @@ public class MenuClientes {
 
         do {
             Utilities.limpiarPantalla();
-            Utilities.printCentered("======== Menú de Clientes ========");
-          Utilities.printCentered("1️⃣ Hacer una reserva 🛫");
-            Utilities.printCentered("2️⃣ Ingresar a tiendas 🏬");
-            Utilities.printCentered("3️⃣ ATM 💰");
-            Utilities.printCentered("4️⃣ Salir 👋");
+            printCentered("======== Menú de Clientes ========");
+          printCentered("1️⃣ Hacer una reserva 🛫");
+            printCentered("2️⃣ Ingresar a tiendas 🏬");
+            printCentered("3️⃣ ATM 💰");
+            printCentered("4️⃣ Salir 👋");
             opcionCliente = scanner.nextInt();
 
             scanner.nextLine(); //
@@ -64,9 +66,9 @@ public class MenuClientes {
             switch (opcionCliente) {
                 case 1:
                     Utilities.limpiarPantalla();
-                    Utilities.printCentered("4️⃣ Salir 👋");
-                    Utilities.printCentered("🎉 ¡BIENVENIDO AL SISTEMA DE RESERVAS DE VUELOS! ✈️");
-                   Utilities.printCentered("=====================================================");
+                    printCentered("4️⃣ Salir 👋");
+                    printCentered("🎉 ¡BIENVENIDO AL SISTEMA DE RESERVAS DE VUELOS! ✈️");
+                   printCentered("=====================================================");
                     printCentered("Por favor, elija una opción:");
                     printCentered("1️⃣ Realizar una reserva en un vuelo 🛫");
                     printCentered("2️⃣ Mostrar una reserva asociada al pasajero 📋");
@@ -489,7 +491,7 @@ public class MenuClientes {
         if (monto > 0) {
             credito += monto;
 
-            printCentered("✅ Crédito agregado exitosamente. Crédito actual: $" + String.format("%.2f", credito));
+           printCentered("✅ Crédito agregado exitosamente. Crédito actual: $" + String.format("%.2f", credito));
             reproducirClick();
         } else {
             printCentered("❌ El monto debe ser mayor a $0.");

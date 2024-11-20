@@ -2,6 +2,7 @@ package Gestiones;
 
 import Config.ConfigAdmin;
 import JSON.GestionJSON;
+import Utilidades.Utilities;
 
 import java.io.File;
 import java.io.IOException;
@@ -219,7 +220,7 @@ public class StockManager {
             printCentered("🚫 No hay categorías disponibles en el stock.");
             return;
         }
-
+        Utilities.limpiarPantalla();
         printCentered("📦 Listado de Categorías del Stock:");
         printCentered("-------------------------------");
 
@@ -238,7 +239,7 @@ public class StockManager {
             printCentered("🚫 No hay productos disponibles en el stock.");
             return;
         }
-
+        Utilities.limpiarPantalla();
         printCentered("📦 Listado de Productos por Categoría:");
         printCentered("-------------------------------------");
 

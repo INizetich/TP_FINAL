@@ -119,6 +119,7 @@ public class SistemaReserva {
                     // Continuar con el proceso de reserva
                     List<String> asientosDisponibles = generarAsientosDisponibles(vueloSeleccionado);
                     if (asientosDisponibles.isEmpty()) {
+                        Utilities.limpiarPantalla();
                         printCentered("No hay asientos disponibles para este vuelo.");
                         vueloSeleccionadoCorrecto = false; // Permitir al usuario seleccionar otro vuelo
                         continue; // Regresar al inicio del bucle
@@ -126,10 +127,10 @@ public class SistemaReserva {
 
                     // Mostrar asientos disponibles
                     Utilities.limpiarPantalla();
-                    printCentered("\n🛫 Asientos Disponibles ✨");
-                    printCentered("==================================================");
+                    printCentered("🛫 Asientos Disponibles ✨");
+                    printCentered("======================================================================================================================================================");
                     printCentered("🔍 Aquí están los asientos disponibles en el vuelo:");
-                    printCentered("==================================================");
+                    printCentered("======================================================================================================================================================");
                     printCentered("🪑 " + String.join(" 🪑 ", asientosDisponibles));
                     printCentered("==================================================");
 

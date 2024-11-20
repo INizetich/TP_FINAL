@@ -6,6 +6,7 @@ import Aviones.Vuelo;
 import Enums.EstadoEmbarque;
 import Enums.PuertaEmbarque;
 import Personas.Pasajero;
+import Utilidades.Utilities;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -27,6 +28,7 @@ public class SistemaVuelo{
 
 
     public static void mostrarVuelos() {
+        Utilities.limpiarPantalla();
         printCentered("✈️  Lista de Vuelos Disponibles  ✈️");
         System.out.println("-------------------------------------------------");
         SistemaVuelo.getVuelosGenerados().forEach(v -> System.out.println(

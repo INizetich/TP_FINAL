@@ -1,19 +1,19 @@
 {
   "Comida" : {
-    "Sandwich" : 10,
+    "Sandwich" : 12,
     "Hot Dog" : 10,
     "Porción pizza" : 12,
     "Papas fritas" : 20,
-    "Empanada" : 10
+    "Empanada" : 6
   },
   "Bebidas" : {
-    "Gaseosa" : 20,
+    "Gaseosa" : 19,
     "Jugo natural" : 15,
-    "Agua mineral" : 11
+    "Agua mineral" : 7
   },
   "Articulos varios" : {
     "Encendedor" : 10,
     "Revista" : 9,
-    "Chicle" : 50
+    "Chicle" : 45
   }
 }

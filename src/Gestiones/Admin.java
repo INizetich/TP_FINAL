@@ -247,9 +247,6 @@ boolean token = false;
                         // Actualizamos la lista de empleados
                         setListaEmpleados(empleadosAEliminar);
 
-                        // Mostramos la lista de empleados después de deserializar
-                        printCentered("💼 Lista de empleados actualizada:");
-                        mostrarListaEmpleados();
                     }
                 } catch (JSONException e) {
                     printCentered("🚫 Error al deserializar los empleados.");
@@ -384,9 +381,9 @@ boolean token = false;
             return;
         }
 
-        printCentered("======== Lista de Administradores ========");
+        System.out.println(("======== Lista de Administradores ========"));
         System.out.printf("%-15s %-20s %-20s %-10s%n", "DNI", "Nombre", "Apellido", "Edad"); // Encabezados de columnas
-        printCentered("==========================================="); // Separador visual
+        System.out.println("==========================================="); // Separador visual
 
         // Imprimir cada persona de la lista con un formato bonito
         for (Persona persona : listaAdministradores) {
@@ -406,11 +403,11 @@ boolean token = false;
         }
 
         // Cabecera
-        printCentered("╔═══════════════════════════════════════════════════════════════════════════════════╗");
-        printCentered("║                                 Lista de Empleados                                ║");
-        printCentered("╠════════════════════╦════════════════════╦════════════════════╦════════════════════╣");
-        printCentered("║        DNI         ║       Nombre       ║       Apellido     ║        Cargo       ║");
-        printCentered("╠════════════════════╬════════════════════╬════════════════════╬════════════════════╣");
+        System.out.println("╔═══════════════════════════════════════════════════════════════════════════════════╗");
+        System.out.println("║                                 Lista de Empleados                                ║");
+        System.out.println("╠════════════════════╦════════════════════╦════════════════════╦════════════════════╣");
+        System.out.println("║        DNI         ║       Nombre       ║       Apellido     ║        Cargo       ║");
+        System.out.println("╠════════════════════╬════════════════════╬════════════════════╬════════════════════╣");
 
         // Mostrar cada empleado
         for (Empleado empleado : listaEmpleados) {
@@ -422,7 +419,7 @@ boolean token = false;
                     empleado.getTipoEmpleado());
         }
 
-        printCentered("╚════════════════════╩════════════════════╩════════════════════╩════════════════════╝");
+        System.out.println("╚════════════════════╩════════════════════╩════════════════════╩════════════════════╝");
     }
 
     public  void eliminarVueloPorID(String idVuelo) throws CodigoVueloInexistenteException {

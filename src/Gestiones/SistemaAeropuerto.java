@@ -4,6 +4,7 @@ package Gestiones;
 
 import Aeropuerto.Aeropuerto;
 import Enums.CodigoInternacional;
+import Utilidades.Utilities;
 
 
 import java.util.*;
@@ -28,6 +29,7 @@ public class SistemaAeropuerto {
     }
 
     public static   void mostrarAeropuertos() {
+        Utilities.limpiarPantalla();
         System.out.println("Aeropuertos disponibles:");
         for (Aeropuerto aeropuerto : listaAeropuertos) {
             System.out.println("Código: " + aeropuerto.getCodigo() + " - " + aeropuerto.getNombre()+ " - "+aeropuerto.getDireccion());

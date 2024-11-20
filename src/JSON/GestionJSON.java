@@ -7,8 +7,10 @@ import CheckIn.CheckIn;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
 import java.util.HashMap;
@@ -67,6 +69,21 @@ public class GestionJSON {
             e.printStackTrace();
         }
         return null;
+    }
+
+
+    public static <T> Set<T> deserializarSetEmpleados(Class<T> clazz, String rutaArchivo) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        TypeFactory typeFactory = mapper.getTypeFactory();
+        File archivo = new File(rutaArchivo);
+
+        // Validar existencia del archivo
+        if (!archivo.exists()) {
+            throw new FileNotFoundException("El archivo " + rutaArchivo + " no fue encontrado.");
+        }
+
+        // Leer y deserializar el contenido
+        return mapper.readValue(archivo, typeFactory.constructCollectionType(Set.class, clazz));
     }
 
 

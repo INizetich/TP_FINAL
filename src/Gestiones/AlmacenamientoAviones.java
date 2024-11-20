@@ -39,30 +39,27 @@ public class AlmacenamientoAviones {
     // Mostrar la lista de hangares y los aviones en cada hangar
     public void mostrarHangares() {
         if (listaHangares.isEmpty()) {
-            System.out.println("No hay hangares disponibles.");
+            printCentered("No hay hangares disponibles.");
             return;
         }
 
         for (Hangar<Avion> hangar : listaHangares) {
-            System.out.println("Hangar Número: " + hangar.getNumeroHangar());
-            System.out.println("Aviones en el hangar:");
+            printCentered("Hangar Número: " + hangar.getNumeroHangar());
+            printCentered("Aviones en el hangar:");
             for (Avion avion : hangar.ObtenerListaAviones()) {
-                System.out.println(" - " + avion);
+                printCentered(" - " + avion);
             }
         }
-
-
+        limpiarPantalla();
     }
-
 
     public void eliminarAvionPorID(String codigoAvion) throws CodigoAvionNoExistenteException {
         if (listaHangares.isEmpty()) {
-            System.out.println("La lista de hangares está vacía.");
+            printCentered("La lista de hangares está vacía.");
             return;
         }
 
         boolean avionEncontrado = false;
-        Scanner scanner = new Scanner(System.in);
 
         for (Hangar<Avion> hangar : listaHangares) {
             // Buscar el avión en el hangar actual
@@ -73,23 +70,24 @@ public class AlmacenamientoAviones {
 
             if (avionEncontradoEnHangar.isPresent()) {
                 avionEncontrado = true;
-                System.out.println("Avión encontrado en el hangar: " + hangar.getNumeroHangar());
-                System.out.println("Desea retirar el avion para que realice un vuelo? (s: Sí / n: No)");
+                printCentered("Avión encontrado en el hangar: " + hangar.getNumeroHangar());
+                printCentered("Desea retirar el avión para que realice un vuelo? (s: Sí / n: No)");
                 String eleccion = scanner.nextLine().trim().toLowerCase();
 
                 if (eleccion.equalsIgnoreCase("s")) {
                     hangar.ObtenerListaAviones().remove(avionEncontradoEnHangar.get());
-                    System.out.println("Avión retirado para un vuelo correctamente.");
+                    printCentered("Avión retirado para un vuelo correctamente.");
                 } else {
-                    System.out.println("El avión no fue retirado del hangar.");
+                    printCentered("El avión no fue retirado del hangar.");
                 }
                 break; // Salir del bucle porque el avión ya fue encontrado
             }
         }
 
         if (!avionEncontrado) {
-            throw new CodigoAvionNoExistenteException("el codigo de avion no existe.");
+            throw new CodigoAvionNoExistenteException("El código de avión no existe.");
         }
+        limpiarPantalla();
     }
 
     public void agregarAvionAlHangar(int numeroHangar, Avion avion) throws HangarNoExistenteException {
@@ -107,15 +105,15 @@ public class AlmacenamientoAviones {
 
         // Verificar si el hangar tiene capacidad para más aviones
         if (hangar.estaLleno()) {
-            System.out.println("El hangar número " + numeroHangar + " está lleno. No se puede agregar el avión.");
+            printCentered("El hangar número " + numeroHangar + " está lleno. No se puede agregar el avión.");
             return;
         }
 
         // Agregar el avión al hangar
         hangar.agregarAvion(avion);
-        System.out.println("El  " + avion.toString() + " ha sido agregado al hangar número " + numeroHangar + " exitosamente.");
+        printCentered("El " + avion.toString() + " ha sido agregado al hangar número " + numeroHangar + " exitosamente.");
+        limpiarPantalla();
     }
-
 
     public List<Avion> obtenerAvionesDeTodosLosHangares() {
         List<Avion> listaAviones = new ArrayList<>();
@@ -130,7 +128,7 @@ public class AlmacenamientoAviones {
 
     public void generarAviones(int cantidadAviones, Set<Empleado> listaEmpleados) {
         if (listaHangares.isEmpty()) {
-            System.out.println("No hay hangares creados. Primero genera los hangares.");
+            printCentered("No hay hangares creados. Primero genera los hangares.");
             return;
         }
 
@@ -143,7 +141,7 @@ public class AlmacenamientoAviones {
         }
 
         if (pilotosDisponibles.isEmpty()) {
-            System.out.println("No hay pilotos disponibles para asignar.");
+            printCentered("No hay pilotos disponibles para asignar.");
             return;
         }
 
@@ -163,18 +161,30 @@ public class AlmacenamientoAviones {
             try {
                 avion.asignarPiloto(pilotoAsignado); // Asignar piloto al avión
             } catch (NoEsPilotoException e) {
-                System.out.println("Error al asignar piloto al avión " + avion.getCodigoAvion() + ": " + e.getMessage());
+                printCentered("Error al asignar piloto al avión " + avion.getCodigoAvion() + ": " + e.getMessage());
             }
 
             // Asignar el avión a un hangar aleatorio
             Hangar<Avion> hangar = listaHangares.get(random.nextInt(listaHangares.size()));
             hangar.agregarAvion(avion);
         }
-
-
+        limpiarPantalla();
     }
 
 
+    public static void printCentered(String text) {
+        int terminalWidth = 150; // Puedes ajustar este valor según el ancho de tu terminal
+        int padding = (terminalWidth - text.length()) / 2;
+        String paddedText = " ".repeat(padding) + text;
+        System.out.println(paddedText);
+    }
+
+    public static void limpiarPantalla() {
+        // Imprime 50 líneas vacías para simular la limpieza de pantalla
+        for (int i = 0; i < 40; i++) {
+            System.out.println();
+        }
+    }}
 
 
 }

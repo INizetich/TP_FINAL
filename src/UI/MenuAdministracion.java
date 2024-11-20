@@ -13,6 +13,8 @@ import java.util.InputMismatchException;
 import java.util.Map;
 import java.util.Scanner;
 
+
+
 public class MenuAdministracion {
 
     private static final String Click = "src/Sonidos/click.mp3";
@@ -50,10 +52,12 @@ public class MenuAdministracion {
             try {
                 if (admin.comprobarLogin(loguin)) {
                     printCentered("\u001B[32mACCESSO GARANTIZADO\u001B[0m");
-                    Thread.sleep(250);
-                    printCentered("\u001B[31m----------------------BIENVENIDO AL SISTEMA DE ADMINISTRADOR----------------------\u001B[0m");
+                    Thread.sleep(500);
+                    printCentered("Ingresando...");
+                    Thread.sleep(2000);
 
                     do {
+                        printCentered("\u001B[31m----------------------BIENVENIDO AL SISTEMA DE ADMINISTRADOR----------------------\u001B[0m");
                         printCentered("\u001B[31m1.\u001B[0m Dar privilegios de administrador a una persona");
                         printCentered("\u001B[31m2.\u001B[0m Agregar una persona a la lista de personal");
                         printCentered("\u001B[31m3.\u001B[0m Eliminar una persona de la lista de personal por DNI");
@@ -174,7 +178,8 @@ public class MenuAdministracion {
                                 }
                                 break;
                             case 9:
-                                int opcionkiosco = 0;
+                                int opcionkiosco = 0; // Submenú de stock
+                                boolean salirDelStock = false; // Controla la salida del menú de stock
                                 do {
                                     limpiarPantalla();
                                     printCentered("===== Menú de Stock Kiosco =====");
@@ -190,91 +195,98 @@ public class MenuAdministracion {
                                         case 1:
                                             int opcionStock = 0;
                                             do {
-                                            limpiarPantalla();
-                                            printCentered("===== Control de Stock =====");
-                                            printCentered("1️⃣ Agregar a stock ➕");
-                                            printCentered("2️⃣ Eliminar de stock ➖");
-                                            printCentered("3️⃣ Ver stock 📋");
-                                            printCentered("4️⃣ Salir 🚪");
-                                            printCentered("=============================");
-                                            opcionkiosco = scanner.nextInt();
-                                            scanner.nextLine(); // Limpiar buffer
-                                            reproducirClick();
+                                                limpiarPantalla();
+                                                printCentered("===== Control de Stock =====");
+                                                printCentered("1️⃣ Agregar a stock ➕");
+                                                printCentered("2️⃣ Eliminar de stock ➖");
+                                                printCentered("3️⃣ Ver stock 📋");
+                                                printCentered("4️⃣ Salir 🚪");
+                                                printCentered("=============================");
+                                                opcionStock = scanner.nextInt();
+                                                scanner.nextLine(); // Limpiar buffer
+                                                reproducirClick();
 
-                                            switch (opcionkiosco) {
-                                                case 1:
-                                                    printCentered("ingrese la categoria del producto");
-                                                    String categoriaProducto = scanner.nextLine();
-                                                    printCentered("Ingrese el nombre del producto: ");
-                                                    String producto = scanner.nextLine();
-                                                    printCentered("Ingrese la cantidad a agregar: ");
-                                                    int cantidadAgregar = scanner.nextInt();
-                                                    StockManager.agregarAStock(categoriaProducto,producto, cantidadAgregar);
-                                                    printCentered("✅ Producto agregado exitosamente.");
-                                                    break;
+                                                switch (opcionStock) {
+                                                    case 1:
+                                                        Map<String,Map<String,Integer>> mapaJSON = GestionJSON.deserializarStock("Archivos JSON/Stock.json");
+                                                        StockManager.setStock(mapaJSON);
+                                                        StockManager.recorrerCategorias(StockManager.getStock());
+                                                        printCentered("Ingrese la categoría del producto:");
+                                                        String categoriaProducto = scanner.nextLine();
+                                                        reproducirClick();
+                                                        StockManager.recorrerProductos(StockManager.getStock());
+                                                        printCentered("Ingrese el nombre del producto:");
+                                                        String producto = scanner.nextLine();
+                                                        reproducirClick();
+                                                        printCentered("Ingrese la cantidad a agregar:");
+                                                        int cantidadAgregar = scanner.nextInt();
+                                                        reproducirClick();
+                                                        StockManager.agregarAStock(categoriaProducto, producto, cantidadAgregar);
+                                                        printCentered("✅ Producto agregado exitosamente.");
+                                                        reproducirClick();
+                                                        break;
 
-                                                case 2:
-                                                    printCentered("ingrese la categoria del producto");
-                                                    String categoriaProductoEliminar = scanner.nextLine();
-                                                    reproducirClick();
-                                                    printCentered("Ingrese el nombre del producto: ");
-                                                    producto = scanner.nextLine();
-                                                    reproducirClick();
-                                                    printCentered("Ingrese la cantidad a eliminar: ");
-                                                    int cantidadEliminar = scanner.nextInt();
-                                                    reproducirClick();
-                                                    StockManager.eliminarDeStock(categoriaProductoEliminar,producto,cantidadEliminar);
-                                                    break;
+                                                    case 2:
+                                                        printCentered("Ingrese la categoría del producto:");
+                                                        String categoriaProductoEliminar = scanner.nextLine();
+                                                        reproducirClick();
+                                                        printCentered("Ingrese el nombre del producto:");
+                                                        producto = scanner.nextLine();
+                                                        reproducirClick();
+                                                        printCentered("Ingrese la cantidad a eliminar:");
+                                                        int cantidadEliminar = scanner.nextInt();
+                                                        reproducirClick();
+                                                        StockManager.eliminarDeStock(categoriaProductoEliminar, producto, cantidadEliminar);
+                                                        break;
 
-                                                case 3:
-                                                    printCentered("===== Stock Actual =====");
-                                                    Map<String,Map<String,Integer>> stock = StockManager.obtenerStock();
-                                                    if (stock.isEmpty()) {
-                                                        printCentered("📦 El stock está vacío.");
-                                                    } else {
-                                                        stock.forEach((item, cantidad) ->
-                                                                printCentered(item + ": " + cantidad + " unidades")
-                                                        );
-                                                    }
-                                                    break;
+                                                    case 3:
+                                                        printCentered("===== Stock Actual =====");
 
-                                                case 4:
-                                                    printCentered("👋 Saliendo del control de stock.");
-                                                    reproducirClick();
-                                                    System.exit(0);
 
-                                                    break;
+                                                        Map<String, Map<String, Integer>> stock = StockManager.getStock();
+                                                        if (stock.isEmpty()) {
+                                                            printCentered("📦 El stock está vacío.");
+                                                        } else {
+                                                              //  mostrarCuadroStock();
+                                                        }
+                                                        break;
 
-                                                default:
-                                                    printCentered("❌ Opción inválida. Intente nuevamente.");
-                                                    reproducirClick();
-                                                    break;
-                                            }
-                                            printCentered("🔄 Presione Enter para continuar...");
-                                            scanner.nextLine();
-                                        }while (opcionkiosco!= 3);
-                                            break; ///break de la linea 184
+                                                    case 4:
+                                                        printCentered("👋 Saliendo del control de stock.");
+
+                                                        break;
+
+                                                    default:
+                                                        printCentered("❌ Opción inválida. Intente nuevamente.");
+                                                        break;
+                                                }
+                                                printCentered("🔄 Presione Enter para continuar...");
+                                                scanner.nextLine();
+                                            } while (opcionStock != 4); // Salir del submenú de stock
+                                            break;
+
                                         case 2:
-                                            // Implementar otras opciones según sea necesario
                                             printCentered("⚙️ Opciones de administrador aún no implementadas.");
                                             break;
+
                                         case 3:
-                                            printCentered("👋 Saliendo del Menú Administrador.");
+                                            printCentered("👋 Saliendo del Menú Stock.");
+                                            salirDelStock = true; // Rompe el bucle principal del menú de stock
                                             break;
+
                                         default:
                                             printCentered("❌ Opción inválida. Intente nuevamente.");
                                             break;
                                     }
-                                } while (opcionkiosco != 4);
+                                } while (!salirDelStock); // Mientras no se indique salir del menú de stock
                                 break;
-
                             case 10:
                                 Utilities.mostrarCerrandoAdmin();
                                 break;
                             }
 }while (opcionAdmin < 11);
                             // Preguntar si desea volver al menú principal de administrador
-                            if (opcionAdmin != 10) { // Si no seleccionó la opción 8 para cerrar sesión
+                            if (opcionAdmin != 11) {
                                 System.out.print("\u001B[31m¿Desea volver al menú principal? (sí/no): \u001B[0m");
                                 String respuesta = scanner.nextLine().trim().toLowerCase();
                                 if (!respuesta.equals("sí") && !respuesta.equals("si")) {
@@ -286,7 +298,7 @@ public class MenuAdministracion {
                                 }
                             }
 
-                        } while (opcionAdmin != 10) ; // Repite el ciclo hasta que elija salir
+                        } while (opcionAdmin != 11) ; // Repite el ciclo hasta que elija salir
 
                     } catch(AccesoDenegadoException e){
                         e.printStackTrace();

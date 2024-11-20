@@ -61,7 +61,7 @@ public class Admin {
                     // Deserializamos el archivo de administradores
                     empleadosJSON = GestionJSON.deserializarSet(Empleado.class, personal.getPath());
                     if (empleadosJSON.isEmpty()) {
-                        System.out.println("🚫 No se encontraron empleados deserializados.");
+                        printCentered("🚫 No se encontraron empleados deserializados.");
                     } else {
                         setListaEmpleados(empleadosJSON); // Establecemos la lista de administradores
                     }
@@ -70,13 +70,13 @@ public class Admin {
                 }
 
             } else {
-                System.out.println("🚫 El archivo de empleados no existe. Asegúrese de que se haya creado correctamente.");
+                printCentered("🚫 El archivo de empleados no existe. Asegúrese de que se haya creado correctamente.");
                 // Asegurarse de que el archivo exista en la primera ejecución o crear uno vacío
                 try {
                     personal.createNewFile();
-                    System.out.println("✔️ Archivo de administradores creado.");
+                    printCentered("✔️ Archivo de administradores creado.");
                 } catch (IOException e) {
-                    System.out.println("🚫 Error al crear el archivo de administradores.");
+                    printCentered("🚫 Error al crear el archivo de administradores.");
                     e.printStackTrace();
                     return; // Salir si no se puede crear el archivo
                 }
@@ -90,13 +90,13 @@ public class Admin {
                 // Serializamos la lista de empleados nuevamente en el archivo JSON
                 try {
                     GestionJSON.serializarSet(listaEmpleados, personal.getPath());
-                    System.out.println("✔️ empleado/s agregado/s y archivo actualizado.");
+                    printCentered("✔️ empleado/s agregado/s y archivo actualizado.");
                 } catch (Exception e) {
-                    System.out.println("🚫 Error al serializar el archivo de empleados.");
+                    printCentered("🚫 Error al serializar el archivo de empleados.");
                     e.printStackTrace();
                 }
 
-                System.out.println("¿Desea agregar otra persona? (s/n)");
+                printCentered("¿Desea agregar otra persona? (s/n)");
                 String opcion = scanner.nextLine();
 
                 if (opcion.equalsIgnoreCase("n")) {
@@ -104,7 +104,7 @@ public class Admin {
                 }
             }
         } else {
-            System.out.println("🚫 El sistema está en su primera ejecución, no se pueden agregar administradores.");
+            printCentered("🚫 El sistema está en su primera ejecución, no se pueden agregar administradores.");
         }
     }
 
@@ -121,7 +121,7 @@ public class Admin {
                     // Deserializamos el archivo de administradores
                     adminsJSON = GestionJSON.deserializarSet(Persona.class, admins.getPath());
                     if (adminsJSON.isEmpty()) {
-                        System.out.println("🚫 No se encontraron administradores deserializados.");
+                        printCentered("🚫 No se encontraron administradores deserializados.");
                     } else {
                         setListaAdministradores(adminsJSON); // Establecemos la lista de administradores
                     }
@@ -130,13 +130,13 @@ public class Admin {
                 }
 
             } else {
-                System.out.println("🚫 El archivo de administradores no existe. Asegúrese de que se haya creado correctamente.");
+                printCentered("🚫 El archivo de administradores no existe. Asegúrese de que se haya creado correctamente.");
                 // Asegurarse de que el archivo exista en la primera ejecución o crear uno vacío
                 try {
                     admins.createNewFile();
-                    System.out.println("✔️ Archivo de administradores creado.");
+                    printCentered("✔️ Archivo de administradores creado.");
                 } catch (IOException e) {
-                    System.out.println("🚫 Error al crear el archivo de administradores.");
+                    printCentered("🚫 Error al crear el archivo de administradores.");
                     e.printStackTrace();
                     return; // Salir si no se puede crear el archivo
                 }
@@ -150,13 +150,13 @@ public class Admin {
                 // Serializamos la lista de administradores nuevamente en el archivo JSON
                 try {
                     GestionJSON.serializarSet(listaAdministradores, admins.getPath());
-                    System.out.println("✔️ Administrador agregado y archivo actualizado.");
+                    printCentered("✔️ Administrador agregado y archivo actualizado.");
                 } catch (Exception e) {
-                    System.out.println("🚫 Error al serializar el archivo de administradores.");
+                    printCentered("🚫 Error al serializar el archivo de administradores.");
                     e.printStackTrace();
                 }
 
-                System.out.println("¿Desea crear otra cuenta de administrador? (s/n)");
+                printCentered("¿Desea crear otra cuenta de administrador? (s/n)");
                 String opcion = scanner.nextLine();
 
                 if (opcion.equalsIgnoreCase("n")) {
@@ -164,7 +164,7 @@ public class Admin {
                 }
             }
         } else {
-            System.out.println("🚫 El sistema está en su primera ejecución, no se pueden agregar administradores.");
+            printCentered("🚫 El sistema está en su primera ejecución, no se pueden agregar administradores.");
         }
     }
 
@@ -183,7 +183,7 @@ boolean token = false;
                     // Deserializamos el archivo de administradores
                     loguinPersonas = GestionJSON.deserializarSet(Persona.class, loguin.getPath());
                     if (loguinPersonas.isEmpty()) {
-                        System.out.println("🚫 No se encontraron administradores deserializados.");
+                        printCentered("🚫 No se encontraron administradores deserializados.");
                     } else {
                         setListaAdministradores(loguinPersonas); // Establecemos la lista de administradores
                     }
@@ -192,13 +192,13 @@ boolean token = false;
                 }
 
             } else {
-                System.out.println("🚫 El archivo de administradores no existe. Asegúrese de que se haya creado correctamente.");
+                printCentered("🚫 El archivo de administradores no existe. Asegúrese de que se haya creado correctamente.");
                 // Asegurarse de que el archivo exista en la primera ejecución o crear uno vacío
                 try {
                     loguin.createNewFile();
-                    System.out.println("✔️ Archivo de administradores creado.");
+                    printCentered("✔️ Archivo de administradores creado.");
                 } catch (IOException e) {
-                    System.out.println("🚫 Error al crear el archivo de administradores.");
+                    printCentered("🚫 Error al crear el archivo de administradores.");
                     e.printStackTrace();
                     return token;// Salir si no se puede crear el archivo
                 }
@@ -242,32 +242,32 @@ boolean token = false;
 
                     // Verificamos si la lista está vacía
                     if (empleadosAEliminar.isEmpty()) {
-                        System.out.println("🚫 No se encontraron empleados deserializados.");
+                        printCentered("🚫 No se encontraron empleados deserializados.");
                     } else {
                         // Actualizamos la lista de empleados
                         setListaEmpleados(empleadosAEliminar);
 
                         // Mostramos la lista de empleados después de deserializar
-                        System.out.println("💼 Lista de empleados actualizada:");
+                        printCentered("💼 Lista de empleados actualizada:");
                         mostrarListaEmpleados();
                     }
                 } catch (JSONException e) {
-                    System.out.println("🚫 Error al deserializar los empleados.");
+                    printCentered("🚫 Error al deserializar los empleados.");
                     e.printStackTrace();
                     return;
                 }
             } else {
                 // Si el archivo no existe, lo creamos vacío
-                System.out.println("🚫 El archivo de empleados no existe. Creando archivo vacío...");
+                printCentered("🚫 El archivo de empleados no existe. Creando archivo vacío...");
                 try {
                     if (personalEliminado.createNewFile()) {
-                        System.out.println("✔️ Archivo de empleados creado.");
+                        printCentered("✔️ Archivo de empleados creado.");
                     } else {
-                        System.out.println("🚫 No se pudo crear el archivo de empleados.");
+                        printCentered("🚫 No se pudo crear el archivo de empleados.");
                         return;
                     }
                 } catch (IOException e) {
-                    System.out.println("🚫 Error al crear el archivo de empleados.");
+                    printCentered("🚫 Error al crear el archivo de empleados.");
                     e.printStackTrace();
                     return; // Salir si no se puede crear el archivo
                 }
@@ -289,15 +289,15 @@ boolean token = false;
                 throw new EmpleadoInexistenteException("🚫 Error: El empleado con DNI " + dni + " no existe.");
             } else {
                 listaEmpleados.remove(empleado);
-                System.out.println("✔️ Empleado eliminado correctamente de la lista.");
+                printCentered("✔️ Empleado eliminado correctamente de la lista.");
             }
 
             // Serializamos la lista de empleados nuevamente en el archivo JSON
             try {
                 GestionJSON.serializarSet(listaEmpleados, personalEliminado.getPath());
-                System.out.println("✔️ Archivo de empleados actualizado.");
+                printCentered("✔️ Archivo de empleados actualizado.");
             } catch (Exception e) {
-                System.out.println("🚫 Error al serializar el archivo de empleados.");
+                printCentered("🚫 Error al serializar el archivo de empleados.");
                 e.printStackTrace();
                 return;
             }
@@ -321,26 +321,26 @@ boolean token = false;
                 try {
                     adminAeliminar = GestionJSON.deserializarSet(Persona.class, eliminarAdmin.getPath());
                     if (adminAeliminar.isEmpty()) {
-                        System.out.println("🚫 No se encontraron administradores deserializados.");
+                        printCentered("🚫 No se encontraron administradores deserializados.");
                     } else {
                         setListaAdministradores(adminAeliminar);
                     }
                 } catch (JSONException e) {
-                    System.out.println("🚫 Error al deserializar el archivo de administradores.");
+                    printCentered("🚫 Error al deserializar el archivo de administradores.");
                     e.printStackTrace();
                 }
             } else {
                 // Si el archivo no existe, lo creamos vacío
-                System.out.println("🚫 El archivo de administradores no existe. Creando archivo vacío...");
+                printCentered("🚫 El archivo de administradores no existe. Creando archivo vacío...");
                 try {
                     if (eliminarAdmin.createNewFile()) {
-                        System.out.println("✔️ Archivo de administradores creado.");
+                        printCentered("✔️ Archivo de administradores creado.");
                     } else {
-                        System.out.println("🚫 No se pudo crear el archivo de administradores.");
+                        printCentered("🚫 No se pudo crear el archivo de administradores.");
                         return;
                     }
                 } catch (IOException e) {
-                    System.out.println("🚫 Error al crear el archivo de administradores.");
+                    printCentered("🚫 Error al crear el archivo de administradores.");
                     e.printStackTrace();
                     return; // Salir si no se puede crear el archivo
                 }
@@ -348,7 +348,7 @@ boolean token = false;
 
             // Verificar si la lista de administradores no está vacía
             if (listaAdministradores.isEmpty()) {
-                System.out.println("🚫 No hay administradores en la lista de administradores.");
+                printCentered("🚫 No hay administradores en la lista de administradores.");
             } else {
                 // Buscar el administrador por DNI y eliminarlo
                 Persona persona = listaAdministradores.stream()
@@ -360,16 +360,16 @@ boolean token = false;
                     throw new dniNoEncontradoException("\uD83D\uDEAB" + " Error: El administrador con DNI \"" + dni + "\" no existe.");
                 } else {
                     listaAdministradores.remove(persona);
-                    System.out.println("✔️ Administrador eliminado correctamente de la lista.");
+                    printCentered("✔️ Administrador eliminado correctamente de la lista.");
                 }
             }
 
             // Serializar de nuevo la lista de administradores al archivo JSON
             try {
                 GestionJSON.serializarSet(listaAdministradores, "Archivos JSON/admins.json");
-                System.out.println("✔️ Archivo de administradores actualizado.");
+                printCentered("✔️ Archivo de administradores actualizado.");
             } catch (JSONException e) {
-                System.out.println("🚫 Error al serializar el archivo de administradores.");
+                printCentered("🚫 Error al serializar el archivo de administradores.");
                 e.printStackTrace();
             }
         }
@@ -380,13 +380,13 @@ boolean token = false;
 
     public void mostrarCuentasAdmin() {
         if (listaAdministradores.isEmpty()) {
-            System.out.println("🚨 La lista de administradores está vacía.");
+            printCentered("🚨 La lista de administradores está vacía.");
             return;
         }
 
-        System.out.println("======== Lista de Administradores ========");
+        printCentered("======== Lista de Administradores ========");
         System.out.printf("%-15s %-20s %-20s %-10s%n", "DNI", "Nombre", "Apellido", "Edad"); // Encabezados de columnas
-        System.out.println("==========================================="); // Separador visual
+        printCentered("==========================================="); // Separador visual
 
         // Imprimir cada persona de la lista con un formato bonito
         for (Persona persona : listaAdministradores) {
@@ -401,16 +401,16 @@ boolean token = false;
 
     public void mostrarListaEmpleados() {
         if (listaEmpleados.isEmpty()) {
-            System.out.println("🚫 La lista de empleados está vacía.");
+            printCentered("🚫 La lista de empleados está vacía.");
             return;
         }
 
         // Cabecera
-        System.out.println("╔═══════════════════════════════════════════════════════════════════════════════════╗");
-        System.out.println("║                                 Lista de Empleados                                ║");
-        System.out.println("╠════════════════════╦════════════════════╦════════════════════╦════════════════════╣");
-        System.out.println("║        DNI         ║       Nombre       ║       Apellido     ║        Cargo       ║");
-        System.out.println("╠════════════════════╬════════════════════╬════════════════════╬════════════════════╣");
+        printCentered("╔═══════════════════════════════════════════════════════════════════════════════════╗");
+        printCentered("║                                 Lista de Empleados                                ║");
+        printCentered("╠════════════════════╦════════════════════╦════════════════════╦════════════════════╣");
+        printCentered("║        DNI         ║       Nombre       ║       Apellido     ║        Cargo       ║");
+        printCentered("╠════════════════════╬════════════════════╬════════════════════╬════════════════════╣");
 
         // Mostrar cada empleado
         for (Empleado empleado : listaEmpleados) {
@@ -422,7 +422,7 @@ boolean token = false;
                     empleado.getTipoEmpleado());
         }
 
-        System.out.println("╚════════════════════╩════════════════════╩════════════════════╩════════════════════╝");
+        printCentered("╚════════════════════╩════════════════════╩════════════════════╩════════════════════╝");
     }
 
     public  void eliminarVueloPorID(String idVuelo) throws CodigoVueloInexistenteException {
@@ -434,26 +434,26 @@ boolean token = false;
                 try {
                     SistemaVuelo.setVuelosGenerados(GestionJSON.deserializarVuelos(eliminarVuelo.getPath()));
                     if (SistemaVuelo.getVuelosGenerados().isEmpty()) {
-                        System.out.println("🚫 No se encontraron vuelos deserializados.");
+                        printCentered("🚫 No se encontraron vuelos deserializados.");
                     } else {
 
                     }
                 } catch (JSONException e) {
-                    System.out.println("🚫 Error al deserializar el archivo de vuelos.");
+                    printCentered("🚫 Error al deserializar el archivo de vuelos.");
                     e.printStackTrace();
                 }
             } else {
                 // Si el archivo no existe, lo creamos vacío
-                System.out.println("🚫 El archivo de vuelos no existe. Creando archivo vacío...");
+                printCentered("🚫 El archivo de vuelos no existe. Creando archivo vacío...");
                 try {
                     if (eliminarVuelo.createNewFile()) {
-                        System.out.println("✔️ Archivo de vuelos creado.");
+                        printCentered("✔️ Archivo de vuelos creado.");
                     } else {
-                        System.out.println("🚫 No se pudo crear el archivo de vuelos.");
+                        printCentered("🚫 No se pudo crear el archivo de vuelos.");
                         return;
                     }
                 } catch (IOException e) {
-                    System.out.println("🚫 Error al crear el archivo de vuelos.");
+                    printCentered("🚫 Error al crear el archivo de vuelos.");
                     e.printStackTrace();
                     return; // Salir si no se puede crear el archivo
                 }
@@ -469,20 +469,20 @@ boolean token = false;
             }
 
             if(!vuelo.getListaPasajeros().isEmpty()) {
-                System.out.println("🚫 Error: no se puede eliminar el vuelo porque tiene reservas hechas");
+                printCentered("🚫 Error: no se puede eliminar el vuelo porque tiene reservas hechas");
                 return;
             }
 
             SistemaVuelo.getVuelosGenerados().remove(vuelo);
-            System.out.println("✅ Vuelo con ID " + idVuelo + " eliminado exitosamente.");
+            printCentered("✅ Vuelo con ID " + idVuelo + " eliminado exitosamente.");
 
 
             try {
 
                 GestionJSON.serializarLista(SistemaVuelo.getVuelosGenerados(), "Archivos JSON/vuelos.json");
-                System.out.println("✔️ Archivo de vuelos actualizado.");
+                printCentered("✔️ Archivo de vuelos actualizado.");
             } catch (JSONException e) {
-                System.out.println("🚫 Error al serializar el archivo de vuelos.");
+                printCentered("🚫 Error al serializar el archivo de vuelos.");
                 e.printStackTrace();
             }
 
@@ -511,33 +511,33 @@ boolean token = false;
                     vuelosJSON = GestionJSON.deserializarLista(Vuelo.class, vuelos.getPath());
                     aeropuertosJSON = GestionJSON.deserializarSet(Aeropuerto.class, aeropuertos.getPath());
                     if (vuelosJSON.isEmpty() || aeropuertosJSON.isEmpty()) {
-                        System.out.println("🚫 No se encontraron vuelos deserializados o aeropuertos deserializados.");
+                        printCentered("🚫 No se encontraron vuelos deserializados o aeropuertos deserializados.");
                     } else {
                         SistemaVuelo.setVuelosGenerados(vuelosJSON);
                         SistemaAeropuerto.setListaAeropuertos(aeropuertosJSON);
                     }
                 } catch (JSONException e) {
-                    System.out.println("🚫 Error al deserializar el archivo de vuelos o aeropuertos.");
+                    printCentered("🚫 Error al deserializar el archivo de vuelos o aeropuertos.");
                     e.printStackTrace();
                 }
             } else {
                 // Si los archivos no existen, los creamos vacíos
-                System.out.println("🚫 Los archivos de vuelos o aeropuertos no existen. Creando archivos vacíos...");
+                printCentered("🚫 Los archivos de vuelos o aeropuertos no existen. Creando archivos vacíos...");
                 try {
                     if (vuelos.createNewFile()) {
-                        System.out.println("✔️ Archivo de vuelos creado.");
+                        printCentered("✔️ Archivo de vuelos creado.");
                     } else {
-                        System.out.println("🚫 No se pudo crear el archivo de vuelos.");
+                        printCentered("🚫 No se pudo crear el archivo de vuelos.");
                         return;
                     }
 
                     if (aeropuertos.createNewFile()) {
-                        System.out.println("✔️ Archivo de aeropuertos creado.");
+                        printCentered("✔️ Archivo de aeropuertos creado.");
                     } else {
-                        System.out.println("🚫 No se pudo crear el archivo de aeropuertos.");
+                        printCentered("🚫 No se pudo crear el archivo de aeropuertos.");
                     }
                 } catch (IOException e) {
-                    System.out.println("🚫 Error al crear el archivo de aeropuertos.");
+                    printCentered("🚫 Error al crear el archivo de aeropuertos.");
                     e.printStackTrace();
                     return; // Salir si no se puede crear el archivo
                 }
@@ -576,14 +576,14 @@ boolean token = false;
                 // Asignar el avión al vuelo
                 vuelo.setAvion(avionDisponible);
                 vuelo.setEstadoEmbarque(EstadoEmbarque.EN_HORARIO);
-                System.out.println("✔️ Avión asignado automáticamente al vuelo.");
+                printCentered("✔️ Avión asignado automáticamente al vuelo.");
             } else {
-                System.out.println("🚫 No hay aviones disponibles para asignar al vuelo.");
+                printCentered("🚫 No hay aviones disponibles para asignar al vuelo.");
             }
 
             // Agregar el vuelo a la lista de vuelos generados
             SistemaVuelo.getVuelosGenerados().add(vuelo);
-            System.out.println("✔️ Vuelo creado correctamente.");
+            printCentered("✔️ Vuelo creado correctamente.");
 
             // Serializar vuelos y aeropuertos actualizados
             try {
@@ -593,13 +593,14 @@ boolean token = false;
                 Set<Aeropuerto> aeropuertoSerializar = SistemaAeropuerto.getListaAeropuertos();
                 GestionJSON.serializarSet(aeropuertoSerializar, "Archivos JSON/aeropuertos.json");
 
-                System.out.println("✔️ Archivo de vuelos actualizado.");
-                System.out.println("✔️ Archivo de aeropuertos actualizado.");
+                printCentered("✔️ Archivo de vuelos actualizado.");
+                printCentered("✔️ Archivo de aeropuertos actualizado.");
             } catch (JSONException e) {
-                System.out.println("🚫 Error al serializar el archivo de vuelos o aeropuertos.");
+                printCentered("🚫 Error al serializar el archivo de vuelos o aeropuertos.");
                 e.printStackTrace();
             }
         }
+
     }
 
 
@@ -628,73 +629,73 @@ boolean token = false;
 
         // Validar nombre
         do {
-            System.out.println("🔑 Ingrese el nombre del administrador: ");
+            printCentered("🔑 Ingrese el nombre del administrador: ");
             nombre = scanner.nextLine();
             if (nombre.trim().isEmpty()) {
-                System.out.println("🚨 El nombre no puede estar vacío. Por favor, ingrésalo nuevamente. 📝");
+                printCentered("🚨 El nombre no puede estar vacío. Por favor, ingrésalo nuevamente. 📝");
             }
         } while (nombre.trim().isEmpty());
 
         // Validar apellido
         do {
-            System.out.println("📛 Ingrese el apellido del administrador: ");
+            printCentered("📛 Ingrese el apellido del administrador: ");
             apellido = scanner.nextLine();
             if (apellido.trim().isEmpty()) {
-                System.out.println("🚨 El apellido no puede estar vacío. Por favor, ingrésalo nuevamente. 📝");
+                printCentered("🚨 El apellido no puede estar vacío. Por favor, ingrésalo nuevamente. 📝");
             }
         } while (apellido.trim().isEmpty());
 
         // Validar edad
         do {
-            System.out.println("🎂 Ingrese la edad del administrador: ");
+            printCentered("🎂 Ingrese la edad del administrador: ");
             edad = scanner.nextInt();
             scanner.nextLine(); // Limpiar buffer
             if (edad <= 0 || edad >= 110) {
-                System.out.println("🚨 La edad debe ser mayor que 0 y menor que 110. Por favor, intente nuevamente. 🔢");
+                printCentered("🚨 La edad debe ser mayor que 0 y menor que 110. Por favor, intente nuevamente. 🔢");
             }
         } while (edad <= 0 || edad >= 110);
 
         // Validar DNI
         do {
-            System.out.println("🆔 Ingrese el DNI del administrador (8 dígitos numéricos): ");
+            printCentered("🆔 Ingrese el DNI del administrador (8 dígitos numéricos): ");
             dni = scanner.nextLine();
             if (dni.length() != 8) {
-                System.out.println("🚨 El DNI debe tener exactamente 8 caracteres. Intente nuevamente. 🔢");
+                printCentered("🚨 El DNI debe tener exactamente 8 caracteres. Intente nuevamente. 🔢");
             } else if (!dni.matches("\\d+")) { // Verifica que el DNI contenga solo números
-                System.out.println("🚨 El DNI debe contener solo números. Por favor, intente nuevamente. 🔢");
+                printCentered("🚨 El DNI debe contener solo números. Por favor, intente nuevamente. 🔢");
             }
         } while (dni.length() != 8 || !dni.matches("\\d+"));
 
         // Crear y retornar la cuenta admin
-        System.out.println("✔️ Cuenta de administrador creada con éxito. ¡Bienvenido al sistema! 🎉");
+        printCentered("✔️ Cuenta de administrador creada con éxito. ¡Bienvenido al sistema! 🎉");
         return new Persona(nombre, apellido, edad, dni);
     }
 
 
     private Empleado crearEmpleado(){
         // Solicitar nombre
-        System.out.println("🔑 Ingrese el nombre del empleado: ");
+        printCentered("🔑 Ingrese el nombre del empleado: ");
         String nombre = scanner.nextLine();
 
         // Solicitar apellido
-        System.out.println("📛 Ingrese el apellido del empleado: ");
+        printCentered("📛 Ingrese el apellido del empleado: ");
         String apellido = scanner.nextLine();
 
         // Solicitar edad
-        System.out.println("🎂 Ingrese la edad del empleado: ");
+        printCentered("🎂 Ingrese la edad del empleado: ");
         int edad = scanner.nextInt();
         scanner.nextLine(); // Limpiar buffer
 
         // Solicitar DNI
-        System.out.println("🆔 Ingrese el DNI del empleado (8 dígitos numéricos): ");
+        printCentered("🆔 Ingrese el DNI del empleado (8 dígitos numéricos): ");
         String dni = scanner.nextLine();
 
         // Solicitar tipo de empleo
-        System.out.println("💼 Ingrese el tipo de empleo del empleado (PILOTO,COPILOTO,AZAFATA): ");
+        printCentered("💼 Ingrese el tipo de empleo del empleado (PILOTO,COPILOTO,AZAFATA): ");
         TipoEmpleado tipo = TipoEmpleado.valueOf(scanner.nextLine().toUpperCase());
 
         // Crear y retornar el empleado
-        System.out.println("✔️ Empleado creado exitosamente. ¡Bienvenido al equipo! 🎉");
+        printCentered("✔️ Empleado creado exitosamente. ¡Bienvenido al equipo! 🎉");
         return new Empleado(nombre, apellido, edad, dni, tipo);
     }
 
@@ -733,5 +734,18 @@ boolean token = false;
         return personas;
     }
 
+    public static void printCentered(String text) {
+        int terminalWidth = 150; // Puedes ajustar este valor según el ancho de tu terminal
+        int padding = (terminalWidth - text.length()) / 2;
+        String paddedText = " ".repeat(padding) + text;
+        System.out.println(paddedText);
+    }
 
-}
+    public static void limpiarPantalla() {
+        // Imprime 50 líneas vacías para simular la limpieza de pantalla
+        for (int i = 0; i < 40; i++) {
+            System.out.println();
+        }
+    }}
+
+

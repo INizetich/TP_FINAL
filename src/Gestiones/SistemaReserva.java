@@ -37,13 +37,13 @@ public class SistemaReserva {
                     SistemaVuelo.setVuelosGenerados(GestionJSON.deserializarVuelos(vuelosFile.getPath()));
 
                     if (SistemaVuelo.getVuelosGenerados().isEmpty()) {
-                        System.out.println("🚫 No se encontraron vuelos deserializados.");
+                        printCentered("🚫 No se encontraron vuelos deserializados.");
                     }
                 } catch (Exception e) {
-                    System.out.println("🚫 Error al deserializar los vuelos: " + e.getMessage());
+                    printCentered("🚫 Error al deserializar los vuelos: " + e.getMessage());
                 }
             } else {
-                System.out.println("🚫 El archivo de vuelos no existe. Asegúrese de que se haya creado correctamente.");
+                printCentered("🚫 El archivo de vuelos no existe. Asegúrese de que se haya creado correctamente.");
                 return; // Salir si el archivo no existe
             }
 
@@ -78,7 +78,7 @@ public class SistemaReserva {
                 SistemaVuelo.mostrarVuelos();
 
                 // Selección del vuelo
-                System.out.print("Ingrese el ID del vuelo que desea abordar: ");
+                printCentered("Ingrese el ID del vuelo que desea abordar: ");
                 String idVueloSeleccionado = scanner.nextLine().toUpperCase();
 
                 // Filtrar la lista de vuelos por el id de vuelo
@@ -88,7 +88,7 @@ public class SistemaReserva {
                         .orElse(null);
 
                 if (vueloSeleccionado == null) {
-                    System.out.println("Error, código de vuelo inexistente. Intente nuevamente.");
+                    printCentered("Error, código de vuelo inexistente. Intente nuevamente.");
                     continue; // Permitir al usuario intentar nuevamente sin lanzar una excepción
                 }
 
@@ -99,8 +99,8 @@ public class SistemaReserva {
                     }
 
                     // Si el vuelo está disponible, mostrar los detalles del vuelo
-                    System.out.println("\n🛫 Seleccionaste el vuelo:");
-                    System.out.println("🆔 ID de Vuelo: " + vueloSeleccionado.getIdVuelo() +
+                    printCentered("\n🛫 Seleccionaste el vuelo:");
+                    printCentered("🆔 ID de Vuelo: " + vueloSeleccionado.getIdVuelo() +
                             " | 🌍 Origen: " + vueloSeleccionado.getOrigen() +
                             " | ✈️ Destino: " + vueloSeleccionado.getDestino() +
                             " | 🛩️ Avión: " + vueloSeleccionado.getAvion().getNombre() +
@@ -112,30 +112,30 @@ public class SistemaReserva {
                     // Continuar con el proceso de reserva
                     List<String> asientosDisponibles = generarAsientosDisponibles(vueloSeleccionado);
                     if (asientosDisponibles.isEmpty()) {
-                        System.out.println("No hay asientos disponibles para este vuelo.");
+                        printCentered("No hay asientos disponibles para este vuelo.");
                         vueloSeleccionadoCorrecto = false; // Permitir al usuario seleccionar otro vuelo
                         continue; // Regresar al inicio del bucle
                     }
 
                     // Mostrar asientos disponibles
                     Utilities.limpiarPantalla();
-                    System.out.println("\n🛫 Asientos Disponibles ✨");
-                    System.out.println("==================================================");
-                    System.out.println("🔍 Aquí están los asientos disponibles en el vuelo:");
-                    System.out.println("==================================================");
-                    System.out.println("🪑 " + String.join(" 🪑 ", asientosDisponibles));
-                    System.out.println("==================================================");
+                    printCentered("\n🛫 Asientos Disponibles ✨");
+                    printCentered("==================================================");
+                    printCentered("🔍 Aquí están los asientos disponibles en el vuelo:");
+                    printCentered("==================================================");
+                    printCentered("🪑 " + String.join(" 🪑 ", asientosDisponibles));
+                    printCentered("==================================================");
 
                     String asientoSeleccionado = "";
                     boolean asientoValido = false;
                     while (!asientoValido) {
                         // Seleccionar asiento
-                        System.out.print("Seleccione un asiento disponible: ");
+                        printCentered("Seleccione un asiento disponible: ");
                         asientoSeleccionado = scanner.nextLine().toUpperCase();
 
                         // Comprobar si el asiento está disponible
                         if (!asientosDisponibles.contains(asientoSeleccionado)) {
-                            System.out.println("❌ Error: El asiento seleccionado no existe o no está disponible.");
+                            printCentered("❌ Error: El asiento seleccionado no existe o no está disponible.");
                         } else {
                             asientoValido = true; // Salir del bucle si el asiento es válido
                         }
@@ -176,19 +176,19 @@ public class SistemaReserva {
                                 GestionJSON.serializarMapa(ConexionAeropuerto.getConexiones(), "Archivos JSON/ConexionesAeropuertos.json");
                                 Configs.setFirstRunComplete();
                             } catch (Exception e) {
-                                System.out.println("Error al guardar reservas o conexiones.");
+                                printCentered("Error al guardar reservas o conexiones.");
                                 e.printStackTrace();
                             }
                             Utilities.limpiarPantalla();
-                            System.out.println("============================================================================");
-                            System.out.println("Reserva realizada exitosamente para " + pasajero.getNombre() + " " + pasajero.getApellido());
+                            printCentered("============================================================================");
+                            printCentered("Reserva realizada exitosamente para " + pasajero.getNombre() + " " + pasajero.getApellido());
                         }
                     } catch (CapacidadMaximaException e) {
-                        System.out.println(e.getMessage());
+                        printCentered(e.getMessage());
                     }
                 } catch (EstadoEmbarqueCerradoException e) {
-                    System.out.println(e.getMessage());
-                    System.out.println("Por favor, ingrese otro ID de vuelo.\n");
+                    printCentered(e.getMessage());
+                    printCentered("Por favor, ingrese otro ID de vuelo.\n");
                     continue; // Volver a mostrar la lista de vuelos y permitir la selección de otro vuelo
                 }
             }
@@ -221,29 +221,29 @@ public class SistemaReserva {
         Scanner scanner = new Scanner(System.in);
 
         do {
-            System.out.println();
-            System.out.println("=====================================");
-            System.out.println("👤 Ingrese los datos del pasajero ✈️");
+
+            printCentered("=====================================");
+            printCentered("👤 Ingrese los datos del pasajero ✈️");
 
             // Validar nombre
-            System.out.print("📝 Nombre: ");
+            printCentered("📝 Nombre: ");
             nombre = scanner.nextLine().trim();
 
             // Validar apellido
-            System.out.print("📝 Apellido: ");
+            printCentered("📝 Apellido: ");
             apellido = scanner.nextLine().trim();
 
             // Validar edad
             do {
-                System.out.print("🎂 Edad: ");
+                printCentered("🎂 Edad: ");
                 try {
                     edad = scanner.nextInt();
                     scanner.nextLine(); // Limpiar el buffer
                     if (edad <= 0 || edad >= 110) {
-                        System.out.println("❌ La edad debe ser mayor a 0 y menor que 110.");
+                        printCentered("❌ La edad debe ser mayor a 0 y menor que 110.");
                     }
                 } catch (InputMismatchException e) {
-                    System.out.println("❌ Por favor, ingrese un número válido para la edad.");
+                    printCentered("❌ Por favor, ingrese un número válido para la edad.");
                     scanner.nextLine(); // Limpiar entrada no válida
                     edad = -1; // Forzar la repetición del ciclo
                 }
@@ -251,57 +251,57 @@ public class SistemaReserva {
 
             // Validar DNI
             do {
-                System.out.print("🆔 DNI (8 caracteres): ");
+                printCentered("🆔 DNI (8 caracteres): ");
                 dni = scanner.nextLine().trim();
 
                 // Verificar que el DNI tenga exactamente 8 caracteres
                 if (dni.length() != 8) {
-                    System.out.println("❌ El DNI debe tener exactamente 8 caracteres.");
+                    printCentered("❌ El DNI debe tener exactamente 8 caracteres.");
                 } else if (mapaReservas.containsKey(dni)) {
                     throw new DniRegistradoException("🚫 El DNI " + dni + " ya está asociado a una reserva");
                 }
             } while (dni.length() != 8); // Repetir hasta que el DNI sea válido
 
-            System.out.print("📦 ¿Cuántas valijas llevará? ");
+            printCentered("📦 ¿Cuántas valijas llevará? ");
             int cantidadEquipaje = scanner.nextInt();
             scanner.nextLine();
 
             // Cobro por valijas adicionales
             if (cantidadEquipaje > 2) {
                 tarifaExtra += (cantidadEquipaje - 2) * 50; // Cobro extra por cada valija adicional
-                System.out.println("💸 Se aplicará un cargo adicional de $" + (cantidadEquipaje - 2) * 50 + " USD por valijas adicionales.");
+                printCentered("💸 Se aplicará un cargo adicional de $" + (cantidadEquipaje - 2) * 50 + " USD por valijas adicionales.");
             }
 
             // Recolectar detalles de cada valija
             for (int i = 1; i <= cantidadEquipaje; i++) {
-                System.out.println("🎒 Ingrese los datos de la valija " + i + ":");
+                printCentered("🎒 Ingrese los datos de la valija " + i + ":");
 
                 // Validar dimensión de la valija
                 String dimension;
                 do {
-                    System.out.print("📏 Dimensión (en cm): ");
+                    printCentered("📏 Dimensión (en cm): ");
                     dimension = scanner.nextLine().trim();
                     if (dimension.isEmpty()) {
-                        System.out.println("❌ La dimensión de la valija no puede estar vacía.");
+                        printCentered("❌ La dimensión de la valija no puede estar vacía.");
                     }
                 } while (dimension.isEmpty());
 
                 // Validar peso de la valija
                 double peso;
                 do {
-                    System.out.print("⚖️ Peso (en kg): ");
+                    printCentered("⚖️ Peso (en kg): ");
                     try {
                         peso = scanner.nextDouble();
                         scanner.nextLine(); // Limpiar el buffer
 
                         if (peso <= 0) {
-                            System.out.println("❌ El peso de la valija debe ser mayor a 0.");
+                            printCentered("❌ El peso de la valija debe ser mayor a 0.");
                         } else if (peso > 25) {
                             tarifaExtra += (peso - 25) * 10; // Cobro extra por cada kg adicional
-                            System.out.println("💸 Se aplicará un cargo adicional de $" + (peso - 25) * 10 + " USD por peso extra en la valija " + i + ".");
+                            printCentered("💸 Se aplicará un cargo adicional de $" + (peso - 25) * 10 + " USD por peso extra en la valija " + i + ".");
                         }
                     } catch (InputMismatchException e) {
-                        System.out.println("❌ Por favor, ingrese un número válido para el peso.");
+                        printCentered("❌ Por favor, ingrese un número válido para el peso.");
                         scanner.nextLine(); // Limpiar entrada no válida
                         peso = -1; // Forzar la repetición del ciclo
                     }
@@ -310,15 +310,15 @@ public class SistemaReserva {
                 valijas.add(new Valija(dimension, peso));
             }
 
-            System.out.println("================================ =====");
-            System.out.println("📝 ¿Desea editar su información? (s/n)");
+            printCentered("================================ =====");
+            printCentered("📝 ¿Desea editar su información? (s/n)");
             eleccion = scanner.nextLine().trim().toLowerCase();
             Utilities.limpiarPantalla();
         } while (eleccion.equals("s"));
 
         // Mostrar tarifa total
         if (tarifaExtra > 0) {
-            System.out.println("💰 Tarifa adicional total por equipaje: $" + tarifaExtra);
+            printCentered("💰 Tarifa adicional total por equipaje: $" + tarifaExtra);
         }
 
         return new Pasajero(nombre, apellido, edad, dni, valijas, asientoSeleccionado);

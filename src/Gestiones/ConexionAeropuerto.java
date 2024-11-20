@@ -26,10 +26,9 @@ public class ConexionAeropuerto {
         return vuelosReservados;
     }
 
-    public static void mostrarConexiones() {
+    public  static void mostrarConexiones() {
         if (!Configs.isFirstRun() || Configs.isFirstRun()) {
             File conexiones = new File("Archivos JSON/ConexionesAeropuertos.json");
-
 
             // Verificar si los archivos existen y deserializar
             if (conexiones.exists()) {
@@ -38,32 +37,30 @@ public class ConexionAeropuerto {
                     conexionesJSON = GestionJSON.deserializarConexiones(conexiones.getPath());
 
                     if (conexionesJSON.isEmpty()) {
-                        System.out.println("🚫 No se encontraron vuelos reservados.");
+                        printCentered("🚫 No se encontraron vuelos reservados.");
                     } else {
-
                         ConexionAeropuerto.setConexiones(conexionesJSON);
                     }
                 } catch (JSONException | IOException e) {
-                    System.out.println("🚫 Error al deserializar el archivo de conexiones.");
+                    printCentered("🚫 Error al deserializar el archivo de conexiones.");
                     e.printStackTrace();
                 }
             } else {
                 // Si los archivos no existen, los creamos vacíos
-                System.out.println("🚫 El archivo de vuelos reservados no existe. Creando archivos vacíos...");
+                printCentered("🚫 El archivo de vuelos reservados no existe. Creando archivos vacíos...");
                 try {
                     if (conexiones.createNewFile()) {
-                        System.out.println("✔️ Archivo de vuelos reservados creado.");
+                        printCentered("✔️ Archivo de vuelos reservados creado.");
                     } else {
-                        System.out.println("🚫 No se pudo crear el archivo de vuelos reservados.");
+                        printCentered("🚫 No se pudo crear el archivo de vuelos reservados.");
                         return;
                     }
-
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
             }
 
-            System.out.println("🌐✈️  Vuelos reservados ✈️🌐");
+            printCentered("🌐✈️  Vuelos reservados ✈️🌐");
 
             // Iterar sobre las conexiones
             vuelosReservados.forEach((origen, destinos) -> {
@@ -76,15 +73,29 @@ public class ConexionAeropuerto {
                 });
 
                 // Imprimir la información de la conexión de forma bonita
-                System.out.println(conexionInfo.toString());
+                printCentered(conexionInfo.toString());
             });
 
-            System.out.println("==============================================");
-            System.out.println("¡Viaja con nosotros y disfruta de las mejores conexiones! ✈️🌍");
+            printCentered("==============================================");
+            printCentered("¡Viaja con nosotros y disfruta de las mejores conexiones! ✈️🌍");
         }
     }
 
     public static void setConexiones(Map<String, Map<String, Set<String>>> conexiones) {
         ConexionAeropuerto.vuelosReservados = conexiones;
     }
-}
+
+    public static void printCentered(String text) {
+        int terminalWidth = 150; // Puedes ajustar este valor según el ancho de tu terminal
+        int padding = (terminalWidth - text.length()) / 2;
+        String paddedText = " ".repeat(padding) + text;
+        System.out.println(paddedText);
+    }
+
+    public static void limpiarPantalla() {
+        // Imprime 50 líneas vacías para simular la limpieza de pantalla
+        for (int i = 0; i < 40; i++) {
+            System.out.println();
+        }
+    }}
+

@@ -27,7 +27,7 @@ public class SistemaVuelo{
 
 
     public static void mostrarVuelos() {
-        System.out.println("✈️  Lista de Vuelos Disponibles  ✈️");
+        printCentered("✈️  Lista de Vuelos Disponibles  ✈️");
         System.out.println("-------------------------------------------------");
         SistemaVuelo.getVuelosGenerados().forEach(v -> System.out.println(
                 "🆔 ID de Vuelo: " + v.getIdVuelo() +
@@ -61,7 +61,7 @@ public class SistemaVuelo{
         List<Avion> avionesDisponibles = gestionHangares.obtenerAvionesDeTodosLosHangares();
 
         if (avionesDisponibles.isEmpty()) {
-            System.out.println("No hay aviones disponibles para asignar a los vuelos.");
+            printCentered("No hay aviones disponibles para asignar a los vuelos.");
             return vuelos; // Regresar una lista vacía si no hay aviones
         }
 
@@ -113,6 +113,17 @@ public class SistemaVuelo{
                 listaPasajeros,
                 asientos);
     }
+    public static void printCentered(String text) {
+        int terminalWidth = 150; // Puedes ajustar este valor según el ancho de tu terminal
+        int padding = (terminalWidth - text.length()) / 2;
+        String paddedText = " ".repeat(padding) + text;
+        System.out.println(paddedText);
+    }
 
+    public static void limpiarPantalla() {
+        // Imprime 50 líneas vacías para simular la limpieza de pantalla
+        for (int i = 0; i < 40; i++) {
+            System.out.println();
+        }
+    }}
 
-}

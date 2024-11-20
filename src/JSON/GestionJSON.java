@@ -20,7 +20,7 @@ public class GestionJSON {
 
     public static <T> void serializarLista(List<T> lista, String nombreArchivo) {
         ObjectMapper mapper = new ObjectMapper();
-        mapper.enable(SerializationFeature.INDENT_OUTPUT); // Formato legible
+        mapper.enable(SerializationFeature.INDENT_OUTPUT); // habilitamos el mapper para que escriba el json con indentacion
 
         try {
             mapper.writeValue(new File(nombreArchivo), lista); // Sobrescribe el archivo
@@ -41,9 +41,6 @@ public class GestionJSON {
             e.printStackTrace();
         }
     }
-
-
-
 
 
 
@@ -174,6 +171,24 @@ public class GestionJSON {
             e.printStackTrace();
             return null;
         }
+    }
+
+
+    public static Map<String, Map<String, Integer>> deserializarStock(String nombreArchivo) {
+        try {
+            // Registrar módulo de soporte adicional si es necesario
+            objectMapper.registerModule(new JavaTimeModule());
+
+            // Deserializar usando TypeReference para el tipo específico
+            return objectMapper.readValue(
+                    new File(nombreArchivo),
+                    new TypeReference<Map<String, Map<String, Integer>>>() {}
+            );
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Error al deserializar el stock: " + e.getMessage());
+        }
+        return null; // Retorna null en caso de error
     }
 
 

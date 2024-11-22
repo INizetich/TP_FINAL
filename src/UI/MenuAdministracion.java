@@ -5,6 +5,7 @@ import Excepciones.*;
 import Gestiones.*;
 import JSON.GestionJSON;
 import Personas.Empleado;
+import Personas.Persona;
 import Utilidades.Utilities;
 import javazoom.jl.player.Player;
 import Gestiones.StockManager;
@@ -159,6 +160,8 @@ public class MenuAdministracion {
                                 break;
 
                             case 7:
+                                Set<Empleado> listEmpleado = GestionJSON.deserializarSet(Empleado.class,"Archivos JSON/empleados.json");
+                                admin.setListaEmpleados(listEmpleado);
                                 printCentered("\n================================================");
                                 printCentered("✨✨ ¿Desea mostrar la lista de empleados? ✨✨");
                                 printCentered("================================================");
@@ -176,6 +179,8 @@ public class MenuAdministracion {
                                 break;
 
                             case 8:
+                                Set<Persona> listaAdmins = GestionJSON.deserializarSet(Persona.class,"Archivos JSON/admins.json");
+                                admin.setListaAdministradores(listaAdmins);
                                 printCentered("\n================================================");
                                 printCentered("📋 ¿Te gustaría ver la lista de administradores? 📋");
                                 printCentered("================================================");

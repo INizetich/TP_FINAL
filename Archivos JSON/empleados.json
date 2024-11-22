@@ -27,13 +27,6 @@
   "tipoEmpleado" : "PILOTO",
   "nroEmpleado" : 99995
 }, {
-  "dni" : "47195019",
-  "nombre" : "carmela",
-  "apellido" : "garcia",
-  "edad" : 18,
-  "tipoEmpleado" : "AZAFATA",
-  "nroEmpleado" : 42398
-}, {
   "dni" : "46689104",
   "nombre" : "rufino",
   "apellido" : "figueroa",

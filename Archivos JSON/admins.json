@@ -14,6 +14,11 @@
   "apellido" : "gomez",
   "edad" : 23
 }, {
+  "dni" : "49733688",
+  "nombre" : "crystal",
+  "apellido" : "campodonico",
+  "edad" : 22
+}, {
   "dni" : "45462201",
   "nombre" : "ignacio",
   "apellido" : "nizetich",

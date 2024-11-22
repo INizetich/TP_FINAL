@@ -1,8 +1,5 @@
 {
-  "Miami International Airport" : {
-    "Aeropuerto Internacional Ezeiza" : [ "F30BDB13" ]
-  },
-  "Aeropuerto Internacional São Paulo-Guarulhos" : {
-    "Sydney Kingsford Smith International Airport" : [ "8F763DFB" ]
+  "Aeropuerto Internacional Ezeiza" : {
+    "Miami International Airport" : [ "C6103495" ]
   }
 }

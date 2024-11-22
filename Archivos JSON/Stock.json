@@ -1,6 +1,6 @@
 {
   "Comida" : {
-    "Sandwich" : 12,
+    "Sandwich" : 10,
     "Hot Dog" : 10,
     "Porción pizza" : 12,
     "Papas fritas" : 20,
@@ -8,8 +8,8 @@
   },
   "Bebidas" : {
     "Gaseosa" : 19,
-    "Jugo natural" : 15,
-    "Agua mineral" : 7
+    "Jugo natural" : 10,
+    "agua mineral" : 20
   },
   "Articulos varios" : {
     "Encendedor" : 10,
